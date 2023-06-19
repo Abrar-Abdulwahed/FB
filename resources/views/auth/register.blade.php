@@ -33,23 +33,39 @@
                                         <p class="mt-3">أو</p>
 
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="text" name="name" class="form-control py-2" name="name" value="{{ old('name') }}" placeholder="الاسم" required />
+                                            <input type="text" name="name" class="form-control py-2" @error('name') is-invalid @enderror name="name" value="{{ old('name') }}" placeholder="الاسم" />
                                             <label class="form-label" for="name"></label>
+                                            @error('name')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="email" class="form-control py-2" name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني " required />
+                                            <input type="email" class="form-control py-2" name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني " />
                                             <label class="form-label" for="email"></label>
+                                            @error('email')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                         
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2" name="password" placeholder="كلمة المرور" required />
+                                            <input type="password" class="form-control py-2" name="password" placeholder="كلمة المرور" />
                                             <label class="form-label" for="password"></label>
+                                            @error('password')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2" name="password_confirmation" placeholder="تأكيد كلمة المرور" required />
+                                            <input type="password" class="form-control py-2" name="password_confirmation" placeholder="تأكيد كلمة المرور" />
                                             <label class="form-label" for="confirm"></label>
+                                            @error('password_confirmation')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-outline form-dark mb-3 col-12 col-md-8 col-lg-6 col-xl-5">
+                                            <div> {!! htmlFormSnippet() !!} </div>
                                         </div>
                         
                                         <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="#!">هل نسيت كلمة المرور ؟</a></p>
@@ -70,6 +86,15 @@
                 </div>
             </section>
         </form>
+            <script>
+                
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to continue',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                    })
+            </script>
           {{-- <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>

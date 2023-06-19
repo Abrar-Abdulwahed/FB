@@ -21,7 +21,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                //return redirect()->back()->with('message','user is registerd');
+                return redirect(RouteServiceProvider::HOME)->with('message','user is registerd');
             }
         }
 
