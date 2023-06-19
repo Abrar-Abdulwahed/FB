@@ -30,4 +30,3 @@ Route::prefix('auth')->group(function () {
     Route::get('/{provider}/redirect', [ProviderController::class, 'redirect']);
     Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
