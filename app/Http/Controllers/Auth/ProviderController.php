@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-// use App\Models\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,14 +26,12 @@ class ProviderController extends Controller
             $socialUser = Socialite::driver($provider)->user();
             $user = User::updateOrCreate([
                 'provider_id' => $socialUser->id,
-                'provider'    => $driver
+                'provider'    => $provider
             ], [
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
             ]);
-
-            //TODO: Get use logged in
-            // Auth::login($user);
+            Auth::login($user);
 
             //TODO: Change redirect to the homepage/control panel/whatever
             return redirect('/'); 
