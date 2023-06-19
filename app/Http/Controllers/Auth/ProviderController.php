@@ -6,17 +6,26 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 use Laravel\Socialite\Facades\Socialite;
 
 class ProviderController extends Controller
 {
-    public function redirect($driver){
-        return Socialite::driver($driver)->redirect();
+    public function checkProvider($provider){
+        $expectedProviders = array_keys(Config::get('services'));
+        return in_array($provider, $expectedProviders) ? true : false;
+    }
+    public function redirect($provider){
+        if(!$this->checkProvider($provider))
+            return abort(404);
+        return Socialite::driver($provider)->redirect();
     }
 
-    public function callback($driver){
+    public function callback($provider){
         try{
-            $socialUser = Socialite::driver($driver)->user();
+            if(!$this->checkProvider($provider))
+                return abort(404);
+            $socialUser = Socialite::driver($provider)->user();
             $user = User::updateOrCreate([
                 'provider_id' => $socialUser->id,
                 'provider'    => $driver

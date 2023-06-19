@@ -20,6 +20,6 @@ Route::get('/', function () {
 
 // Signup/Login using providers
 Route::prefix('auth')->group(function () {
-    Route::get('/{driver}/redirect', [ProviderController::class, 'redirect']);
-    Route::get('/{driver}/callback', [ProviderController::class, 'callback']);
+    Route::get('/{provider}/redirect', [ProviderController::class, 'redirect']);
+    Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });

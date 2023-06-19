@@ -42,5 +42,4 @@ return [
         'client_secret' => env('FB_CLIENT_SECRET'),
         'redirect'      => env('FB_REDIRECT'),
     ],
-
 ];
