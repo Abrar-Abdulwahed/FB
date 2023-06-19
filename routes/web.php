@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ProviderController;
 
@@ -14,6 +15,12 @@ use App\Http\Controllers\Auth\ProviderController;
 |
 */
 
+
+
+Auth::routes();
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,3 +30,4 @@ Route::prefix('auth')->group(function () {
     Route::get('/{provider}/redirect', [ProviderController::class, 'redirect']);
     Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
