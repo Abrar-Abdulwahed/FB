@@ -12,8 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 class ProviderController extends Controller
 {
     public function checkProvider($provider){
-        $expectedProviders = array_keys(Config::get('services'));
-        return in_array($provider, $expectedProviders) ? true : false;
+        return in_array($provider, ['facebook', 'google']) ? true : false;
     }
     public function redirect($provider){
         if(!$this->checkProvider($provider))

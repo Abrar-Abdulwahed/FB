@@ -832,7 +832,7 @@
 
 <body class="antialiased container">
     <button>
-        <a href="{{ url('/auth/xxx/redirect') }}">login with facebook</a>
+        <a href="{{ url('/auth/mailgun/redirect') }}">login with facebook</a>
     </button> **|**
     <button>
         <a href="{{ url('/auth/google/redirect') }}">login with google</a>
