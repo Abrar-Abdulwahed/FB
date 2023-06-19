@@ -1,0 +1,13 @@
+input {
+    text-align: end !important;
+    padding: 20px;
+  }
+  ::-webkit-input-placeholder {
+    text-align: end !important;
+  }
+  :-moz-placeholder {
+    text-align: end !important;
+  }
+  .text-dark-50{
+    text-decoration: none !important;
+  }
