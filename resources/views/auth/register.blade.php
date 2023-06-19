@@ -1,13 +1,16 @@
 @extends('layouts.layout')
 @section('content')
+@section('title')
+تسجيل حساب جديد
+@endsection
 <div class="container">
-    <div class="row justify-conten-center">
-        <form class="row" method="POST" action="{{ route('register') }}">
+    <div class="row justify-conten-center col-md-12 col-sm-12">
+        <form class="" method="POST" action="{{ route('register') }}">
             @csrf
             <section class="vh-1 00 gradient-custom">
                 <div class="contai ner py -5 h-1 00">
                     <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-6 col-md-8 col-lg-6 col-xl-5">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                             <div class="card text-dark" style="background-color:#ECEFF4 ; border-radius: 1rem;">
                                 <div class="card-body p-5 text-center">
                     
@@ -16,13 +19,14 @@
                                         <h2 class="fw-bold mb-2 text-uppercase">تسجيل الدخول</h2>
                                         <p class="text-dark-50 mb-5">انشاء حساب جديد</p>
                         
-                                        <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                                            <a class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;" href="#!" role="button">
-                                                <i class="fab fa-facebook-f mx-2 px-2"></i>
-                                            </a>
-                                            <a class="btn btn-primary" style="background-color: #dd4b39;" href="#!" role="button">
-                                                <i class="fab fa-google mx-1 px-2"></i>
-                                            </a>
+                                        <div class="d-flehhx justify-con tent-center text-center mt-4 pt-1">
+                                            <button class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;" href="#!" role="button">
+                                                <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
+                                            </button>
+                                            <br>
+                                            <button class="btn btn-primary mt-2" style="background-color: #dd4b39;" href="#!" role="button">
+                                                <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
+                                            </button>
                                         </div>
                                 
 
@@ -34,13 +38,13 @@
                                         </div>
 
                                         <div class="form-outline form-dark mb-3">
-                                        <input type="email" class="form-control py-2" name="email" value="{{ old('email') }}" placeholder="البريد الاكتروني" required />
-                                        <label class="form-label" for="email"></label>
+                                            <input type="email" class="form-control py-2" name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني " required />
+                                            <label class="form-label" for="email"></label>
                                         </div>
                         
                                         <div class="form-outline form-dark mb-3">
-                                        <input type="password" class="form-control py-2" name="password" placeholder="كلمة المرور" required />
-                                        <label class="form-label" for="password"></label>
+                                            <input type="password" class="form-control py-2" name="password" placeholder="كلمة المرور" required />
+                                            <label class="form-label" for="password"></label>
                                         </div>
 
                                         <div class="form-outline form-dark mb-3">
@@ -50,13 +54,13 @@
                         
                                         <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="#!">هل نسيت كلمة المرور ؟</a></p>
                         
-                                        <button class="btn btn-outline-dark btn-lg px-5" type="submit">تسجيل</button>
+                                        <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل</button>
                                     
                         
                                     </div>
                     
                                     <div class="mt-0">
-                                        <p class="mb-0">Have an account? <a href="#!" class="text-dark-50 fw-bold">تسجيل الدخول</a>
+                                        <p class="mb-0">هل تملك حساب بالفعل؟ <a href="#!" class="text-dark-50 fw-bold">تسجيل الدخول</a>
                                         </p>
                                     </div>
                                 </div>

@@ -1,12 +1,12 @@
 input {
-    text-align: end !important;
+    text-align:start !important;
     padding: 20px;
   }
   ::-webkit-input-placeholder {
-    text-align: end !important;
+    text-align:start !important;
   }
   :-moz-placeholder {
-    text-align: end !important;
+    text-align:start !important;
   }
   .text-dark-50{
     text-decoration: none !important;
