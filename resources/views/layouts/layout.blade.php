@@ -20,6 +20,13 @@
 
     <!-- footer -->
     @include('layouts.footer')
+    <script>
+    import Swal from 'sweetalert2/dist/sweetalert2.js';
+    </script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+
   </body>
 </html>
