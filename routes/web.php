@@ -17,6 +17,9 @@ use App\Http\Controllers\Auth\ProviderController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/auth/{driver}/redirect', [ProviderController::class, 'redirect']);
- 
-Route::get('/auth/{driver}/callback', [ProviderController::class, 'callback']);
+
+// Signup/Login using providers
+Route::prefix('auth')->group(function () {
+    Route::get('/{driver}/redirect', [ProviderController::class, 'redirect']);
+    Route::get('/{driver}/callback', [ProviderController::class, 'callback']);
+});
