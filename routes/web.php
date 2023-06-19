@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ProviderController;
@@ -14,17 +17,15 @@ use App\Http\Controllers\Admin\CustomMessageController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
-
-
+ */
 
 Auth::routes();
-
-
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Signup/Login using providers
 Route::prefix('auth')->group(function () {
@@ -33,3 +34,7 @@ Route::prefix('auth')->group(function () {
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('custom-messages', CustomMessageController::class);
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminHomeController::class, 'index']);
+});
