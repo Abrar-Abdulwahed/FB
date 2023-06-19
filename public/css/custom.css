@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic&display=swap');
+
+body {
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+}
+
+[type="tel"], [type="url"], [type="email"], [type="number"] {
+    direction: rtl;
+}
+
 input {
     text-align:start !important;
     padding: 20px;
