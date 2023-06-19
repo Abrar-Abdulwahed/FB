@@ -16,7 +16,7 @@
                     
                                     <div class="mb-md-2 mt-md-4 pb-5">
                         
-                                        <h2 class="fw-bold mb-2 text-uppercase">تسجيل الدخول</h2>
+                                        <h2 class="fw-bold mb-2 text-uppercase">تسجيل حساب جديد</h2>
                                         <p class="text-dark-50 mb-5">انشاء حساب جديد</p>
                         
                                         <div class="d-flehhx justify-con tent-center text-center mt-4 pt-1">
