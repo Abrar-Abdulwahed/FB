@@ -63,6 +63,10 @@
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
+
+                                        <div class="form-outline form-dark mb-3 col-12 col-md-8 col-lg-6 col-xl-5">
+                                            <div> {!! htmlFormSnippet() !!} </div>
+                                        </div>
                         
                                         <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="#!">هل نسيت كلمة المرور ؟</a></p>
                         
