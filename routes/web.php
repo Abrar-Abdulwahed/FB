@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/auth/{driver}/redirect', [ProviderController::class, 'redirect']);
+ 
+Route::get('/auth/{driver}/callback', [ProviderController::class, 'callback']);
