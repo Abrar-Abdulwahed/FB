@@ -14,6 +14,12 @@
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
     @stack('css')
+
+     <!-- data tables -->
+<!-- data tables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -29,10 +35,25 @@
         </div>
         @include('includes.footer')
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     <script src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
     @stack('js')
-</body>
 
+    <!-- datatable -->
+    
+ <!-- datatable -->
+ <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+ <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script></body>
+
+ <script src="{{ asset('ar_datatable.json') }}"></script>
+ <script>
+    var table = new DataTable('#users', {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
+    },
+});
+ </script>
 </html>

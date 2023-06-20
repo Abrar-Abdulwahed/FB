@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -34,3 +35,5 @@ Route::prefix('auth')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index']);
 });
+
+Route::resource('user',UserController::class);

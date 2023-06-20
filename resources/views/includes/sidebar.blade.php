@@ -20,8 +20,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{-- {{ route('dashboard.users.create') }} --}}">
-                        <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
+                    <a class="nav-link" href="{{ route('user.index') }}">
+                        <i class="nav-icon fa-solid fa-user"></i><p>الاعضاء</p></a>
                 </li>
             </ul>
         </nav>
