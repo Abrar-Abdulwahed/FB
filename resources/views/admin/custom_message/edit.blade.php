@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 @section('title', 'تحرير رسائل مخصصة')
 @section('content')
+    <a href={{ route('custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
+    <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
     @endif
@@ -54,9 +56,7 @@
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                <button type="submit" class="btn btn-success">تعديل</button>
             </form>
         </div>
     </div>

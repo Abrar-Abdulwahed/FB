@@ -2,6 +2,9 @@
 
 @section('title', 'قائمة الرسائل المخصصة')
 @section('content')
+    <a href={{ route('custom-message.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
+        إضافة</a>
+    <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
     @endif
@@ -13,7 +16,7 @@
             قائمة الرسائل المخصصة
         </div>
         <div class="card-body">
-            <table class="table table-bordered ">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
@@ -33,13 +36,14 @@
                             <td><span
                                     class="badge {{ $item->type == 'sms' ? 'bg-danger' : 'bg-success' }}">{{ $item->type }}</span>
                             </td>
-                            <td>{{ $item->text }}</td>
+                            <td>{{ \Str::limit($item->text, 50, '...') }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                    <a href={{ route('custom-message.edit', $item->id) }} class="btn btn-success"><i
+                                    <a href="{{ route('custom-message.show', $item->id) }}" class="mx-1 btn btn-warning"><i
+                                            class="fas fa-eye"></i></a>
+                                    <a href="{{ route('custom-message.edit', $item->id) }}" class="mx-1 btn btn-success"><i
                                             class="fas fa-edit"></i></a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#confirm-delete-{{ $item->id }}">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -73,7 +77,9 @@
                             </td>
                         </tr>
                     @empty
-                        لا توجد رسائل بعد
+                        <tr>
+                            <td colspan="6" class="text-danger text-center">لا توجد رسائل بعد</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

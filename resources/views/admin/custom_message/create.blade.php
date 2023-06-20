@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endpush --}}
 @section('content')
+    <a href={{ route('custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
+    <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
     @endif
@@ -63,9 +65,7 @@
                         اكتب النص هنا
                     </textarea>
                 </div> --}}
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                <button type="submit" class="btn btn-dark">إضافة</button>
             </form>
         </div>
     </div>
