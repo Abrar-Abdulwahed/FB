@@ -52,7 +52,7 @@
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
-
+                                        
                                         <div class="form-outline form-dark mb-3">
                                             <input type="password" class="form-control py-2" name="password_confirmation" placeholder="تأكيد كلمة المرور" />
                                             <label class="form-label" for="confirm"></label>
@@ -60,6 +60,13 @@
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
+
+                                        <div class="form-check mb-5">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label mr-3" for="flexCheckDefault">
+                                                هل توافق على شروط الخدمة و إتفاقية الإستخدام
+                                            </label>
+                                          </div>
 
                                         <div class="text-center">
                                             <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
