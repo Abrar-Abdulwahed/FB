@@ -44,8 +44,9 @@
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
-                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="{{ route('password.request') }}">هل نسيت
-                                                كلمة المرور ؟</a></p>
+                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50"
+                                                href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                        </p>
                                         <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل الدخول</button>
                                     </div>
 
@@ -62,5 +63,16 @@
             </section>
         </form>
     </div>
+    @if (session()->has('error'))
+        <script>
+            alert('فشل تسجيل الدخول')
+            Swal.fire({
+                title: 'Error!',
+                text: 'فشل تسجيل الدخول',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        </script>
+    @endif
 </div>
 @endsection

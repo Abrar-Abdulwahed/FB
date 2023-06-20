@@ -28,12 +28,13 @@
     @include('layouts.footer')
 
 
-    <script>
+    {{-- <script>
         import Swal from 'sweetalert2/dist/sweetalert2.js';
-    </script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    </script> --}}
+    {{-- <script src="{{ asset('js/bootstrap.js') }}"></script> --}}
 
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 </body>

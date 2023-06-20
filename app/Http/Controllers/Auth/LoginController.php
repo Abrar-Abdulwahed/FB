@@ -48,7 +48,7 @@ class LoginController extends Controller
         if ($logged) {
             return redirect()->route('admin.index');
         }
-        return redirect()->back();
+        return redirect()->back()->withError('error',  __('failed'));
     }
 
     public function logout(){
