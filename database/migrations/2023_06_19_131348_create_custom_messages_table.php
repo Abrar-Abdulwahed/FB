@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('custom_messages', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->max(25);
+            $table->string('code')->unique()->max(25);
             $table->string('type')->max(5);
-            $table->string('language')->max(25);
-            $table->longText('text')->max(25);
+            $table->string('language')->max(5);
+            $table->longText('text');
             $table->timestamps();
         });
     }

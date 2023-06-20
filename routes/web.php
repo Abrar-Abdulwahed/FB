@@ -33,8 +33,9 @@ Route::prefix('auth')->group(function () {
     Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('custom-messages', CustomMessageController::class);
+
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index');
+    Route::resource('custom-message', CustomMessageController::class);
 });
