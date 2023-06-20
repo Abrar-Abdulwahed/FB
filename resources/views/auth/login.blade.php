@@ -38,7 +38,7 @@
                                                 placeholder="كلمة المرور" required />
                                             <label class="form-label" for="password"></label>
                                         </div>
-                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="{{ route('reset') }}">هل نسيت
+                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="{{ route('password.request') }}">هل نسيت
                                                 كلمة المرور ؟</a></p>
                                         <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل الدخول</button>
                                     </div>
