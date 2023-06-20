@@ -14,6 +14,8 @@
                     </button>
                 </div>
         @endif
+        <a href="{{ route('user.create') }}" class="btn btn-sm btn-success my-3"
+            title="add"><i style="font-size: 15px;" class="fa-solid fa-plus p-2 m-1"> </i>اضافة عضو</a>
         <div class="card">
             <div class="card-block p-4">
                 <table class="table table-striped text-center" id="users">
@@ -36,8 +38,7 @@
                                     <form action="{{ route('user.destroy',$user['id']) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <a href="{{ route('user.create', $user->id) }}" class="btn btn-sm btn-success"
-                                            title="add"><i style="font-size: 15px;" class="fa-solid fa-plus p-1"></i></a>
+                                        
                                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info"
                                             title="edit"><i style="font-size: 15px;" class="fa-solid fa-pen p-1"></i></a>
                                         <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Are you sure you want delete this user?') }}')"><i style="font-size: 15px;" class="fa-solid fa-trash"></i></button>
