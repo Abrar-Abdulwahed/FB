@@ -29,14 +29,20 @@
                                         </div>
                                         <p class="mt-3">أو</p>
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="email" class="form-control py-2" name="email"
-                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " required />
+                                            <input type="text" class="form-control py-2" name="email"
+                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " />
                                             <label class="form-label" for="email"></label>
+                                            @error('email')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="form-outline form-dark mb-3">
                                             <input type="password" class="form-control py-2" name="password"
-                                                placeholder="كلمة المرور" required />
+                                                placeholder="كلمة المرور" />
                                             <label class="form-label" for="password"></label>
+                                            @error('password')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="#!">هل نسيت
                                                 كلمة المرور ؟</a></p>

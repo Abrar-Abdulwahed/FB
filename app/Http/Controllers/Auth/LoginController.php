@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -28,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
 
     /**
      * Create a new controller instance.
@@ -40,22 +42,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function index(){
-    //     dd('hihihiddddd');
-    //     if(!Auth::guard()->check())
-    //         return view('auth.login');
-    //     return redirect()->back(); // redirect if authenticated
-    // }
-
     public function login(LoginRequest $request){
         $credentials = $request->only('email', 'password');
-
-        if(!Auth::validate($credentials))
-            return redirect()->to('login')->withErrors('فشل تسجيل الدخول');
         $logged = Auth::attempt($credentials);
         if ($logged) {
-            return redirect()->to('/');
+            return redirect()->route('admin.index');
         }
         return redirect()->back();
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

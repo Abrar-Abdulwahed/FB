@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -33,9 +34,10 @@ class ProviderController extends Controller
             ]);
             Auth::login($user);
 
-            //TODO: Change redirect to the homepage/control panel/whatever
-            return redirect('/'); 
+            //TODO: Change redirect to the homepage/control panel/whatever according to role
+            return redirect()->route('admin.index'); 
         }catch(\Throwable $e){
+            dd($e);
             return redirect()->back()->withError('something went wrong');
         }
     }
