@@ -48,7 +48,7 @@
  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
  <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script></body>
 
- <script src="{{ asset('ar_datatable.json') }}"></script>
+ <script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
  <script>
     var table = new DataTable('#users', {
     language: {

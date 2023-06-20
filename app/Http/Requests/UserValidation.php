@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserValidation extends FormRequest
@@ -19,24 +20,14 @@ class UserValidation extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function onCreate(){
-        return [
-            'name' => ['required', 'alpha','min:4', 'max:10'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6','max:35', 'confirmed'],
-        ];
-    }
 
-    public function onUpdate(){
-        return [
-            'name' => ['required', 'alpha','min:4', 'max:10'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-        ];
-    }
-    
     public function rules(): array
     {
-        return request()->isMethod('post') || request()->isMethod('put') ?
-        $this->onUpdate() : $this->onCreate();
+        return [
+            'name' => ['required', 'alpha','min:4', 'max:10'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$this->user],
+            'password' => ['required', 'string', 'min:6','max:35', 'confirmed'],
+        ];
+        
     }
 }

@@ -36,4 +36,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index']);
 });
 
-Route::resource('user',UserController::class);
+Route::resource('users',UserController::class);
