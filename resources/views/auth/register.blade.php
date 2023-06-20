@@ -87,7 +87,6 @@
                 </div>
             </div>
         </section>
-    
         <script>     
             Swal.fire({
                 title: 'Error!',
