@@ -43,7 +43,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{-- {{ route('dashboard.users.create') }} --}}">
+                    <a class="nav-link" href="{{ route('users.index') }}">
                         <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
                 </li>
             </ul>
