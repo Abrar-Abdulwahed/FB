@@ -19,6 +19,10 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{-- {{ route('dashboard.users.create') }} --}}">
+                        <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

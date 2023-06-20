@@ -27,8 +27,6 @@
                                     </div>
                                     <form class="" method="POST" action="{{ route('register') }}">
                                         @csrf
-                            
-
                                         <p class="mt-3">أو</p>
 
                                         <div class="form-outline form-dark mb-3">
@@ -63,10 +61,14 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-outline form-dark mb-3 col-12 col-md-8 col-lg-6 col-xl-5">
-                                            <div> {!! htmlFormSnippet() !!} </div>
-                                        </div>                        
-                                        <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل</button>
+                                        <div class="text-center">
+                                            <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
+                                            @error('g-recaptcha-response')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>                      
+                                        
+                                        <button class="btn btn-dark btn-lg px-5 mt-4" type="submit">تسجيل</button>
                                     </form>
                     
                                 </div>
