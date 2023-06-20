@@ -39,8 +39,6 @@
                             <td>{{ \Str::limit($item->text, 50, '...') }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('custom-message.show', $item->id) }}" class="mx-1 btn btn-warning"><i
-                                            class="fas fa-eye"></i></a>
                                     <a href="{{ route('custom-message.edit', $item->id) }}" class="mx-1 btn btn-success"><i
                                             class="fas fa-edit"></i></a>
                                     <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"

@@ -41,19 +41,6 @@ class CustomMessageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(int $id)
-    {
-        try{
-            $message = CustomMessage::find($id);
-            return view('admin.custom_message.show', compact('message'));
-        }catch(\Throwable $e){
-            return redirect()->back()->with('error', 'فشل في تحرير الرسالة');
-        }
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(int $id)

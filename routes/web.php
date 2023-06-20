@@ -37,5 +37,5 @@ Route::prefix('auth')->group(function () {
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index');
-    Route::resource('custom-message', CustomMessageController::class);
+    Route::resource('custom-message', CustomMessageController::class)->except('show');
 });
