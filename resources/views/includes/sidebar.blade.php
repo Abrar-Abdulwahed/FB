@@ -20,8 +20,31 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">
-                        <i class="nav-icon fa-solid fa-user"></i><p>الاعضاء</p></a>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-message"></i>
+                        <p>
+                            الرسائل المخصصة
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href={{ route('custom-message.create') }} class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>إنشاء رسالة مخصصة</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href={{ route('custom-message.index') }} class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>قائمة الرسائل المخصصة</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{-- {{ route('dashboard.users.create') }} --}}">
+                        <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
                 </li>
             </ul>
         </nav>

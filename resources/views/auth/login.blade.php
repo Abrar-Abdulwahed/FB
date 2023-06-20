@@ -5,7 +5,7 @@
 @endsection
 <div class="container">
     <div class="row justify-conten-center col-md-12 col-sm-12">
-        <form class="" method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
             <section class="vh-1 00 gradient-custom">
                 <div class="contai ner py -5 h-1 00">
@@ -29,17 +29,24 @@
                                         </div>
                                         <p class="mt-3">أو</p>
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="email" class="form-control py-2" name="email"
-                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " required />
+                                            <input type="text" class="form-control py-2" name="email"
+                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " />
                                             <label class="form-label" for="email"></label>
+                                            @error('email')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="form-outline form-dark mb-3">
                                             <input type="password" class="form-control py-2" name="password"
-                                                placeholder="كلمة المرور" required />
+                                                placeholder="كلمة المرور" />
                                             <label class="form-label" for="password"></label>
+                                            @error('password')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
-                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="{{ route('password.request') }}">هل نسيت
-                                                كلمة المرور ؟</a></p>
+                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50"
+                                                href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
+                                        </p>
                                         <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل الدخول</button>
                                     </div>
 
@@ -56,5 +63,16 @@
             </section>
         </form>
     </div>
+    @if (session()->has('error'))
+        <script>
+            alert('فشل تسجيل الدخول')
+            Swal.fire({
+                title: 'Error!',
+                text: 'فشل تسجيل الدخول',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        </script>
+    @endif
 </div>
 @endsection
