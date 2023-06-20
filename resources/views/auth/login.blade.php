@@ -44,13 +44,13 @@
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
-                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="#!">هل نسيت
+                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="{{ route('password.request') }}">هل نسيت
                                                 كلمة المرور ؟</a></p>
                                         <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل الدخول</button>
                                     </div>
 
                                     <div class="mt-0">
-                                        <p class="mb-0">ليس لديك حساب <a href={{ route('register') }}
+                                        <p class="mb-0">ليس لديك حساب <a href="{{ route('register') }}"
                                                 class="text-dark-50 fw-bold">إنشاء حساب</a>
                                         </p>
                                     </div>
