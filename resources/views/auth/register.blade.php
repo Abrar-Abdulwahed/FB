@@ -20,11 +20,11 @@
                                         <p class="text-dark-50 mb-5">انشاء حساب جديد</p>
                         
                                         <div class="d-flehhx justify-con tent-center text-center mt-4 pt-1">
-                                            <button class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;" href="#!" role="button">
+                                            <button class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;" href="{{ url('/auth/facebook/redirect') }}" role="button">
                                                 <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
                                             </button>
                                             <br>
-                                            <button class="btn btn-primary mt-2" style="background-color: #dd4b39;" href="#!" role="button">
+                                            <button class="btn btn-primary mt-2" style="background-color: #dd4b39;" href="{{ url('/auth/google/redirect') }}" role="button">
                                                 <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
                                             </button>
                                         </div>
@@ -66,17 +66,14 @@
 
                                         <div class="form-outline form-dark mb-3 col-12 col-md-8 col-lg-6 col-xl-5">
                                             <div> {!! htmlFormSnippet() !!} </div>
-                                        </div>
-                        
-                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50" href="#!">هل نسيت كلمة المرور ؟</a></p>
-                        
+                                        </div>                        
                                         <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل</button>
                                     
                         
                                     </div>
                     
                                     <div class="mt-0">
-                                        <p class="mb-0">هل تملك حساب بالفعل؟ <a href="#!" class="text-dark-50 fw-bold">تسجيل الدخول</a>
+                                        <p class="mb-0">هل تملك حساب بالفعل؟ <a href="{{ route('login') }}" class="text-dark-50 fw-bold">تسجيل الدخول</a>
                                         </p>
                                     </div>
                                 </div>
