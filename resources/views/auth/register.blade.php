@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 @section('title')
-تسجيل حساب جديد
+    تسجيل حساب جديد
 @endsection
 <div class="container">
     <div class="row justify-conten-center col-md-12 col-sm-12">     
@@ -30,7 +30,9 @@
                                         <p class="mt-3">أو</p>
 
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="text" name="name" class="form-control py-2" @error('name') is-invalid @enderror name="name" value="{{ old('name') }}" placeholder="الاسم" />
+                                            <input type="text" name="name" class="form-control py-2"
+                                                @error('name') is-invalid @enderror name="name"
+                                                value="{{ old('name') }}" placeholder="الاسم" />
                                             <label class="form-label" for="name"></label>
                                             @error('name')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -38,15 +40,17 @@
                                         </div>
 
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="email" class="form-control py-2" name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني " />
+                                            <input type="email" class="form-control py-2" name="email"
+                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " />
                                             <label class="form-label" for="email"></label>
                                             @error('email')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
                                         </div>
-                        
+
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2" name="password" placeholder="كلمة المرور" />
+                                            <input type="password" class="form-control py-2" name="password"
+                                                placeholder="كلمة المرور" />
                                             <label class="form-label" for="password"></label>
                                             @error('password')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -54,7 +58,8 @@
                                         </div>
 
                                         <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2" name="password_confirmation" placeholder="تأكيد كلمة المرور" />
+                                            <input type="password" class="form-control py-2"
+                                                name="password_confirmation" placeholder="تأكيد كلمة المرور" />
                                             <label class="form-label" for="confirm"></label>
                                             @error('password_confirmation')
                                                 <p class="text-danger">{{ $message }}</p>
@@ -82,7 +87,6 @@
                 </div>
             </div>
         </section>
-    
         <script>     
             Swal.fire({
                 title: 'Error!',

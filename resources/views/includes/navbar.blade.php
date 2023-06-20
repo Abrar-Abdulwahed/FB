@@ -9,5 +9,11 @@
                 الصفحة الرئيسية
             </a>
         </li>
+        {{-- <li class="nav-item">
+            <a href={{ url('/admin/custom-messages') }} class="nav-link">
+                <i class="fa-solid fa-message"></i>
+                الرسائل المخصصة
+            </a>
+        </li> --}}
     </ul>
 </nav>

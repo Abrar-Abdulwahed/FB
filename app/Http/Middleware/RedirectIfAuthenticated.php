@@ -22,7 +22,10 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 //return redirect()->back()->with('message','user is registerd');
-                return redirect(RouteServiceProvider::HOME)->with('message','user is registerd');
+                //TODO: check role and return to HOME for user and ADMIN_HOME for admins
+                // return redirect(RouteServiceProvider::HOME)->with('message','user is registerd');
+                
+                return redirect(RouteServiceProvider::ADMIN_HOME)->with('message','user is registerd');
             }
         }
 
