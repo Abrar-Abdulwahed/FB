@@ -1,13 +1,21 @@
 @extends('layouts.admin')
-@section('title') 
-اضافة عضو
+@section('title')
+    اضافة عضو
 @endsection
+@push('css')
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: black;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container-fluid pt-3">
 
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
-                  اضافة عضو جديد
+                اضافة عضو جديد
             </div>
             <div class="card-body">
                 <form action="{{ Route('users.store') }}" method="post">
@@ -40,9 +48,33 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-dark">إضافة</button>
-                </form>
+                    <div class="form-group col-md-12">
+                        <label>اختيار الادوار</label>
+                        <select class="select2" multiple="multiple" data-placeholder="اختيار الادوار" name="roles[]"
+                            style="width: 100%;">
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            اضافة</button>
+                    </div>
+
             </div>
+            </form>
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
+    </script>
+@endpush

@@ -51,6 +51,11 @@
                         <i class="nav-icon fa-solid fa-lock"></i>الأدوار</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('articles.index') }}">
+                        <i class="nav-icon fa-solid fa-newspaper"></i>المقالات</a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>
                             تسجيل الخروج
