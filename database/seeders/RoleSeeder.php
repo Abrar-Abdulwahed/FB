@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Seeder as ModelsSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -13,11 +13,16 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['admin', 'user'];
-        foreach ($roles as $role) {
-            DB::table('roles')->insert([
-                'name' => $role
-            ]);
+        $seeder = ModelsSeeder::where('class_name', __CLASS__)->count();
+
+        if ($seeder == 0) {
+            $roles = ['admin', 'user'];
+            foreach ($roles as $role) {
+                DB::table('roles')->insert([
+                    'name' => $role,
+                ]);
+            }
+            ModelsSeeder::create(array('class_name' => __CLASS__));
         }
     }
 }
