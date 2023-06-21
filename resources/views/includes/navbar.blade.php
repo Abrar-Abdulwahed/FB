@@ -9,6 +9,13 @@
                 الصفحة الرئيسية
             </a>
         </li>
+        <div class="justify_content_end">
+                
+                   
+            <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
+            {{ auth()->user()->name }}
+        
+        </div>
         {{-- <li class="nav-item">
             <a href={{ url('/admin/custom-messages') }} class="nav-link">
                 <i class="fa-solid fa-message"></i>
