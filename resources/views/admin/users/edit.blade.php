@@ -25,6 +25,21 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="form-group row">
+                <div class="col-lg-6">
+                    <label class="form-label">حالة المستخدم</label>
+                    <select name="is_banned" id="select-beast" class="form-control  nice-select  custom-select">
+                        <option value="{{ $user->is_banned}}">{{ $user->is_banned}}</option>
+                        <option value="true">حظر</option>
+                        <option value="false">فك الحظر </option>
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    <label>تاريخ فك الحظر</label>
+                    <input class="form-control fc-datepicker" name="datetime" placeholder="YYYY-MM-DD"
+                        type="text" value="{{ date('Y-m-d') }}" required>
+                </div>
+            </div>
             <button type="submit" class="btn btn-success">تعديل</button>
         </form>
     </div>

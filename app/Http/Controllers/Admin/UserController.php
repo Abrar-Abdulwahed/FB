@@ -39,7 +39,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        return redirect()->route('user.index')->with('success','تم اصافة اليوزر بنجاح');
+        return redirect()->route('users.index')->with('success','تم اصافة اليوزر بنجاح');
     }
 
     /**
@@ -63,12 +63,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserValidation $request,$id)
+    public function update(Request $request,$id)
     {
         //
         $user = User::findOrFail($id);
+        $user->is_banned = $request->input('is_banned');
+        $user->datetime = $request->input('datetime');
+        if($user->is_banned == 'true'){
+            $user->datetime = Null;
+        }
         $user->update($request->all());
-        return redirect()->route('user.index')->with(['success' => 'User is updated successfully']);
+        
+        return redirect()->route('users.index')->with(['success' => 'User is updated successfully']);
+    
     }
 
     /**
