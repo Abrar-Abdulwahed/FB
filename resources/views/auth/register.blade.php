@@ -66,12 +66,14 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-check mb-5">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label mr-3" for="flexCheckDefault">
-                                                هل توافق على شروط الخدمة و إتفاقية الإستخدام
-                                            </label>
-                                          </div>
+                                        <div class="form-outline form-dark mb-3 d-flex justify-content-start">
+                                            <input type="checkbox" name="terms">
+                                            <label class="px-2">هل توافق على شروط الخدمة</label><br>
+                                           
+                                        </div>
+                                        @error('terms')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
 
                                         <div class="text-center">
                                             <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
