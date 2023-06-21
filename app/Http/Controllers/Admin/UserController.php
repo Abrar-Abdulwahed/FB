@@ -19,7 +19,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('admin.users.index',compact('users'));
     }
 
     /**
@@ -27,9 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-
-        return view('users.create', compact('roles'));
+        //
+        return view('admin.users.create');
     }
 
     /**
@@ -57,7 +56,7 @@ class UserController extends Controller
         $roles = Role::all();
 
         $user = User::findOrFail($id);
-        return view('users.edit', compact('user', 'roles'));
+        return view('admin.users.edit',compact('user'));
     }
 
     /**
