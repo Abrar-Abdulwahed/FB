@@ -22,9 +22,13 @@ class SettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site_name'        => 'required|string',
-            'site_description' => 'required|string',
-            'site_logo'        => 'nullable|image|mimes:png',
+            'site_name'             => 'sometimes|string',
+            'site_description'      => 'sometimes|string',
+            'site_logo'             => 'nullable|image|mimes:png',
+            'google_client_id'      => 'sometimes|string',
+            'google_client_secret'  => 'sometimes|string',
+            'fb_client_id'          => 'sometimes|string',
+            'fb_client_secret'      => 'sometimes|string',
         ];
     }
 }

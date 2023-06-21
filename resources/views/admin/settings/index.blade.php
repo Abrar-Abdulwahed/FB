@@ -68,11 +68,11 @@
                         </ul>
                     </div>
                     <div class="card-body">
-                        <div class="tab-content" id="settingsContent">
-                            <div class="tab-pane fade show active" id="general-settings" role="tabpanel"
-                                aria-labelledby="general-settings-tab">
-                                <form method="POST" action={{ route('settings.store') }} enctype="multipart/form-data">
-                                    @csrf
+                        <form method="POST" action={{ route('settings.store') }} enctype="multipart/form-data">
+                            @csrf
+                            <div class="tab-content" id="settingsContent">
+                                <div class="tab-pane fade show active" id="general-settings" role="tabpanel"
+                                    aria-labelledby="general-settings-tab">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-group"><label for="site_name">اسم الموقع</label>
@@ -109,29 +109,76 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-dark mt-3">حفظ</button>
-                                </form>
+                                </div>
+                                <div class="tab-pane fade" id="login-settings" role="tabpanel"
+                                    aria-labelledby="login-settings-tab">
+                                    <div>
+                                        <label>الفيسبوك</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="fb_client_id" class="text-muted">المعرف</label>
+                                                <input type="text" name="fb_client_id" class="form-control"
+                                                    id="fb_client_id" placeholder="ادخل معرف الفيسبوك "
+                                                    value="{{ $settings['fb_client_id'] ?? '' }}">
+                                                @error('fb_client_id')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="fb_client_sercet" class="text-muted">ادخل كلمة الأمان</label>
+                                                <input type="text" name="fb_client_sercet" class="form-control"
+                                                    id="fb_client_id" placeholder="ادخل كلمة أمان الفيسبوك "
+                                                    value="{{ $settings['fb_client_sercet'] ?? '' }}">
+                                                @error('fb_client_sercet')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label>جوجل</label>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="google_client_id" class="text-muted">المعرف</label>
+                                                <input type="text" name="google_client_id" class="form-control"
+                                                    id="google_client_id" placeholder="ادخل معرف جوجل "
+                                                    value="{{ $settings['google_client_id'] ?? '' }}">
+                                                @error('google_client_id')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="google_client_sercet" class="text-muted">ادخل كلمة
+                                                    الأمان</label>
+                                                <input type="text" name="google_client_sercet" class="form-control"
+                                                    id="google_client_sercet" placeholder="ادخل كلمة أمان الفيسبوك "
+                                                    value="{{ $settings['google_client_sercet'] ?? '' }}">
+                                                @error('google_client_sercet')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-dark mt-3">حفظ</button>
+                                </div>
+                                <div class="tab-pane fade" id="smtp-settings" role="tabpanel"
+                                    aria-labelledby="smtp-settings-tab">
+                                    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus
+                                    volutpat
+                                    augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec
+                                    hendrerit
+                                    sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse
+                                    ut
+                                    velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit
+                                    finibus
+                                    tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet
+                                    sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus
+                                    ipsum
+                                    gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt
+                                    eleifend ac ornare magna.
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="login-settings" role="tabpanel"
-                                aria-labelledby="login-settings-tab">
-                                Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut
-                                ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                                cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis
-                                posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere
-                                nec nunc. Nunc euismod pellentesque diam.
-                            </div>
-                            <div class="tab-pane fade" id="smtp-settings" role="tabpanel"
-                                aria-labelledby="smtp-settings-tab">
-                                Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat
-                                augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit
-                                sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut
-                                velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus
-                                tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet
-                                sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum
-                                gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt
-                                eleifend ac ornare magna.
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
