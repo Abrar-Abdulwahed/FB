@@ -34,11 +34,11 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }} </td>
                     <td>
-                        @if ($user->is_banned == 'true')
-                            <p>محظور</p>
-                        @else
-                            <p>غير محظور</p>
-                        @endif                  
+                        <span class="badge {{ $user->is_banned == 'true' ? 'bg-danger' : 'bg-success' }} p-3">
+                            {{ $user->is_banned == 'true' ? 'محظور' : 'نشيط' }}
+                              
+                        </span>
+                                      
                     <td>                   
                         <a href="{{ route('users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                             class="fas fa-edit"></i></a>

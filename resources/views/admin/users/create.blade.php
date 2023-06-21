@@ -40,6 +40,12 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label>Avatar</label>
+                        <input type="file" name="avatar" class="form-control">
+                    </div>
+
                     <button type="submit" class="btn btn-dark">إضافة</button>
                 </form>
             </div>

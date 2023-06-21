@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserValidation;
 use App\Models\User;
+use App\Traits\AvatarTrait;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use AvatarTrait;
     /**
      * Display a listing of the resource.
      */
@@ -34,12 +36,15 @@ class UserController extends Controller
     public function store(UserValidation $request)
     {
         //
+        $path= $this->uploadAvatar($request,'avatars');
+        $user['avatar'] = $path;
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'avatar'=>$path
         ]);
-        return redirect()->route('users.index')->with('success','تم اصافة اليوزر بنجاح');
+        return redirect()->route('users.index')->with('success','تم اضافة عضو جديد بنجاح');
     }
 
     /**
@@ -69,12 +74,12 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->is_banned = $request->input('is_banned');
         $user->datetime = $request->input('datetime');
-        if($user->is_banned == 'true'){
+        if($user->is_banned == 'false'){
             $user->datetime = Null;
         }
         $user->update($request->all());
         
-        return redirect()->route('users.index')->with(['success' => 'User is updated successfully']);
+        return redirect()->route('users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
     
     }
 
@@ -85,6 +90,6 @@ class UserController extends Controller
     {
         //
         User::where('id',$id)->delete();
-        return redirect()->back()->with(['success' => 'User is deleted successfully']);
+        return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
     }
 }
