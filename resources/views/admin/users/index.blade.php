@@ -23,6 +23,7 @@
                     <th style="width: 10px">#</th>
                     <th>الاسم</th>
                     <th>البريد الالكتروني</th>
+                    <th>حالة العضو</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -31,7 +32,13 @@
                 <tr>
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
-                    <td>{{ $user['email']}} </td>
+                    <td>{{ $user->email }} </td>
+                    <td>
+                        <span class="badge {{ $user->is_banned == 'true' ? 'bg-danger' : 'bg-success' }} p-3">
+                            {{ $user->is_banned == 'true' ? 'محظور' : 'نشيط' }}
+                              
+                        </span>
+                                      
                     <td>                   
                         <a href="{{ route('users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                             class="fas fa-edit"></i></a>

@@ -15,7 +15,7 @@
 
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
-                  اضافة عضو جديد
+                اضافة عضو جديد
             </div>
             <div class="card-body">
                 <form action="{{ Route('users.store') }}" method="post">
@@ -62,7 +62,7 @@
                             اضافة</button>
                     </div>
 
-                </div>
+            </div>
             </form>
         </div>
     </div>

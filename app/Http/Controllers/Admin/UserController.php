@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Http\Requests\UserValidation;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -19,7 +17,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view('admin.users.index',compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -27,8 +25,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.users.create');
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -36,7 +34,6 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -56,12 +53,13 @@ class UserController extends Controller
         $roles = Role::all();
 
         $user = User::findOrFail($id);
-        return view('admin.users.edit',compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+
     public function update(UserUpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -70,7 +68,15 @@ class UserController extends Controller
 
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('users.index')->with(['success' => 'User is updated successfully']);
+        $user->is_banned = $request->input('is_banned');
+        $user->datetime = $request->input('datetime');
+        if ($user->is_banned == 'false') {
+            $user->datetime = null;
+        }
+        $user->update($request->all());
+
+        return redirect()->route('users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
+
     }
 
     /**
