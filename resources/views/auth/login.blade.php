@@ -70,10 +70,10 @@
 @if (session('errors') || session('error'))
     <script>
         Swal.fire({
-            title: 'Error!',
+            title: 'خطأ!',
             text: 'فشل تسجيل الدخول',
             icon: 'error',
-            confirmButtonText: 'Try again'
+            confirmButtonText: 'المحاولة مجددا'
         })
     </script>
 @endif
