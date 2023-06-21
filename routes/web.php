@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\Admin\CustomMessageController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\ErrorController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------

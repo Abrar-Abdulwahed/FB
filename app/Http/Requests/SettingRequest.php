@@ -22,13 +22,24 @@ class SettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site_name'             => 'sometimes|string',
-            'site_description'      => 'sometimes|string',
+            'site_name'             => 'required|string',
+            'site_description'      => 'required|string',
             'site_logo'             => 'nullable|image|mimes:png',
-            'google_client_id'      => 'sometimes|string',
-            'google_client_secret'  => 'sometimes|string',
-            'fb_client_id'          => 'sometimes|string',
-            'fb_client_secret'      => 'sometimes|string',
+            'google_client_id'      => 'required|string',
+            'google_client_secret'  => 'required|string',
+            'google_client_redirect'=> 'required|url',
+            'fb_client_id'          => 'required|string',
+            'fb_client_secret'      => 'required|string',
+            'fb_client_redirect'    => 'required|url',
+            'recaptcha_site_key'    => 'required|string',
+            'recaptcha_secret_key'  => 'required|string',
+            'mail_mailer'           => 'required|string',
+            'mail_host'             => 'required|string',
+            'mail_port'             => 'required|numeric|digits:4',
+            'mail_username'         => 'required|string',
+            'mail_password'         => 'required|string',
+            'mail_from_address'     => 'required|email',
+            'mail_from_name'        => 'required|string',
         ];
     }
 }

@@ -42,13 +42,24 @@ class SettingController extends Controller
                 $path = $pathInDB ?? '';
             }
             $settings = [
-                'site_name'        => $request?->site_name,
-                'site_description' => $request?->site_description,
-                'site_logo'        => $path,
-                'google_client_id'     => $request?->google_client_id,
-                'google_client_secret' => $request?->google_client_secret,
-                'fb_client_id'     => $request?->fb_client_id,
-                'fb_client_secret' => $request?->fb_client_secret,
+                'site_name'             => $request?->site_name,
+                'site_description'      => $request?->site_description,
+                'site_logo'             => $path,
+                'google_client_id'      => $request?->google_client_id,
+                'google_client_secret'  => $request?->google_client_secret,
+                'google_client_redirect'=> $request?->google_client_redirect,
+                'fb_client_id'          => $request?->fb_client_id,
+                'fb_client_secret'      => $request?->fb_client_secret,
+                'fb_client_redirect'    => $request?->fb_client_redirect,
+                'recaptcha_site_key'    => $request?->recaptcha_site_key,
+                'recaptcha_secret_key'  => $request?->recaptcha_secret_key,
+                'mail_mailer'           => $request?->mail_mailer,
+                'mail_host'             => $request?->mail_host,
+                'mail_port'             => $request?->mail_port,
+                'mail_username'         => $request?->mail_username,
+                'mail_password'         => $request?->mail_password,
+                'mail_from_address'     => $request?->mail_from_address,
+                'mail_from_name'        => $request?->mail_from_name,
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
@@ -57,7 +68,6 @@ class SettingController extends Controller
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         }catch(\Throwable $e){
             DB::rollback();
-            dd($e);
             return redirect()->back()->withError('error', 'فشل في تعديل الرسالة');
         }
     }
