@@ -27,6 +27,7 @@
                     <th>العنوان</th>
                     <th>الصورة</th>
                     <th>العلامات</th>
+                    <th>الاقسام</th>
                     <th>اجراءات</th>
                 </tr>
             </thead>
@@ -50,6 +51,11 @@
                         <td>
                             @foreach ($article->tags as $tag)
                                 <span class="span-tag bg-warning rounded px-1 w-50">{{ $tag->name }}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($article->categories as $category)
+                                <span class="span-tag bg-warning rounded px-1 w-50">{{ $category->title }}</span>
                             @endforeach
                         </td>
                         <td>
