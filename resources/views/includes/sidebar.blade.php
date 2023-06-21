@@ -50,6 +50,10 @@
                     <a class="nav-link" href="{{ route('roles.index') }}">
                         <i class="nav-icon fa-solid fa-lock"></i>الأدوار</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('articles.index') }}">
+                        <i class="nav-icon fa-solid fa-newspaper"></i>المقالات</a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
