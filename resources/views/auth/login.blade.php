@@ -63,16 +63,18 @@
             </section>
         </form>
     </div>
-    @if (session()->has('error'))
-        <script>
-            alert('فشل تسجيل الدخول')
-            Swal.fire({
-                title: 'Error!',
-                text: 'فشل تسجيل الدخول',
-                icon: 'error',
-                confirmButtonText: 'Cool'
-            })
-        </script>
-    @endif
 </div>
 @endsection
+
+@push('scripts')
+@if (session('errors') || session('error'))
+    <script>
+        Swal.fire({
+            title: 'Error!',
+            text: 'فشل تسجيل الدخول',
+            icon: 'error',
+            confirmButtonText: 'Try again'
+        })
+    </script>
+@endif
+@endpush
