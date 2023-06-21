@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\CustomMessageController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Mail\CustomMessageMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,5 +43,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
 });
 
-
-Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
+Route::get('testmail', function(){
+    $name="Khorasani Abrar";
+    Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
+});
