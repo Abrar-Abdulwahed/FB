@@ -15,7 +15,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
@@ -53,7 +52,7 @@ class UserController extends Controller
         $roles = Role::all();
 
         $user = User::findOrFail($id);
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
