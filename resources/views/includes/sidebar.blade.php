@@ -46,6 +46,10 @@
                     <a class="nav-link" href="{{ route('users.index') }}">
                         <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('roles.index') }}">
+                        <i class="nav-icon fa-solid fa-lock"></i>الأدوار</a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
