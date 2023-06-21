@@ -41,3 +41,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('custom-message', CustomMessageController::class)->except('show');
     Route::resource('users', UserController::class);
 });
+
+
+Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
