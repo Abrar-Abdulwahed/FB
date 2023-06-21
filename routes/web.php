@@ -4,11 +4,12 @@ use App\Mail\CustomMessageMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\Admin\CustomMessageController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 |
  */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,6 +42,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
     Route::resource('users', UserController::class);
+    // roles routes
+    Route::resource('roles', RoleController::class)->except('show');
 });
 
 Route::get('testmail', function(){
