@@ -52,12 +52,14 @@
                 <div class="card card-dark card-outline card-outline-tabs">
                     <div class="card-header p-0 pt-1 bg-gray-light">
                         <ul class="nav nav-tabs" id="settings" role="tablist">
-                            <li class="nav-item">
+                            <li
+                                class="nav-item {{ $errors->any(['site_name', 'site_description', 'site_logo']) ? 'bg-danger' : '' }}">
                                 <a class="nav-link active" id="general-settings-tab" data-toggle="pill"
                                     href="#general-settings" role="tab" aria-controls="general-settings"
                                     aria-selected="true">إعدادات عامة</a>
                             </li>
-                            <li class="nav-item">
+                            <li
+                                class="nav-item {{ $errors->any(['google_client_id', 'google_client_secret', 'fb_client_id', 'fb_client_secret']) ? 'bg-danger' : '' }}">
                                 <a class="nav-link" id="login-settings-tab" data-toggle="pill" href="#login-settings"
                                     role="tab" aria-controls="login-settings" aria-selected="false">تسجيل الدخول</a>
                             </li>
