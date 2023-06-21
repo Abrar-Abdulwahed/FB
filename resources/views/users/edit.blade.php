@@ -4,6 +4,11 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: black;
+        }
+    </style>
 @endpush
 @section('content')
     <div class="container-fluid pt-3">
