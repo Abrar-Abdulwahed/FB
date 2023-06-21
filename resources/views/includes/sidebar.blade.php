@@ -46,6 +46,16 @@
                     <a class="nav-link" href="{{ route('users.index') }}">
                         <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
+                        <p>
+                            تسجيل الخروج
+                        </p>
+                        <p>
+                            <i class="nav-icon fa-solid fa-sign-out"></i>
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
