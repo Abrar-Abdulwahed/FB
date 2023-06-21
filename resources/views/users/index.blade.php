@@ -41,7 +41,7 @@
                                         
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info"
                                             title="edit"><i style="font-size: 15px;" class="fa-solid fa-pen p-1"></i></a>
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('Are you sure you want delete this users?') }}')"><i style="font-size: 15px;" class="fa-solid fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('{{ __('هل تريد حذف هذا العضو ؟') }}')"><i style="font-size: 15px;" class="fa-solid fa-trash"></i></button>
                                     </form>
 
                                 </td>
