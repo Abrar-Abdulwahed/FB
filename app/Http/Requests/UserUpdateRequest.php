@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UserValidation extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,14 +20,11 @@ class UserValidation extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-
     public function rules(): array
     {
-        
         return [
             'name' => ['required', 'alpha', 'min:4', 'max:10'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user],
-            'password' => ['required', 'string', 'min:6', 'max:35', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore($this->user)],
             'roles' => ['required', 'array']
         ];
     }
