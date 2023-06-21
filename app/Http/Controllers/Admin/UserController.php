@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserValidation;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view('admin.users.index',compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -24,30 +25,24 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.users.create');
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserValidation $request)
+    public function store(UserStoreRequest $request)
     {
-        //
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        return redirect()->route('user.index')->with('success','تم اصافة اليوزر بنجاح');
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $user->roles()->sync($request->roles);
+
+        return redirect()->route('users.index')->with('success', 'تم اصافة اليوزر بنجاح');
     }
 
     /**
@@ -55,20 +50,33 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles = Role::all();
+
         $user = User::findOrFail($id);
-        return view('admin.users.edit',compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserValidation $request,$id)
+
+    public function update(UserUpdateRequest $request, $id)
     {
-        //
         $user = User::findOrFail($id);
+
         $user->update($request->all());
-        return redirect()->route('user.index')->with(['success' => 'User is updated successfully']);
+
+        $user->roles()->sync($request->roles);
+
+        $user->is_banned = $request->input('is_banned');
+        $user->datetime = $request->input('datetime');
+        if ($user->is_banned == 'false') {
+            $user->datetime = null;
+        }
+        $user->update($request->all());
+
+        return redirect()->route('users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
+
     }
 
     /**
@@ -77,7 +85,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        User::where('id',$id)->delete();
+        User::where('id', $id)->delete();
         return redirect()->back()->with(['success' => 'User is deleted successfully']);
     }
 }

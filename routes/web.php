@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,9 +40,15 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index');
+    Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
     Route::resource('users', UserController::class);
+    
     // roles routes
     Route::resource('roles', RoleController::class)->except('show');
+    
+    // articles routes
+    Route::resource('articles', ArticleController::class)->except('show');
 });
+
+Route::get('/error',[ErrorController::class,'error']);

@@ -23,11 +23,12 @@ class UserValidation extends FormRequest
 
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'alpha','min:4', 'max:10'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$this->user],
-            'password' => ['required', 'string', 'min:6','max:35', 'confirmed'],
-        ];
         
+        return [
+            'name' => ['required', 'alpha', 'min:4', 'max:10'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user],
+            'password' => ['required', 'string', 'min:6', 'max:35', 'confirmed'],
+            'roles' => ['required', 'array']
+        ];
     }
 }
