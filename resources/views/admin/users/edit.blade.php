@@ -29,11 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label>البريد الاكتروني</label>
-<<<<<<< HEAD
-                    <input type="email" name="email" value="{{ $user->email }}" class="form-control">
-=======
                     <input type="text" name="email" value="{{ old('email', $user->email) }}" class="form-control">
->>>>>>> c9164b8b3629a482ab56fe2b1dfb32b4de864fa9
                     @error('email')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror

@@ -66,11 +66,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-<<<<<<< HEAD
-        //$user->update($request->all());
-=======
         $validated = $request->validated();
->>>>>>> c9164b8b3629a482ab56fe2b1dfb32b4de864fa9
 
         // dd($validated);
 
