@@ -16,7 +16,7 @@ class Article extends Model
         'slug',
         'description',
         'content',
-        'image',
+        'image'
     ];
 
     public function imagePath(): Attribute
