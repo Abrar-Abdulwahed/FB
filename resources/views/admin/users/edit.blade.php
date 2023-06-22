@@ -17,7 +17,7 @@
             تعديل بيانات العضو
         </div>
         <div class="card-body">
-            <form action="{{ Route('users.update', $user->id) }}" method="post">
+            <form action="{{ Route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="form-group">
@@ -84,6 +84,13 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                </div>
+                <div class="form-group">
+                    <label>صورة العضو</label>
+                    <input type="file" name="avatar" class="form-control">
+                    @error('avatar')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-success">تعديل</button>
             </form>

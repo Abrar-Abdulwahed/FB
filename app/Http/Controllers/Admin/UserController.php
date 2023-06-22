@@ -8,6 +8,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -34,12 +35,21 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+
+        $validated = $request->validated();
+
+        // store image
+        if ($request->hasFile('avatar')) {
+            $request->file('avatar')->store('public/images');
+            $validated['avatar'] = $request->file('avatar')->hashName();
+        }
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'is_banned' => $request->is_banned,
-            'banned_until' => $request->banned_until,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+            'is_banned' => $validated['is_banned'],
+            'banned_until' => $validated['banned_until'],
+            'avatar' => $validated['avatar'],
         ]);
 
         $user->roles()->sync($request->roles);
@@ -68,17 +78,35 @@ class UserController extends Controller
 
         $validated = $request->validated();
 
-        // dd($validated);
-
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        if ($validated['password']) {
-            $user->password = Hash::make($validated['password']);
+        // store image
+        if ($request->hasFile('avatar')) {
+            dd('here');
+            if ($user->avatar != null) {
+                Storage::disk('local')->delete('public/images/' . $user->avatar);
+            }
+            $request->file('avatar')->store('public/images');
+            $validated['avatar'] = $request->file('avatar')->hashName();
         }
-        $user->is_banned = $validated['is_banned'];
-        $user->banned_until = $validated['is_banned'] == 0 ? null : $validated['banned_until'];
 
-        $user->save();
+
+        $user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $validated['password'] ??  bcrypt($validated['password']),
+            'is_banned' => $validated['is_banned'],
+            'banned_until' => $validated['is_banned'] == 0 ? null : $validated['banned_until'],
+            'avatar' => $validated['avatar'] ?? $user->avatar,
+        ]);
+
+        // $user->name = $validated['name'];
+        // $user->email = $validated['email'];
+        // if ($validated['password']) {
+        //     $user->password = Hash::make($validated['password']);
+        // }
+        // $user->is_banned = $validated['is_banned'];
+        // $user->banned_until = $validated['is_banned'] == 0 ? null : $validated['banned_until'];
+
+        // $user->save();
 
         $user->roles()->sync($request->roles);
 
