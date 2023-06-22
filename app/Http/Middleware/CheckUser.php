@@ -25,7 +25,7 @@ class CheckUser
             ]);
         }
 
-        if (Auth::user()->is_banned === 'true') {
+        if (Auth::user()->is_banned === 1) {
             return redirect('/error');
         } else {
             return $next($request);
