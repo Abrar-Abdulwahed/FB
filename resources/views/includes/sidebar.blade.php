@@ -87,6 +87,12 @@
                     </ul>
                 </li>
 
+                <li class="nav-item @if(Route::is('faqs.index'))  ? 'active' : '' bg-primary @endif">
+                    <a class="nav-link" href="{{ route('faqs.index') }}">
+                        <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>

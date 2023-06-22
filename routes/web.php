@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
@@ -56,6 +57,9 @@ Route::prefix('admin')->middleware(['auth' , 'check_user'])->group(function () {
     
     // Tags
     Route::resource('tags',TagController::class);
+
+     // Tags
+     Route::resource('faqs',FaqController::class);
 
 });
 
