@@ -7,7 +7,6 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -87,11 +86,10 @@ class UserController extends Controller
             $validated['avatar'] = $request->file('avatar')->hashName();
         }
 
-
         $user->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => $validated['password'] ??  bcrypt($validated['password']),
+            'password' => $validated['password'] ?? bcrypt($validated['password']),
             'is_banned' => $validated['is_banned'],
             'banned_until' => $validated['is_banned'] == 0 ? null : $validated['banned_until'],
             'avatar' => $validated['avatar'] ?? $user->avatar,
@@ -109,7 +107,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
+        return redirect()->route('admin.users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
     }
 
     /**

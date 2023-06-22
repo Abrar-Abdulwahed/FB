@@ -3,7 +3,7 @@
 @section('title')
     Tags
 @endsection
-<a href={{ route('tags.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
+<a href={{ route('admin.tags.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     إضافة</a>
 <div class="clearfix"></div>
 @if (session()->has('success'))
@@ -33,7 +33,7 @@
                         <td>{{ $tag->name }}</td>
                         <td>{{ $tag->slug }} </td>
                         <td>
-                            <a href="{{ route('tags.edit', $tag->id) }}" class="mx-1 btn btn-success"><i
+                            <a href="{{ route('admin.tags.edit', $tag->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                 data-target="#confirm-delete-{{ $tag->id }}">
@@ -55,7 +55,7 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('tags.destroy', $tag->id) }}" method="POST">
+                                            <form action="{{ route('admin.tags.destroy', $tag->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark btn-md">نعم</button>

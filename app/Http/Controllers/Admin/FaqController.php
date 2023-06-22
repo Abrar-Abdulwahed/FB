@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FaqValidation;
 use App\Models\Faq;
-use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
@@ -16,7 +15,7 @@ class FaqController extends Controller
     {
         //
         $faqs = Faq::paginate(5);
-        return view('faqs.index',compact('faqs'));
+        return view('faqs.index', compact('faqs'));
     }
 
     /**
@@ -35,7 +34,7 @@ class FaqController extends Controller
     {
         //
         $faq = Faq::create($request->validated());
-        return redirect()->route('faqs.index')->with('success', 'تم اضافة السؤال بنجاح');
+        return redirect()->route('admin.faqs.index')->with('success', 'تم اضافة السؤال بنجاح');
     }
 
     /**
@@ -53,17 +52,17 @@ class FaqController extends Controller
     {
         //
         $faq = Faq::find($id);
-        return view('faqs.edit',compact('faq'));
+        return view('faqs.edit', compact('faq'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(FaqValidation $request,$id)
+    public function update(FaqValidation $request, $id)
     {
         //
         Faq::find($id)->update($request->validated());
-        return redirect()->route('faqs.index')->with('success','تم تعديل السؤال بنجاح');
+        return redirect()->route('admin.faqs.index')->with('success', 'تم تعديل السؤال بنجاح');
     }
 
     /**

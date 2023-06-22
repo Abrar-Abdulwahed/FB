@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-     اضافة سؤال شائع جديد
+    اضافة سؤال شائع جديد
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
@@ -18,7 +18,7 @@
                 اضافة سؤال شائع جديد
             </div>
             <div class="card-body">
-                <form action="{{ Route('faqs.store') }}" method="post">
+                <form action="{{ Route('admin.faqs.store') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <label>عنوان السؤال</label>
@@ -54,6 +54,4 @@
             $('.select2').select2()
         })
     </script>
-
-   
 @endpush

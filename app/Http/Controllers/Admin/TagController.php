@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagValidation;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
@@ -16,7 +15,7 @@ class TagController extends Controller
     {
         //
         $tags = Tag::paginate(5);
-        return view('tags.index',compact('tags'));
+        return view('tags.index', compact('tags'));
     }
 
     /**
@@ -53,17 +52,17 @@ class TagController extends Controller
     {
         //
         $tag = Tag::find($id);
-        return view('tags.edit',compact('tag'));
+        return view('tags.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(TagValidation $request,$id)
+    public function update(TagValidation $request, $id)
     {
         //
         Tag::find($id)->update($request->validated());
-        return redirect()->route('tags.index')->with('success','تم تعديل التاج بنجاح');
+        return redirect()->route('admin.tags.index')->with('success', 'تم تعديل التاج بنجاح');
     }
 
     /**
