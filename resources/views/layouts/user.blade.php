@@ -15,12 +15,6 @@
 
     @stack('css')
 
-    <style>
-        .ck-editor__editable_inline {
-            min-height: 400px;
-        }
-    </style>
-
      <!-- data tables -->
 <!-- data tables -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
@@ -61,17 +55,5 @@
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
     },
 });
-</script>
-
-<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('#answer'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
+ </script>
 </html>

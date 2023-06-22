@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    اضافة Tag
+     اضافة سؤال شائع جديد
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
@@ -15,26 +15,26 @@
 
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
-                اضافة Tag
+                اضافة سؤال شائع جديد
             </div>
             <div class="card-body">
-                <form action="{{ Route('admin.tags.store') }}" method="post">
+                <form action="{{ Route('faqs.store') }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label>الاسم</label>
-                        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
-                        @error('name')
+                        <label>عنوان السؤال</label>
+                        <input type="text" name="title" value="{{ old('title') }}" class="form-control">
+                        @error('title')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>Slug</label>
-                        <input type="text" name="slug" value="{{ old('slug') }}" class="form-control">
-                        @error('slug')
+                        <label>الاجابة</label>
+                        <textarea name="answer" id="answer" class="form-control" rows="20" style="height: 500px">{{ old('answer') }}</textarea>
+                        @error('answer')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">
                             اضافة</button>
                     </div>
@@ -54,4 +54,6 @@
             $('.select2').select2()
         })
     </script>
+
+   
 @endpush

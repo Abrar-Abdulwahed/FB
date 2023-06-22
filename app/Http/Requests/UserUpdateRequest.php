@@ -23,6 +23,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            //dd($this->user),
             'name' => ['required', 'regex:/^[A-Za-z ]+$/', 'min:3', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore($this->user)],
             'password' => ['nullable', 'string', 'min:6', 'max:35', 'confirmed'],
