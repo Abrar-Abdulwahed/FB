@@ -24,6 +24,7 @@
                     <th>الاسم</th>
                     <th>البريد الالكتروني</th>
                     <th>حالة العضو</th>
+                    <th>الادوار</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -34,11 +35,16 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }} </td>
                         <td>
-                            <span class="badge {{ $user->is_banned == 'true' ? 'bg-danger' : 'bg-success' }} p-3">
-                                {{ $user->is_banned == 'true' ? 'محظور' : 'نشيط' }}
+                            <span class="badge {{ $user->is_banned == 1 ? 'bg-danger' : 'bg-success' }} p-3">
+                                {{ $user->is_banned == 1 ? 'محظور' : 'نشيط' }}
 
                             </span>
-
+                        </td>
+                        <td>
+                            @foreach ($user->roles as $role)
+                                <span class="badge bg-black">{{ $role->name }}</span>
+                            @endforeach
+                        </td>
                         <td>
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
