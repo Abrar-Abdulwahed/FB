@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Setting;
+use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
+    use ImageTrait;
         /**
      * Display a listing of the resource.
      */
@@ -28,16 +30,16 @@ class SettingController extends Controller
      */
     public function store(SettingRequest $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try{
             $pathInDB = Setting::where('name', 'site_logo')->first()->value;
             if($request->hasFile('site_logo')){
-                if($pathInDB !== ''){
+                if($pathInDB !== null){
                     //Remove old image
                     Storage::disk('public')->delete($pathInDB);
                 }
-                $filename = $request->file('site_logo')->getClientOriginalName();
-                $path = $request->file('site_logo')->storeAs('', $filename, 'public');
+                $path = $this->uploadImage($request->file('site_logo'), 'public');
             }else{
                 $path = $pathInDB ?? '';
             }
@@ -45,14 +47,16 @@ class SettingController extends Controller
                 'site_name'             => $request?->site_name,
                 'site_description'      => $request?->site_description,
                 'site_logo'             => $path,
-                'google_client_id'      => $request?->google_client_id,
-                'google_client_secret'  => $request?->google_client_secret,
-                'google_client_redirect'=> $request?->google_client_redirect,
-                'fb_client_id'          => $request?->fb_client_id,
-                'fb_client_secret'      => $request?->fb_client_secret,
-                'fb_client_redirect'    => $request?->fb_client_redirect,
-                'recaptcha_site_key'    => $request?->recaptcha_site_key,
-                'recaptcha_secret_key'  => $request?->recaptcha_secret_key,
+                'active_site'           => $request?->active_site ?? false,
+                'reason_locked'         => $request?->active_site === 'active' ? '' : $request?->reason_locked,
+                'services.google_client_id'      => $request?->google_client_id,
+                'services.google_client_secret'  => $request?->google_client_secret,
+                'services.google_client_redirect'=> $request?->google_client_redirect,
+                'services.facebook_client_id'          => $request?->fb_client_id,
+                'services.facebook_client_secret'      => $request?->fb_client_secret,
+                'services.facebook_client_redirect'    => $request?->fb_client_redirect,
+                'recaptcha.api_site_key'    => $request?->recaptcha_site_key,
+                'recaptcha.api_secret_key'  => $request?->recaptcha_secret_key,
                 'mail_mailer'           => $request?->mail_mailer,
                 'mail_host'             => $request?->mail_host,
                 'mail_port'             => $request?->mail_port,
@@ -68,7 +72,8 @@ class SettingController extends Controller
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         }catch(\Throwable $e){
             DB::rollback();
-            return redirect()->back()->withError('error', 'فشل في تعديل الرسالة');
+            dd($e);
+            return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
         }
     }
 }

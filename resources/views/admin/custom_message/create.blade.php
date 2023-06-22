@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endpush --}}
 @section('content')
-    <a href={{ route('custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
+    <a href={{ route('admin.custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -18,7 +18,7 @@
             إنشاء رسالة مخصصة
         </div>
         <div class="card-body">
-            <form id="quickForm" method="POST" action={{ route('custom-message.store') }}>
+            <form id="quickForm" method="POST" action={{ route('admin.custom-message.store') }}>
                 @csrf
                 <div class="form-group">
                     <label for="code">الرمز</label>

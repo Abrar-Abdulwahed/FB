@@ -9,7 +9,7 @@
             تعديل المقال
         </div>
         <div class="card-body">
-            <form action="{{ Route('articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('admin.articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row col-12">

@@ -3,7 +3,7 @@
 @section('title')
     الأعضاء
 @endsection
-<a href={{ route('users.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
+<a href={{ route('admin.users.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     إضافة</a>
 <div class="clearfix"></div>
 @include('partials.session')
@@ -41,7 +41,7 @@
                             @endforeach
                         </td>
                         <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                 data-target="#confirm-delete-{{ $user->id }}">
@@ -63,7 +63,8 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                            <form action="{{ route('admin.users.destroy', $user->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark btn-md">نعم</button>

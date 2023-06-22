@@ -3,7 +3,7 @@
 @section('title', 'إنشاء دور')
 
 @section('content')
-    <a href={{ route('custom-message.index') }} class="btn btn-info float-right mb-2">جميع الادوار</a>
+    <a href={{ route('admin.custom-message.index') }} class="btn btn-info float-right mb-2">جميع الادوار</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -16,7 +16,7 @@
             إنشاء دور
         </div>
         <div class="card-body">
-            <form id="quickForm" method="POST" action={{ route('roles.store') }}>
+            <form id="quickForm" method="POST" action={{ route('admin.roles.store') }}>
                 @csrf
                 <div class="form-group">
                     <label for="name">الاسم</label>

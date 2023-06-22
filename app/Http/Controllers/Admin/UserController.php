@@ -54,7 +54,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('users.index')->with('success', 'تم اصافة اليوزر بنجاح');
+        return redirect()->route('admin.users.index')->with('success', 'تم اصافة اليوزر بنجاح');
     }
 
     /**
