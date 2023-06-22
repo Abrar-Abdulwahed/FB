@@ -53,8 +53,8 @@
                     <div class="card-header p-0 pt-1 bg-gray-light">
                         <ul class="nav nav-tabs" id="settings" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link {{ $errors->isEmpty() ? 'active' : '' }}" id="general-settings-tab"
-                                    data-toggle="pill" href="#general-settings" role="tab"
+                                <a class="nav-link  {{ $errors->hasAny(['site_name', 'site_description', 'site_logo', 'active_site', 'reason_locked']) ? 'bg-danger' : '' }}"
+                                    id="general-settings-tab" data-toggle="pill" href="#general-settings" role="tab"
                                     aria-controls="general-settings" aria-selected="true">إعدادات عامة</a>
                             </li>
                             <li class="nav-item">
