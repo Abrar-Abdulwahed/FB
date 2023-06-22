@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 @section('title')
-    اضافة مقال
+    اضافة صفحة
 @endsection
 
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            اضافة مقال جديد
+            اضافة صفحة جديد
         </div>
         <div class="card-body">
 
-            <form action="{{ Route('articles.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('pages.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row col-12">
 
@@ -59,7 +59,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
-            .create(document.querySelector('#content'),{
+            .create(document.querySelector('#content'), {
                 height: '400px'
             })
             .then(editor => {

@@ -9,13 +9,9 @@
                 الصفحة الرئيسية
             </a>
         </li>
-        <div class="justify_content_end">
-                
-                   
-            <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
+        {{-- <div class="justify_content_end">
             {{ auth()->user()->name }}
-        
-        </div>
+        </div> --}}
         {{-- <li class="nav-item">
             <a href={{ url('/admin/custom-messages') }} class="nav-link">
                 <i class="fa-solid fa-message"></i>
@@ -25,6 +21,8 @@
     </ul>
     <div class="mr-0 ml-auto">
         <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <img src="{{ auth()->user()->avatar_path }}" style="width:50px; height:50px" class="img-circle">
+
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu" style="">

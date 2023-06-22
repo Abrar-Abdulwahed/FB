@@ -1,12 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info text-center">
-                
-                   
-                    <img src="{{ asset('users/'.auth()->user()->avatar) }}" class="rounded circle">
-                    {{ auth()->user()->name }}
-                
+            <div class="info text-center text-white">
+                <img src="{{ auth()->user()->avatar_path }}" class="mr-3 img-circle">
+                {{ auth()->user()->name }}
             </div>
         </div>
 
@@ -55,6 +52,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('articles.index') }}">
                         <i class="nav-icon fa-solid fa-newspaper"></i>المقالات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('pages.index') }}">
+                        <i class="nav-icon fa-solid fa-newspaper"></i>الصفحات</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('tags.index') }}">

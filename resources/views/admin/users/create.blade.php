@@ -82,6 +82,13 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>صورة العضو</label>
+                        <input type="file" name="avatar" class="form-control">
+                        @error('avatar')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-sm btn-primary">
                             اضافة</button>

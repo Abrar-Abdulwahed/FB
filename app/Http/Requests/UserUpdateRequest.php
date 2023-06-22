@@ -28,7 +28,8 @@ class UserUpdateRequest extends FormRequest
             'password' => ['nullable', 'string', 'min:6', 'max:35', 'confirmed'],
             'roles' => ['required', 'array'],
             'is_banned' => ['required', 'in:0,1'],
-            'banned_until' => ['required_if:is_banned,1', 'nullable', 'date']
+            'banned_until' => ['required_if:is_banned,1', 'nullable', 'date'],
+            'avatar' => ['nullable', 'image']
         ];
     }
 }

@@ -6,12 +6,7 @@
 <a href={{ route('users.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     إضافة</a>
 <div class="clearfix"></div>
-@if (session()->has('success'))
-    <p class="alert alert-success" role="alert">{{ session('success') }}</p>
-@endif
-@if (session()->has('error'))
-    <p class="alert alert-danger">{{ session('error') }}</p>
-@endif
+@include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
         الأعضاء
