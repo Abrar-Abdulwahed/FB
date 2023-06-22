@@ -21,12 +21,13 @@ class SettingRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this);
         return [
             'site_name'             => 'required|string',
             'site_description'      => 'required|string',
             'site_logo'             => 'nullable|image|mimes:png',
-            'active_site'           => 'in:on,off',
-            'reason_locked'         => 'required_without:active_site',
+            'active_site'           => 'nullable|in:on,off',
+            'reason_locked'         => $this->input('active_site') ? 'nullable' : 'required',
             'google_client_id'      => 'required|string',
             'google_client_secret'  => 'required|string',
             'google_client_redirect'=> 'required|url',
