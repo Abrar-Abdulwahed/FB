@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,13 +17,18 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->is_banned == 'false'){
-            return $next($request);
-        }else{
-            return redirect('/error');
+        // check if banned date finish 
+        if (Carbon::now()->greaterThan(Auth::user()->banned_until)) {
+            Auth::user()->update([
+                'is_banned' => 0,
+                'banned_until' => null,
+            ]);
         }
-        
 
-       
+        if (Auth::user()->is_banned) {
+            return redirect('/error');
+        } else {
+            return $next($request);
+        }
     }
 }

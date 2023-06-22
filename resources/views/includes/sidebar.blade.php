@@ -29,7 +29,7 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item @if(Route::is('custom-message.create')) ? 'active' : '' bg-primary @endif">
                             <a href={{ route('custom-message.create') }} class="nav-link">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}
@@ -52,7 +52,7 @@
                              <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item @if(Route::is('users.index'))  ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('users.index') }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}الأعضاء
@@ -73,7 +73,7 @@
                              <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="">
+                    <ul class="nav nav-treeview">
                         <li class="nav-item @if(Route::is('articles.index'))  ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('articles.index') }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
