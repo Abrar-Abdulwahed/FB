@@ -20,6 +20,8 @@ class SettingSeeder extends Seeder
                 'site_name' => 'Freelance',
                 'site_description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias corporis, quo minus nulla cum hic repudiandae dolorem perferendis velit ex! Ut eveniet nostrum repellat fugit quod sequi quasi asperiores beatae!',
                 'site_logo' => '',
+                'active_site' => true,
+                'reason_locked' => '',
                 'google_client_id' => '305295164959-957dbe2g9bm59oslqmjnjl96ek0sfiid.apps.googleusercontent.com',
                 'google_client_secret' => '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',
                 'google_client_redirect' => 'http://localhost:8000/auth/google/callback',

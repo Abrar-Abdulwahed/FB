@@ -16,7 +16,7 @@
         <div class="p-4 bg-white">
             <h2>اضافة مقال جديد</h2>
 
-            <form action="{{ Route('articles.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row col-12">
 

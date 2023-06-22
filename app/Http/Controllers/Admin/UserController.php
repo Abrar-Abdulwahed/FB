@@ -41,7 +41,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('users.index')->with('success', 'تم اصافة اليوزر بنجاح');
+        return redirect()->route('admin.users.index')->with('success', 'تم اصافة اليوزر بنجاح');
     }
 
     /**
@@ -74,7 +74,7 @@ class UserController extends Controller
         }
         $user->update($request->all());
 
-        return redirect()->route('users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
+        return redirect()->route('admin.users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
 
     }
 

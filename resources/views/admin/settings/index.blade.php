@@ -76,7 +76,7 @@
                         </ul>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action={{ route('settings.store') }} enctype="multipart/form-data">
+                        <form method="POST" action={{ route('admin.settings.store') }} enctype="multipart/form-data">
                             @csrf
                             <div class="tab-content" id="settingsContent">
                                 <div class="tab-pane fade show active" id="general-settings" role="tabpanel"
@@ -115,6 +115,19 @@
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
                                         </div>
+                                    </div>
+                                    <div class="form-check mt-4">
+                                        <input class="form-check-input" type="checkbox" id="active_site" name="active_site"
+                                            {{ $settings['active_site'] ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="active_site">تفعيل الموقع</label>
+                                    </div>
+                                    <div class="form-group mt-4" id="reason_locked_div"style="display: none;">
+                                        <label for="reason_locked">سبب إلغاء تفعيل الموقع</label>
+                                        <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked"
+                                            placeholder="اكتب سبب إلغاء تفعيل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
+                                        @error('reason_locked')
+                                            <p class="text-danger small">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="login-settings" role="tabpanel"
@@ -292,5 +305,30 @@
     </div>
 @endsection
 @push('js')
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <script>
+        $(document).ready(function() {
+            if ($('#active_site').is(':checked')) {
+                $('#reason_locked_div').hide();
+            } else {
+                $('#reason_locked_div').show();
+            }
+            $('#active_site').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#reason_locked_div').hide();
+                } else {
+                    $('#reason_locked_div').show();
+                }
+            });
+            ClassicEditor
+                .create($('#reason_locked').get(0))
+                .then(editor => {
+                    console.log(editor);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
     <script src="{{ asset('js/previewImage.js') }}"></script>
 @endpush

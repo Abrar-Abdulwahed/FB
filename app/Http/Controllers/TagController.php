@@ -34,7 +34,7 @@ class TagController extends Controller
     {
         //
         $tag = Tag::create($request->validated());
-        return redirect()->route('tags.index')->with('success', 'تم اضافة التاج بنجاح');
+        return redirect()->route('admin.tags.index')->with('success', 'تم اضافة التاج بنجاح');
     }
 
     /**

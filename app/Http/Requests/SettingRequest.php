@@ -25,6 +25,8 @@ class SettingRequest extends FormRequest
             'site_name'             => 'required|string',
             'site_description'      => 'required|string',
             'site_logo'             => 'nullable|image|mimes:png',
+            'active_site'           => 'in:on,off',
+            'reason_locked'         => 'required_without:active_site',
             'google_client_id'      => 'required|string',
             'google_client_secret'  => 'required|string',
             'google_client_redirect'=> 'required|url',

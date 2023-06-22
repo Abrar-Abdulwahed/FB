@@ -36,7 +36,7 @@ class RoleController extends Controller
 
         Role::query()->create($validated);
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'تم اضافة الدور بنجاح');
     }
 
@@ -48,7 +48,7 @@ class RoleController extends Controller
         $role = Role::query()->find($id);
 
         if (!$role) {
-            return redirect()->route('roles.index')
+            return redirect()->route('admin.roles.index')
                 ->with('error', 'فشل في تعديل الدور');
         }
 
@@ -63,7 +63,7 @@ class RoleController extends Controller
         $role = Role::query()->find($id, 'id');
 
         if (!$role) {
-            return redirect()->route('roles.index')
+            return redirect()->route('admin.roles.index')
                 ->with('error', 'فشل في تعديل الدور');
         }
 
@@ -71,7 +71,7 @@ class RoleController extends Controller
 
         $role->update($validated);
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
 
@@ -83,13 +83,13 @@ class RoleController extends Controller
         $role = Role::query()->find($id);
 
         if (!$role) {
-            return redirect()->route('roles.index')
+            return redirect()->route('admin.roles.index')
                 ->with('error', 'فشل في حذف الدور');
         }
 
         $role->delete();
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'تم حذف الدور بنجاح');
     }
 }

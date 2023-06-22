@@ -10,11 +10,12 @@
             </a>
         </li>
         <div class="justify_content_end">
-                
-                   
-            <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
+
+
+            <img src="{{ asset('users/' . auth()->user()->avatar) }}" style="width:50px; height:50px"
+                class="rounded circle">
             {{ auth()->user()->name }}
-        
+
         </div>
         {{-- <li class="nav-item">
             <a href={{ url('/admin/custom-messages') }} class="nav-link">
@@ -29,7 +30,7 @@
         </button>
         <ul class="dropdown-menu" style="">
             <li class="dropdown-item"><a href="#">Action</a></li>
-            <li class="dropdown-item"><a href="{{ route('settings.index') }}">الإعدادات</a></li>
+            <li class="dropdown-item"><a href="{{ route('admin.settings.index') }}">الإعدادات</a></li>
             <li class="dropdown-divider"></li>
             <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a
                     class="text-dark text-decoration-none" href="{{ route('logout') }}">تسجيل

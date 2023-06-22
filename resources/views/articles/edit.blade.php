@@ -16,7 +16,7 @@
         <div class="p-4 bg-white">
             <h2>تعديل مقال </h2>
 
-            <form action="{{ Route('articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('admin.articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row col-12">

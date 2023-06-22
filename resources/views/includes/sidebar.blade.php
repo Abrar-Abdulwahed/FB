@@ -31,13 +31,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href={{ route('custom-message.create') }} class="nav-link">
+                            <a href={{ route('admin.custom-message.create') }} class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>إنشاء رسالة مخصصة</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href={{ route('custom-message.index') }} class="nav-link">
+                            <a href={{ route('admin.custom-message.index') }} class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>قائمة الرسائل المخصصة</p>
                             </a>
@@ -45,15 +45,15 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">
+                    <a class="nav-link" href="{{ route('admin.users.index') }}">
                         <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('roles.index') }}">
+                    <a class="nav-link" href="{{ route('admin.roles.index') }}">
                         <i class="nav-icon fa-solid fa-lock"></i>الأدوار</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('articles.index') }}">
+                    <a class="nav-link" href="{{ route('admin.articles.index') }}">
                         <i class="nav-icon fa-solid fa-newspaper"></i>المقالات</a>
                 </li>
                 <li class="nav-item">
@@ -61,7 +61,7 @@
                         <i class="nav-icon fa-solid fa-tag"></i>Tags</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('settings.index') }}" class="nav-link">
+                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
                         <i class="nav-icon fa-solid fa-cog"></i>
                         <p>
                             الاعدادات

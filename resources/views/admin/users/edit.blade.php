@@ -17,7 +17,7 @@
             تعديل بيانات العضو
         </div>
         <div class="card-body">
-            <form action="{{ Route('users.update', $user->id) }}" method="post">
+            <form action="{{ Route('admin.users.update', $user->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="form-group">

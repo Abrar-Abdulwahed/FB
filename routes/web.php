@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\Admin\CustomMessageController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\ErrorController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TagController;
+use App\Http\Middleware\LockSite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::middleware([LockSite::class])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+// });
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -41,9 +48,9 @@ Route::prefix('auth')->group(function () {
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('auth')->as('admin.')->group(function () {
     Route::resource('settings', SettingController::class)->only('index', 'store');
-    Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index')->middleware('check_user');
+    Route::get('/', [AdminHomeController::class, 'index'])->name('index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
     Route::resource('users', UserController::class);
 
@@ -60,3 +67,4 @@ Route::get('testmail', function () {
 });
 Route::resource('tags', TagController::class);
 Route::get('/error', [ErrorController::class, 'error']);
+Route::get('/locked', [ErrorController::class, 'lock'])->name('locked');

@@ -48,7 +48,7 @@ class ArticleController extends Controller
 
         Article::query()->create($validated);
 
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
     }
 
@@ -60,7 +60,7 @@ class ArticleController extends Controller
         $article = Article::query()->find($id);
 
         if (!$article) {
-            return redirect()->route('articles.index')
+            return redirect()->route('admin.articles.index')
                 ->with('error', 'فشل في تعديل المقال');
         }
 
@@ -75,7 +75,7 @@ class ArticleController extends Controller
         $article = Article::query()->find($id, 'id');
 
         if (!$article) {
-            return redirect()->route('articles.index')
+            return redirect()->route('admin.articles.index')
                 ->with('error', 'فشل في تعديل المقال');
         }
 
@@ -95,7 +95,7 @@ class ArticleController extends Controller
 
         $article->update($validated);
 
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
 
@@ -107,13 +107,13 @@ class ArticleController extends Controller
         $article = Article::query()->find($id);
 
         if (!$article) {
-            return redirect()->route('articles.index')
+            return redirect()->route('admin.articles.index')
                 ->with('error', 'فشل في حذف الدور');
         }
 
         $article->delete();
 
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم حذف المقال بنجاح');
     }
 }
