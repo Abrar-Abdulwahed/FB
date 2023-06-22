@@ -76,4 +76,4 @@ Route::get('testmail', function () {
     // $name = "Khorasani Abrar";
     // Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
 });
-Route::get('/error', [ErrorController::class, 'error']);
+Route::get('/error', [ErrorController::class, 'error'])->middleware('auth');
