@@ -117,19 +117,19 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
+                                        <label for="active_site">حالة الموقع</label>
                                         <select class="form-control col-md-2" name="active_site" id="active_site">
-                                            <option value="">تفعيل الموقع</option>
+                                            <option value="">اختر حالة الموقع</option>
                                             <option value="active" @if ($settings['active_site'] == 'active') selected @endif>
-                                                مفعل
+                                                مفتوح
                                             </option>
                                             <option value="inactive" @if ($settings['active_site'] == 'inactive') selected @endif>
-                                                غير مفعل
+                                                مغلق
                                             </option>
                                         </select>
                                         <div class="form-group mt-4" id="reason_locked_div">
-                                            <label for="reason_locked">سبب إلغاء تفعيل الموقع</label>
-                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked"
-                                                placeholder="اكتب سبب إلغاء تفعيل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
+                                            <label for="reason_locked">سبب قفل الموقع</label>
+                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked" placeholder="اكتب سبب قفل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
                                             @error('reason_locked')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror

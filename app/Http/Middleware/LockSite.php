@@ -18,12 +18,13 @@ class LockSite
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // env('GOOGLE_REDIRECT'), env('FB_REDIRECT')
         $allowed = ['locked','login'];
-        if(!Setting::where('name', 'active_site')->first()?->value && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
+        if(Setting::where('name', 'active_site')->first()?->value === 'inactive' && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
             return redirect('/locked');
         }
-        elseif(Setting::where('name', 'active_site')->first()?->value && Route::is('locked')){
-            return redirect('404');
+        elseif(Setting::where('name', 'active_site')->first()?->value === 'active' && Route::is('locked')){
+            return abort(404);
         }
         return $next($request);
     }

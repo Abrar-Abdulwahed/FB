@@ -29,9 +29,9 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 Auth::routes(['verify' => true]);
 
 // Route::middleware([LockSite::class])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 // });
 // Route::get('/', function () {
 //     return view('welcome');
@@ -60,6 +60,7 @@ Route::prefix('admin')->middleware(['auth' , 'check_user'])->as('admin.')->group
     // articles routes
     Route::resource('articles', ArticleController::class)->except('show');
 });
+
 
 Route::resource('tags', TagController::class);
 Route::get('/error', [ErrorController::class, 'error']);
