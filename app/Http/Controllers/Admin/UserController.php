@@ -80,7 +80,6 @@ class UserController extends Controller
 
         // store image
         if ($request->hasFile('avatar')) {
-            dd('here');
             if ($user->avatar != null) {
                 Storage::disk('local')->delete('public/images/' . $user->avatar);
             }
