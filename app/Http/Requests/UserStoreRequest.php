@@ -22,10 +22,12 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'alpha', 'min:4', 'max:10'],
+            'name' => ['required', 'regex:/^[A-Za-z ]+$/', 'min:3', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6', 'max:35', 'confirmed'],
-            'roles' => ['required', 'array']
+            'roles' => ['required', 'array'],
+            'is_banned' => ['required', 'in:0,1'],
+            'banned_until' => ['required_if:is_banned,1', 'nullable', 'date']
         ];
     }
 }

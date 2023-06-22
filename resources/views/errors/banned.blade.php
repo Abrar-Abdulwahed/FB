@@ -5,8 +5,8 @@
 @endsection
 <div>
     
-    @if(Auth::user()->is_banned && Auth::user()->datetime == !null)
-    <div class="alert alert-danger"> محظور إلى غاية {{Auth::user()->datetime}} </div>
+    @if(Auth::user()->is_banned && Auth::user()->banned_until == !null)
+    <div class="alert alert-danger"> محظور إلى غاية {{Auth::user()->banned_until}} </div>
     @else 
     <div .........>محظور للأبد</div>
     @endif

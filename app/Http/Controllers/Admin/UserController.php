@@ -38,6 +38,8 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'is_banned' => $request->is_banned,
+            'banned_until' => $request->banned_until,
         ]);
 
         $user->roles()->sync($request->roles);
@@ -66,13 +68,15 @@ class UserController extends Controller
 
         $validated = $request->validated();
 
+        // dd($validated);
+
         $user->name = $validated['name'];
         $user->email = $validated['email'];
         if ($validated['password']) {
             $user->password = Hash::make($validated['password']);
         }
         $user->is_banned = $validated['is_banned'];
-        $user->datetime = $validated['is_banned'] === 'false' ? null : $validated['datetime'];
+        $user->banned_until = $validated['is_banned'] == 0 ? null : $validated['banned_until'];
 
         $user->save();
 

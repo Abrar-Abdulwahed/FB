@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label>كلمة المرور</label>
                     <input type="password" name="password" class="form-control"
-                        placeholder="if you don't want to change password leave it empty">
+                        placeholder="اتركها فارغة في حالة عدم التغيير">
                     @error('password')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -67,8 +67,10 @@
                     <div class="form-group col-6">
                         <label>حالة العضو</label>
                         <select class="form-control" name="is_banned">
-                            <option value="false" {{ $user->is_banned === 'false' ? 'selected' : '' }}>نشيط</option>
-                            <option value="true" {{ $user->is_banned === 'true' ? 'selected' : '' }}>محظور</option>
+                            <option value="0" {{ $user->is_banned == 0 ? 'selected' : '' }}>نشيط
+                            </option>
+                            <option value="1" {{ $user->is_banned == 1 ? 'selected' : '' }}>محظور
+                            </option>
                         </select>
                         @error('is_banned')
                             <p class="text-danger">{{ $message }}</p>
@@ -76,9 +78,9 @@
                     </div>
                     <div class="form-group col-6">
                         <label>تاريخ فك الحظر</label>
-                        <input type="date" name="datetime" class="form-control"
-                            value="{{ old('datetime', $user->datetime) }}">
-                        @error('datetime')
+                        <input type="datetime-local" name="banned_until" class="form-control"
+                            value="{{ old('banned_until', $user->banned_until) }}">
+                        @error('banned_until')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>

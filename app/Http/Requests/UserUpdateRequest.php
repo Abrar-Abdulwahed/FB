@@ -27,8 +27,8 @@ class UserUpdateRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore($this->user)],
             'password' => ['nullable', 'string', 'min:6', 'max:35', 'confirmed'],
             'roles' => ['required', 'array'],
-            'is_banned' => ['required', 'in:true,false'],
-            'datetime' => ['required_if:is_banned,true', 'nullable', 'date']
+            'is_banned' => ['required', 'in:0,1'],
+            'banned_until' => ['required_if:is_banned,1', 'nullable', 'date']
         ];
     }
 }

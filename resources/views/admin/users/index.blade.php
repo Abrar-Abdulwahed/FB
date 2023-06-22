@@ -35,8 +35,8 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }} </td>
                         <td>
-                            <span class="badge {{ $user->is_banned == 'true' ? 'bg-danger' : 'bg-success' }} p-3">
-                                {{ $user->is_banned == 'true' ? 'محظور' : 'نشيط' }}
+                            <span class="badge {{ $user->is_banned == 1 ? 'bg-danger' : 'bg-success' }} p-3">
+                                {{ $user->is_banned == 1 ? 'محظور' : 'نشيط' }}
 
                             </span>
                         </td>
