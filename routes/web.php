@@ -41,7 +41,7 @@ Route::prefix('auth')->group(function () {
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware(['auth' , 'check_user'])->group(function () {
     Route::resource('settings', SettingController::class)->only('index', 'store');
     Route::get('/', [AdminHomeController::class, 'index'])->name('admin.index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
