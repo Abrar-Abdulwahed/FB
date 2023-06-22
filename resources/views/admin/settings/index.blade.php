@@ -52,32 +52,31 @@
                 <div class="card card-dark card-outline card-outline-tabs">
                     <div class="card-header p-0 pt-1 bg-gray-light">
                         <ul class="nav nav-tabs" id="settings" role="tablist">
-                            <li
-                                class="nav-item {{ $errors->any(['site_name', 'site_description', 'site_logo']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link active" id="general-settings-tab" data-toggle="pill"
-                                    href="#general-settings" role="tab" aria-controls="general-settings"
-                                    aria-selected="true">إعدادات عامة</a>
+                            <li class="nav-item">
+                                <a class="nav-link  {{ $errors->hasAny(['site_name', 'site_description', 'site_logo', 'active_site', 'reason_locked']) ? 'bg-danger' : '' }}"
+                                    id="general-settings-tab" data-toggle="pill" href="#general-settings" role="tab"
+                                    aria-controls="general-settings" aria-selected="true">إعدادات عامة</a>
                             </li>
-                            <li
-                                class="nav-item {{ $errors->any(['google_client_id', 'google_client_secret', 'google_client_redirect', 'fb_client_id', 'fb_client_secret', 'fb_client_redirect']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="login-settings-tab" data-toggle="pill" href="#login-settings"
-                                    role="tab" aria-controls="login-settings" aria-selected="false">تسجيل الدخول</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['services.google_client_id', 'services.google_client_secret', 'services.google_client_redirect', 'services.facebook_client_id', 'services.facebook_client_secret', 'services.facebook_client_redirect']) ? 'bg-danger' : '' }}"
+                                    id="login-settings-tab" data-toggle="pill" href="#login-settings" role="tab"
+                                    aria-controls="login-settings" aria-selected="false">تسجيل الدخول</a>
                             </li>
-                            <li
-                                class="nav-item {{ $errors->any(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="smtp-settings-tab" data-toggle="pill" href="#smtp-settings"
-                                    role="tab" aria-controls="smtp-settings" aria-selected="false">SMTP</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name']) ? 'bg-danger' : '' }}"
+                                    id="smtp-settings-tab" data-toggle="pill" href="#smtp-settings" role="tab"
+                                    aria-controls="smtp-settings" aria-selected="false">SMTP</a>
                             </li>
-                            <li
-                                class="nav-item {{ $errors->any(['recaptcha_site_key', 'recaptcha_secret_key']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="recaptcha-settings-tab" data-toggle="pill"
-                                    href="#recaptcha-settings" role="tab" aria-controls="recaptcha-settings"
-                                    aria-selected="false">Google Recaptcha</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['recaptcha.api_site_key', 'recaptcha.api_secret_key']) ? 'bg-danger' : '' }}"
+                                    id="recaptcha-settings-tab" data-toggle="pill" href="#recaptcha-settings" role="tab"
+                                    aria-controls="recaptcha-settings" aria-selected="false">Google
+                                    Recaptcha</a>
                             </li>
                         </ul>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action={{ route('settings.store') }} enctype="multipart/form-data">
+                        <form method="POST" action={{ route('admin.settings.store') }} enctype="multipart/form-data">
                             @csrf
                             <div class="tab-content" id="settingsContent">
                                 <div class="tab-pane fade show active" id="general-settings" role="tabpanel"
@@ -97,8 +96,8 @@
                                                 <div class="img-preview">
                                                     <input type="file" id="file-1" accept="image/*" name="site_logo">
                                                     <label for="file-1" id="file-1-preview" class="w-100 h-100">
-                                                        <img src={{ asset('storage/' . $settings['site_logo']) ?? 'https://bit.ly/3ubuq5o' }}
-                                                            alt="">
+                                                        {{-- <img src={{ asset('storage/' . $settings->site_logo) ?? 'https://bit.ly/3ubuq5o' }}
+                                                            alt=""> --}}
                                                         <div>
                                                             <span>+</span>
                                                         </div>
@@ -117,6 +116,25 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="mt-4">
+                                        <label for="active_site">حالة الموقع</label>
+                                        <select class="form-control col-md-2" name="active_site" id="active_site">
+                                            <option value="">اختر حالة الموقع</option>
+                                            <option value="active" @if ($settings['active_site'] == 'active') selected @endif>
+                                                مفتوح
+                                            </option>
+                                            <option value="inactive" @if ($settings['active_site'] == 'inactive') selected @endif>
+                                                مغلق
+                                            </option>
+                                        </select>
+                                        <div class="form-group mt-4" id="reason_locked_div">
+                                            <label for="reason_locked">سبب قفل الموقع</label>
+                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked" placeholder="اكتب سبب قفل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
+                                            @error('reason_locked')
+                                                <p class="text-danger small">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="login-settings" role="tabpanel"
                                     aria-labelledby="login-settings-tab">
@@ -124,29 +142,34 @@
                                         <label>الفيسبوك</label>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label for="fb_client_id" class="text-muted">المعرف</label>
-                                                <input type="text" name="fb_client_id" class="form-control"
-                                                    id="fb_client_id" placeholder="ادخل معرف الفيسبوك "
-                                                    value="{{ $settings['fb_client_id'] ?? '' }}">
-                                                @error('fb_client_id')
+                                                <label for="services.facebook_client_id" class="text-muted">المعرف</label>
+                                                <input type="text" name="services.facebook_client_id"
+                                                    class="form-control" id="services.facebook_client_id"
+                                                    placeholder="ادخل معرف الفيسبوك "
+                                                    value="{{ $settings['services.facebook_client_id'] ?? '' }}">
+                                                @error('services.facebook_client_id')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="fb_client_secret" class="text-muted">كلمة الأمان</label>
-                                                <input type="text" name="fb_client_secret" class="form-control"
-                                                    id="fb_client_secret" placeholder="ادخل كلمة أمان الفيسبوك "
-                                                    value="{{ $settings['fb_client_secret'] ?? '' }}">
-                                                @error('fb_client_secret')
+                                                <label for="services.facebook_client_secret" class="text-muted">كلمة
+                                                    الأمان</label>
+                                                <input type="text" name="services.facebook_client_secret"
+                                                    class="form-control" id="services.facebook_client_secret"
+                                                    placeholder="ادخل كلمة أمان الفيسبوك "
+                                                    value="{{ $settings['services.facebook_client_secret'] ?? '' }}">
+                                                @error('services.facebook_client_secret')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="fb_client_redirect" class="text-muted">رابط التوجيه</label>
-                                                <input type="text" name="fb_client_redirect" class="form-control"
-                                                    id="fb_client_redirect" placeholder="ادخل رابط التوجيه"
-                                                    value="{{ $settings['fb_client_redirect'] ?? '' }}">
-                                                @error('fb_client_redirect')
+                                                <label for="services.facebook_client_redirect" class="text-muted">رابط
+                                                    التوجيه</label>
+                                                <input type="text" name="services.facebook_client_redirect"
+                                                    class="form-control" id="services.facebook_client_redirect"
+                                                    placeholder="ادخل رابط التوجيه"
+                                                    value="{{ $settings['services.facebook_client_redirect'] ?? '' }}">
+                                                @error('services.facebook_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -156,31 +179,35 @@
                                         <label>جوجل</label>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label for="google_client_id" class="text-muted">المعرف</label>
-                                                <input type="text" name="google_client_id" class="form-control"
-                                                    id="google_client_id" placeholder="ادخل معرف جوجل "
-                                                    value="{{ $settings['google_client_id'] ?? '' }}">
-                                                @error('google_client_id')
+                                                <label for="services.google_client_id" class="text-muted">المعرف</label>
+                                                <input type="text" name="services.google_client_id"
+                                                    class="form-control" id="services.google_client_id"
+                                                    placeholder="ادخل معرف جوجل "
+                                                    value="{{ $settings['services.google_client_id'] ?? '' }}">
+                                                @error('services.google_client_id')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="google_client_secret" class="text-muted">كلمة
+                                                <label for="services.google_client_secret" class="text-muted">كلمة
                                                     الأمان</label>
-                                                <input type="text" name="google_client_secret" class="form-control"
-                                                    id="google_client_secret" placeholder="ادخل كلمة أمان جوجل "
-                                                    value="{{ $settings['google_client_secret'] ?? '' }}">
-                                                @error('google_client_secret')
+                                                <input type="text" name="services.google_client_secret"
+                                                    class="form-control" id="services.google_client_secret"
+                                                    placeholder="ادخل كلمة أمان جوجل "
+                                                    value="{{ $settings['services.google_client_secret'] ?? '' }}">
+                                                @error('services.google_client_secret')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="google_client_redirect" class="text-muted"> رابط التوجيه
+                                                <label for="services.google_client_redirect" class="text-muted"> رابط
+                                                    التوجيه
                                                 </label>
-                                                <input type="text" name="google_client_redirect" class="form-control"
-                                                    id="google_client_redirect" placeholder="ادخل رابط التوجيه"
-                                                    value="{{ $settings['google_client_redirect'] ?? '' }}">
-                                                @error('google_client_redirect')
+                                                <input type="text" name="services.google_client_redirect"
+                                                    class="form-control" id="services.google_client_redirect"
+                                                    placeholder="ادخل رابط التوجيه"
+                                                    value="{{ $settings['services.google_client_redirect'] ?? '' }}">
+                                                @error('services.google_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -263,20 +290,20 @@
                                     aria-labelledby="recaptcha-settings-tab">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="recaptcha_site_key" class="text-muted">المعرف</label>
-                                            <input type="text" name="recaptcha_site_key" class="form-control"
-                                                id="recaptcha_site_key" placeholder="ادخل معرف الكابتشا "
-                                                value="{{ $settings['recaptcha_site_key'] ?? '' }}">
-                                            @error('recaptcha_site_key')
+                                            <label for="recaptcha.api_site_key" class="text-muted">المعرف</label>
+                                            <input type="text" name="recaptcha[api_site_key]" class="form-control"
+                                                id="recaptcha.api_site_key" placeholder="ادخل معرف الكابتشا "
+                                                value="{{ $settings['recaptcha.api_site_key'] ?? '' }}">
+                                            @error('recaptcha.api_site_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="recaptcha_secret_key" class="text-muted">كلمة الأمان</label>
-                                            <input type="text" name="recaptcha_secret_key" class="form-control"
-                                                id="recaptcha_secret_key" placeholder="ادخل كلمة أمان الكابتشا "
-                                                value="{{ $settings['recaptcha_secret_key'] ?? '' }}">
-                                            @error('recaptcha_secret_key')
+                                            <label for="recaptcha.api_secret_key" class="text-muted">كلمة الأمان</label>
+                                            <input type="text" name="recaptcha[api_secret_key]" class="form-control"
+                                                id="recaptcha.api_secret_key" placeholder="ادخل كلمة أمان الكابتشا "
+                                                value="{{ $settings['recaptcha.api_secret_key'] ?? '' }}">
+                                            @error('recaptcha.api_secret_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -287,25 +314,37 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 @endsection
 @push('js')
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
-        function previewBeforeUpload(id) {
-            document.querySelector("#" + id).addEventListener("change", function(e) {
-                if (e.target.files.length == 0) {
-                    return;
-                }
-                let file = e.target.files[0];
-                let url = URL.createObjectURL(file);
-                document.querySelector("#" + id + "-preview div").innerText = file.name;
-                document.querySelector("#" + id + "-preview img").src = url;
-            });
-        }
+        $(document).ready(function() {
+            if ($('#active_site').val() === 'inactive') {
+                $('#reason_locked').prop('disabled', false);
+            } else {
+                $('#reason_locked').val('').prop('disabled', true);
+            }
 
-        previewBeforeUpload("file-1");
+            $('#active_site').change(function() {
+                var selectedValue = $(this).val();
+                if (selectedValue === 'inactive') {
+                    $('#reason_locked').prop('disabled', false);
+                } else {
+                    $('#reason_locked').val('').prop('disabled', true);
+                }
+            });
+            // ClassicEditor
+            //     .create($('#reason_locked').get(0))
+            //     .then(editor => {
+            //         console.log(editor);
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
+        });
     </script>
+    <script src="{{ asset('js/previewImage.js') }}"></script>
 @endpush

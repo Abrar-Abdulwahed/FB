@@ -2,7 +2,7 @@
 
 @section('title', 'قائمة الأدوار')
 @section('content')
-    <a href={{ route('roles.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
+    <a href={{ route('admin.roles.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
         إضافة</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
@@ -32,7 +32,7 @@
                             <td>{{ $role->name }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="mx-1 btn btn-success"><i
+                                    <a href="{{ route('admin.roles.edit', $role->id) }}" class="mx-1 btn btn-success"><i
                                             class="fas fa-edit"></i></a>
                                     <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#confirm-delete-{{ $role->id }}">
@@ -54,7 +54,7 @@
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default btn-md"
                                                         data-dismiss="modal">إغلاق</button>
-                                                    <form action="{{ route('roles.destroy', $role->id) }}"
+                                                    <form action="{{ route('admin.roles.destroy', $role->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

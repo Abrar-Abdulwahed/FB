@@ -34,7 +34,7 @@ class CustomMessageController extends Controller
     {
         try{
             $message = CustomMessage::create($request->validated());
-            return redirect()->route('custom-message.index')->with('success', 'تم إضافة الرسالة بنجاح');
+            return redirect()->route('admin.custom-message.index')->with('success', 'تم إضافة الرسالة بنجاح');
         }catch(\Throwable $e){
             return redirect()->back()->with('error', 'فشل في إضافة الرسالة');
         }
@@ -60,7 +60,7 @@ class CustomMessageController extends Controller
     {
         try{
             CustomMessage::find($id)->update($request->validated());
-            return redirect()->route('custom-message.index')->with('success', 'تم تعديل الرسالة بنجاح');
+            return redirect()->route('admin.custom-message.index')->with('success', 'تم تعديل الرسالة بنجاح');
         }catch(\Throwable $e){
             return redirect()->back()->with('error', 'فشل في تعديل الرسالة');
         }

@@ -8,7 +8,7 @@ trait AvatarTrait
     public function uploadAvatar(Request $request ,$folderName){
         if($request->avatar){
             $avatar = $request->file('avatar')->getClientOriginalName();
-            $path = $request->file('avatar')->storeAs($folderName,$avatar,'fatma');
+            $path = $request->file('avatar')->storeAs($folderName,$avatar,'avatars');
             return $path;
         }
     }

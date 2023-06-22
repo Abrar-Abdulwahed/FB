@@ -3,67 +3,76 @@
 @section('title')
     الأعضاء
 @endsection
-<div class="container-fluid">
-
-    <div class="col-lg-12">
-        @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible  show" role="alert">
-                <strong>Success :</strong><?php echo Session::get('success'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-        <a href="{{ route('articles.create') }}" class="btn btn-sm btn-success my-3" title="add"><i
-                style="font-size: 15px;" class="fa-solid fa-plus p-2 m-1"> </i>اضافة مقال</a>
-        <div class="card">
-            <div class="card-block p-4">
-                <table class="table table-striped text-center" id="articles">
-                    <thead>
-                        <tr>
-                            <th>العنوان</th>
-                            <th>الوصف</th>
-                            <th>المحتوى</th>
-                            <th>الصورة</th>
-                            <th>اجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    <tbody>
-                        @foreach ($articles as $article)
-                            <tr>
-                                <td>{{ $article->title }}</td>
-                                <td>{{ \Str::limit($article->description, 50, '...') }} </td>
-                                <td>{{ \Str::limit($article->content, 50, '...') }} </td>
-                                <td>
-                                    <img src="{{ $article->image_path }}" alt="{{ $article->title }}"
-                                        class="img-fluid rounded">
-                                </td>
-                                <td>
-
-                                    <form action="{{ route('articles.destroy', $article['id']) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-sm btn-info"
-                                            title="edit"><i style="font-size: 15px;"
-                                                class="fa-solid fa-pen p-1"></i></a>
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('{{ __('Are you sure you want delete this articles?') }}')"><i
-                                                style="font-size: 15px;" class="fa-solid fa-trash"></i></button>
-                                    </form>
-
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+<a href={{ route('admin.articles.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
+    اضافة مقال</a>
+<div class="clearfix"></div>
+@include('partials.session')
+<div class="card shadow-sm">
+    <div class="card-header bg-dark">
+        الأعضاء
     </div>
+    <div class="card-body">
+
+        <table class="table table-striped text-center" id="articles">
+            <thead>
+                <tr>
+                    <th>العنوان</th>
+                    <th>الصورة</th>
+                    <th>اجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tbody>
+                @foreach ($articles as $article)
+                    <tr>
+                        <td><a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                        <td>
+
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
+                                width="70px" height="70px">
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.articles.edit', $article->id) }}" class="mx-1 btn btn-success"><i
+                                    class="fas fa-edit"></i></a>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                data-target="#confirm-delete-{{ $article->id }}">
+                                <i class="fas fa-trash p-2"></i>
+                            </button>
+                            <div class="modal fade" id="confirm-delete-{{ $article->id }}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <p class="modal-title">تأكيد الحذف</p>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <p>هل أنت متأكد من حذف هذا العنصر حذف نهائي؟</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default btn-md"
+                                                data-dismiss="modal">إغلاق</button>
+                                            <form action="{{ route('admin.articles.destroy', $article->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        </td>
+                    </tr>
+                @endforeach
+
+            </tbody>
+            </tbody>
+        </table>
+
+    </div>
+
 </div>
 @endsection

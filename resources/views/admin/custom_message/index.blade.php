@@ -2,7 +2,7 @@
 
 @section('title', 'قائمة الرسائل المخصصة')
 @section('content')
-    <a href={{ route('custom-message.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
+    <a href={{ route('admin.custom-message.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
         إضافة</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
@@ -39,8 +39,8 @@
                             <td>{{ \Str::limit($item->text, 50, '...') }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('custom-message.edit', $item->id) }}" class="mx-1 btn btn-success"><i
-                                            class="fas fa-edit"></i></a>
+                                    <a href="{{ route('admin.custom-message.edit', $item->id) }}"
+                                        class="mx-1 btn btn-success"><i class="fas fa-edit"></i></a>
                                     <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#confirm-delete-{{ $item->id }}">
                                         <i class="fas fa-trash"></i>
@@ -61,7 +61,7 @@
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default btn-md"
                                                         data-dismiss="modal">إغلاق</button>
-                                                    <form action="{{ route('custom-message.destroy', $item->id) }}"
+                                                    <form action="{{ route('admin.custom-message.destroy', $item->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

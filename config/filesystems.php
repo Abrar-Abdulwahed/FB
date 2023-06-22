@@ -44,7 +44,7 @@ return [
             'throw' => false,
         ],
 
-        'fatma' => [
+        'avatars' => [
             'driver' => 'local',
             'root' => public_path('users'),
             'url' => env('APP_URL').'/storage',

@@ -23,8 +23,8 @@ class TagValidation extends FormRequest
     {
         return [
             //
-            'name' => ['required', 'alpha', 'min:4', 'max:10'],
-            'slug' => ['required', 'string'],
+            'name' => 'required',
+            'slug' => 'required',
            
         ];
     }

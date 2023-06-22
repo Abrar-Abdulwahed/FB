@@ -9,16 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CustomMessageMail extends Mailable
+class WelcomeUser extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user;
     /**
      * Create a new message instance.
      */
-    public function __construct(private $name)
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -27,8 +28,7 @@ class CustomMessageMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Custom Message',
-            from: new Address('mailtrap@gmail.com', 'JJhon'),
+            subject: 'Welcome User',
         );
     }
 
@@ -38,8 +38,7 @@ class CustomMessageMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.register.welcome_message',
-            with: ['name' => $this->name],
+            markdown: 'mail.welcome_user',
         );
     }
 

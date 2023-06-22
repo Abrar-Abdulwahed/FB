@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'تحرير رسائل مخصصة')
 @section('content')
-    <a href={{ route('custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
+    <a href={{ route('admin.custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -14,7 +14,7 @@
             تحرير رسالة مخصصة
         </div>
         <div class="card-body">
-            <form id="quickForm" method="POST" action={{ route('custom-message.update', $message) }}>
+            <form id="quickForm" method="POST" action={{ route('admin.custom-message.update', $message) }}>
                 @method('PUT')
                 @csrf
                 <div class="form-group">

@@ -67,14 +67,5 @@
 @endsection
 
 @push('scripts')
-@if (session('errors') || session('error'))
-    <script>
-        Swal.fire({
-            title: 'خطأ!',
-            text: 'فشل تسجيل الدخول',
-            icon: 'error',
-            confirmButtonText: 'المحاولة مجددا'
-        })
-    </script>
-@endif
+@include('partials.alerts')
 @endpush

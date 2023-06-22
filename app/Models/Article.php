@@ -16,15 +16,6 @@ class Article extends Model
         'slug',
         'description',
         'content',
-        'image',
+        'image'
     ];
-
-    public function imagePath(): Attribute
-    {
-        if ($this->image) {
-            return Attribute::make(
-                get: fn ($value) => Storage::url('images/' . $this->image),
-            );
-        }
-    }
 }
