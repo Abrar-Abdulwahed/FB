@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\User\SettingController as UserSettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Tags
     Route::resource('tags',TagController::class);
 
+});
+
+/* Route::prefix('user')->group(function(){
+    Route::get('/settings',[UserSettingController::class,'index'])->name('settings.index');
+    Route::get('/settings',[UserSettingController::class,'index'])->name('settings.index');
+}); */
+
+Route::prefix('user')->group(function(){
+    Route::resource('settings',UserSettingController::class);
 });
 
 Route::get('testmail', function () {

@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->update($request->all());
+        //$user->update($request->all());
 
         $user->roles()->sync($request->roles);
 
