@@ -30,6 +30,7 @@ class SettingController extends Controller
      */
     public function store(SettingRequest $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try{
             $pathInDB = Setting::where('name', 'site_logo')->first()->value;
@@ -48,14 +49,14 @@ class SettingController extends Controller
                 'site_logo'             => $path,
                 'active_site'           => $request?->active_site ?? false,
                 'reason_locked'         => $request?->active_site === 'active' ? '' : $request?->reason_locked,
-                'google_client_id'      => $request?->google_client_id,
-                'google_client_secret'  => $request?->google_client_secret,
-                'google_client_redirect'=> $request?->google_client_redirect,
-                'fb_client_id'          => $request?->fb_client_id,
-                'fb_client_secret'      => $request?->fb_client_secret,
-                'fb_client_redirect'    => $request?->fb_client_redirect,
-                'recaptcha_site_key'    => $request?->recaptcha_site_key,
-                'recaptcha_secret_key'  => $request?->recaptcha_secret_key,
+                'services.google_client_id'      => $request?->google_client_id,
+                'services.google_client_secret'  => $request?->google_client_secret,
+                'services.google_client_redirect'=> $request?->google_client_redirect,
+                'services.facebook_client_id'          => $request?->fb_client_id,
+                'services.facebook_client_secret'      => $request?->fb_client_secret,
+                'services.facebook_client_redirect'    => $request?->fb_client_redirect,
+                'recaptcha.api_site_key'    => $request?->recaptcha_site_key,
+                'recaptcha.api_secret_key'  => $request?->recaptcha_secret_key,
                 'mail_mailer'           => $request?->mail_mailer,
                 'mail_host'             => $request?->mail_host,
                 'mail_port'             => $request?->mail_port,
