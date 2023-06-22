@@ -27,7 +27,7 @@ class SettingRequest extends FormRequest
             'site_description'      => 'required|string',
             'site_logo'             => 'nullable|image|mimes:png',
             'active_site'           => 'required|in:active,inactive',
-            'reason_locked'         => $this->input('active_site') === 'active' ? 'nullable' : 'required',
+            'reason_locked'         => 'required_if:active_site,inactive|nullable',
             'google_client_id'      => 'required|string',
             'google_client_secret'  => 'required|string',
             'google_client_redirect'=> 'required|url',
