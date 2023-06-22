@@ -119,6 +119,6 @@ class UserController extends Controller
     {
         //
         User::where('id', $id)->delete();
-        return redirect()->back()->with(['success' => 'User is deleted successfully']);
+        return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
     }
 }

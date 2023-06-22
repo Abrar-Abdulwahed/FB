@@ -6,14 +6,7 @@
 <div class="container-fluid">
 
     <div class="col-lg-12">
-        @if (Session::has('success'))
-            <div class="alert alert-success alert-dismissible  show" role="alert">
-                <strong>Success :</strong><?php echo Session::get('success'); ?>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
+        @include('partials.session')
         <a href="{{ route('articles.create') }}" class="btn btn-sm btn-success my-3" title="add"><i
                 style="font-size: 15px;" class="fa-solid fa-plus p-2 m-1"> </i>اضافة مقال</a>
         <div class="card">
