@@ -31,7 +31,7 @@
                 <tr>
                     <td>{{ $faq->id }}</td>
                     <td>{{ $faq->title }}</td>
-                    <td>{{ $faq->answer }} </td>
+                    <td>{!! $faq->answer !!} </td>
                     <td>          
                         <a href="{{ route('faqs.edit', $faq->id) }}" class="mx-1 btn btn-success"><i
                             class="fas fa-edit"></i></a>
