@@ -8,17 +8,9 @@ use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 use Cocur\Slugify\Slugify;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth')->except('index', 'show');
-    // }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $articles = Article::query()->paginate(5);
@@ -49,8 +41,9 @@ class ArticleController extends Controller
 
         // store image
         if ($request->hasFile('image')) {
-            $request->file('image')->store('public/images');
-            $validated['image'] = $request->file('image')->hashName();
+            $filename = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('', $filename, 'public');
+            $validated['image'] = $path;
         }
 
         Article::query()->create($validated);
@@ -109,10 +102,11 @@ class ArticleController extends Controller
         // store image
         if ($request->hasFile('image')) {
             if ($article->image) {
-                Storage::disk('local')->delete('public/images/' . $article->image);
+                //Remove old image
+                Storage::disk('public')->delete($article->image);
             }
-            $request->file('image')->store('public/images');
-            $validated['image'] = $request->file('image')->hashName();
+            $filename = $request->file('image')->getClientOriginalName();
+            $validated['image'] = $request->file('image')->storeAs('', $filename, 'public');
         }
 
         $article->update($validated);

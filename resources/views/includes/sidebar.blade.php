@@ -54,6 +54,10 @@
                         <i class="nav-icon fa-solid fa-newspaper"></i>المقالات</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('pages.index') }}">
+                        <i class="nav-icon fa-solid fa-newspaper"></i>الصفحات</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('tags.index') }}">
                         <i class="nav-icon fa-solid fa-tag"></i>Tags</a>
                 </li>

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    الأعضاء
+    الصفحات
 @endsection
-<a href={{ route('articles.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
-    اضافة مقال</a>
+<a href={{ route('pages.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
+    اضافة صفحة</a>
 <div class="clearfix"></div>
 @include('partials.session')
 <div class="card shadow-sm">
@@ -13,7 +13,7 @@
     </div>
     <div class="card-body">
 
-        <table class="table table-striped text-center" id="articles">
+        <table class="table table-striped text-center" id="pages">
             <thead>
                 <tr>
                     <th>العنوان</th>
@@ -24,22 +24,21 @@
             <tbody>
 
             <tbody>
-                @foreach ($articles as $article)
+                @foreach ($pages as $page)
                     <tr>
-                        <td><a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                        <td><a href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a></td>
                         <td>
-
-                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
-                                width="70px" height="70px">
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $page->title }}" width="70px"
+                                height="70px">
                         </td>
                         <td>
-                            <a href="{{ route('articles.edit', $article->id) }}" class="mx-1 btn btn-success"><i
+                            <a href="{{ route('pages.edit', $page->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                data-target="#confirm-delete-{{ $article->id }}">
+                                data-target="#confirm-delete-{{ $page->id }}">
                                 <i class="fas fa-trash p-2"></i>
                             </button>
-                            <div class="modal fade" id="confirm-delete-{{ $article->id }}">
+                            <div class="modal fade" id="confirm-delete-{{ $page->id }}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -55,7 +54,7 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('articles.destroy', $article->id) }}" method="POST">
+                                            <form action="{{ route('pages.destroy', $page->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark btn-md">نعم</button>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
@@ -49,6 +50,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->group(function () {
 
     // articles routes
     Route::resource('articles', ArticleController::class)->except(['show']);
+
+    // pages routes
+    Route::resource('pages', PageController::class)->except(['show']);
     // roles routes
     Route::resource('roles', RoleController::class)->except('show');
 });
@@ -60,8 +64,12 @@ Route::get('testmail', function () {
 
 // articles routes for visitors
 // Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+
 Route::get('admin/articles/{slug}', [ArticleController::class, 'show'])
     ->name('articles.show')->middleware('auth');
+
+Route::get('admin/pages/{slug}', [PageController::class, 'show'])
+    ->name('pages.show')->middleware('auth');
 
 
 Route::resource('tags', TagController::class);
