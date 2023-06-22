@@ -17,7 +17,7 @@
             @csrf
             <div class="form-group">
                 <label>البريد الاكتروني</label>
-                <input type="email" name="email" value="{{ $user->email }}" class="form-control">
+                <input type="email" name="email" value="{{ old('email', $user->email) }}" class="form-control">
                 @error('email')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

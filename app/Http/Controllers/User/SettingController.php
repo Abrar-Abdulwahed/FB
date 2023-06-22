@@ -73,7 +73,7 @@ class SettingController extends Controller
             $data['avatar'] = $path;
             Storage::disk('avatars')->delete($user->avatar); 
 
-            $user->update(['avatar' => $path]);
+            $user->update([ 'avatar' => $path]);
         }
 
         if(empty(Hash::check($data['current_password'],Auth::user()->password))){
