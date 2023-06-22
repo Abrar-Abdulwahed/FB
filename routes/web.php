@@ -61,10 +61,6 @@ Route::prefix('admin')->middleware(['auth' , 'check_user'])->as('admin.')->group
     Route::resource('articles', ArticleController::class)->except('show');
 });
 
-Route::get('testmail', function () {
-    // $name = "Khorasani Abrar";
-    // Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
-});
 Route::resource('tags', TagController::class);
 Route::get('/error', [ErrorController::class, 'error']);
 Route::get('/locked', [ErrorController::class, 'lock'])->name('locked');
