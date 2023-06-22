@@ -2,11 +2,11 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info text-center">
-                
-                   
-                    <img src="{{ asset('users/'.auth()->user()->avatar) }}" class="rounded circle">
-                    {{ auth()->user()->name }}
-                
+
+
+                <img src="{{ asset('users/' . auth()->user()->avatar) }}" class="rounded circle">
+                {{ auth()->user()->name }}
+
             </div>
         </div>
 
@@ -60,7 +60,14 @@
                     <a class="nav-link" href="{{ route('tags.index') }}">
                         <i class="nav-icon fa-solid fa-tag"></i>Tags</a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="{{ route('settings.index') }}" class="nav-link">
+                        <i class="nav-icon fa-solid fa-cog"></i>
+                        <p>
+                            الاعدادات
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>

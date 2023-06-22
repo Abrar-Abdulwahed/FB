@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Setting;
+use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
+    use ImageTrait;
         /**
      * Display a listing of the resource.
      */
@@ -32,12 +34,11 @@ class SettingController extends Controller
         try{
             $pathInDB = Setting::where('name', 'site_logo')->first()->value;
             if($request->hasFile('site_logo')){
-                if($pathInDB !== ''){
+                if($pathInDB !== null){
                     //Remove old image
                     Storage::disk('public')->delete($pathInDB);
                 }
-                $filename = $request->file('site_logo')->getClientOriginalName();
-                $path = $request->file('site_logo')->storeAs('', $filename, 'public');
+                $path = $this->uploadImage($request->file('site_logo'), 'public');
             }else{
                 $path = $pathInDB ?? '';
             }
@@ -68,7 +69,7 @@ class SettingController extends Controller
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         }catch(\Throwable $e){
             DB::rollback();
-            return redirect()->back()->withError('error', 'فشل في تعديل الرسالة');
+            return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
         }
     }
 }

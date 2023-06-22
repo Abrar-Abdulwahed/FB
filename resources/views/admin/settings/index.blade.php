@@ -52,27 +52,26 @@
                 <div class="card card-dark card-outline card-outline-tabs">
                     <div class="card-header p-0 pt-1 bg-gray-light">
                         <ul class="nav nav-tabs" id="settings" role="tablist">
-                            <li
-                                class="nav-item {{ $errors->any(['site_name', 'site_description', 'site_logo']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link active" id="general-settings-tab" data-toggle="pill"
-                                    href="#general-settings" role="tab" aria-controls="general-settings"
-                                    aria-selected="true">إعدادات عامة</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->isEmpty() ? 'active' : '' }}" id="general-settings-tab"
+                                    data-toggle="pill" href="#general-settings" role="tab"
+                                    aria-controls="general-settings" aria-selected="true">إعدادات عامة</a>
                             </li>
-                            <li
-                                class="nav-item {{ $errors->any(['google_client_id', 'google_client_secret', 'google_client_redirect', 'fb_client_id', 'fb_client_secret', 'fb_client_redirect']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="login-settings-tab" data-toggle="pill" href="#login-settings"
-                                    role="tab" aria-controls="login-settings" aria-selected="false">تسجيل الدخول</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['google_client_id', 'google_client_secret', 'google_client_redirect', 'fb_client_id', 'fb_client_secret', 'fb_client_redirect']) ? 'bg-danger' : '' }}"
+                                    id="login-settings-tab" data-toggle="pill" href="#login-settings" role="tab"
+                                    aria-controls="login-settings" aria-selected="false">تسجيل الدخول</a>
                             </li>
-                            <li
-                                class="nav-item {{ $errors->any(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="smtp-settings-tab" data-toggle="pill" href="#smtp-settings"
-                                    role="tab" aria-controls="smtp-settings" aria-selected="false">SMTP</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name']) ? 'bg-danger' : '' }}"
+                                    id="smtp-settings-tab" data-toggle="pill" href="#smtp-settings" role="tab"
+                                    aria-controls="smtp-settings" aria-selected="false">SMTP</a>
                             </li>
-                            <li
-                                class="nav-item {{ $errors->any(['recaptcha_site_key', 'recaptcha_secret_key']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="recaptcha-settings-tab" data-toggle="pill"
-                                    href="#recaptcha-settings" role="tab" aria-controls="recaptcha-settings"
-                                    aria-selected="false">Google Recaptcha</a>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['recaptcha_site_key', 'recaptcha_secret_key']) ? 'bg-danger' : '' }}"
+                                    id="recaptcha-settings-tab" data-toggle="pill" href="#recaptcha-settings" role="tab"
+                                    aria-controls="recaptcha-settings" aria-selected="false">Google
+                                    Recaptcha</a>
                             </li>
                         </ul>
                     </div>
@@ -142,7 +141,8 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="fb_client_redirect" class="text-muted">رابط التوجيه</label>
+                                                <label for="fb_client_redirect" class="text-muted">رابط
+                                                    التوجيه</label>
                                                 <input type="text" name="fb_client_redirect" class="form-control"
                                                     id="fb_client_redirect" placeholder="ادخل رابط التوجيه"
                                                     value="{{ $settings['fb_client_redirect'] ?? '' }}">
@@ -287,25 +287,10 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 @endsection
 @push('js')
-    <script>
-        function previewBeforeUpload(id) {
-            document.querySelector("#" + id).addEventListener("change", function(e) {
-                if (e.target.files.length == 0) {
-                    return;
-                }
-                let file = e.target.files[0];
-                let url = URL.createObjectURL(file);
-                document.querySelector("#" + id + "-preview div").innerText = file.name;
-                document.querySelector("#" + id + "-preview img").src = url;
-            });
-        }
-
-        previewBeforeUpload("file-1");
-    </script>
+    <script src="{{ asset('js/previewImage.js') }}"></script>
 @endpush
