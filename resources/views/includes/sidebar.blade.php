@@ -13,8 +13,8 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item @if(Route::is('admin.index'))  ? 'active' : '' bg-primary @endif">
+                    <a href="{{ route('admin.index')}}" class="nav-link">
                         <i class="nav-icon fa-solid fa-house"></i>
                         <p>
                             الصفحة الرئيسية
@@ -29,36 +29,62 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                    <ul class="">
+                        <li class="nav-item @if(Route::is('custom-message.create')) ? 'active' : '' bg-primary @endif">
                             <a href={{ route('custom-message.create') }} class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <p>إنشاء رسالة مخصصة</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @if(Route::is('custom-message.index')) ? 'active' : '' bg-primary @endif ">
                             <a href={{ route('custom-message.index') }} class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
                                 <p>قائمة الرسائل المخصصة</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">
-                        <i class="nav-icon fa-solid fa-user"></i>الأعضاء</a>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-user"></i
+                        <p>
+                             ادارة المستخدمين
+                             <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="">
+                        <li class="nav-item @if(Route::is('users.index'))  ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('users.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}الأعضاء
+                            </a>
+                        </li>
+                        <li class="nav-item @if(Route::is('roles.index'))  ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('roles.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}الأدوار
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('roles.index') }}">
-                        <i class="nav-icon fa-solid fa-lock"></i>الأدوار</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('articles.index') }}">
-                        <i class="nav-icon fa-solid fa-newspaper"></i>المقالات</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tags.index') }}">
-                        <i class="nav-icon fa-solid fa-tag"></i>Tags</a>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-newspaper"></i>
+                        <p>
+                                ادارة المدونات
+                             <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="">
+                        <li class="nav-item @if(Route::is('articles.index'))  ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('articles.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
+                            </a>
+                        </li>
+                        <li class="nav-item @if(Route::is('tags.index'))  ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('tags.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}Tags
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item">
