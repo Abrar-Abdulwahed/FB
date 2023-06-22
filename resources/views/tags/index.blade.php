@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 @section('title') 
-Slugs
+Tags
 @endsection
 <a href={{ route('tags.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     إضافة</a>
@@ -14,7 +14,7 @@ Slugs
 @endif
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        Slugs  
+        Tags  
     </div>
     <div class="card-body">
         <table class="table table-striped text-center" id="tags">

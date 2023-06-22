@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('title') 
- Edit Slug
+ تعديل Tag
 @endsection
 @section('content')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        Edit Slug  
+        تعديل Tag  
     </div>
     <div class="card-body">
         <form action="{{ Route('tags.update',$tag->id) }}" method="post">

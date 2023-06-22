@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-     Add new tag
+     اضافة Tag
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
@@ -15,7 +15,7 @@
 
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
-                Add new tag
+                اضافة Tag
             </div>
             <div class="card-body">
                 <form action="{{ Route('tags.store') }}" method="post">

@@ -5,12 +5,12 @@ use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,11 +52,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // articles routes
     Route::resource('articles', ArticleController::class)->except('show');
+    
+    // Tags
+    Route::resource('tags',TagController::class);
+
 });
 
 Route::get('testmail', function () {
     // $name = "Khorasani Abrar";
     // Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
 });
-Route::resource('tags', TagController::class);
 Route::get('/error', [ErrorController::class, 'error']);
