@@ -116,18 +116,24 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-check mt-4">
-                                        <input class="form-check-input" type="checkbox" id="active_site" name="active_site"
-                                            {{ $settings['active_site'] ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="active_site">تفعيل الموقع</label>
-                                    </div>
-                                    <div class="form-group mt-4" id="reason_locked_div"style="display: none;">
-                                        <label for="reason_locked">سبب إلغاء تفعيل الموقع</label>
-                                        <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked"
-                                            placeholder="اكتب سبب إلغاء تفعيل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
-                                        @error('reason_locked')
-                                            <p class="text-danger small">{{ $message }}</p>
-                                        @enderror
+                                    <div class="mt-4">
+                                        <select class="form-control col-md-2" name="active_site" id="active_site">
+                                            <option value="">تفعيل الموقع</option>
+                                            <option value="active" @if ($settings['active_site'] == 'active') selected @endif>
+                                                مفعل
+                                            </option>
+                                            <option value="inactive" @if ($settings['active_site'] == 'inactive') selected @endif>
+                                                غير مفعل
+                                            </option>
+                                        </select>
+                                        <div class="form-group mt-4" id="reason_locked_div">
+                                            <label for="reason_locked">سبب إلغاء تفعيل الموقع</label>
+                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked"
+                                                placeholder="اكتب سبب إلغاء تفعيل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
+                                            @error('reason_locked')
+                                                <p class="text-danger small">{{ $message }}</p>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="login-settings" role="tabpanel"
@@ -308,26 +314,28 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
-            if ($('#active_site').is(':checked')) {
-                $('#reason_locked_div').hide();
+            if ($('#active_site').val() === 'inactive') {
+                $('#reason_locked').prop('disabled', false);
             } else {
-                $('#reason_locked_div').show();
+                $('#reason_locked').val('').prop('disabled', true);
             }
-            $('#active_site').on('change', function() {
-                if ($(this).is(':checked')) {
-                    $('#reason_locked_div').hide();
+
+            $('#active_site').change(function() {
+                var selectedValue = $(this).val();
+                if (selectedValue === 'inactive') {
+                    $('#reason_locked').prop('disabled', false);
                 } else {
-                    $('#reason_locked_div').show();
+                    $('#reason_locked').val('').prop('disabled', true);
                 }
             });
-            ClassicEditor
-                .create($('#reason_locked').get(0))
-                .then(editor => {
-                    console.log(editor);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            // ClassicEditor
+            //     .create($('#reason_locked').get(0))
+            //     .then(editor => {
+            //         console.log(editor);
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
         });
     </script>
     <script src="{{ asset('js/previewImage.js') }}"></script>

@@ -47,7 +47,7 @@ class SettingController extends Controller
                 'site_description'      => $request?->site_description,
                 'site_logo'             => $path,
                 'active_site'           => $request?->active_site ?? false,
-                'reason_locked'       => $request?->active_site  ? '' : $request?->reason_locked,
+                'reason_locked'         => $request?->active_site === 'active' ? '' : $request?->reason_locked,
                 'google_client_id'      => $request?->google_client_id,
                 'google_client_secret'  => $request?->google_client_secret,
                 'google_client_redirect'=> $request?->google_client_redirect,
