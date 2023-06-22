@@ -24,6 +24,7 @@
                     <th>الاسم</th>
                     <th>البريد الالكتروني</th>
                     <th>حالة العضو</th>
+                    <th>الادوار</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -38,7 +39,12 @@
                                 {{ $user->is_banned == 'true' ? 'محظور' : 'نشيط' }}
 
                             </span>
-
+                        </td>
+                        <td>
+                            @foreach ($user->roles as $role)
+                                <span class="badge bg-black">{{ $role->name }}</span>
+                            @endforeach
+                        </td>
                         <td>
                             <a href="{{ route('users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>

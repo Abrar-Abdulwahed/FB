@@ -23,9 +23,12 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'alpha', 'min:4', 'max:10'],
+            'name' => ['required', 'regex:/^[A-Za-z ]+$/', 'min:3', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore($this->user)],
-            'roles' => ['required', 'array']
+            'password' => ['nullable', 'string', 'min:6', 'max:35', 'confirmed'],
+            'roles' => ['required', 'array'],
+            'is_banned' => ['required', 'in:true,false'],
+            'datetime' => ['required_if:is_banned,true', 'nullable', 'date']
         ];
     }
 }

@@ -22,15 +22,30 @@
                 @csrf
                 <div class="form-group">
                     <label>الاسم</label>
-                    <input type="text" name="name" value="{{ $user->name }}" class="form-control">
+                    <input type="text" name="name" value="{{ old('name', $user->name) }}" class="form-control">
                     @error('name')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label>البريد الاكتروني</label>
-                    <input type="text" name="email" value="{{ $user->email }}" class="form-control">
+                    <input type="text" name="email" value="{{ old('email', $user->email) }}" class="form-control">
                     @error('email')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" name="password" class="form-control"
+                        placeholder="if you don't want to change password leave it empty">
+                    @error('password')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>تأكيد كلمة المرور</label>
+                    <input type="password" name="password_confirmation" class="form-control">
+                    @error('password_confirmation')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -39,14 +54,34 @@
                     <select class="select2" multiple="multiple" name="roles[]" style="width: 100%;">
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}"
-                                {{ $user->roles->contains('id', $role->id) ? 'selected' : '' }}>
+                                {{ $user->roles->contains('id', $role->id) || collect(old('roles'))->contains($role->id) ? 'selected' : '' }}>
                                 {{ $role->name }}
                             </option>
                         @endforeach
                     </select>
-                    @error('email')
+                    @error('roles')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label>حالة العضو</label>
+                        <select class="form-control" name="is_banned">
+                            <option value="false" {{ $user->is_banned === 'false' ? 'selected' : '' }}>نشيط</option>
+                            <option value="true" {{ $user->is_banned === 'true' ? 'selected' : '' }}>محظور</option>
+                        </select>
+                        @error('is_banned')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group col-6">
+                        <label>تاريخ فك الحظر</label>
+                        <input type="date" name="datetime" class="form-control"
+                            value="{{ old('datetime', $user->datetime) }}">
+                        @error('datetime')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success">تعديل</button>
             </form>

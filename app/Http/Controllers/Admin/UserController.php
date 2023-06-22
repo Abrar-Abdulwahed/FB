@@ -7,6 +7,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -63,19 +64,21 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->update($request->all());
+        $validated = $request->validated();
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        if ($validated['password']) {
+            $user->password = Hash::make($validated['password']);
+        }
+        $user->is_banned = $validated['is_banned'];
+        $user->datetime = $validated['is_banned'] === 'false' ? null : $validated['datetime'];
+
+        $user->save();
 
         $user->roles()->sync($request->roles);
 
-        $user->is_banned = $request->input('is_banned');
-        $user->datetime = $request->input('datetime');
-        if ($user->is_banned == 'false') {
-            $user->datetime = null;
-        }
-        $user->update($request->all());
-
         return redirect()->route('users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
-
     }
 
     /**
