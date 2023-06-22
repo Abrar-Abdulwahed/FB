@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <i class="fas fa-lock fa-5x mb-4"></i>
                     <h5 class="card-title">الموقع مغلق</h5>
-                    {!! \App\Models\Setting::where('name', 'reason_locked')->first()->value !!}
+                    {!! \App\Models\Setting::where('name', 'reason_locked')->first()?->value !!}
                 </div>
             </div>
         </div>

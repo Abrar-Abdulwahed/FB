@@ -19,10 +19,10 @@ class LockSite
     public function handle(Request $request, Closure $next): Response
     {
         $allowed = ['locked','login'];
-        if(!Setting::where('name', 'active_site')->first()->value && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
+        if(!Setting::where('name', 'active_site')->first()?->value && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
             return redirect('/locked');
         }
-        elseif(Setting::where('name', 'active_site')->first()->value && Route::is('locked')){
+        elseif(Setting::where('name', 'active_site')->first()?->value && Route::is('locked')){
             return redirect('404');
         }
         return $next($request);
