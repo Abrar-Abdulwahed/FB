@@ -53,14 +53,14 @@
                     <div class="card-header p-0 pt-1 bg-gray-light">
                         <ul class="nav nav-tabs" id="settings" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link  {{ $errors->hasAny(['site_name', 'site_description', 'site_logo', 'active_site', 'reason_locked']) ? 'bg-danger' : '' }}"
+                                <a class="nav-link  {{ $errors->hasAny(['app_name', 'site_description', 'site_logo', 'site_status', 'reason_locked']) ? 'bg-danger' : '' }}"
                                     id="general-settings-tab" data-toggle="pill" href="#general-settings" role="tab"
                                     aria-controls="general-settings" aria-selected="true">إعدادات عامة</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ $errors->hasAny(['services.google_client_id', 'services.google_client_secret', 'services.google_client_redirect', 'services.facebook_client_id', 'services.facebook_client_secret', 'services.facebook_client_redirect']) ? 'bg-danger' : '' }}"
+                                <a class="nav-link {{ $errors->hasAny(['google_client_id', 'google_client_secret', 'google_client_redirect', 'facebook_client_id', 'facebook_client_secret', 'facebook_client_redirect']) ? 'bg-danger' : '' }}"
                                     id="login-settings-tab" data-toggle="pill" href="#login-settings" role="tab"
-                                    aria-controls="login-settings" aria-selected="false">تسجيل الدخول</a>
+                                    aria-controls="login-settings" aria-selected="false">تطبيقات تسجيل الدخول</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ $errors->hasAny(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name']) ? 'bg-danger' : '' }}"
@@ -68,10 +68,9 @@
                                     aria-controls="smtp-settings" aria-selected="false">SMTP</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ $errors->hasAny(['recaptcha.api_site_key', 'recaptcha.api_secret_key']) ? 'bg-danger' : '' }}"
+                                <a class="nav-link {{ $errors->hasAny(['recaptcha_site_key', 'recaptcha_secret_key']) ? 'bg-danger' : '' }}"
                                     id="recaptcha-settings-tab" data-toggle="pill" href="#recaptcha-settings" role="tab"
-                                    aria-controls="recaptcha-settings" aria-selected="false">Google
-                                    Recaptcha</a>
+                                    aria-controls="recaptcha-settings" aria-selected="false">حروف التحقق</a>
                             </li>
                         </ul>
                     </div>
@@ -83,11 +82,11 @@
                                     aria-labelledby="general-settings-tab">
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <div class="form-group"><label for="site_name">اسم الموقع</label>
-                                                <input type="text" name="site_name" class="form-control" id="site_name"
-                                                    placeholder="ادخل اسم الموقع"
-                                                    value="{{ $settings['site_name'] ?? '' }}">
-                                                @error('site_name')
+                                            <div class="form-group">
+                                                <label for="app_name">اسم الموقع</label>
+                                                <input type="text" name="app_name" class="form-control" id="app_name"
+                                                    placeholder="ادخل اسم الموقع" value="{{ $settings['app.name'] ?? '' }}">
+                                                @error('app_name')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -96,8 +95,8 @@
                                                 <div class="img-preview">
                                                     <input type="file" id="file-1" accept="image/*" name="site_logo">
                                                     <label for="file-1" id="file-1-preview" class="w-100 h-100">
-                                                        {{-- <img src={{ asset('storage/' . $settings->site_logo) ?? 'https://bit.ly/3ubuq5o' }}
-                                                            alt=""> --}}
+                                                        <img src={{ $settings['site_logo'] ? asset('storage/' . $settings['site_logo']) : 'https://bit.ly/3ubuq5o' }}
+                                                            alt="">
                                                         <div>
                                                             <span>+</span>
                                                         </div>
@@ -117,13 +116,13 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <label for="active_site">حالة الموقع</label>
-                                        <select class="form-control col-md-2" name="active_site" id="active_site">
+                                        <label for="site_status">حالة الموقع</label>
+                                        <select class="form-control col-md-2" name="site_status" id="site_status">
                                             <option value="">اختر حالة الموقع</option>
-                                            <option value="active" @if ($settings['active_site'] == 'active') selected @endif>
+                                            <option value="active" @if ($settings['site_status'] == 'active') selected @endif>
                                                 مفتوح
                                             </option>
-                                            <option value="inactive" @if ($settings['active_site'] == 'inactive') selected @endif>
+                                            <option value="inactive" @if ($settings['site_status'] == 'inactive') selected @endif>
                                                 مغلق
                                             </option>
                                         </select>
@@ -142,34 +141,32 @@
                                         <label>الفيسبوك</label>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label for="services.facebook_client_id" class="text-muted">المعرف</label>
-                                                <input type="text" name="services.facebook_client_id"
-                                                    class="form-control" id="services.facebook_client_id"
-                                                    placeholder="ادخل معرف الفيسبوك "
-                                                    value="{{ $settings['services.facebook_client_id'] ?? '' }}">
-                                                @error('services.facebook_client_id')
+                                                <label for="facebook_client_id" class="text-muted">المعرف</label>
+                                                <input type="text" name="facebook_client_id" class="form-control"
+                                                    id="facebook_client_id" placeholder="ادخل معرف الفيسبوك "
+                                                    value="{{ $settings['services.facebook.client_id'] ?? '' }}">
+                                                @error('facebook_client_id')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="services.facebook_client_secret" class="text-muted">كلمة
+                                                <label for="facebook_client_secret" class="text-muted">كلمة
                                                     الأمان</label>
-                                                <input type="text" name="services.facebook_client_secret"
-                                                    class="form-control" id="services.facebook_client_secret"
-                                                    placeholder="ادخل كلمة أمان الفيسبوك "
-                                                    value="{{ $settings['services.facebook_client_secret'] ?? '' }}">
-                                                @error('services.facebook_client_secret')
+                                                <input type="text" name="facebook_client_secret" class="form-control"
+                                                    id="facebook_client_secret" placeholder="ادخل كلمة أمان الفيسبوك "
+                                                    value="{{ $settings['services.facebook.client_secret'] ?? '' }}">
+                                                @error('facebook_client_secret')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="services.facebook_client_redirect" class="text-muted">رابط
+                                                <label for="facebook_client_redirect" class="text-muted">رابط
                                                     التوجيه</label>
-                                                <input type="text" name="services.facebook_client_redirect"
-                                                    class="form-control" id="services.facebook_client_redirect"
+                                                <input type="text" name="facebook_client_redirect"
+                                                    class="form-control" id="facebook_client_redirect"
                                                     placeholder="ادخل رابط التوجيه"
-                                                    value="{{ $settings['services.facebook_client_redirect'] ?? '' }}">
-                                                @error('services.facebook_client_redirect')
+                                                    value="{{ $settings['services.facebook.client_redirect'] ?? '' }}">
+                                                @error('facebook_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -179,35 +176,32 @@
                                         <label>جوجل</label>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label for="services.google_client_id" class="text-muted">المعرف</label>
-                                                <input type="text" name="services.google_client_id"
-                                                    class="form-control" id="services.google_client_id"
-                                                    placeholder="ادخل معرف جوجل "
-                                                    value="{{ $settings['services.google_client_id'] ?? '' }}">
-                                                @error('services.google_client_id')
+                                                <label for="google_client_id" class="text-muted">المعرف</label>
+                                                <input type="text" name="google_client_id" class="form-control"
+                                                    id="google_client_id" placeholder="ادخل معرف جوجل "
+                                                    value="{{ $settings['services.google.client_id'] ?? '' }}">
+                                                @error('google_client_id')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="services.google_client_secret" class="text-muted">كلمة
+                                                <label for="google_client_secret" class="text-muted">كلمة
                                                     الأمان</label>
-                                                <input type="text" name="services.google_client_secret"
-                                                    class="form-control" id="services.google_client_secret"
-                                                    placeholder="ادخل كلمة أمان جوجل "
-                                                    value="{{ $settings['services.google_client_secret'] ?? '' }}">
-                                                @error('services.google_client_secret')
+                                                <input type="text" name="google_client_secret" class="form-control"
+                                                    id="google_client_secret" placeholder="ادخل كلمة أمان جوجل "
+                                                    value="{{ $settings['services.google.client_secret'] ?? '' }}">
+                                                @error('google_client_secret')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="services.google_client_redirect" class="text-muted"> رابط
+                                                <label for="google_client_redirect" class="text-muted"> رابط
                                                     التوجيه
                                                 </label>
-                                                <input type="text" name="services.google_client_redirect"
-                                                    class="form-control" id="services.google_client_redirect"
-                                                    placeholder="ادخل رابط التوجيه"
-                                                    value="{{ $settings['services.google_client_redirect'] ?? '' }}">
-                                                @error('services.google_client_redirect')
+                                                <input type="text" name="google_client_redirect" class="form-control"
+                                                    id="google_client_redirect" placeholder="ادخل رابط التوجيه"
+                                                    value="{{ $settings['services.google.client_redirect'] ?? '' }}">
+                                                @error('google_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -221,7 +215,7 @@
                                             <label for="mail_mailer" class="text-muted">بريد الارسال</label>
                                             <input type="text" name="mail_mailer" class="form-control"
                                                 id="mail_mailer" placeholder="ادخل بريد الارسال"
-                                                value="{{ $settings['mail_mailer'] ?? '' }}">
+                                                value="{{ $settings['mail.default'] }}" readonly>
                                             @error('mail_mailer')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -230,7 +224,7 @@
                                             <label for="mail_host" class="text-muted">مضيف البريد</label>
                                             <input type="text" name="mail_host" class="form-control" id="mail_host"
                                                 placeholder="ادخل مضيف البريد"
-                                                value="{{ $settings['mail_host'] ?? '' }}">
+                                                value="{{ $settings['mail.mailers.smtp.host'] ?? '' }}">
                                             @error('mail_host')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -239,7 +233,7 @@
                                             <label for="mail_port" class="text-muted">منفذ البريد</label>
                                             <input type="text" name="mail_port" class="form-control" id="mail_port"
                                                 placeholder="ادخل منفذ البريد"
-                                                value="{{ $settings['mail_port'] ?? old('mail_port') }}">
+                                                value="{{ $settings['mail.mailers.smtp.port'] ?? old('mail_port') }}">
                                             @error('mail_port')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -250,7 +244,7 @@
                                             <label for="mail_username" class="text-muted">اسم مستخدم البريد</label>
                                             <input type="text" name="mail_username" class="form-control"
                                                 id="mail_username" placeholder="ادخل اسم مستخدم البريد"
-                                                value="{{ $settings['mail_username'] ?? '' }}">
+                                                value="{{ $settings['mail.mailers.smtp.username'] ?? '' }}">
                                             @error('mail_username')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -259,7 +253,7 @@
                                             <label for="mail_password" class="text-muted">كلمة سر البريد</label>
                                             <input type="text" name="mail_password" class="form-control"
                                                 id="mail_password" placeholder="ادخل كملة سر البريد"
-                                                value="{{ $settings['mail_password'] ?? '' }}">
+                                                value="{{ $settings['mail.mailers.smtp.password'] ?? '' }}">
                                             @error('mail_password')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -267,19 +261,19 @@
                                     </div>
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-6">
-                                            <label for="mail_from_address" class="text-muted">من العنوان</label>
+                                            <label for="mail_from_address" class="text-muted">عنوان المرسل</label>
                                             <input type="text" name="mail_from_address" class="form-control"
-                                                id="mail_from_address" placeholder="ادخل العنوان from"
-                                                value="{{ $settings['mail_from_address'] ?? '' }}">
+                                                id="mail_from_address" placeholder="ادخل عنوان المرسل"
+                                                value="{{ $settings['mail.from.address'] ?? '' }}">
                                             @error('mail_from_address')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="mail_from_name" class="text-muted">من المستخدم</label>
+                                            <label for="mail_from_name" class="text-muted">اسم المرسل</label>
                                             <input type="text" name="mail_from_name" class="form-control"
-                                                id="mail_from_name" placeholder="ادخل المستخدم from"
-                                                value="{{ $settings['mail_from_name'] ?? '' }}">
+                                                id="mail_from_name" placeholder="ادخل اسم المرسل"
+                                                value="{{ $settings['mail.from.name'] ?? '' }}">
                                             @error('mail_from_name')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -290,20 +284,20 @@
                                     aria-labelledby="recaptcha-settings-tab">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="recaptcha.api_site_key" class="text-muted">المعرف</label>
-                                            <input type="text" name="recaptcha[api_site_key]" class="form-control"
-                                                id="recaptcha.api_site_key" placeholder="ادخل معرف الكابتشا "
-                                                value="{{ $settings['recaptcha.api_site_key'] ?? '' }}">
-                                            @error('recaptcha.api_site_key')
+                                            <label for="recaptcha_site_key" class="text-muted">المعرف</label>
+                                            <input type="text" name="recaptcha_site_key" class="form-control"
+                                                id="recaptcha_site_key" placeholder="ادخل معرف حروف التحقق"
+                                                value="{{ $settings['recaptcha.api_site_key'] }}">
+                                            @error('recaptcha_site_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="recaptcha.api_secret_key" class="text-muted">كلمة الأمان</label>
-                                            <input type="text" name="recaptcha[api_secret_key]" class="form-control"
-                                                id="recaptcha.api_secret_key" placeholder="ادخل كلمة أمان الكابتشا "
+                                            <label for="recaptcha_secret_key" class="text-muted">كلمة الأمان</label>
+                                            <input type="text" name="recaptcha_secret_key" class="form-control"
+                                                id="recaptcha_secret_key" placeholder="ادخل كلمة أمان حروف التحقق "
                                                 value="{{ $settings['recaptcha.api_secret_key'] ?? '' }}">
-                                            @error('recaptcha.api_secret_key')
+                                            @error('recaptcha_secret_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -319,16 +313,17 @@
     </div>
 @endsection
 @push('js')
+    <script src="{{ asset('js/previewImage.js') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
-            if ($('#active_site').val() === 'inactive') {
+            if ($('#site_status').val() === 'inactive') {
                 $('#reason_locked').prop('disabled', false);
             } else {
                 $('#reason_locked').val('').prop('disabled', true);
             }
 
-            $('#active_site').change(function() {
+            $('#site_status').change(function() {
                 var selectedValue = $(this).val();
                 if (selectedValue === 'inactive') {
                     $('#reason_locked').prop('disabled', false);
@@ -336,15 +331,6 @@
                     $('#reason_locked').val('').prop('disabled', true);
                 }
             });
-            // ClassicEditor
-            //     .create($('#reason_locked').get(0))
-            //     .then(editor => {
-            //         console.log(editor);
-            //     })
-            //     .catch(error => {
-            //         console.error(error);
-            //     });
         });
     </script>
-    <script src="{{ asset('js/previewImage.js') }}"></script>
 @endpush

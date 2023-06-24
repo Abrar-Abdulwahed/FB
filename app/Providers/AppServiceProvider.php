@@ -28,9 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        // config()->set('recaptcha.api_site_key','test');
         $settings = Setting::all();
-        // config(['RECAPTCHA_SITE_KEY'=> 'xxxx']);
 
         foreach($settings as $setting){
             config()->set($setting['name'],$setting['value']);

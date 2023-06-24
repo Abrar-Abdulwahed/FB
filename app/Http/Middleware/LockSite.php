@@ -20,10 +20,10 @@ class LockSite
     {
         // env('GOOGLE_REDIRECT'), env('FB_REDIRECT')
         $allowed = ['locked','login'];
-        if(Setting::where('name', 'active_site')->first()?->value === 'inactive' && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
+        if(Setting::where('name', 'site_status')->first()?->value === 'inactive' && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
             return redirect('/locked');
         }
-        elseif(Setting::where('name', 'active_site')->first()?->value === 'active' && Route::is('locked')){
+        elseif(Setting::where('name', 'site_status')->first()?->value === 'active' && Route::is('locked')){
             return abort(404);
         }
         return $next($request);
