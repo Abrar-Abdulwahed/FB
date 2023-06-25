@@ -37,7 +37,6 @@
             <div class="form-outline form-dark mb-2">
                 <label>كلمة المرور الحالية</label>
                 <input type="password" class="form-control py-2" name="current_password"/>
-                <small class="form-text text-muted">اتركه فارغا في حالة لم ترغب في تغيير كلمة المرور.</small>
 
                 @error('current_password')
                     <p class="text-danger">{{ $message }}</p>
@@ -47,6 +46,8 @@
             <div class="form-outline form-dark mb-2">
                 <label>كلمة المرور الجديدة</label>
                 <input type="password" class="form-control py-2" name="new_password"/>
+                <small class="form-text text-muted">اتركه فارغا في حالة لم ترغب في تغيير كلمة المرور.</small>
+
                 @error('new_password')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

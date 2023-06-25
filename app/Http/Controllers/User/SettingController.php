@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Exists;
 
 class SettingController extends Controller
 {
@@ -71,16 +72,21 @@ class SettingController extends Controller
         if(!empty($request->avatar)){
             $path= $this->uploadAvatar($request,'avatars');
             $data['avatar'] = $path;
-            Storage::disk('avatars')->delete($user->avatar); 
+            if(!empty($user->avatar)){
+                Storage::disk('avatars')->delete($user->avatar); 
+            }
 
             $user->update([ 'avatar' => $path]);
         }
-
-        if(empty(Hash::check($data['current_password'],Auth::user()->password))){
-            $user->update($data);
-        } else{
-            return redirect()->back()->with(['error' => 'كلمة المرور الحالية خاطئة']);
-        }  
+        if(!empty($user->current_password)){
+            if(Hash::check($data['current_password'],Auth::user()->password)){
+                User::where('id',Auth::user()->id)->update(['password'
+                =>bcrypt($data['new_password'])]);
+            } else{
+                return redirect()->back()->with(['error' => 'كلمة المرور الحالية خاطئة']);
+            }  
+        }
+        
         return redirect()->back()->with(['success' => 'تم تحديث بيانات المستخدم بنجاح']);
 
 
