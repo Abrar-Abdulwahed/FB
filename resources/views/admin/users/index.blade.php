@@ -12,6 +12,7 @@
         الأعضاء
     </div>
     <div class="card-body">
+        <div class="table-responsive">
         <table class="table table-striped text-center" id="users">
             <thead>
                 <tr>
@@ -78,6 +79,7 @@
 
             </tbody>
         </table>
+        </div>
     </div>
 
 </div>
