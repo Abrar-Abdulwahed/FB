@@ -313,6 +313,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="additional-settings" role="tabpanel"
                                     aria-labelledby="additional-settings-tab">
+                                    <h5 class="text-muted mb-3">إضافة أو إلغاء بعض الميزات في الموقع</h5>
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="faq-status"
                                             name="faq_status" value="{{ $settings['faq_status'] }}"
@@ -320,16 +321,16 @@
                                         <label class="custom-control-label" for="faq-status">الأسئلة الشائعة</label>
                                     </div>
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="blog-status"
-                                            name="blog_status" value="{{ $settings['blog_status'] }}"
-                                            @checked($settings['blog_status'] == 'on')>
-                                        <label class="custom-control-label" for="blog-status">المدونات</label>
-                                    </div>
-                                    <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="article-status"
                                             name="article_status" value="{{ $settings['article_status'] }}"
                                             @checked($settings['article_status'] == 'on')>
                                         <label class="custom-control-label" for="article-status">المقالات</label>
+                                    </div>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="blog-status"
+                                            name="blog_status" value="{{ $settings['blog_status'] }}"
+                                            @checked($settings['blog_status'] == 'on')>
+                                        <label class="custom-control-label" for="blog-status">المدونات</label>
                                     </div>
 
                                     {{-- <div class="card card-secondary">
