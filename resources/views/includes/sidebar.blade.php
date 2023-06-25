@@ -1,9 +1,12 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info text-center text-white">
-                <img src="{{ auth()->user()->avatar_path }}" class="mr-3 img-circle">
-                {{ auth()->user()->name }}
+        <div class="user-pan e mt-3 pb-3 mb-3 d-f lex text-white">
+            <div class="info text-center">
+                
+                   
+                    <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="border-radius: 50%" width="60px" height="60px">
+                    <p class="text-center">{{ auth()->user()->name }}</p>
+                
             </div>
         </div>
 
