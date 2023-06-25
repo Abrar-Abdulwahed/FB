@@ -54,19 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function avatarPath(): Attribute
-    {
-        if ($this->avatar) {
-            return Attribute::make(
-                get: fn ($value) => Storage::url('images/' . $this->avatar),
-            );
-        }
-
-        return Attribute::make(
-            get: fn ($value) => Storage::url('images/default.png'),
-        );
-    }
-
     // relations
     public function roles()
     {
