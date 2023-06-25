@@ -3,7 +3,7 @@
 @section('title')
     الصفحات
 @endsection
-<a href={{ route('pages.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
+<a href={{ route('admin.pages.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     اضافة صفحة</a>
 <div class="clearfix"></div>
 @include('partials.session')
@@ -26,13 +26,13 @@
             <tbody>
                 @foreach ($pages as $page)
                     <tr>
-                        <td><a href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a></td>
+                        <td><a target="_blank" href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a></td>
                         <td>
-                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $page->title }}" width="70px"
-                                height="70px">
+                            <img src="{{ asset('storage/pages/' . $page->image) }}" alt="{{ $page->title }}"
+                                width="70px" height="70px">
                         </td>
                         <td>
-                            <a href="{{ route('pages.edit', $page->id) }}" class="mx-1 btn btn-success"><i
+                            <a href="{{ route('admin.pages.edit', $page->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                 data-target="#confirm-delete-{{ $page->id }}">
@@ -54,7 +54,7 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('pages.destroy', $page->id) }}" method="POST">
+                                            <form action="{{ route('admin.pages.destroy', $page->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark btn-md">نعم</button>

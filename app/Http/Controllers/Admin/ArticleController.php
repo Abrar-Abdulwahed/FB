@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Traits\AvatarTrait;
+use App\Traits\ImageTrait;
 use Cocur\Slugify\Slugify;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
+    use ImageTrait;
     public function index()
     {
         $articles = Article::query()->paginate(5);
@@ -35,20 +38,16 @@ class ArticleController extends Controller
         $validated = $request->validated();
 
         // add slug
-        $slugify = new Slugify();
-
-        $validated['slug'] = $slugify->slugify($validated['title']);
+        $validated['slug'] = Article::generateSlug($validated['title']);
 
         // store image
         if ($request->hasFile('image')) {
-            $filename = $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('', $filename, 'public');
-            $validated['image'] = $path;
+            $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
         }
 
         Article::query()->create($validated);
 
-        return redirect()->route('admin.articles.index')
+        return redirect()->route('articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
     }
 
@@ -95,23 +94,21 @@ class ArticleController extends Controller
         $validated = $request->validated();
 
         // add slug
-        $slugify = new Slugify();
+        $validated['slug'] = Article::generateSlug($validated['title']);
 
-        $validated['slug'] = $slugify->slugify($validated['title']);
 
         // store image
         if ($request->hasFile('image')) {
             if ($article->image) {
                 //Remove old image
-                Storage::disk('public')->delete($article->image);
+                Storage::disk('local')->delete('public/articles/' . $article->image);
             }
-            $filename = $request->file('image')->getClientOriginalName();
-            $validated['image'] = $request->file('image')->storeAs('', $filename, 'public');
+            $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
         }
 
         $article->update($validated);
 
-        return redirect()->route('admin.articles.index')
+        return redirect()->route('articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
 
@@ -130,10 +127,10 @@ class ArticleController extends Controller
         $article->delete();
 
         if ($article->image != null) {
-            Storage::disk('local')->delete('public/images/' . $article->image);
+            Storage::disk('local')->delete('public/articles/' . $article->image);
         }
 
-        return redirect()->route('admin.articles.index')
+        return redirect()->route('articles.index')
             ->with('success', 'تم حذف المقال بنجاح');
     }
 }

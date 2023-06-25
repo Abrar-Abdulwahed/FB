@@ -7,10 +7,12 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Traits\AvatarTrait;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    use AvatarTrait;
     /**
      * Display a listing of the resource.
      */
@@ -39,8 +41,7 @@ class UserController extends Controller
 
         // store image
         if ($request->hasFile('avatar')) {
-            $request->file('avatar')->store('public/images');
-            $validated['avatar'] = $request->file('avatar')->hashName();
+            $validated['avatar'] = $this->uploadAvatar($request->file('avatar'));
         }
         $user = User::create([
             'name' => $validated['name'],
@@ -48,7 +49,7 @@ class UserController extends Controller
             'password' => bcrypt($validated['password']),
             'is_banned' => $validated['is_banned'],
             'banned_until' => $validated['banned_until'],
-            'avatar' => $validated['avatar'],
+            'avatar' => $validated['avatar'] ?? null,
         ]);
 
         $user->roles()->sync($request->roles);
@@ -80,10 +81,9 @@ class UserController extends Controller
         // store image
         if ($request->hasFile('avatar')) {
             if ($user->avatar != null) {
-                Storage::disk('local')->delete('public/images/' . $user->avatar);
+                Storage::disk('avatars')->delete($user->avatar);
             }
-            $request->file('avatar')->store('public/images');
-            $validated['avatar'] = $request->file('avatar')->hashName();
+            $validated['avatar'] = $this->uploadAvatar($request->file('avatar'));
         }
 
         $user->update([
@@ -116,7 +116,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        User::where('id', $id)->delete();
+        $user = User::query()->findOrFail($id);
+
+        $user->delete();
+
+        if ($user->avatar) {
+            Storage::disk('avatars')->delete($user->avatar);
+        }
         return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
     }
 }
