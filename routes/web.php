@@ -53,6 +53,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
 
+    //reset db
+    Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
+    
     // articles routes
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
 

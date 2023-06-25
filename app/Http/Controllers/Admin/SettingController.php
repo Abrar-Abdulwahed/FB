@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
@@ -46,13 +47,15 @@ class SettingController extends Controller
                 'site_description'                  => $request?->site_description,
                 'site_logo'                         => $path,
                 'site_status'                       => $request?->site_status ?? false,
-                'reason_locked'                     => $request?->site_status === 'active' ? '' : $request?->reason_locked,
-                'services.google.client_id'         => $request?->google_client_id,
-                'services.google.client_secret'     => $request?->google_client_secret,
-                'services.google.client_redirect'   => $request?->google_client_redirect,
-                'services.facebook.client_id'       => $request?->facebook_client_id,
-                'services.facebook.client_secret'   => $request?->facebook_client_secret,
-                'services.facebook.client_redirect' => $request?->facebook_client_redirect,
+                'reason_locked'                     => $request?->site_status === 'active' ? null : $request?->reason_locked,
+                'google_enable'                     => $request?->google_enable ?? false,
+                'services.google.client_id'         => $request?->google_enable === "on" ? $request?->google_client_id: null,
+                'services.google.client_secret'     => $request?->google_enable === "on" ? $request?->google_client_secret : null,
+                'services.google.client_redirect'   => $request?->google_enable === "on" ?  $request?->google_client_redirect : null,
+                'facebook_enable'                   => $request?->facebook_enable ?? false,
+                'services.facebook.client_id'       => $request?->facebook_enable === "on" ? $request?->facebook_client_id : null,
+                'services.facebook.client_secret'   => $request?->facebook_enable === "on" ? $request?->facebook_client_secret : null,
+                'services.facebook.client_redirect' => $request?->facebook_enable === "on" ? $request?->facebook_client_redirect : null,
                 'recaptcha.api_site_key'            => $request?->recaptcha_site_key,
                 'recaptcha.api_secret_key'          => $request?->recaptcha_secret_key,
                 'mail.default'                      => $request?->mail_mailer, //mail_mailer
@@ -62,9 +65,9 @@ class SettingController extends Controller
                 'mail.mailers.smtp.password'        => $request?->mail_password,
                 'mail.from.address'                 => $request?->mail_from_address,
                 'mail.from.name'                    => $request?->mail_from_name,
-                'faq_status'                        => $request->faq_status ? "on" : "off",
-                'article_status'                    => $request->article_status ? "on" : "off",
-                'page_status'                       => $request->page_status ? "on" : "off",
+                'faq_enable'                        => $request->faq_enable ? "on" : "off",
+                'article_enable'                    => $request->article_enable ? "on" : "off",
+                'page_enable'                       => $request->page_enable ? "on" : "off",
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
@@ -75,6 +78,17 @@ class SettingController extends Controller
             DB::rollback();
             dd($e);
             return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
+        }
+    }
+
+    public function reset(Request $request){
+        try{
+            Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+            return redirect()->back()->with('success', 'تم تهيئة قاعدة البيانات');
+        }
+        catch(\Throwable $e){
+            dd($e);
+            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
     }
 }
