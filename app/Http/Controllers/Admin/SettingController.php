@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
@@ -77,6 +78,17 @@ class SettingController extends Controller
             DB::rollback();
             dd($e);
             return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
+        }
+    }
+
+    public function reset(Request $request){
+        try{
+            Artisan::call('migrate:fresh', ['--seed' => true]);
+            return redirect()->back()->with('success', 'تم تهيئة قاعدة البيانات');
+        }
+        catch(\Throwable $e){
+            dd($e);
+            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
     }
 }

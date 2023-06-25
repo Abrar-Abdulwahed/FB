@@ -78,6 +78,10 @@
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="reset-db-tab" data-toggle="pill" href="#reset-db" role="tab"
+                                    aria-controls="reset-db" aria-selected="false">تهيئة قاعدة البيانات</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -353,31 +357,42 @@
                                             @checked($settings['page_enable'] == 'on')>
                                         <label class="custom-control-label" for="page-status">المدونات</label>
                                     </div>
-
-                                    {{-- <div class="card card-secondary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Bootstrap Switch</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off"
-                                                style="width: 85.6px;">
-                                                <div class="bootstrap-switch-container"
-                                                    style="width: 126px; margin-left: -42px;"><span
-                                                        class="bootstrap-switch-handle-on bootstrap-switch-primary"
-                                                        style="width: 42px;">ON</span>
-                                                    <span class="bootstrap-switch-label"
-                                                        style="width: 42px;">&nbsp;</span>
-                                                    <span class="bootstrap-switch-handle-off bootstrap-switch-default"
-                                                        style="width: 42px;">OFF</span>
-                                                    <input type="checkbox" name="my-checkbox" checked="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                </div>
+                                <div class="tab-pane fade" id="reset-db" role="tabpanel"
+                                    aria-labelledby="reset-db-tab">
+                                    <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#confirm-reset-db">
+                                        تهيئة قاعدة البيانات
+                                        <i class="fas fa-info"></i>
+                                    </button>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-dark mt-4 d-inline-block">حفظ</button>
                         </form>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-reset-db">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد التهيئة</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <p>هل أنت متأكد من هذه الخطوة؟ ستفقد كل البيانات الخاصة بالموقع
+                                    ولا يمكنك التراجع عن هذه الخطوة بعد القيام بها
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                <form action="{{ route('admin.settings.reset') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
