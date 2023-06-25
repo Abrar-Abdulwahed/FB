@@ -20,8 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label> الاجابة</label>
-                    <textarea placeholder="{!! $faq->answer !!}" name="answer" id="answer" class="form-control"
-                        value="{{ $faq->answer }}">{{ old('answer') }}</textarea>
+                    <textarea name="answer" id="answer" class="form-control">{!! $faq->answer !!}</textarea>
                     @error('answer')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror

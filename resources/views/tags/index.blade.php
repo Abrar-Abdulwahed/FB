@@ -16,7 +16,7 @@
     <div class="card-header bg-dark">
         Tags
     </div>
-    <div class="card-body">
+    <div class="card-body table-responsive">
         <table class="table table-striped text-center" id="tags">
             <thead>
                 <tr>

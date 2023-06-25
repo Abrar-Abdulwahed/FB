@@ -71,7 +71,7 @@ Route::get('/settings',[UserSettingController::class,'index'])->name('settings.i
 Route::get('/settings',[UserSettingController::class,'index'])->name('settings.index');
 }); */
 
-Route::prefix('user')->group(function () {
+Route::prefix('profile')->group(function () {
     Route::resource('settings', UserSettingController::class);
 });
 
