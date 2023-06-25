@@ -22,21 +22,19 @@ class SettingRequest extends FormRequest
     public function rules(): array
     {
         // dd($this);
-        // dd($this->has('google_enable'));
         return [
             'app_name'                   => 'required|string',
             'site_description'           => 'required|string',
             'site_logo'                  => 'nullable|image|mimes:png',
             'site_status'                => 'required|in:active,inactive',
             'reason_locked'              => 'required_if:site_status,inactive|nullable',
-            'google_enable'              => 'nullable|string|in:on,off',
-            'google_client_id'           => $this->has('google_enable')?'required' : 'nullable'. '|string',
-            'google_client_secret'       => $this->has('google_enable')?'required' : 'nullable'. '|string',
-            'google_client_redirect'     => $this->has('google_enable')?'required' : 'nullable'. '|url',
-            'facebook_enable'            => 'nullable|string|in:on,off',
-            'facebook_client_id'         => $this->has('facebook_enable')?'required' : 'nullable'. '|string',
-            'facebook_client_secret'     => $this->has('facebook_enable')?'required' : 'nullable'. '|string',
-            'facebook_client_redirect'   => $this->has('facebook_enable')?'required' : 'nullable'. '|url',
+            'google_enable'              => 'required|string|in:on,off',
+            'google_client_id'           => 'required_if:google_enable,on|nullable|string',
+            'google_client_secret'       => 'required_if:google_enable,on|nullable|string',
+            'google_client_redirect'     => 'required_if:google_enable,on|nullable|url',
+            'facebook_client_id'         => 'required_if:facebook_enable,on|nullable|string',
+            'facebook_client_secret'     => 'required_if:facebook_enable,on|nullable|string',
+            'facebook_client_redirect'   => 'required_if:facebook_enable,on|nullable|url',
             'recaptcha_site_key'         => 'required|string',
             'recaptcha_secret_key'       => 'required|string',
             'mail_mailer'                => 'required|string|in:smtp,mailgun',
