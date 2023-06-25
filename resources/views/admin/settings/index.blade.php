@@ -73,9 +73,9 @@
                                     aria-controls="recaptcha-settings" aria-selected="false">حروف التحقق</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ $errors->hasAny(['recaptcha_site_key', 'recaptcha_secret_key']) ? 'bg-danger' : '' }}"
-                                    id="additional-settings-tab" data-toggle="pill" href="#additional-settings"
-                                    role="tab" aria-controls="additional-settings" aria-selected="false">إعدادات
+                                <a class="nav-link" id="additional-settings-tab" data-toggle="pill"
+                                    href="#additional-settings" role="tab" aria-controls="additional-settings"
+                                    aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
                         </ul>
@@ -125,17 +125,16 @@
                                     <div class="mt-4">
                                         <label for="site_status">حالة الموقع</label>
                                         <select class="form-control col-md-2" name="site_status" id="site_status">
-                                            <option value="">اختر حالة الموقع</option>
-                                            <option value="active" @selected($settings['site_status'] == 'active')>
+                                            <option value="active" @selected(old('site_status') == 'active' || $settings['site_status'] == 'active')>
                                                 مفتوح
                                             </option>
-                                            <option value="inactive" @selected($settings['site_status'] == 'inactive')>
+                                            <option value="inactive" @selected(old('site_status') == 'inactive' || $settings['site_status'] == 'inactive')>
                                                 مغلق
                                             </option>
                                         </select>
                                         <div class="form-group mt-4" id="reason_locked_div">
                                             <label for="reason_locked">سبب قفل الموقع</label>
-                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked"
+                                            <textarea class="form-control" id="reason_locked" row="3" name="reason_locked"
                                                 placeholder="اكتب سبب قفل الموقع">{{ old('reason_locked') ?? $settings['reason_locked'] }}</textarea>
                                             @error('reason_locked')
                                                 <p class="text-danger small">{{ $message }}</p>
@@ -365,29 +364,35 @@
 @endsection
 @push('js')
     <script src="{{ asset('js/previewImage.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
             if ($('#site_status').val() === 'inactive') {
-                $('#reason_locked').prop('disabled', false);
+                $('#reason_locked_div').show();
             } else {
-                $('#reason_locked').val('').prop('disabled', true);
+                $('#reason_locked_div').hide();
             }
 
             $('#site_status').change(function() {
                 var selectedValue = $(this).val();
                 if (selectedValue === 'inactive') {
-                    $('#reason_locked').prop('disabled', false);
+                    $('#reason_locked_div').show();
                 } else {
-                    $('#reason_locked').val('').prop('disabled', true);
+                    $('#reason_locked_div').hide();
                 }
             });
-
-            $("input[data-bootstrap-switch]").each(function() {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            })
-
         });
+        ClassicEditor
+            .create(document.querySelector('#reason_locked'), {
+                height: '400px'
+            })
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 @endpush
