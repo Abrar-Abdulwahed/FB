@@ -28,8 +28,26 @@
                 @foreach ($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }} </td>
+                        <td>
+                            <div>
+                                @if ($user->avatar)
+                                    <img class="mx-2 rounded-circle"
+                                        src="{{ asset('storage/avatars/' . $user->avatar) }}" width="50px"
+                                        height="50px">
+                                @endif
+                                {{ $user->name }}
+                            </div>
+                        </td>
+                        <td>
+                            {{ $user->email }}
+                            @if (!$user->email_verified_at)
+                                <a href="{{ route('admin.users.verifyEmail', $user->id) }}"
+                                    class="bg-warning p-1 rounded" style="font-size: 12px">
+                                    تأكيد
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
+                            @endif
+                        </td>
                         <td>
                             <span class="badge {{ $user->is_banned == 1 ? 'bg-danger' : 'bg-success' }} p-3">
                                 {{ $user->is_banned == 1 ? 'محظور' : 'نشيط' }}
