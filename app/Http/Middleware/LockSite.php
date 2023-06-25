@@ -18,9 +18,16 @@ class LockSite
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // env('GOOGLE_REDIRECT'), env('FB_REDIRECT')
-        $allowed = ['locked','login'];
-        if(Setting::where('name', 'site_status')->first()?->value === 'inactive' && !in_array(Route::currentRouteName(),$allowed) && !Route::is('admin.*')){
+        $allowedNames = ['locked', 'logout'];
+        $allowedURLs = [
+            route('app.login', 'facebook'),
+            route('app.login', 'google'),
+            config('services.facebook.redirect'), config('services.google.redirect'),
+            route('login'), // add the login URL with the GET method
+            url('login') // add the login URL with the POST method
+        ];
+
+        if(Setting::where('name', 'site_status')->first()?->value === 'inactive' && !in_array(request()->url(),$allowedURLs) && !in_array(Route::currentRouteName(),$allowedNames) && !Route::is('admin.*')){
             return redirect('/locked');
         }
         elseif(Setting::where('name', 'site_status')->first()?->value === 'active' && Route::is('locked')){
