@@ -87,6 +87,11 @@ Route::get('articles', [ArticleController::class, 'index'])->name('articles.inde
 Route::get('articles/{slug}', [ArticleController::class, 'show'])
     ->name('articles.show');
 
+// pages routes for visitors
+// Route::get('pages', [PageController::class, 'index'])->name('pages.index');
+Route::get('pages/{slug}', [PageController::class, 'show'])
+    ->name('pages.show');
+
 Route::get('admin/pages/{slug}', [PageController::class, 'show'])
     ->name('pages.show')->middleware('auth');
 

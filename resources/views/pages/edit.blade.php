@@ -9,7 +9,7 @@
             تعديل الصفحة
         </div>
         <div class="card-body">
-            <form action="{{ Route('pages.update', $page->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('admin.pages.update', $page->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="row col-12">

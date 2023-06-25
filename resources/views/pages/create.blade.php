@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ Route('pages.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('admin.pages.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row col-12">
 
