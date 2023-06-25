@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShortLinkController;
@@ -55,7 +56,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     //reset db
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
-    
+
     // articles routes
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
 
@@ -73,6 +74,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     //short links
     Route::resource('short_links',ShortLinkController::class);
 
+
+    // payments
+    Route::resource('payments', PaymentController::class);
 });
 
 /* Route::prefix('user')->group(function(){

@@ -114,6 +114,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.payments.index') }}" class="nav-link">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <p>
+                            اعدادات وسائل الدفع
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>
                             تسجيل الخروج
