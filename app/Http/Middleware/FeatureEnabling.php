@@ -14,17 +14,9 @@ class FeatureEnabling
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $option): Response
     {
-        $route = $request->route()->getName();
-        if(strpos($route, 'pages') !== false && Setting::where('name', 'page_status')->first()?->value == "off"){
-            abort(404);
-        }
-        if(strpos($route, 'faqs') !== false && Setting::where('name', 'faq_status')->first()?->value == "off"){
-            abort(404);
-        }
-
-        if(strpos($route, 'articles') !== false && Setting::where('name', 'article_status')->first()?->value == "off"){
+        if(Setting::where('name', $option.'_status')->first()?->value == "off"){
             abort(404);
         }
         return $next($request);
