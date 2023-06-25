@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PageStoreRequest;
 use App\Http\Requests\PageUpdateRequest;
 use App\Models\Page;
+use App\Traits\ImageTrait;
 use Cocur\Slugify\Slugify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
+    use ImageTrait;
     public function index()
     {
         $pages = Page::query()->paginate(5);
@@ -36,20 +38,16 @@ class PageController extends Controller
         $validated = $request->validated();
 
         // add slug
-        $slugify = new Slugify();
-
-        $validated['slug'] = $slugify->slugify($validated['title']);
+        $validated['slug'] = Page::generateSlug($validated['title']);
 
         // store image
         if ($request->hasFile('image')) {
-            $filename = $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('', $filename, 'public');
-            $validated['image'] = $path;
+            $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
         }
 
         Page::query()->create($validated);
 
-        return redirect()->route('pages.index')
+        return redirect()->route('admin.pages.index')
             ->with('success', 'تم اضافة الصفحة بنجاح');
     }
 
@@ -59,7 +57,7 @@ class PageController extends Controller
         $page = Page::query()->where('slug', '=', $slug)->first();
 
         if (!$page) {
-            return redirect()->route('pages.index')
+            return redirect()->route('admin.pages.index')
                 ->with('error', 'فشل في عرض الصفحة');
         }
 
@@ -74,7 +72,7 @@ class PageController extends Controller
         $page = Page::query()->find($id);
 
         if (!$page) {
-            return redirect()->route('pages.index')
+            return redirect()->route('admin.pages.index')
                 ->with('error', 'فشل في تعديل الصفحة');
         }
 
@@ -89,31 +87,28 @@ class PageController extends Controller
         $page = Page::query()->find($id);
 
         if (!$page) {
-            return redirect()->route('pages.index')
+            return redirect()->route('admin.pages.index')
                 ->with('error', 'فشل في تعديل الصفحة');
         }
 
         $validated = $request->validated();
 
         // add slug
-        $slugify = new Slugify();
-
-        $validated['slug'] = $slugify->slugify($validated['title']);
+        $validated['slug'] = Page::generateSlug($validated['title']);
 
         // store image
         if ($request->hasFile('image')) {
             if ($page->image) {
                 //Remove old image
-                Storage::disk('public')->delete($page->image);
+                Storage::disk('local')->delete('public/pages/' . $page->image);
             }
-            $filename = $request->file('image')->getClientOriginalName();
-            $validated['image'] = $request->file('image')->storeAs('', $filename, 'public');
+            $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
         }
 
 
         $page->update($validated);
 
-        return redirect()->route('pages.index')
+        return redirect()->route('admin.pages.index')
             ->with('success', 'تم تعديل الصفحة بنجاح');
     }
 
@@ -125,17 +120,17 @@ class PageController extends Controller
         $page = Page::query()->find($id);
 
         if (!$page) {
-            return redirect()->route('pages.index')
+            return redirect()->route('admin.pages.index')
                 ->with('error', 'فشل في حذف الصفحة');
         }
 
         $page->delete();
 
         if ($page->image != null) {
-            Storage::disk('local')->delete('public/images/' . $page->image);
+            Storage::disk('local')->delete('public/pages/' . $page->image);
         }
 
-        return redirect()->route('pages.index')
+        return redirect()->route('admin.pages.index')
             ->with('success', 'تم حذف الصفحة بنجاح');
     }
 }

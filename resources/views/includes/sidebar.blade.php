@@ -70,9 +70,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item @if (Route::is('admin.articles.index')) ? 'active' : '' bg-primary @endif">
-                            <a class="nav-link" href="{{ route('admin.articles.index') }}">
+                        <li class="nav-item @if (Route::is('articles.index')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('articles.index') }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
+                            </a>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.pages.index')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}الصفحات
                             </a>
                         </li>
                         <li class="nav-item @if (Route::is('admin.tags.index')) ? 'active' : '' bg-primary @endif">
