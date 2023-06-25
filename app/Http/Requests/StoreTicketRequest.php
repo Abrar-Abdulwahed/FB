@@ -22,11 +22,8 @@ class StoreTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|integer',
-            'ticket_category_id' => 'required|integer',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
-            'status' => 'required|in:open,closed',
         ];
     }
 }

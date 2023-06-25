@@ -61,7 +61,7 @@ Route::prefix('auth')->group(function () {
     // articles routes
     Route::resource('articles', ArticleController::class)->except(['show']);
     Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
-    Route::resource('tickets', TicketsController::class)->except(['show']);
+    Route::resource('tickets', TicketsController::class);
 
     Route::resource('tags', TagController::class);
     // pages routes

@@ -1,11 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'إنشاء رسائل مخصصة')
+@section('title', 'إنشاء نوع تذكره')
 {{-- @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endpush --}}
 @section('content')
-    <a href={{ route('admin.custom-message.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
+@if (isset($success))
+<h4><?php echo $success; ?></h4>    
+@endif
+    <a href={{ route('admin.TicketsCategory.index') }} class="btn btn-info float-right mb-2">جميع انواع التذاكر</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -15,19 +18,20 @@
     @endif
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-        انشاء نوع رساله
+            إنشاء نوع تذكره
         </div>
         <div class="card-body">
             <form id="quickForm" method="POST" action={{ route('admin.TicketsCategory.store') }}>
                 @csrf
-                </div>
                 <div class="form-group">
-                    <label for="name">اسم النوع</label>
-                    <input class="form-control" id="text" name="name" placeholder="اكتب الاسم هنا" value="{{ old('name') }}">
-                    @error('name')
+                    <label for="code">اسم النوع</label>
+                    <input type="text" name="name" class="form-control" style="width: 150pt"  placeholder="ادخل الاسم"
+                        value="{{ old('code') }}">
+                    @error('code')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
+
 
                 <button type="submit" class="btn btn-dark">إضافة</button>
             </form>

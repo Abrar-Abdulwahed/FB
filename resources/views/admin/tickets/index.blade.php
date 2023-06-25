@@ -53,7 +53,7 @@
 
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href=""
+                                    <a href="{{route('admin.tickets.show',$item->id)}}"
                                         class="mx-1 btn btn-success">مشاهده الرساله</i></a>
                                 </div>
                             </td>

@@ -22,4 +22,11 @@ class Ticket extends Model
     {
         return $this->belongsTo(TicketCategory::class, 'ticket_category_id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(TicketMessage::class);
+    }
+
+    
 }

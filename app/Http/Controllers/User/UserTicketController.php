@@ -25,7 +25,9 @@ class UserTicketController extends Controller
             'subject'=>$request->subject,
             'message'=>$request->message,
         ]);
-       return redirect()->view("users.tickets.create");
+        if ($ticket) {
+            return redirect()->route("ticket.create")->with('success','تمت اضافه التذكره بنجاح');
+        }
         
     }
 }
