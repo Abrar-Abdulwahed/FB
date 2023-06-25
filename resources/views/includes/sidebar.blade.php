@@ -21,7 +21,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-message"></i>
                         <p>
@@ -36,7 +36,7 @@
                                 <p>إنشاء رسالة مخصصة</p>
                             </a>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.custom-message.index')) ? 'active' : '' bg-primary @endif ">
+                        <li class="nav-item @if (Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit')) ? 'active' : '' bg-primary @endif ">
                             <a href={{ route('admin.custom-message.index') }} class="nav-link">
                                 <i class="fa fa-folder-open nav-icon"></i>
                                 <p>قائمة الرسائل المخصصة</p>
@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Route::is('admin.users.index') || Route::is('admin.roles.index') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ Route::is('admin.users.*') || Route::is('admin.roles.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-user"></i> <p>
                         ادارة المستخدمين
@@ -52,19 +52,19 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item @if (Route::is('admin.users.index')) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.users.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">
                                 <i class="far fa-address-book nav-icon"></i>الأعضاء
                             </a>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.roles.index')) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.roles.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.roles.index') }}">
                                 <i class="fa fa-tasks nav-icon"></i>الأدوار
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Route::is('admin.articles.index') || Route::is('admin.tags.index') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-newspaper"></i>
                         <p>
@@ -73,12 +73,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item @if (Route::is('admin.articles.index')) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.articles.index') }}">
                                 <i class="fa fa-list-alt nav-icon"></i>المقالات
                             </a>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.tags.index')) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.tags.index') }}">
                                 <i class="fa fa-tag nav-icon"></i>Tags
                             </a>
@@ -86,12 +86,12 @@
                     </ul>
                 </li>
 
-                <li class="nav-item @if (Route::is('admin.faqs.index')) ? 'active' : '' bg-primary @endif">
+                <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
                     <a class="nav-link" href="{{ route('admin.faqs.index') }}">
                         <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @if (Route::is('admin.settings.*')) ? 'active' : '' bg-primary @endif">
                     <a href="{{ route('admin.settings.index') }}" class="nav-link">
                         <i class="nav-icon fa-solid fa-cog"></i>
                         <p>
