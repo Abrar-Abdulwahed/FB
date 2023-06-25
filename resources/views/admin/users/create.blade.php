@@ -8,6 +8,38 @@
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: black;
         }
+
+        .img-preview {
+            width: 200px;
+            height: 200px;
+            box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
+        }
+
+        .img-preview input {
+            display: none;
+        }
+
+        .img-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .img-preview div {
+            position: relative;
+            height: 40px;
+            margin-top: -40px;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            line-height: 40px;
+            font-size: 13px;
+            color: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .img-preview div span {
+            font-size: 40px;
+        }
     </style>
 @endpush
 @section('content')
@@ -60,14 +92,20 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group input-group mb-3">
-                        <label class="input-group-text" for="inputGroupFile02">
-                            صورة العضو
-                            <i class="fa-solid fa-plus"></i>
-                        </label>
-                        <input type="file" name="avatar" class="form-control" id="inputGroupFile02">
+                    <div class="">
+                        <label for="avatar">صورة العضو</label>
+                        <div class="img-preview">
+                            <input type="file" id="file-1" accept="image/*" name="avatar">
+                            <label for="file-1" id="file-1-preview" class="w-100 h-100">
+                                {{-- <img src={{ asset('storage/' . $settings->site_logo) ?? 'https://bit.ly/3ubuq5o' }}
+                                    alt=""> --}}
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
                         @error('avatar')
-                            <p class="text-danger">{{ $message }}</p>
+                            <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -91,4 +129,6 @@
             $('.select2').select2()
         })
     </script>
+
+    <script src="{{ asset('js/previewImage.js') }}"></script>
 @endpush
