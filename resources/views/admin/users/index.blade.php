@@ -30,16 +30,21 @@
                         <td>
                             <div>
                                 @if ($user->avatar)
-                                    <img class="mx-2" src="{{ asset('storage/avatars/' . $user->avatar) }}" width="50px"
+                                    <img class="mx-2 rounded-circle"
+                                        src="{{ asset('storage/avatars/' . $user->avatar) }}" width="50px"
                                         height="50px">
                                 @endif
                                 {{ $user->name }}
                             </div>
                         </td>
                         <td>
-                            {{ $user->email }} 
+                            {{ $user->email }}
                             @if (!$user->email_verified_at)
-                                <a href="{{ route('verification.notice') }}" class="btn btn-sm btn-warning">تأكيد</a>
+                                <a href="{{ route('admin.users.verifyEmail', $user->id) }}"
+                                    class="bg-warning p-1 rounded" style="font-size: 12px">
+                                    تأكيد
+                                    <i class="fa-solid fa-envelope"></i>
+                                </a>
                             @endif
                         </td>
                         <td>

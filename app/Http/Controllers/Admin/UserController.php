@@ -8,6 +8,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\AvatarTrait;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -122,5 +123,14 @@ class UserController extends Controller
             Storage::disk('avatars')->delete($user->avatar);
         }
         return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
+    }
+
+    public function verifyEmail($id)
+    {
+        $user = User::findOrFail($id);
+        
+        event(new Registered($user));
+
+        return redirect()->route('admin.users.index');
     }
 }
