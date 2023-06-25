@@ -43,6 +43,16 @@
                             <a href={{ route('admin.custom-message.index') }} class="nav-link">
                                 <i class="fa fa-folder-open nav-icon"></i>
                                 <p>قائمة الرسائل المخصصة</p>
+                        <li class="nav-item @if (Route::is('admin.tickets.index')) ? 'active' : '' bg-primary @endif ">
+                            <a href={{ route('admin.tickets.index') }} class="nav-link">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <p>قائمة التذاكر</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.TicketsCategory.index')) ? 'active' : '' bg-primary @endif ">
+                            <a href={{ route('admin.TicketsCategory.index') }} class="nav-link">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <p>قائمة انواع التذاكر</p>
                             </a>
                         </li>
                     </ul>
