@@ -39,7 +39,7 @@ class SettingSeeder extends Seeder
                 'mail.from.name'                    => 'Freelancer',
                 'faq_status'                        => 'on',
                 'article_status'                    => 'off',
-                'blog_status'                       => 'on',
+                'page_status'                       => 'on',
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
