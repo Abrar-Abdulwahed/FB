@@ -30,20 +30,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-// Route::middleware([LockSite::class])->group(function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-// });
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Signup/Login using providers
 Route::prefix('auth')->group(function () {
-    Route::get('/{provider}/redirect', [ProviderController::class, 'redirect']);
+    Route::get('/{provider}/redirect', [ProviderController::class, 'redirect'])->name('app.login');
     Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -76,11 +72,6 @@ Route::get('/settings',[UserSettingController::class,'index'])->name('settings.i
 
 Route::prefix('user')->group(function () {
     Route::resource('settings', UserSettingController::class);
-});
-
-Route::get('testmail', function () {
-    // $name = "Khorasani Abrar";
-    // Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
 });
 
 // articles routes for visitors
