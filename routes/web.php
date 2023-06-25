@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
@@ -72,11 +73,13 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
     //short links
-    Route::resource('short_links',ShortLinkController::class);
-
+    Route::resource('short_links', ShortLinkController::class);
 
     // payments
     Route::resource('payments', PaymentController::class);
+    //ads routes
+    Route::resource('ads', AdController::class)->except('show');
+
 });
 
 /* Route::prefix('user')->group(function(){
