@@ -83,7 +83,7 @@ class SettingController extends Controller
 
     public function reset(Request $request){
         try{
-            Artisan::call('migrate:fresh', ['--seed' => true]);
+            Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
             return redirect()->back()->with('success', 'تم تهيئة قاعدة البيانات');
         }
         catch(\Throwable $e){

@@ -17,7 +17,6 @@
                                         <h2 class="fw-bold mb-2 text-uppercase">تسجيل دخول</h2>
                                         <p class="text-dark-50 mb-5">تسجيل الدخول لحسابك</p>
                                         @include('components.app_login')
-                                        <p class="mt-3">أو</p>
                                         <div class="form-outline form-dark mb-3">
                                             <input type="text" class="form-control py-2" name="email"
                                                 value="{{ old('email') }}" placeholder="البريد الالكتروني " />
