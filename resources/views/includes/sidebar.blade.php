@@ -75,6 +75,11 @@
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
                             </a>
                         </li>
+                        <li class="nav-item @if (Route::is('admin.pages.index')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}الصفحات
+                            </a>
+                        </li>
                         <li class="nav-item @if (Route::is('admin.tags.index')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.tags.index') }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}Tags
