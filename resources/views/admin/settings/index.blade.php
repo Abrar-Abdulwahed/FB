@@ -72,6 +72,12 @@
                                     id="recaptcha-settings-tab" data-toggle="pill" href="#recaptcha-settings" role="tab"
                                     aria-controls="recaptcha-settings" aria-selected="false">حروف التحقق</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['recaptcha_site_key', 'recaptcha_secret_key']) ? 'bg-danger' : '' }}"
+                                    id="additional-settings-tab" data-toggle="pill" href="#additional-settings"
+                                    role="tab" aria-controls="additional-settings" aria-selected="false">إعدادات
+                                    إضافية</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -129,7 +135,8 @@
                                         </select>
                                         <div class="form-group mt-4" id="reason_locked_div">
                                             <label for="reason_locked">سبب قفل الموقع</label>
-                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked" placeholder="اكتب سبب قفل الموقع">{{ old('reason_locked') ?? $settings['reason_locked'] }}</textarea>
+                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked"
+                                                placeholder="اكتب سبب قفل الموقع">{{ old('reason_locked') ?? $settings['reason_locked'] }}</textarea>
                                             @error('reason_locked')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -301,6 +308,39 @@
                                             @error('recaptcha_secret_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="additional-settings" role="tabpanel"
+                                    aria-labelledby="additional-settings-tab">
+                                    <div class="card card-secondary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Bootstrap Switch</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off"
+                                                style="width: 85.6px;">
+                                                <div class="bootstrap-switch-container"
+                                                    style="width: 126px; margin-left: -42px;"><span
+                                                        class="bootstrap-switch-handle-on bootstrap-switch-primary"
+                                                        style="width: 42px;">ON</span><span class="bootstrap-switch-label"
+                                                        style="width: 42px;">&nbsp;</span><span
+                                                        class="bootstrap-switch-handle-off bootstrap-switch-default"
+                                                        style="width: 42px;">OFF</span><input type="checkbox"
+                                                        name="my-checkbox" checked="" data-bootstrap-switch=""></div>
+                                            </div>
+                                            <div class="bootstrap-switch-on bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate"
+                                                style="width: 85.6px;">
+                                                <div class="bootstrap-switch-container"
+                                                    style="width: 126px; margin-left: 0px;"><span
+                                                        class="bootstrap-switch-handle-on bootstrap-switch-success"
+                                                        style="width: 42px;">ON</span><span class="bootstrap-switch-label"
+                                                        style="width: 42px;">&nbsp;</span><span
+                                                        class="bootstrap-switch-handle-off bootstrap-switch-danger"
+                                                        style="width: 42px;">OFF</span><input type="checkbox"
+                                                        name="my-checkbox" checked="" data-bootstrap-switch=""
+                                                        data-off-color="danger" data-on-color="success"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
