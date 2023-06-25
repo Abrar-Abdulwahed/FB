@@ -225,7 +225,7 @@
                                             <label for="mail_host" class="text-muted">مضيف البريد</label>
                                             <input type="text" name="mail_host" class="form-control" id="mail_host"
                                                 placeholder="ادخل مضيف البريد"
-                                                value="{{ old('mail_host') ?? ($settings['mail.mailers.smtp.host'] ?? '') }}">
+                                                value="{{ old('mail_host') ?? $settings['mail.mailers.smtp.host'] }}">
                                             @error('mail_host')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -245,7 +245,7 @@
                                             <label for="mail_username" class="text-muted">اسم مستخدم البريد</label>
                                             <input type="text" name="mail_username" class="form-control"
                                                 id="mail_username" placeholder="ادخل اسم مستخدم البريد"
-                                                value="{{ old('mail_username') ?? ($settings['mail.mailers.smtp.username'] ?? '') }}">
+                                                value="{{ old('mail_username') ?? $settings['mail.mailers.smtp.username'] }}">
                                             @error('mail_username')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -254,7 +254,7 @@
                                             <label for="mail_password" class="text-muted">كلمة سر البريد</label>
                                             <input type="text" name="mail_password" class="form-control"
                                                 id="mail_password" placeholder="ادخل كملة سر البريد"
-                                                value="{{ old('mail_password') ?? ($settings['mail.mailers.smtp.password'] ?? '') }}">
+                                                value="{{ old('mail_password') ?? $settings['mail.mailers.smtp.password'] }}">
                                             @error('mail_password')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -265,7 +265,7 @@
                                             <label for="mail_from_address" class="text-muted">عنوان المرسل</label>
                                             <input type="text" name="mail_from_address" class="form-control"
                                                 id="mail_from_address" placeholder="ادخل عنوان المرسل"
-                                                value="{{ old('mail_from_address') ?? ($settings['mail.from.address'] ?? '') }}">
+                                                value="{{ old('mail_from_address') ?? $settings['mail.from.address'] }}">
                                             @error('mail_from_address')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -274,7 +274,7 @@
                                             <label for="mail_from_name" class="text-muted">اسم المرسل</label>
                                             <input type="text" name="mail_from_name" class="form-control"
                                                 id="mail_from_name" placeholder="ادخل اسم المرسل"
-                                                value="{{ old('mail_from_name') ?? ($settings['mail.from.name'] ?? '') }}">
+                                                value="{{ old('mail_from_name') ?? $settings['mail.from.name'] }}">
                                             @error('mail_from_name')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -297,7 +297,7 @@
                                             <label for="recaptcha_secret_key" class="text-muted">كلمة الأمان</label>
                                             <input type="text" name="recaptcha_secret_key" class="form-control"
                                                 id="recaptcha_secret_key" placeholder="ادخل كلمة أمان حروف التحقق "
-                                                value="{{ old('recaptcha_secret_key') ?? ($settings['recaptcha.api_secret_key'] ?? '') }}">
+                                                value="{{ old('recaptcha_secret_key') ?? $settings['recaptcha.api_secret_key'] }}">
                                             @error('recaptcha_secret_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
