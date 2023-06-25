@@ -78,14 +78,18 @@ class SettingController extends Controller
 
             $user->update([ 'avatar' => $path]);
         }
-        //if(!empty($data['current_password'])){
+
+        if(!empty($request->email)){
+            $user->update([ 'email' => $request->email]);
+        }
+        if(!empty($data['current_password'])){
             if(Hash::check($data['current_password'],Auth::user()->password)){
                 User::where('id',Auth::user()->id)->update(['password'
                 =>bcrypt($data['new_password'])]);
             } else{
                 return redirect()->back()->with(['error' => 'كلمة المرور الحالية خاطئة']);
             }  
-        //}
+        }
         
         return redirect()->back()->with(['success' => 'تم تحديث بيانات المستخدم بنجاح']);
 
