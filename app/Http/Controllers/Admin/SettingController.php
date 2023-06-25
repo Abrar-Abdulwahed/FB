@@ -62,6 +62,7 @@ class SettingController extends Controller
                 'mail.mailers.smtp.password'        => $request?->mail_password,
                 'mail.from.address'                 => $request?->mail_from_address,
                 'mail.from.name'                    => $request?->mail_from_name,
+                'article_status'                    => $req
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
