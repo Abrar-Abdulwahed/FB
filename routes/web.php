@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ShortLinkController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -66,6 +67,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     // Tags
     Route::resource('faqs', FaqController::class);
+
+    //short links
+    Route::resource('short_links',ShortLinkController::class);
 
 });
 
