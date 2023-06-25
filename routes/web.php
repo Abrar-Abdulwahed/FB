@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
@@ -64,6 +65,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     // Tags
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
+     //ads routes
+    Route::resource('ads', AdController::class)->except('show');
+
 });
 
 /* Route::prefix('user')->group(function(){
@@ -90,3 +94,6 @@ Route::get('admin/pages/{slug}', [PageController::class, 'show'])
 
 Route::get('/error', [ErrorController::class, 'error']);
 Route::get('/locked', [ErrorController::class, 'lock'])->name('locked');
+
+
+

@@ -114,6 +114,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ request()->is('*ads*') ? 'active' : '' }}" href="{{ route('admin.ads.index') }}">
+                        <i class="nav-icon fa-solid fa-image"></i> الاعلانات</a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>
                             تسجيل الخروج
