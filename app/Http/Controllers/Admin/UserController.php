@@ -49,7 +49,7 @@ class UserController extends Controller
             'password' => bcrypt($validated['password']),
             'is_banned' => $validated['is_banned'],
             'banned_until' => $validated['banned_until'],
-            'avatar' => $validated['avatar'],
+            'avatar' => $validated['avatar'] ?? null,
         ]);
 
         $user->roles()->sync($request->roles);
