@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TagController;
@@ -68,6 +69,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     // Tags
     Route::resource('faqs', FaqController::class);
+
+    // payments
+    Route::resource('payments', PaymentController::class);
 });
 
 /* Route::prefix('user')->group(function(){
