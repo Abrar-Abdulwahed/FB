@@ -18,6 +18,8 @@ class UserResource extends JsonResource
             'name'=> $this->name,
             'email'=> $this->email,
             'role'=> $this->role,
+            'status'=> $this->is_banned,
+            'created at'=> $this->created_at->diffForHumans(),
         ];
     }
 }
