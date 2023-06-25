@@ -40,9 +40,7 @@ class SettingSeeder extends Seeder
                 'mail.from.address'                 => 'no-reply@mailtrap.club',
                 'mail.from.name'                    => 'Freelancer',
                 'faq_enable'                        => 'on',
-                'article_enable'                    => 'off',
-                'page_enable'                       => 'on',
-                'article_enable'                    => 'off',
+                'article_enable'                    => 'on',
                 'page_enable'                       => 'on',
             ];
             foreach ($settings as $name => $value) {
