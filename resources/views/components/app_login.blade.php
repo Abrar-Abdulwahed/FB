@@ -5,7 +5,7 @@
             <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
         </a>
     @endif
-    @if (\App\Models\Setting::where('name', 'facebook_enable')?->first()?->value == 'on')
+    @if (\App\Models\Setting::where('name', 'google_enable')?->first()?->value == 'on')
         <br>
         <a class="btn btn-primary mt-2" style="background-color: #dd4b39;" href="{{ route('app.login', 'google') }}"
             role="button">
