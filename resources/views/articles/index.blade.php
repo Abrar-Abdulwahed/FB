@@ -11,7 +11,7 @@
     <div class="card-header bg-dark">
         الأعضاء
     </div>
-    <div class="card-body">
+    <div class="card-body table-responsive">
 
         <table class="table table-striped text-center" id="articles">
             <thead>

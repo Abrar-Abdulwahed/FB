@@ -8,7 +8,7 @@
             تعديل Tag
         </div>
         <div class="card-body">
-            <form action="{{ Route('tags.update', $tag->id) }}" method="post">
+            <form action="{{ Route('admin.tags.update', $tag->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="form-group">

@@ -49,6 +49,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('settings', SettingController::class)->only('index', 'store');
     Route::get('/', [AdminHomeController::class, 'index'])->name('index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
+
+    Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
 
     // articles routes
@@ -75,7 +77,7 @@ Route::get('/settings',[UserSettingController::class,'index'])->name('settings.i
 Route::get('/settings',[UserSettingController::class,'index'])->name('settings.index');
 }); */
 
-Route::prefix('user')->group(function () {
+Route::prefix('profile')->group(function () {
     Route::resource('settings', UserSettingController::class);
 });
 
