@@ -23,7 +23,7 @@ class PageUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'content' => ['required', 'string'],
             'image' => ['nullable', 'image'],
         ];

@@ -2,17 +2,19 @@
     <div class="sidebar">
         <div class="user-pan e mt-3 pb-3 mb-3 d-f lex text-white">
             <div class="info text-center">
-                
-                   
-                    <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="border-radius: 50%" width="60px" height="60px">
-                    <p class="text-center">{{ auth()->user()->name }}</p>
-                
+
+
+                <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" style="border-radius: 50%"
+                    width="60px" height="60px">
+                <p class="text-center">{{ auth()->user()->name }}</p>
+
             </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <li class="nav-item @if (Route::is('admin.index')) ? 'active' : '' bg-primary @endif">
                     <a href="{{ route('admin.index') }}" class="nav-link">
                         <i class="nav-icon fa-solid fa-house"></i>
@@ -21,7 +23,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit') ? 'menu-open' : '' }}">
+                <li
+                    class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-message"></i>
                         <p>
@@ -46,9 +49,10 @@
                 </li>
                 <li class="nav-item {{ Route::is('admin.users.*') || Route::is('admin.roles.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-user"></i> <p>
-                        ادارة المستخدمين
-                        <i class="fas fa-angle-left right"></i>
+                        <i class="nav-icon fa-solid fa-user"></i>
+                        <p>
+                            ادارة المستخدمين
+                            <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -64,34 +68,44 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-newspaper"></i>
-                        <p>
-                            ادارة المدونات
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
-                            <a class="nav-link" href="{{ route('admin.articles.index') }}">
-                                <i class="fa fa-list-alt nav-icon"></i>المقالات
-                            </a>
-                        </li>
-                        <li class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
-                            <a class="nav-link" href="{{ route('admin.tags.index') }}">
-                                <i class="fa fa-tag nav-icon"></i>Tags
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
-                    <a class="nav-link" href="{{ route('admin.faqs.index') }}">
-                        <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
-                    </a>
-                </li>
+                @if (\App\Models\Setting::where('name', 'article_status')?->first()?->value == 'on')
+                    <li
+                        class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-newspaper"></i>
+                            <p>
+                                ادارة المدونات
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.articles.index') }}">
+                                    <i class="fa fa-list-alt nav-icon"></i>المقالات
+                                </a>
+                            </li>
+                            <li class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.tags.index') }}">
+                                    <i class="fa fa-tag nav-icon"></i>Tags
+                                </a>
+                            </li>
+                            <li class="nav-item @if (Route::is('admin.pages.index')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                    <i class="far fa-circle nav-icon"></i> الصفحات
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if (\App\Models\Setting::where('name', 'faq_status')?->first()?->value == 'on')
+                    <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
+                        <a class="nav-link" href="{{ route('admin.faqs.index') }}">
+                            <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item @if (Route::is('admin.settings.*')) ? 'active' : '' bg-primary @endif">
+                <li class="nav-item">
                     <a href="{{ route('admin.settings.index') }}" class="nav-link">
                         <i class="nav-icon fa-solid fa-cog"></i>
                         <p>

@@ -30,20 +30,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-// Route::middleware([LockSite::class])->group(function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-// });
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Signup/Login using providers
 Route::prefix('auth')->group(function () {
-    Route::get('/{provider}/redirect', [ProviderController::class, 'redirect']);
+    Route::get('/{provider}/redirect', [ProviderController::class, 'redirect'])->name('app.login');
     Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -53,19 +48,23 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('settings', SettingController::class)->only('index', 'store');
     Route::get('/', [AdminHomeController::class, 'index'])->name('index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
+
+    Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
 
     // articles routes
-    Route::resource('articles', ArticleController::class)->except(['show']);
+    Route::resource('articles', ArticleController::class)->middleware('feature:article');
 
     Route::resource('tags', TagController::class);
+
     // pages routes
-    Route::resource('pages', PageController::class)->except(['show']);
+    Route::resource('pages', PageController::class)->except(['show'])->middleware('feature:page');
+
     // roles routes
     Route::resource('roles', RoleController::class)->except('show');
 
     // Tags
-    Route::resource('faqs', FaqController::class);
+    Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
 });
 
@@ -78,16 +77,15 @@ Route::prefix('profile')->group(function () {
     Route::resource('settings', UserSettingController::class);
 });
 
-Route::get('testmail', function () {
-    // $name = "Khorasani Abrar";
-    // Mail::to('mailtrap.club@gmail.com')->send(new CustomMessageMail($name));
-});
-
 // articles routes for visitors
-// Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('articles/{slug}', [ArticleController::class, 'show'])
+    ->name('articles.show');
 
-Route::get('admin/articles/{slug}', [ArticleController::class, 'show'])
-    ->name('articles.show')->middleware('auth');
+// pages routes for visitors
+// Route::get('pages', [PageController::class, 'index'])->name('pages.index');
+Route::get('pages/{slug}', [PageController::class, 'show'])
+    ->name('pages.show');
 
 Route::get('admin/pages/{slug}', [PageController::class, 'show'])
     ->name('pages.show')->middleware('auth');

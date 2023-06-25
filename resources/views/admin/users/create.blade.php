@@ -8,6 +8,38 @@
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: black;
         }
+
+        .img-preview {
+            width: 200px;
+            height: 200px;
+            box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
+        }
+
+        .img-preview input {
+            display: none;
+        }
+
+        .img-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .img-preview div {
+            position: relative;
+            height: 40px;
+            margin-top: -40px;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            line-height: 40px;
+            font-size: 13px;
+            color: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .img-preview div span {
+            font-size: 40px;
+        }
     </style>
 @endpush
 @section('content')
@@ -60,35 +92,23 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-6">
-                            <label>حالة العضو</label>
-                            <select class="form-control" name="is_banned">
-                                <option value="0" {{ old('is_banned') == 0 ? 'selected' : '' }}>
-                                    نشيط</option>
-                                <option value="1" {{ old('is_banned') == 1 ? 'selected' : '' }}>
-                                    محظور</option>
-                            </select>
-                            @error('is_banned')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
+                    <div class="">
+                        <label for="avatar">صورة العضو</label>
+                        <div class="img-preview">
+                            <input type="file" id="file-1" accept="image/*" name="avatar">
+                            <label for="file-1" id="file-1-preview" class="w-100 h-100">
+                                {{-- <img src={{ asset('storage/' . $settings->site_logo) ?? 'https://bit.ly/3ubuq5o' }}
+                                    alt=""> --}}
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
                         </div>
-                        <div class="form-group col-6">
-                            <label>تاريخ فك الحظر</label>
-                            <input type="datetime-local" name="banned_until" class="form-control"
-                                value="{{ old('banned_until') }}">
-                            @error('banned_until')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>صورة العضو</label>
-                        <input type="file" name="avatar" class="form-control">
                         @error('avatar')
-                            <p class="text-danger">{{ $message }}</p>
+                            <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
+
                     <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-sm btn-primary">
                             اضافة</button>
@@ -109,4 +129,6 @@
             $('.select2').select2()
         })
     </script>
+
+    <script src="{{ asset('js/previewImage.js') }}"></script>
 @endpush

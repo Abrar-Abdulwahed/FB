@@ -9,10 +9,8 @@ use App\Traits\AvatarTrait;
 use DragonCode\Support\Filesystem\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rules\Exists;
 
 class SettingController extends Controller
 {
@@ -23,7 +21,7 @@ class SettingController extends Controller
     public function index()
     {
         //
-       
+
     }
 
     /**
@@ -57,43 +55,48 @@ class SettingController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        
-        return view('users.settings.edit',compact('user'));
+
+        return view('users.settings.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserProfileValidation $request,$id)
+    public function update(UserProfileValidation $request, $id)
     {
         //
         $user = User::findOrFail($id);
         $data = $request->validated();
-        if(!empty($request->avatar)){
-            $path= $this->uploadAvatar($request,'avatars');
+        if (!empty($request->avatar)) {
+            $path = $this->uploadAvatar($request, 'avatars');
             $data['avatar'] = $path;
-            if(!empty($user->avatar)){
-                Storage::disk('avatars')->delete($user->avatar); 
+            if (!empty($user->avatar)) {
+                Storage::disk('avatars')->delete($user->avatar);
             }
-
-            $user->update([ 'avatar' => $path]);
         }
 
-        if(!empty($request->email)){
-            $user->update([ 'email' => $request->email]);
+        //     $user->update([ 'avatar' => $path]);
+        // }
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar != null) {
+                Storage::disk('avatars')->delete($user->avatar);
+            }
+            $data['avatar'] = $this->uploadAvatar($request->file('avatar'));
         }
-        if(!empty($data['current_password'])){
-            if(Hash::check($data['current_password'],Auth::user()->password)){
-                User::where('id',Auth::user()->id)->update(['password'
-                =>bcrypt($data['new_password'])]);
-            } else{
+
+        if (!empty($request->email)) {
+            $user->update(['email' => $request->email]);
+        }
+        if (!empty($data['current_password'])) {
+            if (Hash::check($data['current_password'], Auth::user()->password)) {
+                User::where('id', Auth::user()->id)->update(['password' => bcrypt($data['new_password'])]);
+            } else {
                 return redirect()->back()->with(['error' => 'كلمة المرور الحالية خاطئة']);
-            }  
+            }
         }
-        
+
         return redirect()->back()->with(['success' => 'تم تحديث بيانات المستخدم بنجاح']);
-
-
 
     }
 
