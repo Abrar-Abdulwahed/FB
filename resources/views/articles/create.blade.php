@@ -22,20 +22,19 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>الوصف</label>
-                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
-                        @error('description')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group col-12">
                         <label>المحتوى</label>
                         <textarea name="content" id="content" class="form-control">{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <div class="form-group col-12">
+                        <label>الوصف</label>
+                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                        @error('description')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="form-group col-12">
                         <label>الصورة</label>
                         <input type="file" name="image" class="form-control">
@@ -54,19 +53,3 @@
         </div>
     </div>
 @endsection
-
-@push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#content'),{
-                height: '400px'
-            })
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-@endpush

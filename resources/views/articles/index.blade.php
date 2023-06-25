@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 @section('content')
 @section('title')
     الأعضاء
@@ -11,7 +11,7 @@
     <div class="card-header bg-dark">
         الأعضاء
     </div>
-    <div class="card-body">
+    <div class="card-body table-responsive">
 
         <table class="table table-striped text-center" id="articles">
             <thead>
@@ -26,10 +26,10 @@
             <tbody>
                 @foreach ($articles as $article)
                     <tr>
-                        <td><a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                        <td><a target="_blank" href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
-                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
+                            <img src="{{ asset('storage/articles/' . $article->image) }}" alt="{{ $article->title }}"
                                 width="70px" height="70px">
                         </td>
                         <td>

@@ -64,14 +64,49 @@
 </script>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+
 <script>
     ClassicEditor
-        .create(document.querySelector('#answer'))
+        .create(document.querySelector('#answer'),{
+            toolbar: {
+            items: [
+                'undo', 'redo',
+                '|', 'heading',
+                '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+            ],
+            shouldNotGroupWhenFull: true
+            }
+        })
         .then(editor => {
             console.log(editor);
         })
         .catch(error => {
             console.error(error);
-        });
+    });
+
+    ClassicEditor
+    .create(document.querySelector('#content'),{
+        toolbar: {
+            items: [
+                'undo', 'redo',
+                '|', 'heading',
+                '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+            ],
+            shouldNotGroupWhenFull: true
+            }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 </script>
 </html>
