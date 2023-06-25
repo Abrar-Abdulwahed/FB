@@ -2,7 +2,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info text-center text-white">
-                <img src="{{ auth()->user()->avatar_path }}" class="mr-3 img-circle">
+                <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" class="mr-3 img-circle">
                 {{ auth()->user()->name }}
             </div>
         </div>

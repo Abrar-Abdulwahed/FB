@@ -12,7 +12,7 @@
         <div class="justify_content_end">
 
 
-            <img src="{{ asset('users/' . auth()->user()->avatar) }}" style="width:50px; height:50px"
+            <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" style="width:50px; height:50px"
                 class="rounded circle">
             {{ auth()->user()->name }}
 
@@ -26,7 +26,8 @@
     </ul>
     <div class="mr-0 ml-auto">
         <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <img src="{{ auth()->user()->avatar_path }}" style="width:50px; height:50px" class="img-circle">
+            <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" style="width:50px; height:50px"
+                class="img-circle">
 
             {{ Auth::user()->name }}
         </button>

@@ -68,12 +68,20 @@ class SettingController extends Controller
         //
         $user = User::findOrFail($id);
         $data = $request->validated();
-        if(!empty($request->avatar)){
-            $path= $this->uploadAvatar($request,'avatars');
-            $data['avatar'] = $path;
-            Storage::disk('avatars')->delete($user->avatar); 
+        
+        // if(!empty($request->avatar)){
+        //     $path= $this->uploadAvatar($request,'avatars');
+        //     $data['avatar'] = $path;
+        //     Storage::disk('avatars')->delete($user->avatar); 
 
-            $user->update([ 'avatar' => $path]);
+        //     $user->update([ 'avatar' => $path]);
+        // }
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar != null) {
+                Storage::disk('avatars')->delete($user->avatar);
+            }
+            $data['avatar'] = $this->uploadAvatar($request->file('avatar'));
         }
 
         if(empty(Hash::check($data['current_password'],Auth::user()->password))){
