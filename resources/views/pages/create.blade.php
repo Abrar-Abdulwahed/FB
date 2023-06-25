@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ Route('pages.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ Route('admin.pages.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row col-12">
 
@@ -22,16 +22,16 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>الوصف</label>
-                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
-                        @error('description')
+                        <label>المحتوى</label>
+                        <textarea name="content" id="content" class="form-control">{{ old('content') }}</textarea>
+                        @error('content')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>المحتوى</label>
-                        <textarea name="content" id="content" class="form-control">{{ old('content') }}</textarea>
-                        @error('content')
+                        <label>الوصف</label>
+                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                        @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>

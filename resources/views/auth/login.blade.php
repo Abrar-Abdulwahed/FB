@@ -18,12 +18,12 @@
                                         <p class="text-dark-50 mb-5">تسجيل الدخول لحسابك</p>
                                         <div class="d-flehhx justify-con tent-center text-center mt-4 pt-1">
                                             <a class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;"
-                                                href="{{ url('/auth/facebook/redirect') }}" role="button">
+                                                href="{{ route('app.login', 'facebook') }}" role="button">
                                                 <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
                                             </a>
                                             <br>
                                             <a class="btn btn-primary mt-2" style="background-color: #dd4b39;"
-                                                href="{{ url('/auth/google/redirect') }}" role="button">
+                                                href="{{ route('app.login', 'google') }}" role="button">
                                                 <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
                                             </a>
                                         </div>

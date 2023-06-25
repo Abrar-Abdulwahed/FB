@@ -22,20 +22,19 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>الوصف</label>
-                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
-                        @error('description')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group col-12">
                         <label>المحتوى</label>
                         <textarea name="content" id="content" class="form-control">{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <div class="form-group col-12">
+                        <label>الوصف</label>
+                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                        @error('description')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="form-group col-12">
                         <label>الصورة</label>
                         <input type="file" name="image" class="form-control">
