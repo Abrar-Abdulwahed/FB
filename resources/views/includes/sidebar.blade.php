@@ -2,7 +2,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info text-center text-white">
-                <img src="{{ auth()->user()->avatar_path }}" class="mr-3 img-circle">
+                <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" class="mr-3 img-circle">
                 {{ auth()->user()->name }}
             </div>
         </div>
@@ -80,6 +80,16 @@
                                 </a>
                             </li>
                         @endif
+                        <li class="nav-item @if (Route::is('articles.index')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('articles.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
+                            </a>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.pages.index')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}الصفحات
+                            </a>
+                        </li>
                         <li class="nav-item @if (Route::is('admin.tags.index')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.tags.index') }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}Tags
