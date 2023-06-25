@@ -56,7 +56,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('users', UserController::class);
 
     // articles routes
-    Route::resource('articles', ArticleController::class)->except(['show']);
+    Route::resource('articles', ArticleController::class)->except(['index', 'show']);
 
     Route::resource('tags', TagController::class);
     // pages routes
@@ -66,7 +66,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     // Tags
     Route::resource('faqs', FaqController::class);
-
 });
 
 /* Route::prefix('user')->group(function(){
@@ -84,10 +83,9 @@ Route::get('testmail', function () {
 });
 
 // articles routes for visitors
-// Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
-
-Route::get('admin/articles/{slug}', [ArticleController::class, 'show'])
-    ->name('articles.show')->middleware('auth');
+Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('articles/{slug}', [ArticleController::class, 'show'])
+    ->name('articles.show');
 
 Route::get('admin/pages/{slug}', [PageController::class, 'show'])
     ->name('pages.show')->middleware('auth');

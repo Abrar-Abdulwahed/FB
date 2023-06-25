@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 @section('content')
 @section('title')
     الأعضاء
@@ -26,10 +26,10 @@
             <tbody>
                 @foreach ($articles as $article)
                     <tr>
-                        <td><a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                        <td><a target="_blank" href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
-                            <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}"
+                            <img src="{{ asset('storage/articles/' . $article->image) }}" alt="{{ $article->title }}"
                                 width="70px" height="70px">
                         </td>
                         <td>
