@@ -34,7 +34,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Signup/Login using providers
@@ -52,16 +51,19 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('users', UserController::class);
 
     // articles routes
-    Route::resource('articles', ArticleController::class)->except(['index', 'show']);
+    Route::resource('articles', ArticleController::class)->middleware('feature:article');
 
     Route::resource('tags', TagController::class);
+
     // pages routes
-    Route::resource('pages', PageController::class)->except(['show']);
+    Route::resource('pages', PageController::class)->except(['show'])->middleware('feature:page');
+
     // roles routes
     Route::resource('roles', RoleController::class)->except('show');
 
     // Tags
-    Route::resource('faqs', FaqController::class);
+    Route::resource('faqs', FaqController::class)->middleware('feature:faq');
+
 });
 
 /* Route::prefix('user')->group(function(){

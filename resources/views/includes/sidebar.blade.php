@@ -62,14 +62,24 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa-solid fa-newspaper"></i>
-                        <p>
-                            ادارة المدونات
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
+                    @if (\App\Models\Setting::where('name', 'page_status')?->first()?->value == 'on')
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa-solid fa-newspaper"></i>
+                            <p>
+                                ادارة المدونات
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    @endif
+
                     <ul class="nav nav-treeview">
+                        @if (\App\Models\Setting::where('name', 'article_status')?->first()?->value == 'on')
+                            <li class="nav-item @if (Route::is('admin.articles.index')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.articles.index') }}">
+                                    {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
+                                </a>
+                            </li>
+                        @endif
                         <li class="nav-item @if (Route::is('articles.index')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('articles.index') }}">
                                 {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
@@ -87,12 +97,14 @@
                         </li>
                     </ul>
                 </li>
+                @if (\App\Models\Setting::where('name', 'faq_status')?->first()?->value == 'on')
+                    <li class="nav-item @if (Route::is('admin.faqs.index')) ? 'active' : '' bg-primary @endif">
+                        <a class="nav-link" href="{{ route('admin.faqs.index') }}">
+                            <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
+                        </a>
+                    </li>
+                @endif
 
-                <li class="nav-item @if (Route::is('admin.faqs.index')) ? 'active' : '' bg-primary @endif">
-                    <a class="nav-link" href="{{ route('admin.faqs.index') }}">
-                        <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.settings.index') }}" class="nav-link">
                         <i class="nav-icon fa-solid fa-cog"></i>
