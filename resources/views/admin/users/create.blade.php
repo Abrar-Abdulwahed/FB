@@ -60,28 +60,6 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-6">
-                            <label>حالة العضو</label>
-                            <select class="form-control" name="is_banned">
-                                <option value="0" {{ old('is_banned') == 0 ? 'selected' : '' }}>
-                                    نشيط</option>
-                                <option value="1" {{ old('is_banned') == 1 ? 'selected' : '' }}>
-                                    محظور</option>
-                            </select>
-                            @error('is_banned')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="form-group col-6">
-                            <label>تاريخ فك الحظر</label>
-                            <input type="datetime-local" name="banned_until" class="form-control"
-                                value="{{ old('banned_until') }}">
-                            @error('banned_until')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label>صورة العضو</label>
                         <input type="file" name="avatar" class="form-control">

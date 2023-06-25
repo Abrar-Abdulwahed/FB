@@ -47,8 +47,6 @@ class UserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
-            'is_banned' => $validated['is_banned'],
-            'banned_until' => $validated['banned_until'],
             'avatar' => $validated['avatar'] ?? null,
         ]);
 
