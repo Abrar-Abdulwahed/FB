@@ -85,7 +85,8 @@
                                             <div class="form-group">
                                                 <label for="app_name">اسم الموقع</label>
                                                 <input type="text" name="app_name" class="form-control" id="app_name"
-                                                    placeholder="ادخل اسم الموقع" value="{{ $settings['app.name'] ?? '' }}">
+                                                    placeholder="ادخل اسم الموقع"
+                                                    value="{{ old('app_name') ?? $settings['app.name'] }}">
                                                 @error('app_name')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -109,7 +110,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="site_description">وصف الموقع</label>
-                                            <textarea class="form-control" id="site_description" rows="10" name="site_description" placeholder="اكتب النص هنا">{{ $settings['site_description'] ?? '' }}</textarea>
+                                            <textarea class="form-control" id="site_description" rows="10" name="site_description" placeholder="اكتب النص هنا">{{ old('site_description') ?? $settings['site_description'] }}</textarea>
                                             @error('site_description')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -119,16 +120,16 @@
                                         <label for="site_status">حالة الموقع</label>
                                         <select class="form-control col-md-2" name="site_status" id="site_status">
                                             <option value="">اختر حالة الموقع</option>
-                                            <option value="active" @if ($settings['site_status'] == 'active') selected @endif>
+                                            <option value="active" @selected($settings['site_status'] == 'active')>
                                                 مفتوح
                                             </option>
-                                            <option value="inactive" @if ($settings['site_status'] == 'inactive') selected @endif>
+                                            <option value="inactive" @selected($settings['site_status'] == 'inactive')>
                                                 مغلق
                                             </option>
                                         </select>
                                         <div class="form-group mt-4" id="reason_locked_div">
                                             <label for="reason_locked">سبب قفل الموقع</label>
-                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked" placeholder="اكتب سبب قفل الموقع">{{ $settings['reason_locked'] ?? '' }}</textarea>
+                                            <textarea class="form-control" id="reason_locked" rows="10" name="reason_locked" placeholder="اكتب سبب قفل الموقع">{{ old('reason_locked') ?? $settings['reason_locked'] }}</textarea>
                                             @error('reason_locked')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -144,7 +145,7 @@
                                                 <label for="facebook_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="facebook_client_id" class="form-control"
                                                     id="facebook_client_id" placeholder="ادخل معرف الفيسبوك "
-                                                    value="{{ $settings['services.facebook.client_id'] ?? '' }}">
+                                                    value="{{ old('facebook_client_id') ?? $settings['services.facebook.client_id'] }}">
                                                 @error('facebook_client_id')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -154,7 +155,7 @@
                                                     الأمان</label>
                                                 <input type="text" name="facebook_client_secret" class="form-control"
                                                     id="facebook_client_secret" placeholder="ادخل كلمة أمان الفيسبوك "
-                                                    value="{{ $settings['services.facebook.client_secret'] ?? '' }}">
+                                                    value="{{ old('facebook_client_secret') ?? $settings['services.facebook.client_secret'] }}">
                                                 @error('facebook_client_secret')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -165,7 +166,7 @@
                                                 <input type="text" name="facebook_client_redirect"
                                                     class="form-control" id="facebook_client_redirect"
                                                     placeholder="ادخل رابط التوجيه"
-                                                    value="{{ $settings['services.facebook.client_redirect'] ?? '' }}">
+                                                    value="{{ old('facebook_client_redirect') ?? $settings['services.facebook.client_redirect'] }}">
                                                 @error('facebook_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -179,7 +180,7 @@
                                                 <label for="google_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="google_client_id" class="form-control"
                                                     id="google_client_id" placeholder="ادخل معرف جوجل "
-                                                    value="{{ $settings['services.google.client_id'] ?? '' }}">
+                                                    value="{{ old('google_client_id') ?? $settings['services.google.client_id'] }}">
                                                 @error('google_client_id')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -189,7 +190,7 @@
                                                     الأمان</label>
                                                 <input type="text" name="google_client_secret" class="form-control"
                                                     id="google_client_secret" placeholder="ادخل كلمة أمان جوجل "
-                                                    value="{{ $settings['services.google.client_secret'] ?? '' }}">
+                                                    value="{{ old('google_client_secret') ?? $settings['services.google.client_secret'] }}">
                                                 @error('google_client_secret')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -200,7 +201,7 @@
                                                 </label>
                                                 <input type="text" name="google_client_redirect" class="form-control"
                                                     id="google_client_redirect" placeholder="ادخل رابط التوجيه"
-                                                    value="{{ $settings['services.google.client_redirect'] ?? '' }}">
+                                                    value="{{ old('google_client_redirect') ?? $settings['services.google.client_redirect'] }}">
                                                 @error('google_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
@@ -215,7 +216,7 @@
                                             <label for="mail_mailer" class="text-muted">بريد الارسال</label>
                                             <input type="text" name="mail_mailer" class="form-control"
                                                 id="mail_mailer" placeholder="ادخل بريد الارسال"
-                                                value="{{ $settings['mail.default'] }}" readonly>
+                                                value="{{ old('mail_mailer') ?? $settings['mail.default'] }}" readonly>
                                             @error('mail_mailer')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -224,7 +225,7 @@
                                             <label for="mail_host" class="text-muted">مضيف البريد</label>
                                             <input type="text" name="mail_host" class="form-control" id="mail_host"
                                                 placeholder="ادخل مضيف البريد"
-                                                value="{{ $settings['mail.mailers.smtp.host'] ?? '' }}">
+                                                value="{{ old('mail_host') ?? ($settings['mail.mailers.smtp.host'] ?? '') }}">
                                             @error('mail_host')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -233,7 +234,7 @@
                                             <label for="mail_port" class="text-muted">منفذ البريد</label>
                                             <input type="text" name="mail_port" class="form-control" id="mail_port"
                                                 placeholder="ادخل منفذ البريد"
-                                                value="{{ $settings['mail.mailers.smtp.port'] ?? old('mail_port') }}">
+                                                value="{{ old('mail_port') ?? $settings['mail.mailers.smtp.port'] }}">
                                             @error('mail_port')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -244,7 +245,7 @@
                                             <label for="mail_username" class="text-muted">اسم مستخدم البريد</label>
                                             <input type="text" name="mail_username" class="form-control"
                                                 id="mail_username" placeholder="ادخل اسم مستخدم البريد"
-                                                value="{{ $settings['mail.mailers.smtp.username'] ?? '' }}">
+                                                value="{{ old('mail_username') ?? ($settings['mail.mailers.smtp.username'] ?? '') }}">
                                             @error('mail_username')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -253,7 +254,7 @@
                                             <label for="mail_password" class="text-muted">كلمة سر البريد</label>
                                             <input type="text" name="mail_password" class="form-control"
                                                 id="mail_password" placeholder="ادخل كملة سر البريد"
-                                                value="{{ $settings['mail.mailers.smtp.password'] ?? '' }}">
+                                                value="{{ old('mail_password') ?? ($settings['mail.mailers.smtp.password'] ?? '') }}">
                                             @error('mail_password')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -264,7 +265,7 @@
                                             <label for="mail_from_address" class="text-muted">عنوان المرسل</label>
                                             <input type="text" name="mail_from_address" class="form-control"
                                                 id="mail_from_address" placeholder="ادخل عنوان المرسل"
-                                                value="{{ $settings['mail.from.address'] ?? '' }}">
+                                                value="{{ old('mail_from_address') ?? ($settings['mail.from.address'] ?? '') }}">
                                             @error('mail_from_address')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -273,7 +274,7 @@
                                             <label for="mail_from_name" class="text-muted">اسم المرسل</label>
                                             <input type="text" name="mail_from_name" class="form-control"
                                                 id="mail_from_name" placeholder="ادخل اسم المرسل"
-                                                value="{{ $settings['mail.from.name'] ?? '' }}">
+                                                value="{{ old('mail_from_name') ?? ($settings['mail.from.name'] ?? '') }}">
                                             @error('mail_from_name')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -287,7 +288,7 @@
                                             <label for="recaptcha_site_key" class="text-muted">المعرف</label>
                                             <input type="text" name="recaptcha_site_key" class="form-control"
                                                 id="recaptcha_site_key" placeholder="ادخل معرف حروف التحقق"
-                                                value="{{ $settings['recaptcha.api_site_key'] }}">
+                                                value="{{ old('recaptcha_site_key') ?? $settings['recaptcha.api_site_key'] }}">
                                             @error('recaptcha_site_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -296,7 +297,7 @@
                                             <label for="recaptcha_secret_key" class="text-muted">كلمة الأمان</label>
                                             <input type="text" name="recaptcha_secret_key" class="form-control"
                                                 id="recaptcha_secret_key" placeholder="ادخل كلمة أمان حروف التحقق "
-                                                value="{{ $settings['recaptcha.api_secret_key'] ?? '' }}">
+                                                value="{{ old('recaptcha_secret_key') ?? ($settings['recaptcha.api_secret_key'] ?? '') }}">
                                             @error('recaptcha_secret_key')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
