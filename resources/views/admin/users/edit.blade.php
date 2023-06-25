@@ -85,9 +85,12 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>صورة العضو</label>
-                    <input type="file" name="avatar" class="form-control">
+                <div class="form-group input-group mb-3">
+                    <label class="input-group-text" for="inputGroupFile02">
+                        صورة العضو
+                        <i class="fa-solid fa-plus"></i>
+                    </label>
+                    <input type="file" name="avatar" class="form-control" id="inputGroupFile02">
                     @error('avatar')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
