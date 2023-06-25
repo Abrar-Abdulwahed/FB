@@ -16,17 +16,7 @@
                                     <div class="mb-md-2 mt-md-4 pb-5">
                                         <h2 class="fw-bold mb-2 text-uppercase">تسجيل دخول</h2>
                                         <p class="text-dark-50 mb-5">تسجيل الدخول لحسابك</p>
-                                        <div class="d-flehhx justify-con tent-center text-center mt-4 pt-1">
-                                            <a class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;"
-                                                href="{{ route('app.login', 'facebook') }}" role="button">
-                                                <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
-                                            </a>
-                                            <br>
-                                            <a class="btn btn-primary mt-2" style="background-color: #dd4b39;"
-                                                href="{{ route('app.login', 'google') }}" role="button">
-                                                <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
-                                            </a>
-                                        </div>
+                                        @include('components.app_login')
                                         <p class="mt-3">أو</p>
                                         <div class="form-outline form-dark mb-3">
                                             <input type="text" class="form-control py-2" name="email"

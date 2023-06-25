@@ -145,8 +145,19 @@
                                 <div class="tab-pane fade" id="login-settings" role="tabpanel"
                                     aria-labelledby="login-settings-tab">
                                     <div>
-                                        <label>الفيسبوك</label>
-                                        <div class="form-row">
+                                        <div class="d-flex">
+                                            <label for="facebook_enable">فيسبوك</label>
+                                            <select class="form-control col-md-2" name="facebook_enable"
+                                                id="facebook_enable">
+                                                <option value="on" @selected(old('facebook_enable') == 'on' || $settings['facebook_enable'] == 'on')>
+                                                    مفتوح
+                                                </option>
+                                                <option value="off" @selected(old('facebook_enable') == 'off' || $settings['facebook_enable'] == 'off')>
+                                                    مغلق
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-row" id="facebook_enable_div">
                                             <div class="form-group col-md-4">
                                                 <label for="facebook_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="facebook_client_id" class="form-control"
@@ -180,8 +191,19 @@
                                         </div>
                                     </div>
                                     <div class="mt-3">
-                                        <label>جوجل</label>
-                                        <div class="form-row">
+                                        <div class="d-flex">
+                                            <label for="google_enable">جوجل</label>
+                                            <select class="form-control col-md-2" name="google_enable"
+                                                id="google_enable">
+                                                <option value="on" @selected(old('google_enable') == 'on' || $settings['google_enable'] == 'on')>
+                                                    مفتوح
+                                                </option>
+                                                <option value="off" @selected(old('google_enable') == 'off' || $settings['google_enable'] == 'off')>
+                                                    مغلق
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-row" id="google_enable_div">
                                             <div class="form-group col-md-4">
                                                 <label for="google_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="google_client_id" class="form-control"
@@ -315,20 +337,20 @@
                                     <h5 class="text-muted mb-3">إضافة أو إلغاء بعض الميزات في الموقع</h5>
                                     <div class="custom-control custom-switch mt-2">
                                         <input type="checkbox" class="custom-control-input" id="faq-status"
-                                            name="faq_status" value="{{ $settings['faq_status'] }}"
-                                            @checked($settings['faq_status'] == 'on')>
+                                            name="faq_enable" value="{{ $settings['faq_enable'] }}"
+                                            @checked($settings['faq_enable'] == 'on')>
                                         <label class="custom-control-label" for="faq-status">الأسئلة الشائعة</label>
                                     </div>
                                     <div class="custom-control custom-switch mt-2">
                                         <input type="checkbox" class="custom-control-input" id="article-status"
-                                            name="article_status" value="{{ $settings['article_status'] }}"
-                                            @checked($settings['article_status'] == 'on')>
+                                            name="article_enable" value="{{ $settings['article_enable'] }}"
+                                            @checked($settings['article_enable'] == 'on')>
                                         <label class="custom-control-label" for="article-status">المقالات</label>
                                     </div>
                                     <div class="custom-control custom-switch mt-2">
                                         <input type="checkbox" class="custom-control-input" id="page-status"
-                                            name="page_status" value="{{ $settings['page_status'] }}"
-                                            @checked($settings['page_status'] == 'on')>
+                                            name="page_enable" value="{{ $settings['page_enable'] }}"
+                                            @checked($settings['page_enable'] == 'on')>
                                         <label class="custom-control-label" for="page-status">المدونات</label>
                                     </div>
 
@@ -375,12 +397,40 @@
                 $('#reason_locked_div').hide();
             }
 
+            if ($('#google_enable').val() === 'on') {
+                $('#google_enable_div').show();
+            } else {
+                $('#google_enable_div').hide();
+            }
+
+            if ($('#facebook_enable').val() === 'on') {
+                $('#facebook_enable_div').show();
+            } else {
+                $('#facebook_enable_div').hide();
+            }
+
             $('#site_status').change(function() {
                 var selectedValue = $(this).val();
                 if (selectedValue === 'inactive') {
                     $('#reason_locked_div').show();
                 } else {
                     $('#reason_locked_div').hide();
+                }
+            });
+
+            $('#google_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#google_enable_div').show();
+                } else {
+                    $('#google_enable_div').hide();
+                }
+            });
+
+            $('#facebook_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#facebook_enable_div').show();
+                } else {
+                    $('#facebook_enable_div').hide();
                 }
             });
         });

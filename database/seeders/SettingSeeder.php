@@ -22,9 +22,11 @@ class SettingSeeder extends Seeder
                 'site_logo'                         => null,
                 'site_status'                       => 'active',
                 'reason_locked'                     => null,
+                'google_enable'                     => 'on',
                 'services.google.client_id'         => '305295164959-957dbe2g9bm59oslqmjnjl96ek0sfiid.apps.googleusercontent.com',
                 'services.google.client_secret'     => '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',
                 'services.google.client_redirect'   => 'http://localhost:8000/auth/google/callback',
+                'facebook_enable'                   => 'on', 
                 'services.facebook.client_id'       => '216796600748740',
                 'services.facebook.client_secret'   => '465dd3a53f01c039cf544bec281f8085',
                 'services.facebook.client_redirect' => 'http://localhost:8000/auth/facebook/callback',
@@ -37,9 +39,11 @@ class SettingSeeder extends Seeder
                 'mail.mailers.smtp.password'        => '9558a59e2b581e',
                 'mail.from.address'                 => 'no-reply@mailtrap.club',
                 'mail.from.name'                    => 'Freelancer',
-                'faq_status'                        => 'on',
-                'article_status'                    => 'off',
-                'page_status'                       => 'on',
+                'faq_enable'                        => 'on',
+                'article_enable'                    => 'off',
+                'page_enable'                       => 'on',
+                'article_enable'                    => 'off',
+                'page_enable'                       => 'on',
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);

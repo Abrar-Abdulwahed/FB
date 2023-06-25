@@ -62,7 +62,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    @if (\App\Models\Setting::where('name', 'page_status')?->first()?->value == 'on')
+                    @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa-solid fa-newspaper"></i>
                             <p>
@@ -73,7 +73,7 @@
                     @endif
 
                     <ul class="nav nav-treeview">
-                        @if (\App\Models\Setting::where('name', 'article_status')?->first()?->value == 'on')
+                        @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
                             <li class="nav-item @if (Route::is('admin.articles.index')) ? 'active' : '' bg-primary @endif">
                                 <a class="nav-link" href="{{ route('admin.articles.index') }}">
                                     {{-- <i class="far fa-circle nav-icon"></i> --}}المقالات
@@ -87,7 +87,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (\App\Models\Setting::where('name', 'faq_status')?->first()?->value == 'on')
+                @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
                     <li class="nav-item @if (Route::is('admin.faqs.index')) ? 'active' : '' bg-primary @endif">
                         <a class="nav-link" href="{{ route('admin.faqs.index') }}">
                             <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
