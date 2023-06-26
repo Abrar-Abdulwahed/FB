@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,18 +24,21 @@ class TicketsController extends Controller
     }
 
     public function store(Request $request){
-        $user_id = auth()->id();
-        $user_role = Auth::user()->role;
-        if ($user_role=='admin') {
-            $role=1;
-        }else{
-            $role=0;
+        $user_id=Auth::user()->id;
+        $user = User::with('roles')->find($user_id);
+        $is_admin=0;
+
+        foreach ($user->roles as $role) {
+            if ($role->name=="admin") {
+               $is_admin=1;
+            }
         }
+        
         $message=TicketMessage::create([
             'ticket_id'=>$request->ticket_id,
             'user_id'=>$user_id,
             'message'=>$request->message,
-            'is_admin'=>$role
+            'is_admin'=>$is_admin
         ]);
         return redirect()->back();
     }

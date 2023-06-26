@@ -1,9 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'قائمة الرسائل المخصصة')
+@section('title', 'قائمة التذاكر')
 @section('content')
-    <a href={{ route('admin.custom-message.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
-        إضافة</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -13,7 +11,7 @@
     @endif
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            قائمة الرسائل المخصصة
+            قائمة التذاكر
         </div>
         <div class="card-body">
             <table class="table table-bordered">

@@ -46,6 +46,12 @@
     color: #fff;
 }
     </style>
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark">
+                   الرسائل الخاصه بالتذكره
+        </div>
+    </br>
+</br>
 
     <div class="container">
         <div class="row">
@@ -77,7 +83,7 @@
                 <div class="user-avatar">
                     <img src="{{$message->user->avatar}}" alt="User avatar">
                     {{$message->user->name}}
-                    @if($message->user->role=='admin')
+                    @if($message->is_admin)
                     <div class="admin-tag">Admin</div>
                     @else
                     <div class="admin-tag" style="background-color:#2ecc71">User</div>
@@ -86,7 +92,7 @@
             </div>
 
             <div class="col-10">
-                <div class="message @if($message->user->role=='admin') admin-message @endif">
+                <div class="message @if($message->is_admin) admin-message @endif">
                         <p>{{ $message->message }}</p>
                 </div>
             </div>
@@ -108,7 +114,7 @@
             <div class="form-group">
                 <textarea class="form-control" name="message" placeholder="Type your message"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary">ارسال</button>
         </form>
     </div>
 

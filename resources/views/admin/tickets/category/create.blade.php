@@ -25,7 +25,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="code">اسم النوع</label>
-                    <input type="text" name="name" class="form-control" style="width: 150pt"  placeholder="ادخل الاسم"
+                    <input type="text" name="name" class="form-control"  placeholder="ادخل الاسم"
                         value="{{ old('code') }}">
                     @error('code')
                         <p class="text-danger small">{{ $message }}</p>

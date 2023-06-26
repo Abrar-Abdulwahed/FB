@@ -13,7 +13,7 @@
     @endif
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            قائمة انواع التذاكر
+            قائمة تصنيفات التذاكر
         </div>
         <div class="card-body">
             <table class="table table-bordered">
