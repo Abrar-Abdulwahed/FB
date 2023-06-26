@@ -80,10 +80,12 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('short_links', ShortLinkController::class);
 
     // payments
+    Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
+        ->name('payments.changeActive');
+
     Route::resource('payments', PaymentController::class);
     //ads routes
     Route::resource('ads', AdController::class)->except('show');
-
 });
 
 /* Route::prefix('user')->group(function(){

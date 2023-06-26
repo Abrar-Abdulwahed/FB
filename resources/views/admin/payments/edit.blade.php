@@ -69,11 +69,11 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label for="logo">لوجو</label>
+                        <label for="logo" class="mb-3">لوجو</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="logo">
                             <label for="file-1" id="file-1-preview" class="w-100 h-100">
-                                <img src={{ asset('storage/payments/' . $payment->logo) ?? 'https://bit.ly/3ubuq5o' }}
+                                <img src={{ asset('storage/images/' . $payment->logo) ?? 'https://bit.ly/3ubuq5o' }}
                                     alt="">
                                 <div>
                                     <span>+</span>
@@ -89,7 +89,7 @@
                         <input type="checkbox" name="is_active" {{ $payment->is_active === 1 ? 'checked' : '' }}
                             data-bootstrap-switch data-off-color="danger" data-on-color="success">
                     </div> --}}
-                    <div class="custom-control custom-switch mt-2">
+                    <div class="form-group col-12 mr-3 custom-control custom-switch my-4">
                         <input type="checkbox" class="custom-control-input" id="is-active" name="is_active"
                             @checked($payment->is_active == 1)>
                         <label class="custom-control-label" for="is-active">الحالة</label>

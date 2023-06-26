@@ -26,10 +26,19 @@
             <tbody>
                 @foreach ($payments as $payment)
                     <tr>
-                        <td>{{ $payment->name }}</td>
                         <td>
-                            <img class="img-rounded" src="{{ asset('storage/images/' . $payment->logo) }}" alt="{{ $payment->name }}"
-                                width="70px" height="70px">
+                            <img class="img-rounded" src="{{ asset('storage/images/' . $payment->logo) }}"
+                                alt="{{ $payment->name }}" width="50px" height="50px">
+                            {{ $payment->name }}
+                        </td>
+                        <td>
+                            <form class="my-form" action="{{ route('admin.payments.changeActive', $payment->id) }}"
+                                method="post">
+                                @csrf
+                                @method('PATCH')
+                                <input type="submit" class="btn btn-sm btn-info submit-btn"
+                                    value="{{ $payment->is_active === 1 ? 'تعطيل' : 'تفعيل' }}">
+                            </form>
                         </td>
                         <td>
                             <a href="{{ route('admin.payments.edit', $payment->id) }}" class="mx-1 btn btn-success"><i
@@ -75,3 +84,32 @@
 
 </div>
 @endsection
+
+@push('js')
+<script>
+    let forms = document.querySelectorAll('.my-form');
+    // console.log(forms);
+
+    forms.forEach(form => {
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            let formData = new FormData(form); 
+
+            fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // update the submit button value
+                    let submitBtn = form.querySelector('.submit-btn');
+                    submitBtn.value = (submitBtn.value === 'تفعيل') ? 'تعطيل' : 'تفعيل';
+                })
+                .catch(error => {
+                    // handle the error
+                });
+        });
+    });
+</script>
+@endpush
