@@ -238,8 +238,9 @@
                                             <label for="mail_mailer" class="text-muted">بريد الارسال</label>
                                             <select class="form-control" name="mail_mailer" id="mail_mailer">
                                                 @foreach (App\Enums\MailerType::values() as $key => $value)
-                                                    <option value="{{ $key }}" @selected(old('mail_mailer') == $value || $settings['mail.default'] == $value)>
-                                                        {{ $value }}</option>
+                                                    <option value="{{ $key }}" @selected(old('mail_mailer') == $key || $settings['mail.default'] == $key)>
+                                                        {{ $value }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             @error('mail_mailer')
