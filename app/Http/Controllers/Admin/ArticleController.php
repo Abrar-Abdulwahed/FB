@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleStoreRequest;
-use App\Http\Requests\ArticleUpdateRequest;
+use App\Http\Requests\Admin\Blog\Article\ArticleStoreRequest;
+use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
-use App\Traits\AvatarTrait;
 use App\Traits\ImageTrait;
-use Cocur\Slugify\Slugify;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -95,7 +93,6 @@ class ArticleController extends Controller
 
         // add slug
         $validated['slug'] = Article::generateSlug($validated['title']);
-
 
         // store image
         if ($request->hasFile('image')) {

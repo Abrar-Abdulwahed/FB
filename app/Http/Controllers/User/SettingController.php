@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserProfileValidation;
+use App\Http\Requests\User\Profile\UserProfileValidation;
 use App\Models\User;
 use App\Traits\AvatarTrait;
 use DragonCode\Support\Filesystem\File;

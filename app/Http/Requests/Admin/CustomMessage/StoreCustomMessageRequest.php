@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\CustomMessage;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class LoginRequest extends FormRequest
+class StoreCustomMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,10 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'     => "required|email",
-            'password'  => "required",
+            'code' => "required|string|max:25|unique:custom_messages",
+            'type' => "required|string|max:5|in:sms,email",
+            'language' => "required|string|max:5|in:ar,en",
+            'text' => "required|string",
         ];
     }
 }

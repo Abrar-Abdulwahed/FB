@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Payment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleStoreRequest extends FormRequest
+class PaymentStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,11 @@ class RoleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', 'unique:roles,name']
+            'name' => ['required', 'string', 'max:255'],
+            'logo' => ['required', 'image'],
+            'description' => ['nullable', 'string'],
+            'is_active' => ['required'],
+            'settings' => ['required', 'json'],
         ];
     }
 }

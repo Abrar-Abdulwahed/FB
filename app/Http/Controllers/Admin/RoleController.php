@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleStoreRequest;
-use App\Http\Requests\RoleUpdateRequest;
+use App\Http\Requests\Admin\User\Role\RoleStoreRequest;
+use App\Http\Requests\Admin\User\Role\RoleUpdateRequest;
 use App\Models\Role;
 
 class RoleController extends Controller

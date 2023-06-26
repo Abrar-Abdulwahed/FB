@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ShortLinkValidation;
+use App\Http\Requests\ShortLink\ShortLinkValidation;
 use App\Models\ShortLink;
-use Illuminate\Http\Request;
 
 class ShortLinkController extends Controller
 {
@@ -44,7 +43,7 @@ class ShortLinkController extends Controller
     public function show($param)
     {
         //
-        $short_link = ShortLink::query()->where('slug',$param)->orWhere('id',$param)->firstOrFail();
+        $short_link = ShortLink::query()->where('slug', $param)->orWhere('id', $param)->firstOrFail();
 
         return redirect()->to($short_link->url);
     }

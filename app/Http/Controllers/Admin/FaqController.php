@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FaqValidation;
+use App\Http\Requests\Admin\Faq\FaqValidation;
 use App\Models\Faq;
 
 class FaqController extends Controller

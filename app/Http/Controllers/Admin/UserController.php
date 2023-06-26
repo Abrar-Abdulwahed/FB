@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\Admin\User\UserStoreRequest;
+use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\AvatarTrait;
@@ -127,7 +127,7 @@ class UserController extends Controller
     public function verifyEmail($id)
     {
         $user = User::findOrFail($id);
-        
+
         event(new Registered($user));
 
         return redirect()->route('admin.users.index');

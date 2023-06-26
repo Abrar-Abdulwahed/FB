@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PaymentStoreRequest;
-use App\Http\Requests\PaymentUpdateRequest;
+use App\Http\Requests\Admin\Payment\PaymentStoreRequest;
+use App\Http\Requests\Admin\Payment\PaymentUpdateRequest;
 use App\Models\PaymentMethod;
 use App\Traits\ImageTrait;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -75,7 +74,6 @@ class PaymentController extends Controller
             ->with('success', 'تم تعديل وسيلة الدفع بنجاح');
     }
 
-
     public function destroy(PaymentMethod $payment)
     {
         $payment->delete();
@@ -91,7 +89,7 @@ class PaymentController extends Controller
     public function changeActive(PaymentMethod $payment)
     {
         $payment->update([
-            'is_active' => !$payment->is_active
+            'is_active' => !$payment->is_active,
         ]);
 
         return redirect()->back()
