@@ -42,7 +42,7 @@ class PageController extends Controller
         $validated['slug'] = Page::generateSlug($validated['title']);
 
         // store image
-        if (!empty($validated->image)) {
+        if ($request->hasFile('image')) {
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
         }
 
@@ -50,7 +50,7 @@ class PageController extends Controller
         Page::query()->create([
             'is_in_footer' => array_key_exists('is_in_footer',$validated) &&  $validated['is_in_footer'] == 'on' ? true : false,
             'is_in_menu' => array_key_exists('is_in_menu',$validated) &&  $validated['is_in_menu'] == 'on' ? true : false,
-            'image'=>$validated['image'],
+            'image'=>$validated['image'] ?? null,
             'slug'=>$validated['slug'],
             'title'=>$validated['title'],
             'content'=>$validated['content'],
@@ -110,8 +110,7 @@ class PageController extends Controller
         // add slug
         $validated['slug'] = Page::generateSlug($validated['title']);
 
-        $validated['is_in_footer'] == 'on' ? true : false;
-        $validated['is_in_menu'] == 'on' ? true : false;
+       
 
         // store image
         if ($request->hasFile('image')) {
@@ -122,8 +121,19 @@ class PageController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
         }
 
+        $page->update([
+            'is_in_footer' => array_key_exists('is_in_footer',$validated) &&  $validated['is_in_footer'] == 'on' ? true : false,
+            'is_in_menu' => array_key_exists('is_in_menu',$validated) &&  $validated['is_in_menu'] == 'on' ? true : false,
+            'image'=>$validated['image'] ?? null,
+            'slug'=>$validated['slug'],
+            'title'=>$validated['title'],
+            'content'=>$validated['content'],
+            'description'=>$validated['description'],
 
-        $page->update($validated);
+        ]);
+
+
+        //$page->update($validated);
 
         return redirect()->route('admin.pages.index')
             ->with('success', 'تم تعديل الصفحة بنجاح');

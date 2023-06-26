@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="custom-control custom-switch mx-3 my-2 col-12">
-                        <input @checked($page->is_in_menu) type="checkbox" class="custom-control-input" id="is_in_menu" name="is_in_menu">
+                        <input @checked($page->is_in_menu)  type="checkbox" class="custom-control-input" id="is_in_menu" name="is_in_menu">
                         <label class="custom-control-label" for="is_in_menu">في القائمة</label>
                     </div>
 
