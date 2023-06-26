@@ -17,7 +17,9 @@ class Page extends Model
         'slug',
         'description',
         'content',
-        'image'
+        'image',
+        'is_in_footer',
+        'is_in_menu',
     ];
 
     public static function generateSlug($title)

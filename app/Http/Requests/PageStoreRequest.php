@@ -26,6 +26,8 @@ class PageStoreRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'content' => ['required', 'string'],
             'image' => ['nullable', 'image'],
+            'is_in_footer' => 'nullable|in:on,off',
+            'is_in_menu' => 'nullable|in:on,off',
         ];
     }
 }
