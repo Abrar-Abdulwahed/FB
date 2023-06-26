@@ -88,6 +88,7 @@ class UserController extends Controller
         $user->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'password' => $validated['password'] ?? $user->password,
             'is_banned' => $validated['is_banned'],
             'banned_until' => $validated['is_banned'] == 0 ? null : $validated['banned_until'],
             'avatar' => $validated['avatar'] ?? $user->avatar,
