@@ -44,7 +44,7 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Signup/Login using providers
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->middleware('appLogin:facebook,google')->group(function () {
     Route::get('/{provider}/redirect', [ProviderController::class, 'redirect'])->name('app.login');
     Route::get('/{provider}/callback', [ProviderController::class, 'callback']);
 });

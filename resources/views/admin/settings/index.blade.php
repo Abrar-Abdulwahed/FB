@@ -236,9 +236,12 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="mail_mailer" class="text-muted">بريد الارسال</label>
-                                            <input type="text" name="mail_mailer" class="form-control"
-                                                id="mail_mailer" placeholder="ادخل بريد الارسال"
-                                                value="{{ old('mail_mailer') ?? $settings['mail.default'] }}" readonly>
+                                            <select class="form-control" name="mail_mailer" id="mail_mailer">
+                                                @foreach (App\Enums\MailerType::values() as $key => $value)
+                                                    <option value="{{ $key }}" @selected(old('mail_mailer') == $value || $settings['mail.default'] == $value)>
+                                                        {{ $value }}</option>
+                                                @endforeach
+                                            </select>
                                             @error('mail_mailer')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -328,24 +331,35 @@
                                 </div>
                                 <div class="tab-pane fade" id="additional-settings" role="tabpanel"
                                     aria-labelledby="additional-settings-tab">
-                                    <h5 class="text-muted mb-3">إضافة أو إلغاء بعض الميزات في الموقع</h5>
-                                    <div class="custom-control custom-switch mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="faq-status"
-                                            name="faq_enable" value="{{ $settings['faq_enable'] }}"
-                                            @checked($settings['faq_enable'] == 'on')>
-                                        <label class="custom-control-label" for="faq-status">الأسئلة الشائعة</label>
+                                    <div>
+                                        <h5 class="text-muted mb-3">إضافة أو إلغاء بعض الميزات في الموقع</h5>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="faq-status"
+                                                name="faq_enable" value="{{ $settings['faq_enable'] }}"
+                                                @checked($settings['faq_enable'] == 'on')>
+                                            <label class="custom-control-label" for="faq-status">الأسئلة الشائعة</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="article-status"
+                                                name="article_enable" value="{{ $settings['article_enable'] }}"
+                                                @checked($settings['article_enable'] == 'on')>
+                                            <label class="custom-control-label" for="article-status">المقالات</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="page-status"
+                                                name="page_enable" value="{{ $settings['page_enable'] }}"
+                                                @checked($settings['page_enable'] == 'on')>
+                                            <label class="custom-control-label" for="page-status">المدونات</label>
+                                        </div>
                                     </div>
-                                    <div class="custom-control custom-switch mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="article-status"
-                                            name="article_enable" value="{{ $settings['article_enable'] }}"
-                                            @checked($settings['article_enable'] == 'on')>
-                                        <label class="custom-control-label" for="article-status">المقالات</label>
-                                    </div>
-                                    <div class="custom-control custom-switch mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="page-status"
-                                            name="page_enable" value="{{ $settings['page_enable'] }}"
-                                            @checked($settings['page_enable'] == 'on')>
-                                        <label class="custom-control-label" for="page-status">المدونات</label>
+                                    <div class="mt-5">
+                                        <h5 class="text-muted mb-3">فتح باب التسجيل للموقع أو إغلاقه</h5>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="register-status"
+                                                name="register_enable" value="{{ $settings['register_enable'] }}"
+                                                @checked($settings['register_enable'] == 'on')>
+                                            <label class="custom-control-label" for="register-status">التسجيل</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="reset-db" role="tabpanel"
