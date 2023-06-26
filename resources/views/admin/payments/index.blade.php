@@ -28,7 +28,7 @@
                     <tr>
                         <td>{{ $payment->name }}</td>
                         <td>
-                            <img class="img-rounded" src="{{ asset('storage/payments/' . $payment->logo) }}" alt="{{ $payment->name }}"
+                            <img class="img-rounded" src="{{ asset('storage/images/' . $payment->logo) }}" alt="{{ $payment->name }}"
                                 width="70px" height="70px">
                         </td>
                         <td>
