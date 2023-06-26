@@ -1,6 +1,4 @@
-@extends('layouts.admin')
-
-@section('title', 'قائمة التذاكر')
+@extends('layouts.app')
 @section('content')
     <div class="clearfix"></div>
     @if (session()->has('success'))
@@ -56,7 +54,7 @@
 
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{route('admin.tickets.show',$item->id)}}"
+                                    <a href="{{route('ticket.show',$item->id)}}"
                                         class="mx-1 btn btn-success">مشاهده الرساله</i></a>
                                 </div>
                             </td>
@@ -69,6 +67,5 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 @endsection
