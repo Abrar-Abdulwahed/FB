@@ -9,6 +9,7 @@
         "biscolab/laravel-recaptcha": "^6.0",
         "cocur/slugify": "^4.3",
         "guzzlehttp/guzzle": "^7.2",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "5.6",

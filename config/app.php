@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
         // Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvide::class,
 
     ])->toArray(),
@@ -191,6 +192,8 @@ return [
         'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
 
         'Slugify' => Cocur\Slugify\Bridge\Laravel\SlugifyFacade::class,
+
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
     ])->toArray(),
 
