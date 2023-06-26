@@ -94,6 +94,7 @@ class PaymentController extends Controller
             'is_active' => !$payment->is_active
         ]);
 
-        return;
+        return redirect()->back()
+            ->with('success', 'تم تعديل حالة وسيلة الدفع بنجاح');
     }
 }
