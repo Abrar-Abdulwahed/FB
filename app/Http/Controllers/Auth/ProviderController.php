@@ -32,11 +32,16 @@ class ProviderController extends Controller
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
             ]);
+
             Auth::login($user);
+
+            // to append new role, NOT repeat role, NOT detach
+            $user->roles()->SyncWithoutDetaching([2]);
 
             //TODO: Change redirect to the homepage/control panel/whatever according to role
             return redirect()->route('admin.index'); 
         }catch(\Throwable $e){
+            dd($e);
             return redirect()->back()->withError('something went wrong');
         }
     }

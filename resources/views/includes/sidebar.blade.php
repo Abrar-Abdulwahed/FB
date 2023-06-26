@@ -2,12 +2,8 @@
     <div class="sidebar">
         <div class="user-pan e mt-3 pb-3 mb-3 d-f lex text-white">
             <div class="info text-center">
-
-
-                <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" style="border-radius: 50%"
-                    width="60px" height="60px">
+                <img src="{{ auth()->user()->avatar_image }}" style="border-radius: 50%" width="60px" height="60px">
                 <p class="text-center">{{ auth()->user()->name }}</p>
-
             </div>
         </div>
 

@@ -123,7 +123,7 @@
                     <div class="img-preview">
                         <input type="file" id="file-1" accept="image/*" name="avatar">
                         <label for="file-1" id="file-1-preview" class="w-100 h-100">
-                            <img src={{ asset('storage/avatars/' . $user->avatar) ?? 'https://bit.ly/3ubuq5o' }} alt="">
+                            <img src={{ $user->avatar_image }} alt="">
                             <div>
                                 <span>+</span>
                             </div>

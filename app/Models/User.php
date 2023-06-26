@@ -33,6 +33,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'banned_until'
     ];
 
+    public function getAvatarImageAttribute()
+    {
+        return $this->avatar ? Storage::disk('avatars')->url($this->avatar) : Storage::disk('avatars')->url('default.png');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
