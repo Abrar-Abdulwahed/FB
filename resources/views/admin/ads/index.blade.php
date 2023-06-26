@@ -19,6 +19,8 @@
                     <th>الاسم</th>
                     <th>الرساله</th>
                     <th>نوع الارسال</th>
+                    <th>تاريخ البدايه/النهايه</th>
+                    <th>تاريخ اخر تحديث</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -29,6 +31,8 @@
                         <td>{{ $ad->name }}</td>
                         <td>{{ Str::limit($ad->message,20) }} </td>
                         <td>{{ __($ad->type) }} </td>
+                        <td>{{ $ad->start_date !='' ? $ad->start_date().' - '.$ad->end_date():'-'}}</td>
+                        <td>{{ $ad->updated_at() }}</td>
                         <td>
                             <a href="{{ route('admin.ads.edit', $ad->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
