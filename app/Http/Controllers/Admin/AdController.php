@@ -3,14 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
 use App\Models\Ad;
-use App\Models\Role;
-use App\Models\User;
-use App\Traits\AvatarTrait;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdController extends Controller
 {
@@ -34,15 +29,15 @@ class AdController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'           => 'required',
-            'message'        => 'required',
-            'type'           => 'required|in:email,sms,notification,all',
-            'start_date'     => 'nullable|date_format:Y-m-d',
-            'end_date'       => 'required_with:start_date|date_format:Y-m-d|after_or_equal:start_date',
-            'country'        => 'nullable',
-            'gender'         => 'nullable|in:male,female',
-            'min_age'        => 'nullable',
-            'max_age'        => 'nullable',
+            'name' => 'required',
+            'message' => 'required',
+            'type' => 'required|in:email,sms,notification,all',
+            'start_date' => 'nullable|date_format:Y-m-d',
+            'end_date' => 'required_with:start_date|date_format:Y-m-d|after_or_equal:start_date',
+            'country' => 'nullable',
+            'gender' => 'nullable|in:male,female',
+            'min_age' => 'nullable',
+            'max_age' => 'nullable',
         ]);
         Ad::create($data);
         return redirect()->route('admin.ads.index')->with('success', 'تم اصافة الاعلان بنجاح');
@@ -51,18 +46,18 @@ class AdController extends Controller
     {
         return view('admin.ads.edit', compact('ad'));
     }
-    public function update(Request $request,Ad $ad)
+    public function update(Request $request, Ad $ad)
     {
         $data = $request->validate([
-            'name'           => 'required',
-            'message'        => 'required',
-            'type'           => 'required|in:email,sms,notification,all',
-            'start_date'     => 'nullable|date_format:Y-m-d',
-            'end_date'       => 'required_with:start_date|date_format:Y-m-d|after_or_equal:start_date',
-            'country'        => 'nullable',
-            'gender'         => 'nullable|in:male,female',
-            'min_age'        => 'nullable',
-            'max_age'        => 'nullable',
+            'name' => 'required',
+            'message' => 'required',
+            'type' => 'required|in:email,sms,notification,all',
+            'start_date' => 'nullable|date_format:Y-m-d',
+            'end_date' => 'required_with:start_date|date_format:Y-m-d|after_or_equal:start_date',
+            'country' => 'nullable',
+            'gender' => 'nullable|in:male,female',
+            'min_age' => 'nullable',
+            'max_age' => 'nullable',
         ]);
         $ad->update($data);
         return redirect()->route('admin.ads.index')->with(['success' => 'تم تحديث بيانات الاعلان بنجاح']);

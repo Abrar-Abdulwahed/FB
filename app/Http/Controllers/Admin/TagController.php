@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TagValidation;
+use App\Http\Requests\Admin\Blog\Tag\TagValidation;
 use App\Models\Tag;
 
 class TagController extends Controller

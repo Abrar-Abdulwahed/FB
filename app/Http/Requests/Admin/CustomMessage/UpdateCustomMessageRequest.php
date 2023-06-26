@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\CustomMessage;
 
-use App\Models\CustomMessage;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCustomMessageRequest extends FormRequest
+class UpdateCustomMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +23,10 @@ class StoreCustomMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code'      => "required|string|max:25|unique:custom_messages",
-            'type'      => "required|string|max:5|in:sms,email",
-            'language'  => "required|string|max:5|in:ar,en",
-            'text'      => "required|string",
+            'code' => "required|string|max:25|unique:custom_messages,code," . $this->custom_message,
+            'type' => "required|string|max:5|in:sms,email",
+            'language' => "required|string|max:5|in:ar,en",
+            'text' => "required|string",
         ];
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ShortLink;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class TagValidation extends FormRequest
+class ShortLinkValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +24,8 @@ class TagValidation extends FormRequest
     {
         return [
             //
-            'name' => 'required',
-            'slug' => 'required',
-           
+            'url' => 'required|url',
+            'slug' => ['unique:short_links,slug,' . $this->short_link],
         ];
     }
 }
