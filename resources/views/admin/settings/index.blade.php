@@ -236,9 +236,12 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="mail_mailer" class="text-muted">بريد الارسال</label>
-                                            <input type="text" name="mail_mailer" class="form-control"
-                                                id="mail_mailer" placeholder="ادخل بريد الارسال"
-                                                value="{{ old('mail_mailer') ?? $settings['mail.default'] }}" readonly>
+                                            <select class="form-control" name="mail_mailer" id="mail_mailer">
+                                                @foreach (App\Enums\MailerType::values() as $key => $value)
+                                                    <option value="{{ $key }}" @selected(old('mail_mailer') == $value || $settings['mail.default'] == $value)>
+                                                        {{ $value }}</option>
+                                                @endforeach
+                                            </select>
                                             @error('mail_mailer')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
