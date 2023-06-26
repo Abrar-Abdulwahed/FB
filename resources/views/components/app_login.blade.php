@@ -8,7 +8,7 @@
     @endif
     @if (\App\Models\Setting::where('name', 'google_enable')?->first()?->value == 'on')
         <br>
-        <a class="btn btn-primary mt-2" style="background-color: #dd4b39;" href="{{ route('app.login', 'google') }}"
+        <a class="btn btn-primary mt-2" style="background-color: #dd4b39;" href="{{ url('/auth/google/redirect') }}"
             role="button">
             <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
         </a>

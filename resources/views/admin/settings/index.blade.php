@@ -58,7 +58,7 @@
                                     aria-controls="general-settings" aria-selected="true">إعدادات عامة</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ $errors->hasAny(['google_client_id', 'google_client_secret', 'google_client_redirect', 'facebook_client_id', 'facebook_client_secret', 'facebook_client_redirect']) ? 'bg-danger' : '' }}"
+                                <a class="nav-link {{ $errors->hasAny(['google_client_id', 'google_client_secret', 'facebook_client_id', 'facebook_client_secret']) ? 'bg-danger' : '' }}"
                                     id="login-settings-tab" data-toggle="pill" href="#login-settings" role="tab"
                                     aria-controls="login-settings" aria-selected="false">تطبيقات تسجيل الدخول</a>
                             </li>
@@ -158,7 +158,7 @@
                                             </div>
                                         </div>
                                         <div class="form-row" id="facebook_enable_div">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="facebook_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="facebook_client_id" class="form-control"
                                                     id="facebook_client_id" placeholder="ادخل معرف الفيسبوك "
@@ -167,24 +167,13 @@
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="facebook_client_secret" class="text-muted">كلمة
                                                     الأمان</label>
                                                 <input type="text" name="facebook_client_secret" class="form-control"
                                                     id="facebook_client_secret" placeholder="ادخل كلمة أمان الفيسبوك "
                                                     value="{{ old('facebook_client_secret') ?? $settings['services.facebook.client_secret'] }}">
                                                 @error('facebook_client_secret')
-                                                    <p class="text-danger small">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="facebook_client_redirect" class="text-muted">رابط
-                                                    التوجيه</label>
-                                                <input type="text" name="facebook_client_redirect"
-                                                    class="form-control" id="facebook_client_redirect"
-                                                    placeholder="ادخل رابط التوجيه"
-                                                    value="{{ old('facebook_client_redirect') ?? $settings['services.facebook.client_redirect'] }}">
-                                                @error('facebook_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
@@ -198,7 +187,7 @@
                                             <label class="custom-control-label" for="google_enable">جوجل</label>
                                         </div>
                                         <div class="form-row" id="google_enable_div">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="google_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="google_client_id" class="form-control"
                                                     id="google_client_id" placeholder="ادخل معرف جوجل "
@@ -207,24 +196,13 @@
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-6">
                                                 <label for="google_client_secret" class="text-muted">كلمة
                                                     الأمان</label>
                                                 <input type="text" name="google_client_secret" class="form-control"
                                                     id="google_client_secret" placeholder="ادخل كلمة أمان جوجل "
                                                     value="{{ old('google_client_secret') ?? $settings['services.google.client_secret'] }}">
                                                 @error('google_client_secret')
-                                                    <p class="text-danger small">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="google_client_redirect" class="text-muted"> رابط
-                                                    التوجيه
-                                                </label>
-                                                <input type="text" name="google_client_redirect" class="form-control"
-                                                    id="google_client_redirect" placeholder="ادخل رابط التوجيه"
-                                                    value="{{ old('google_client_redirect') ?? $settings['services.google.client_redirect'] }}">
-                                                @error('google_client_redirect')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
                                             </div>
