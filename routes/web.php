@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\User\UserArticleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\SettingController as UserSettingController;
 use App\Http\Controllers\User\UserTicketController;
@@ -97,8 +98,8 @@ Route::prefix('profile')->group(function () {
 });
 
 // articles routes for visitors
-Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
-Route::get('articles/{slug}', [ArticleController::class, 'show'])
+Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
+Route::get('articles/{slug}', [UserArticleController::class, 'show'])
     ->name('articles.show');
 
 // pages routes for visitors
