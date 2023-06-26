@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
 use Illuminate\Support\Facades\Artisan;

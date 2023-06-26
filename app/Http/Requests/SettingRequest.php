@@ -21,7 +21,6 @@ class SettingRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd($this);
         return [
             'app_name'                   => 'required|string',
             'site_description'           => 'required|string',
@@ -37,7 +36,7 @@ class SettingRequest extends FormRequest
             'facebook_client_redirect'   => 'required_if:facebook_enable,on|nullable|url',
             'recaptcha_site_key'         => 'required|string',
             'recaptcha_secret_key'       => 'required|string',
-            'mail_mailer'                => 'required|string|in:smtp,mailgun',
+            'mail_mailer'                => 'required|string|in:smtp,sendmail',
             'mail_host'                  => 'required|string',
             'mail_port'                  => 'required|numeric|digits:4',
             'mail_username'              => 'required|string',

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,11 +32,6 @@ class AppServiceProvider extends ServiceProvider
             foreach ($settings as $setting) {
                 config()->set($setting['name'], $setting['value']);
             }
-
-            //custom directives
-            // Blade::directive('enableFeature', function($feature) use($settings) {
-            //     return Setting::where('name', $feature)?->first()?->value == "on";
-            // });
             
             //Event to send email for user
             // User::created(function($user){
