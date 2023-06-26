@@ -52,11 +52,9 @@ class SettingController extends Controller
                 'google_enable'                     => $request?->google_enable ?? false,
                 'services.google.client_id'         => $request?->google_enable === "on" ? $request?->google_client_id: null,
                 'services.google.client_secret'     => $request?->google_enable === "on" ? $request?->google_client_secret : null,
-                'services.google.client_redirect'   => $request?->google_enable === "on" ?  $request?->google_client_redirect : null,
                 'facebook_enable'                   => $request?->facebook_enable ?? false,
                 'services.facebook.client_id'       => $request?->facebook_enable === "on" ? $request?->facebook_client_id : null,
                 'services.facebook.client_secret'   => $request?->facebook_enable === "on" ? $request?->facebook_client_secret : null,
-                'services.facebook.client_redirect' => $request?->facebook_enable === "on" ? $request?->facebook_client_redirect : null,
                 'recaptcha.api_site_key'            => $request?->recaptcha_site_key,
                 'recaptcha.api_secret_key'          => $request?->recaptcha_secret_key,
                 'mail.default'                      => $request?->mail_mailer, //mail_mailer

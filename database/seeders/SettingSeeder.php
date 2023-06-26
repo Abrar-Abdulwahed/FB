@@ -25,11 +25,9 @@ class SettingSeeder extends Seeder
                 'google_enable'                     => 'on',
                 'services.google.client_id'         => '305295164959-957dbe2g9bm59oslqmjnjl96ek0sfiid.apps.googleusercontent.com',
                 'services.google.client_secret'     => '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',
-                'services.google.client_redirect'   => 'http://localhost:8000/auth/google/callback',
                 'facebook_enable'                   => 'on', 
                 'services.facebook.client_id'       => '216796600748740',
                 'services.facebook.client_secret'   => '465dd3a53f01c039cf544bec281f8085',
-                'services.facebook.client_redirect' => 'http://localhost:8000/auth/facebook/callback',
                 'recaptcha.api_site_key'            => '6LfU1LImAAAAAAnmzNitKGDofM5vpnn26Ny2-_Rn',
                 'recaptcha.api_secret_key'          => '6LfU1LImAAAAAJuimHgma-JGiwSn_3auQFiTdmNf',
                 'mail.default'                      => 'smtp', //mail_mailer
