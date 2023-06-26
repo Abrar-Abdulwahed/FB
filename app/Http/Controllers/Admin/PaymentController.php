@@ -30,7 +30,7 @@ class PaymentController extends Controller
         $validated = $request->validated();
 
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $this->uploadImage($request->file('logo'), 'public/payments');
+            $validated['logo'] = $this->uploadImage($request->file('logo'), 'public/images');
         }
 
         PaymentMethod::query()->create([
@@ -58,9 +58,9 @@ class PaymentController extends Controller
         if ($request->hasFile('logo')) {
             if ($payment->logo) {
                 //Remove old logo
-                Storage::disk('local')->delete('public/payments/' . $payment->logo);
+                Storage::disk('local')->delete('public/images/' . $payment->logo);
             }
-            $validated['logo'] = $this->uploadImage($request->file('logo'), 'public/payments');
+            $validated['logo'] = $this->uploadImage($request->file('logo'), 'public/images');
         }
 
         $payment->update([
@@ -82,9 +82,19 @@ class PaymentController extends Controller
 
         if ($payment->logo) {
             //Remove old logo
-            Storage::disk('local')->delete('public/payments/' . $payment->logo);
+            Storage::disk('local')->delete('public/images/' . $payment->logo);
         }
 
         return redirect()->route('admin.payments.index');
+    }
+
+    public function changeActive(PaymentMethod $payment)
+    {
+        $payment->update([
+            'is_active' => !$payment->is_active
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'تم تعديل حالة وسيلة الدفع بنجاح');
     }
 }

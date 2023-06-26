@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LoginActivity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Laravel\Socialite\Facades\Socialite;
+use Jenssegers\Agent\Facades\Agent;
 
 class ProviderController extends Controller
 {
@@ -34,6 +37,12 @@ class ProviderController extends Controller
             ]);
 
             Auth::login($user);
+            LoginActivity::create([
+                'user_id'       => auth()->user()->id,
+                'user_agent'    => $provider->header('user-agent'),
+                'browser'    => Agent::browser(),
+                'ip'    =>  FacadesRequest::ip(),
+            ]);
 
             // to append new role, NOT repeat role, NOT detach
             $user->roles()->SyncWithoutDetaching([2]);

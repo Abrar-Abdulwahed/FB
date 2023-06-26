@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
+      <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
     @stack('css')
 
     <style>
@@ -54,14 +56,24 @@
  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
  <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script></body>
 
+ <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> 
+
  <script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
  <script>
     var table = new DataTable('#users', {
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
     },
-});
+    });
+
+    var table = new DataTable('#short_links', {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
+    },
+    });
 </script>
+
+
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>

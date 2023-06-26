@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('short_links', function (Blueprint $table) {
+        Schema::create('login_activities', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->nullable();
-            $table->longText('url');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('user_agent');
+            $table->string('ip');
+            $table->string('browser');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('short_links');
+        Schema::dropIfExists('login_activities');
     }
 };

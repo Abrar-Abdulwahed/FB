@@ -24,9 +24,9 @@ class PaymentUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['nullable', 'image'],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'is_active' => ['sometimes'],
-            'settings' => ['required'],
+            'settings' => ['required', 'json'],
         ];
     }
 }

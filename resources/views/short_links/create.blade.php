@@ -19,7 +19,7 @@
                 <form action="{{ Route('admin.short_links.store') }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label>URL</label>
+                        <label>الرابط</label>
                         <input type="text" name="url" value="{{ old('url') }}" class="form-control">
                         @error('url')
                             <p class="text-danger">{{ $message }}</p>
@@ -28,11 +28,13 @@
                     <div class="form-group">
                         <label>Slug</label>
                         <input type="text" name="slug" value="{{ old('slug') }}" class="form-control">
+                        <small class="form-text text-muted">يمكن تركه فارغا .</small>
+
                         @error('slug')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">
                             اضافة</button>
                     </div>

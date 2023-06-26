@@ -1,6 +1,5 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
-@section('title', 'قائمة الرسائل المخصصة')
 @section('content')
 
     <div class="clearfix"></div>
@@ -11,41 +10,6 @@
         <p class="alert alert-danger">{{ session('error') }}</p>
     @endif
 
-
-    <style>
-.message {
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.message p {
-    
-    margin: 0;
-    font-size: 16px;
-}
-
-.user-avatar img {
-    
-    width: 80%;
-    border-radius: 50%;
-}
-
-.admin-tag {
-    background-color: #2c09ee;
-    color: #fff;
-    font-size: 12px;
-    text-align: center;
-    padding: 5px;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-.admin-message {
-    background-color: #3498db;
-    color: #fff;
-}
-    </style>
     <div class="card shadow-sm">
 
     <div class="card shadow-sm">
@@ -61,16 +25,16 @@
                 <div class="user-avatar">
                     <img src="{{ asset('storage/avatars/' . $ticket->user->avatar) }}" alt="User avatar">
                     {{$ticket->user->name}}
-                    @if($ticket->is_admin==1)
+                    @if($ticket->user->role=='admin')
                     <div class="admin-tag">Admin</div>
                     @else
-                    <div class="admin-tag" style="background-color:#2ecc71">User</div>
+                    <div >User</div>
                     @endif
                 </div>
             </div>
 
             <div class="col-10">
-                <div class="message @if($ticket->is_admin==1) admin-message @endif">
+                <div>
                         <p>{{ $ticket->message }}</p>
                 </div>
             </div>
@@ -82,19 +46,19 @@
     <div class="container">
         <div class="row">
             <div class="col-2 text-center">
-                <div class="user-avatar">
+                <div>
                     <img src="{{ asset('storage/avatars/' . $message->user->avatar) }}" alt="User avatar">
                     {{$message->user->name}}
                     @if($message->is_admin)
-                    <div class="admin-tag">Admin</div>
+                    <div>Admin</div>
                     @else
-                    <div class="admin-tag" style="background-color:#2ecc71">User</div>
+                    <div  >User</div>
                     @endif
                 </div>
             </div>
 
             <div class="col-10">
-                <div class="message @if($message->is_admin) admin-message @endif">
+                <div >
                         <p>{{ $message->message }}</p>
                 </div>
             </div>

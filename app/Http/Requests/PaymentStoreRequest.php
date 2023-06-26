@@ -21,13 +21,12 @@ class PaymentStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd(request()->is_active);
         return [
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['required', 'image'],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'is_active' => ['required'],
-            'settings' => ['required'],
+            'settings' => ['required', 'json'],
         ];
     }
 }

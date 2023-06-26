@@ -8,6 +8,7 @@ use App\Http\Requests\PageUpdateRequest;
 use App\Models\Page;
 use App\Traits\ImageTrait;
 use Cocur\Slugify\Slugify;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,7 +35,7 @@ class PageController extends Controller
      */
     public function store(PageStoreRequest $request)
     {
-
+       
         $validated = $request->validated();
 
         // add slug
@@ -45,7 +46,20 @@ class PageController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
         }
 
-        Page::query()->create($validated);
+
+        Page::query()->create([
+            'is_in_footer' => array_key_exists('is_in_footer',$validated) &&  $validated['is_in_footer'] == 'on' ? true : false,
+            'is_in_menu' => array_key_exists('is_in_menu',$validated) &&  $validated['is_in_menu'] == 'on' ? true : false,
+            'image'=>$validated['image'] ?? null,
+            'slug'=>$validated['slug'],
+            'title'=>$validated['title'],
+            'content'=>$validated['content'],
+            'description'=>$validated['description'],
+
+        ]);
+        
+
+        //Page::query()->create($validated);
 
         return redirect()->route('admin.pages.index')
             ->with('success', 'تم اضافة الصفحة بنجاح');
@@ -96,6 +110,8 @@ class PageController extends Controller
         // add slug
         $validated['slug'] = Page::generateSlug($validated['title']);
 
+       
+
         // store image
         if ($request->hasFile('image')) {
             if ($page->image) {
@@ -105,8 +121,19 @@ class PageController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
         }
 
+        $page->update([
+            'is_in_footer' => array_key_exists('is_in_footer',$validated) &&  $validated['is_in_footer'] == 'on' ? true : false,
+            'is_in_menu' => array_key_exists('is_in_menu',$validated) &&  $validated['is_in_menu'] == 'on' ? true : false,
+            'image'=>$validated['image'] ?? null,
+            'slug'=>$validated['slug'],
+            'title'=>$validated['title'],
+            'content'=>$validated['content'],
+            'description'=>$validated['description'],
 
-        $page->update($validated);
+        ]);
+
+
+        //$page->update($validated);
 
         return redirect()->route('admin.pages.index')
             ->with('success', 'تم تعديل الصفحة بنجاح');

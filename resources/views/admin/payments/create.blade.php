@@ -68,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label for="logo">لوجو</label>
+                        <label for="logo" class="mb-4">لوجو</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="logo">
                             <label for="file-1" id="file-1-preview" class="w-100 h-100">
@@ -83,10 +83,12 @@
                             <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="custom-control custom-switch mt-2">
+
+                    <div class="form-group col-12 mr-3 custom-control custom-switch my-4">
                         <input type="checkbox" class="custom-control-input" id="is-active" name="is_active">
                         <label class="custom-control-label" for="is-active">الحالة</label>
                     </div>
+
                     <div class="form-group col-12">
                         <label>الاعدادات</label>
                         <textarea name="settings" id="settings" class="form-control">{{ old('settings') }}</textarea>

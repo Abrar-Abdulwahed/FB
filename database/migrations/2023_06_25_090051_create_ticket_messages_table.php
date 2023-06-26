@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('ticket_id')->constrained('tickets','id')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users','id')->cascadeOnDelete();
             $table->boolean('is_admin');
-            $table->text('message');
+            $table->longText('message');
             $table->timestamps();
         });
     }

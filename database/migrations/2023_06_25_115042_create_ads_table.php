@@ -14,8 +14,14 @@ return new class extends Migration
         Schema::create('ads', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('message');
+            $table->text('message')->nullable();
             $table->enum('type',['email','sms','notification','all'])->default('email');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->integer('min_age')->nullable();
+            $table->integer('max_age')->nullable();
+            $table->enum('gender',['male','female'])->default('male');
+            $table->string('country')->nullable();
             $table->timestamps();
         });
     }

@@ -17,10 +17,11 @@ class PaymentSeeder extends Seeder
         $seeder = SeederModel::where('class_name', __CLASS__)->count();
 
         if ($seeder == 0) {
-            $methods = ['Paypal', 'Coinpayment'];
-            foreach ($methods as $method) {
+            $methods = ['Paypal' => 'paypal.png', 'Coinpayment' => 'coinpayment.png'];
+            foreach ($methods as $name => $logo) {
                 PaymentMethod::query()->create([
-                    'name' => $method
+                    'name' => $name,
+                    'logo' => $logo,
                 ]);
             }
 

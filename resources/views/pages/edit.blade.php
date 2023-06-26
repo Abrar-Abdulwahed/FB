@@ -43,6 +43,16 @@
                         @enderror
                     </div>
 
+                    <div class="custom-control custom-switch mx-3 mt-2 col-12">
+                        <input @checked($page->is_in_footer) type="checkbox" class="custom-control-input" id="is_in_footer" name="is_in_footer">
+                        <label class="custom-control-label" for="is_in_footer">في ال footer</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mx-3 my-2 col-12">
+                        <input @checked($page->is_in_menu)  type="checkbox" class="custom-control-input" id="is_in_menu" name="is_in_menu">
+                        <label class="custom-control-label" for="is_in_menu">في القائمة</label>
+                    </div>
+
                     <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-sm btn-primary">
                             تعديل</button>

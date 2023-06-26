@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\LoginActivity;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\RoleController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\User\UserArticleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\SettingController as UserSettingController;
 use App\Http\Controllers\User\UserTicketController;
@@ -58,6 +60,10 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
 
+    //login activities
+    Route::get('/login-activity',[LoginActivity::class,'index'])->name('login.activity')->middleware('auth');
+
+
     //reset db
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
 
@@ -80,10 +86,12 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('short_links', ShortLinkController::class);
 
     // payments
+    Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
+        ->name('payments.changeActive');
+
     Route::resource('payments', PaymentController::class);
     //ads routes
     Route::resource('ads', AdController::class)->except('show');
-
 });
 
 /* Route::prefix('user')->group(function(){
@@ -97,8 +105,8 @@ Route::prefix('profile')->group(function () {
 });
 
 // articles routes for visitors
-Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
-Route::get('articles/{slug}', [ArticleController::class, 'show'])
+Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
+Route::get('articles/{slug}', [UserArticleController::class, 'show'])
     ->name('articles.show');
 
 // pages routes for visitors

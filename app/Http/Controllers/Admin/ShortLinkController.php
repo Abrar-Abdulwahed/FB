@@ -41,12 +41,12 @@ class ShortLinkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($slug)
+    public function show($param)
     {
         //
-        $short_link = ShortLink::query()->where('slug', '=', $slug)->first();
+        $short_link = ShortLink::query()->where('slug',$param)->orWhere('id',$param)->firstOrFail();
 
-        return view('short_links.show', compact('short_link'));
+        return redirect()->to($short_link->url);
     }
 
     /**

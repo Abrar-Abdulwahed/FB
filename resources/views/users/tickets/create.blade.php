@@ -1,4 +1,5 @@
-
+@extends('layouts.app')
+    @section('content')
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -26,7 +27,7 @@
                             <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
-                        @error('category_id')
+                        @error('ticket_category_id')
                             <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
@@ -49,3 +50,4 @@
             </form>
         </div>
     </div>
+@endsection
