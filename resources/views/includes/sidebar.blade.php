@@ -78,7 +78,7 @@
                         </li>
                     </ul>
                 </li>
-                @if (\App\Models\Setting::where('name', 'article_status')?->first()?->value == 'on')
+                @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
                     <li
                         class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
@@ -107,7 +107,7 @@
                         </ul>
                     </li>
                 @endif
-                @if (\App\Models\Setting::where('name', 'faq_status')?->first()?->value == 'on')
+                @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
                     <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
                         <a class="nav-link" href="{{ route('admin.faqs.index') }}">
                             <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
