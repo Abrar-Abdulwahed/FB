@@ -41,7 +41,6 @@ class ProviderController extends Controller
             //TODO: Change redirect to the homepage/control panel/whatever according to role
             return redirect()->route('admin.index'); 
         }catch(\Throwable $e){
-            dd($e);
             return redirect()->back()->withError('something went wrong');
         }
     }
