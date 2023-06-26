@@ -150,16 +150,12 @@
                                     aria-labelledby="login-settings-tab">
                                     <div>
                                         <div class="d-flex align-items-center">
-                                            <label for="facebook_enable">فيسبوك</label>
-                                            <select class="form-control col-md-2" name="facebook_enable"
-                                                id="facebook_enable">
-                                                <option value="on" @selected(old('facebook_enable') == 'on' || $settings['facebook_enable'] == 'off')>
-                                                    مفتوح
-                                                </option>
-                                                <option value="off" @selected(old('facebook_enable') == 'off' || $settings['facebook_enable'] == 'off')>
-                                                    مغلق
-                                                </option>
-                                            </select>
+                                            <input type="text" name="facebook_enable" value="off" hidden />
+                                            <div class="custom-control custom-switch mt-2">
+                                                <input type="checkbox" class="custom-control-input" id="facebook_enable"
+                                                    name="facebook_enable" @checked(old('facebook_enable') == 'on' || $settings['facebook_enable'] === 'on')>
+                                                <label class="custom-control-label" for="facebook_enable">الفيسبوك</label>
+                                            </div>
                                         </div>
                                         <div class="form-row" id="facebook_enable_div">
                                             <div class="form-group col-md-4">
@@ -195,17 +191,11 @@
                                         </div>
                                     </div>
                                     <div class="mt-3">
-                                        <div class="d-flex">
-                                            <label for="google_enable">جوجل</label>
-                                            <select class="form-control col-md-2" name="google_enable"
-                                                id="google_enable">
-                                                <option value="on" @selected(old('google_enable') == 'on' || $settings['google_enable'] == 'off')>
-                                                    مفتوح
-                                                </option>
-                                                <option value="off" @selected(old('google_enable') == 'off' || $settings['google_enable'] == 'off')>
-                                                    مغلق
-                                                </option>
-                                            </select>
+                                        <input type="text" name="google_enable" value="off" hidden />
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="google_enable"
+                                                name="google_enable" @checked(old('google_enable') == 'on' || $settings['google_enable'] === 'on')>
+                                            <label class="custom-control-label" for="google_enable">جوجل</label>
                                         </div>
                                         <div class="form-row" id="google_enable_div">
                                             <div class="form-group col-md-4">
@@ -406,26 +396,19 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
-            @if ($errors->hasAny(['google_client_id', 'google_client_secret', 'google_client_redirect']))
-                $('#google_enable_div').show();
-            @endif
-            @if ($errors->hasAny(['facebook_client_id', 'facebook_client_secret', 'facebook_client_redirect']))
-                $('#facebook_enable_div').show();
-            @endif
-
             if ($('#site_status').val() === 'inactive') {
                 $('#reason_locked_div').show();
             } else {
                 $('#reason_locked_div').hide();
             }
 
-            if ($('#google_enable').val() === 'on') {
+            if ($('#google_enable').is(':checked')) {
                 $('#google_enable_div').show();
             } else {
                 $('#google_enable_div').hide();
             }
 
-            if ($('#facebook_enable').val() === 'on') {
+            if ($('#facebook_enable').is(':checked')) {
                 $('#facebook_enable_div').show();
             } else {
                 $('#facebook_enable_div').hide();
@@ -441,7 +424,7 @@
             });
 
             $('#google_enable').change(function() {
-                if ($(this).val() === "on") {
+                if ($(this).is(':checked')) {
                     $('#google_enable_div').show();
                 } else {
                     $('#google_enable_div').hide();
@@ -449,7 +432,7 @@
             });
 
             $('#facebook_enable').change(function() {
-                if ($(this).val() === "on") {
+                if ($(this).is(':checked')) {
                     $('#facebook_enable_div').show();
                 } else {
                     $('#facebook_enable_div').hide();
