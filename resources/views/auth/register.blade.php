@@ -15,78 +15,70 @@
 
                                     <h2 class="fw-bold mb-2 text-uppercase">تسجيل حساب جديد</h2>
                                     <p class="text-dark-50 mb-5">انشاء حساب جديد</p>
+                                    @include('components.app_login')
+                                    @if (\App\Models\Setting::where('name', 'register_enable')?->first()?->value == 'on')
+                                        <form class="" method="POST" action="{{ route('register') }}">
+                                            @csrf
+                                            <div class="form-outline form-dark mb-3">
+                                                <input type="text" name="name" class="form-control py-2"
+                                                    @error('name') is-invalid @enderror name="name"
+                                                    value="{{ old('name') }}" placeholder="الاسم" />
+                                                <label class="form-label" for="name"></label>
+                                                @error('name')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
 
-                                    <div class="d-flehhx justify-con tent-center text-center mt-4 pt-1">
-                                        <a class="btn btn-primary mx-2 px-2" style="background-color: #3b5998;"
-                                            href="{{ route('app.login', 'facebook') }}" role="a">
-                                            <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
-                                        </a>
-                                        <br>
-                                        <a class="btn btn-primary mt-2" style="background-color: #dd4b39;"
-                                            href="{{ route('app.login', 'google') }}" role="a">
-                                            <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
-                                        </a>
-                                    </div>
-                                    <form class="" method="POST" action="{{ route('register') }}">
-                                        @csrf
-                                        <p class="mt-3">أو</p>
+                                            <div class="form-outline form-dark mb-3">
+                                                <input type="email" class="form-control py-2" name="email"
+                                                    value="{{ old('email') }}" placeholder="البريد الالكتروني " />
+                                                <label class="form-label" for="email"></label>
+                                                @error('email')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
 
-                                        <div class="form-outline form-dark mb-3">
-                                            <input type="text" name="name" class="form-control py-2"
-                                                @error('name') is-invalid @enderror name="name"
-                                                value="{{ old('name') }}" placeholder="الاسم" />
-                                            <label class="form-label" for="name"></label>
-                                            @error('name')
+                                            <div class="form-outline form-dark mb-3">
+                                                <input type="password" class="form-control py-2" name="password"
+                                                    placeholder="كلمة المرور" />
+                                                <label class="form-label" for="password"></label>
+                                                @error('password')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-outline form-dark mb-3">
+                                                <input type="password" class="form-control py-2"
+                                                    name="password_confirmation" placeholder="تأكيد كلمة المرور" />
+                                                <label class="form-label" for="confirm"></label>
+                                                @error('password_confirmation')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-outline form-dark mb-3 d-flex justify-content-start">
+                                                <input type="checkbox" name="terms">
+                                                <label class="px-2">هل توافق على شروط الخدمة</label><br>
+
+                                            </div>
+                                            @error('terms')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
+
+                                            <div class="text-center">
+                                                <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
+                                                @error('g-recaptcha-response')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+
+                                            <button class="btn btn-dark btn-lg px-5 mt-4" type="submit">تسجيل</button>
+                                        </form>
+                                    @else
+                                        <div class="alert alert-warning" role="alert">
+                                            التسجيل مغلق مؤقتا
                                         </div>
-
-                                        <div class="form-outline form-dark mb-3">
-                                            <input type="email" class="form-control py-2" name="email"
-                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " />
-                                            <label class="form-label" for="email"></label>
-                                            @error('email')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2" name="password"
-                                                placeholder="كلمة المرور" />
-                                            <label class="form-label" for="password"></label>
-                                            @error('password')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2"
-                                                name="password_confirmation" placeholder="تأكيد كلمة المرور" />
-                                            <label class="form-label" for="confirm"></label>
-                                            @error('password_confirmation')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-outline form-dark mb-3 d-flex justify-content-start">
-                                            <input type="checkbox" name="terms">
-                                            <label class="px-2">هل توافق على شروط الخدمة</label><br>
-
-                                        </div>
-                                        @error('terms')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-
-                                        <div class="text-center">
-                                            <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
-                                            @error('g-recaptcha-response')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-
-                                        <button class="btn btn-dark btn-lg px-5 mt-4" type="submit">تسجيل</button>
-                                    </form>
-
+                                    @endif
                                 </div>
                                 <div class="mt-0">
                                     <p class="mb-0">هل تملك حساب بالفعل؟ <a href="{{ route('login') }}"

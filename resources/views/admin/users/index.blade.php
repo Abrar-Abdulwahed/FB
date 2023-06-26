@@ -60,6 +60,9 @@
                             @endforeach
                         </td>
                         <td>
+                            <a href="{{ route('admin.login.activity', $user->id) }}" class="mx-1 btn btn-primary" title="سجل الدخول"><i
+                                class="fas fa-sign-in"></i></a>
+
                             <a href="{{ route('admin.users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
