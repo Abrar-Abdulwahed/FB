@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\LoginActivity;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\RoleController;
@@ -57,6 +58,10 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
+
+    //login activities
+    Route::get('/login-activity',[LoginActivity::class,'index'])->name('login.activity')->middleware('auth');
+
 
     //reset db
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');

@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Models\LoginActivity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use Faker\Provider\UserAgent;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Jenssegers\Agent\Facades\Agent;
+
 
 class LoginController extends Controller
 {
@@ -43,9 +48,17 @@ class LoginController extends Controller
     }
 
     public function login(LoginRequest $request){
+        //echo $request; die;
         $credentials = $request->only('email', 'password');
         $logged = Auth::attempt($credentials);
+        LoginActivity::create([
+            'user_id'       => auth()->user()->id,
+            'user_agent'    => $request->header('user-agent'),
+            'browser'    => Agent::browser(),
+            'ip'    =>  FacadesRequest::ip(),
+        ]);
         if ($logged) {
+            
             return redirect()->route('admin.index');
         }
         return redirect()->back()->withError('error',  __('failed'));
