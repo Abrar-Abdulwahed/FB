@@ -16,7 +16,7 @@ class FeatureEnabling
      */
     public function handle(Request $request, Closure $next, $option): Response
     {
-        if(Setting::where('name', $option.'_status')->first()?->value == "off"){
+        if(Setting::where('name', $option.'_enable')->first()?->value == "off"){
             abort(404);
         }
         return $next($request);

@@ -78,6 +78,10 @@
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="reset-db-tab" data-toggle="pill" href="#reset-db" role="tab"
+                                    aria-controls="reset-db" aria-selected="false">تهيئة قاعدة البيانات</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -145,8 +149,15 @@
                                 <div class="tab-pane fade" id="login-settings" role="tabpanel"
                                     aria-labelledby="login-settings-tab">
                                     <div>
-                                        <label>الفيسبوك</label>
-                                        <div class="form-row">
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" name="facebook_enable" value="off" hidden />
+                                            <div class="custom-control custom-switch mt-2">
+                                                <input type="checkbox" class="custom-control-input" id="facebook_enable"
+                                                    name="facebook_enable" @checked(old('facebook_enable') == 'on' || $settings['facebook_enable'] === 'on')>
+                                                <label class="custom-control-label" for="facebook_enable">الفيسبوك</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" id="facebook_enable_div">
                                             <div class="form-group col-md-4">
                                                 <label for="facebook_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="facebook_client_id" class="form-control"
@@ -180,8 +191,13 @@
                                         </div>
                                     </div>
                                     <div class="mt-3">
-                                        <label>جوجل</label>
-                                        <div class="form-row">
+                                        <input type="text" name="google_enable" value="off" hidden />
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="google_enable"
+                                                name="google_enable" @checked(old('google_enable') == 'on' || $settings['google_enable'] === 'on')>
+                                            <label class="custom-control-label" for="google_enable">جوجل</label>
+                                        </div>
+                                        <div class="form-row" id="google_enable_div">
                                             <div class="form-group col-md-4">
                                                 <label for="google_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="google_client_id" class="form-control"
@@ -220,9 +236,13 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="mail_mailer" class="text-muted">بريد الارسال</label>
-                                            <input type="text" name="mail_mailer" class="form-control"
-                                                id="mail_mailer" placeholder="ادخل بريد الارسال"
-                                                value="{{ old('mail_mailer') ?? $settings['mail.default'] }}" readonly>
+                                            <select class="form-control" name="mail_mailer" id="mail_mailer">
+                                                @foreach (App\Enums\MailerType::values() as $key => $value)
+                                                    <option value="{{ $key }}" @selected(old('mail_mailer') == $key || $settings['mail.default'] == $key)>
+                                                        {{ $value }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                             @error('mail_mailer')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -312,50 +332,72 @@
                                 </div>
                                 <div class="tab-pane fade" id="additional-settings" role="tabpanel"
                                     aria-labelledby="additional-settings-tab">
-                                    <h5 class="text-muted mb-3">إضافة أو إلغاء بعض الميزات في الموقع</h5>
-                                    <div class="custom-control custom-switch mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="faq-status"
-                                            name="faq_status" value="{{ $settings['faq_status'] }}"
-                                            @checked($settings['faq_status'] == 'on')>
-                                        <label class="custom-control-label" for="faq-status">الأسئلة الشائعة</label>
-                                    </div>
-                                    <div class="custom-control custom-switch mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="article-status"
-                                            name="article_status" value="{{ $settings['article_status'] }}"
-                                            @checked($settings['article_status'] == 'on')>
-                                        <label class="custom-control-label" for="article-status">المقالات</label>
-                                    </div>
-                                    <div class="custom-control custom-switch mt-2">
-                                        <input type="checkbox" class="custom-control-input" id="page-status"
-                                            name="page_status" value="{{ $settings['page_status'] }}"
-                                            @checked($settings['page_status'] == 'on')>
-                                        <label class="custom-control-label" for="page-status">المدونات</label>
-                                    </div>
-
-                                    {{-- <div class="card card-secondary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Bootstrap Switch</h3>
+                                    <div>
+                                        <h5 class="text-muted mb-3">إضافة أو إلغاء بعض الميزات في الموقع</h5>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="faq-status"
+                                                name="faq_enable" value="{{ $settings['faq_enable'] }}"
+                                                @checked($settings['faq_enable'] == 'on')>
+                                            <label class="custom-control-label" for="faq-status">الأسئلة الشائعة</label>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off"
-                                                style="width: 85.6px;">
-                                                <div class="bootstrap-switch-container"
-                                                    style="width: 126px; margin-left: -42px;"><span
-                                                        class="bootstrap-switch-handle-on bootstrap-switch-primary"
-                                                        style="width: 42px;">ON</span>
-                                                    <span class="bootstrap-switch-label"
-                                                        style="width: 42px;">&nbsp;</span>
-                                                    <span class="bootstrap-switch-handle-off bootstrap-switch-default"
-                                                        style="width: 42px;">OFF</span>
-                                                    <input type="checkbox" name="my-checkbox" checked="">
-                                                </div>
-                                            </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="article-status"
+                                                name="article_enable" value="{{ $settings['article_enable'] }}"
+                                                @checked($settings['article_enable'] == 'on')>
+                                            <label class="custom-control-label" for="article-status">المقالات</label>
                                         </div>
-                                    </div> --}}
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="page-status"
+                                                name="page_enable" value="{{ $settings['page_enable'] }}"
+                                                @checked($settings['page_enable'] == 'on')>
+                                            <label class="custom-control-label" for="page-status">المدونات</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <h5 class="text-muted mb-3">فتح باب التسجيل للموقع أو إغلاقه</h5>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="register-status"
+                                                name="register_enable" value="{{ $settings['register_enable'] }}"
+                                                @checked($settings['register_enable'] == 'on')>
+                                            <label class="custom-control-label" for="register-status">التسجيل</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="reset-db" role="tabpanel"
+                                    aria-labelledby="reset-db-tab">
+                                    <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#confirm-reset-db">
+                                        تهيئة قاعدة البيانات
+                                        <i class="fas fa-info"></i>
+                                    </button>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-dark mt-4 d-inline-block">حفظ</button>
                         </form>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-reset-db">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد التهيئة</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <p>هل أنت متأكد من هذه الخطوة؟ ستفقد كل البيانات الخاصة بالموقع
+                                    ولا يمكنك التراجع عن هذه الخطوة بعد القيام بها
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                <form action="{{ route('admin.settings.reset') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -375,12 +417,40 @@
                 $('#reason_locked_div').hide();
             }
 
+            if ($('#google_enable').is(':checked')) {
+                $('#google_enable_div').show();
+            } else {
+                $('#google_enable_div').hide();
+            }
+
+            if ($('#facebook_enable').is(':checked')) {
+                $('#facebook_enable_div').show();
+            } else {
+                $('#facebook_enable_div').hide();
+            }
+
             $('#site_status').change(function() {
                 var selectedValue = $(this).val();
                 if (selectedValue === 'inactive') {
                     $('#reason_locked_div').show();
                 } else {
                     $('#reason_locked_div').hide();
+                }
+            });
+
+            $('#google_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#google_enable_div').show();
+                } else {
+                    $('#google_enable_div').hide();
+                }
+            });
+
+            $('#facebook_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#facebook_enable_div').show();
+                } else {
+                    $('#facebook_enable_div').hide();
                 }
             });
         });
