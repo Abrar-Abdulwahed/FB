@@ -2,8 +2,6 @@ name: Deploy
 on:
   push:
     branches: ["production"]
-  pull_request:
-    branches: ["production"]
   workflow_dispatch:
 
 jobs:
