@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endpush --}}
 @section('content')
-    <a href={{ route('admin.TicketsCategory.index') }} class="btn btn-info float-right mb-2">جميع انواع التذاكر</a>
+    <a href={{ route('admin.TicketsCategory.index') }} class="btn btn-info float-right mb-2">جميع تصنيفات التذاكر</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>

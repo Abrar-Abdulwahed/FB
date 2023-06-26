@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'قائمه انواع التذاكر')
+@section('title', 'قائمه تصنيفات التذاكر')
 @section('content')
     <a href={{ route('admin.TicketsCategory.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
         إضافة</a>

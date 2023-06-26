@@ -18,6 +18,17 @@ class TicketsController extends Controller
 
     public function show($id){
         $ticket=Ticket::with('user', 'category')->find($id); 
+        //get roles of user
+        $user = User::with('roles')->find($ticket->user->id);
+        //check if user is admin
+        $is_admin=0;
+        foreach ($user->roles as $role) {
+            if ($role->name=="admin") {
+               $is_admin=1;
+            }
+        }
+        //append the role to the creator of ticket
+        $ticket->is_admin=$is_admin;
         $ticket->messages=TicketMessage::with('user')->where('ticket_id', $id)->get();;
         // dd($ticket->messages);
         return view('admin.tickets.show',compact('ticket'));

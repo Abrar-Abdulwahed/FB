@@ -8,7 +8,7 @@
 @if (isset($success))
 <h4><?php echo $success; ?></h4>    
 @endif
-    <a href={{ route('admin.TicketsCategory.index') }} class="btn btn-info float-right mb-2">جميع انواع التذاكر</a>
+    <a href={{ route('admin.TicketsCategory.index') }} class="btn btn-info float-right mb-2">جميع تصنيفات التذاكر</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>

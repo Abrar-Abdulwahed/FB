@@ -57,9 +57,9 @@
         <div class="row">
             <div class="col-2 text-center">
                 <div class="user-avatar">
-                    <img src="{{$ticket->user->avatar}}" alt="User avatar">
+                    <img src="{{ asset('storage/avatars/' . $ticket->user->avatar) }}" alt="User avatar">
                     {{$ticket->user->name}}
-                    @if($ticket->user->role=='admin')
+                    @if($ticket->is_admin==1)
                     <div class="admin-tag">Admin</div>
                     @else
                     <div class="admin-tag" style="background-color:#2ecc71">User</div>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="col-10">
-                <div class="message @if($ticket->user->role=='admin') admin-message @endif">
+                <div class="message @if($ticket->is_admin==1) admin-message @endif">
                         <p>{{ $ticket->message }}</p>
                 </div>
             </div>
@@ -81,7 +81,7 @@
         <div class="row">
             <div class="col-2 text-center">
                 <div class="user-avatar">
-                    <img src="{{$message->user->avatar}}" alt="User avatar">
+                    <img src="{{ asset('storage/avatars/' . $message->user->avatar) }}" alt="User avatar">
                     {{$message->user->name}}
                     @if($message->is_admin)
                     <div class="admin-tag">Admin</div>
