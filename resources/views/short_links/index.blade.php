@@ -19,7 +19,8 @@
             <thead>
                 <tr>
                     <th style="width: 10px">#</th>
-                    <th>url</th>
+                    <th>الرابط</th>
+                    <th>الرابط المختصر</th>
                     <th>slug</th>
                     <th>العمليات</th>
                 </tr>
@@ -28,7 +29,19 @@
                 @foreach ($short_links as $short_link)
                     <tr>
                         <td>{{ $short_link->id }}</td>
-                        <td><a href="{{ route('admin.short_links.show', $short_link->slug) }}">{{ $short_link->url }}</a></td>
+                        <td>
+                            <a href="{{ route('admin.short_links.show',$short_link) }}" id="myText">{{ $short_link->url }}</a>  
+                        </td>
+                        <td>
+                            @if (!empty($short_link->slug))
+                                <input type="text" value="{{ route('admin.short_links.show',$short_link->slug) }}" disabled>                            
+                                <button class="btn" data-clipboard-text="{{ route('admin.short_links.show',$short_link->slug) }}" id="copy-button"><i class="fas fa-copy text-secondary"></i></button>
+                            @else
+                                <input type="text" value="{{ route('admin.short_links.show',$short_link->id) }}" disabled>                            
+                                <button class="btn" data-clipboard-text="{{ route('admin.short_links.show',$short_link->id) }}" id="copy-button"><i class="fas fa-copy text-secondary"></i></button>
+                            @endif
+                           
+                        </td>
                         <td>{{ $short_link->slug }} </td>
                         <td>
                             <a href="{{ route('admin.short_links.edit', $short_link->id) }}" class="mx-1 btn btn-success"><i
@@ -71,4 +84,14 @@
     </div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('#copy-button');
+</script>
+<script>
+  navigator.clipboard.readText()
+  .then((text) => console.log("Text from clipboard: ", text))
+  .catch((error) => console.error("Failed to read text from clipboard: ", error));
+</script>
 @endsection

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title','عرض url')
+@section('title','عرض الرابط')
 
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            عرض الurl
+            عرض الرابط
         </div>
         <div class="card-body">
            

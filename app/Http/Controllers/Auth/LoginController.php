@@ -51,14 +51,13 @@ class LoginController extends Controller
         //echo $request; die;
         $credentials = $request->only('email', 'password');
         $logged = Auth::attempt($credentials);
-        LoginActivity::create([
-            'user_id'       => auth()->user()->id,
-            'user_agent'    => $request->header('user-agent'),
-            'browser'    => Agent::browser(),
-            'ip'    =>  FacadesRequest::ip(),
-        ]);
         if ($logged) {
-            
+            LoginActivity::create([
+                'user_id'       => auth()->user()->id,
+                'user_agent'    => $request->header('user-agent'),
+                'browser'    => Agent::browser(),
+                'ip'    =>  FacadesRequest::ip(),
+            ]);
             return redirect()->route('admin.index');
         }
         return redirect()->back()->withError('error',  __('failed'));
