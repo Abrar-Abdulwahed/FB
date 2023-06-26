@@ -10,7 +10,7 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label>URL</label>
+                    <label>الرابط</label>
                     <input type="text" name="url" value="{{ $short_link->url }}" class="form-control">
                     @error('url')
                         <p class="text-danger">{{ $message }}</p>

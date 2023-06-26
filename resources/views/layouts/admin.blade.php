@@ -60,8 +60,16 @@
     language: {
         url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
     },
-});
+    });
+
+    var table = new DataTable('#short_links', {
+    language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
+    },
+    });
 </script>
+
+
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
