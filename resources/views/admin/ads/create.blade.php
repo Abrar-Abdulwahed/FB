@@ -36,7 +36,7 @@
                                     <option value="male" {{ old('gender') == 'male' ? 'selected' : null }}>ذكر</option>
                                     <option value="female" {{ old('gender') == 'female' ? 'selected' : null }}>انثى</option>
                                 </select>
-                                @error('name')<p class="text-danger">{{ $message }}</p>@enderror
+                                @error('gender')<p class="text-danger">{{ $message }}</p>@enderror
                             </div>
                         </div>
                         <div class="col-md-3">

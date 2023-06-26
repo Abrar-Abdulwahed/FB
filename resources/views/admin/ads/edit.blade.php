@@ -36,7 +36,7 @@
                                 <option value="male" {{ old('gender',$ad->gender) == 'male' ? 'selected' : null }}>ذكر</option>
                                 <option value="female" {{ old('gender',$ad->gender) == 'female' ? 'selected' : null }}>انثى</option>
                             </select>
-                            @error('name')<p class="text-danger">{{ $message }}</p>@enderror
+                            @error('gender')<p class="text-danger">{{ $message }}</p>@enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -55,7 +55,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>الدوله</label>
-                            <select class="select2" name="country" >
+                            <select class="form-control select2" name="country" >
                                 <option value="" selected disabled readonly >--اختر الدوله--</option>
                                 @include('Admin.ads.country2')
                             </select>
@@ -121,9 +121,9 @@
             $('.select2').select2()
 
             //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
+            // $('.select2bs4').select2({
+            //     theme: 'bootstrap4'
+            // })
         })
     </script>
 @endpush
