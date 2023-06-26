@@ -29,7 +29,7 @@ class TicketsController extends Controller
         }
         //append the role to the creator of ticket
         $ticket->is_admin=$is_admin;
-        $ticket->messages=TicketMessage::with('user')->where('ticket_id', $id)->get();;
+        $ticket->messages=TicketMessage::with('user')->where('ticket_id', $id)->get();
         // dd($ticket->messages);
         return view('admin.tickets.show',compact('ticket'));
     }
@@ -49,7 +49,7 @@ class TicketsController extends Controller
             'ticket_id'=>$request->ticket_id,
             'user_id'=>$user_id,
             'message'=>$request->message,
-            'is_admin'=>$is_admin
+            'is_admin'=>$is_admin,
         ]);
         return redirect()->back();
     }
