@@ -35,6 +35,7 @@ class ProviderController extends Controller
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
             ]);
+
             Auth::login($user);
             LoginActivity::create([
                 'user_id'       => auth()->user()->id,
@@ -42,6 +43,9 @@ class ProviderController extends Controller
                 'browser'    => Agent::browser(),
                 'ip'    =>  FacadesRequest::ip(),
             ]);
+
+            // to append new role, NOT repeat role, NOT detach
+            $user->roles()->SyncWithoutDetaching([2]);
 
             //TODO: Change redirect to the homepage/control panel/whatever according to role
             return redirect()->route('admin.index'); 

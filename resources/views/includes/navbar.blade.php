@@ -19,13 +19,11 @@
     </ul>
     <div class="mr-0 ml-auto">
         <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <img src="{{ asset('storage/avatars/' . auth()->user()->avatar) }}" style="border-radius: 50%"
-                width="50px" height="50px">
+            <img src="{{ auth()->user()->avatar_image }}" style="border-radius: 50%" width="50px" height="50px">
 
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu" style="">
-            <li class="dropdown-item"><a href="#">Action</a></li>
             <li class="dropdown-item"><a href="{{ route('settings.index') }}">الإعدادات</a></li>
             <li class="dropdown-item"><a href="{{ route('settings.edit', auth()->user()->id) }}">البروفايل</a></li>
             <li class="dropdown-item"><a href="{{ route('ticket.create') }}">انشاء تذكره</a></li>
