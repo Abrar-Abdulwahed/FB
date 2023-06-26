@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->string('avatar')->nullable();
-            $table->boolean('is_banned')->default(false)->change();
+            $table->boolean('is_banned')->default(false);
             $table->timestamp('banned_until')->nullable();
             $table->rememberToken();
             $table->timestamps();
