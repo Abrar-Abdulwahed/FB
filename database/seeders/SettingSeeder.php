@@ -42,6 +42,7 @@ class SettingSeeder extends Seeder
                 'faq_enable'                        => 'on',
                 'article_enable'                    => 'on',
                 'page_enable'                       => 'on',
+                'register_enable'                   => 'on',
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);

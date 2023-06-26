@@ -68,6 +68,7 @@ class SettingController extends Controller
                 'faq_enable'                        => $request->faq_enable ? "on" : "off",
                 'article_enable'                    => $request->article_enable ? "on" : "off",
                 'page_enable'                       => $request->page_enable ? "on" : "off",
+                'register_enable'                   => $request->register_enable ? "on" : "off",
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
@@ -76,7 +77,6 @@ class SettingController extends Controller
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         }catch(\Throwable $e){
             DB::rollback();
-            dd($e);
             return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
         }
     }
@@ -84,10 +84,8 @@ class SettingController extends Controller
     public function reset(Request $request){
         try{
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
-            return redirect()->back()->with('success', 'تم تهيئة قاعدة البيانات');
         }
         catch(\Throwable $e){
-            dd($e);
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
     }
