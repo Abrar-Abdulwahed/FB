@@ -47,12 +47,14 @@
 }
     </style>
     <div class="card shadow-sm">
+
+    <div class="card shadow-sm">
         <div class="card-header bg-dark">
                    الرسائل الخاصه بالتذكره
         </div>
-    </br>
-</br>
 
+    <div class="card-body">
+        <div class="ticket-container">
     <div class="container">
         <div class="row">
             <div class="col-2 text-center">
@@ -100,6 +102,7 @@
         </div>
     </div>
 </br>
+
     @endforeach
 </br>
     <div class="container">
@@ -112,10 +115,14 @@
             @csrf
             <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
             <div class="form-group">
-                <textarea class="form-control" name="message" placeholder="Type your message"></textarea>
+                <textarea class="form-control" name="message" placeholder="اكتب رسالتك هنا"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">ارسال</button>
         </form>
+    </div>
+        </div>
+</div>
+</div>
     </div>
 
 @endsection

@@ -33,7 +33,12 @@
                             <td>{{ $item->user->name }}</td>
                             <td>{{ $item->subject }}</td>
                             <td><span
-                                    class="badge bg-success">{{ $item->category->name }}</span>
+                                    class="badge bg-success">
+                                    @if(isset($item->category->name)){{ $item->category->name }} 
+                                    @else
+                                    null
+                                    @endif
+                                </span>
                             </td>
                             <td>{{ \Str::limit($item->message, 50, '...') }}</td>
                             
