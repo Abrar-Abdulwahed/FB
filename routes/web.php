@@ -1,20 +1,25 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ShortLinkController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\TicketCategoryController;
+use App\Http\Controllers\Admin\TicketsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\SettingController as UserSettingController;
+use App\Http\Controllers\User\UserTicketController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,8 +58,13 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
 
+    //reset db
+    Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
+
     // articles routes
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
+    Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
+    Route::resource('tickets', TicketsController::class);
 
     Route::resource('tags', TagController::class);
 
@@ -63,12 +73,16 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     // roles routes
     Route::resource('roles', RoleController::class)->except('show');
-
     // Tags
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
     //short links
-    Route::resource('short_links',ShortLinkController::class);
+    Route::resource('short_links', ShortLinkController::class);
+
+    // payments
+    Route::resource('payments', PaymentController::class);
+    //ads routes
+    Route::resource('ads', AdController::class)->except('show');
 
 });
 
@@ -79,6 +93,7 @@ Route::get('/settings',[UserSettingController::class,'index'])->name('settings.i
 
 Route::prefix('profile')->group(function () {
     Route::resource('settings', UserSettingController::class);
+    Route::resource('ticket', UserTicketController::class);
 });
 
 // articles routes for visitors
