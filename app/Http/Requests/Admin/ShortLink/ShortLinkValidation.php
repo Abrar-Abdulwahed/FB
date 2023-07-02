@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\ShortLink;
+namespace App\Http\Requests\Admin\ShortLink;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,7 +25,7 @@ class ShortLinkValidation extends FormRequest
         return [
             //
             'url' => 'required|url',
-            'slug' => ['unique:short_links,slug,' . $this->short_link],
+            'slug' => ['unique:short_links,slug,' . $this->short_link,'nullable'],
         ];
     }
 }

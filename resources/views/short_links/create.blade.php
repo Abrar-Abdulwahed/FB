@@ -15,8 +15,11 @@
             <div class="card-header bg-dark">
                 اضافة رابط مختصر
             </div>
+            @if (session()->has('error'))
+                <p class="alert alert-danger">{{ session('error') }}</p>
+            @endif
             <div class="card-body">
-                <form action="{{ Route('admin.short_links.store') }}" method="post">
+                <form action="{{ Route('s.store') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <label>الرابط</label>
