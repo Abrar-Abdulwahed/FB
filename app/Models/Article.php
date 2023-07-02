@@ -41,4 +41,8 @@ class Article extends Model
     {
         return static::where('slug', $slug)->exists();
     }
+
+    public function comments(){
+        return $this->hasMany(ArticleComment::class,'article_id');
+    }
 }

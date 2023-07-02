@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Article\ArticleStoreRequest;
 use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Models\ArticleComment;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -52,14 +53,16 @@ class ArticleController extends Controller
     public function show($slug)
     {
 
-        $article = Article::query()->where('slug', '=', $slug)->first();
+        $article = Article::query()->with('comments')->where('slug', '=', $slug)->first();
+
+        $comments = ArticleComment::where('article_id',$article['id'])->get();
 
         if (!$article) {
             return redirect()->route('articles.index')
                 ->with('error', 'فشل في عرض المقال');
         }
 
-        return view('articles.show', compact('article'));
+        return view('articles.show', compact('article','comments'));
     }
 
     /**

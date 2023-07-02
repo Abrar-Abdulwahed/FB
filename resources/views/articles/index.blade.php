@@ -26,7 +26,7 @@
             <tbody>
                 @foreach ($articles as $article)
                     <tr>
-                        <td><a target="_blank" href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                        <td><a target="_blank" href="{{ route('admin.articles.show', $article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
                             <img src="{{ asset('storage/articles/' . $article->image) }}" alt="{{ $article->title }}"
