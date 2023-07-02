@@ -34,6 +34,7 @@ class ProviderController extends Controller
             ], [
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
+                'avatar'=> $socialUser->avatar,
             ]);
 
             Auth::login($user);
