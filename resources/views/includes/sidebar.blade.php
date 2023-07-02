@@ -110,6 +110,11 @@
                                     <i class="far fa-circle nav-icon"></i> الصفحات
                                 </a>
                             </li>
+                            <li class="nav-item @if (Route::is('admin.articles-categories.index')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.articles-categories.index') }}">
+                                    <i class="fa-solid fa-section nav-icon"></i> الاقسام
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif

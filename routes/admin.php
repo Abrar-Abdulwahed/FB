@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\ArticleCategoryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\FaqController;
@@ -29,6 +30,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
+    Route::resource('articles-categories', ArticleCategoryController::class);
+    Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
     Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
     Route::resource('tickets', TicketsController::class);
 
