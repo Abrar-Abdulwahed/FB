@@ -12,12 +12,12 @@ class Article extends Model
 {
     use HasFactory;
 
-    protected $fillable  = [
+    protected $fillable = [
         'title',
         'slug',
         'description',
         'content',
-        'image'
+        'image',
     ];
 
     public static function generateSlug($title)
@@ -42,11 +42,16 @@ class Article extends Model
         return static::where('slug', $slug)->exists();
     }
 
+    public function comments()
+    {
+        return $this->hasMany(ArticleComment::class, 'article_id');
+    }
+
     protected function imageDefault(): Attribute
     {
         if (!$this->image) {
             return Attribute::make(
-                get: fn ($value) => Storage::url('articles/default.png'),
+                get: fn($value) => Storage::url('articles/default.png'),
             );
         }
     }
@@ -58,6 +63,6 @@ class Article extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(ArticleCategory::class, 'article_category',  'article_id', 'category_id');
+        return $this->belongsToMany(ArticleCategory::class, 'article_category', 'article_id', 'category_id');
     }
 }

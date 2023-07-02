@@ -12,7 +12,7 @@
         تعديل بيانات المستخدم
     </div>
     <div class="card-body">
-        <form action="{{ Route('settings.update', $user->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ Route('profile.update', $user->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
@@ -27,7 +27,7 @@
                 <label>الصورة</label>
                 <input type="file" name="avatar" value="{{ $user->avatar }}" class="form-control">
                 @if (!empty($user['avatar']))
-                    <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
+                    <img src="{{ asset('storage/avatars/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
                 @endif
                 @error('avatar')
                     <p class="text-danger">{{ $message }}</p>

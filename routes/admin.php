@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\ArticleCategoryController;
+use App\Http\Controllers\Admin\ArticleComment;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\DeletedArticleCommentController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\LoginActivity;
@@ -30,6 +32,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
+    Route::resource('comments', ArticleComment::class);
+    Route::resource('deleted_comments', DeletedArticleCommentController::class);
+
     Route::resource('articles-categories', ArticleCategoryController::class);
     Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
     Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
@@ -43,11 +48,12 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
-    Route::resource('short_links', ShortLinkController::class);
-
     Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
         ->name('payments.changeActive');
 
     Route::resource('payments', PaymentController::class);
     Route::resource('ads', AdController::class)->except('show');
 });
+
+//short links
+Route::resource('s', ShortLinkController::class);

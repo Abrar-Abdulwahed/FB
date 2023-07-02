@@ -86,7 +86,7 @@
                 </li>
                 @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
                     <li
-                        class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
+                        class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deleted_comments.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa-solid fa-newspaper"></i>
                             <p>
@@ -98,6 +98,16 @@
                             <li class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
                                 <a class="nav-link" href="{{ route('admin.articles.index') }}">
                                     <i class="fa fa-list-alt nav-icon"></i>المقالات
+                                </a>
+                            </li>
+                            <li class="nav-item @if (Route::is('admin.comments.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.comments.index') }}">
+                                    <i class="fa fa-list-alt nav-icon"></i>عرض التعليقات
+                                </a>
+                            </li>
+                            <li class="nav-item @if (Route::is('admin.deleted_comments.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.deleted_comments.index') }}">
+                                    <i class="fa fa-list-alt nav-icon"></i>عرض التعليقات المحذوفة 
                                 </a>
                             </li>
                             <li class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
@@ -149,8 +159,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
-                    href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
+                    <a class="nav-link @if (Route::is('s*')) ? 'active' : '' bg-primary @endif"
+                    href="{{ route('s.index') }}">الروابط المختصرة</a>
                 </li>
 
                 <li class="nav-item">

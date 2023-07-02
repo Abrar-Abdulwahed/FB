@@ -36,7 +36,7 @@
                 @foreach ($articles as $article)
                     <tr>
                         <td><a target="_blank"
-                                href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                                href="{{ route('admin.articles.show', $article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
                             @if (!$article->image)

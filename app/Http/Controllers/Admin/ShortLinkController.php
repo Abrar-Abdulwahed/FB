@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ShortLink\ShortLinkValidation;
+use App\Http\Requests\Admin\ShortLink\ShortLinkValidation;
 use App\Models\ShortLink;
 
 class ShortLinkController extends Controller
@@ -33,6 +33,10 @@ class ShortLinkController extends Controller
     public function store(ShortLinkValidation $request)
     {
         //
+        $check = ShortLink::query()->where('id',$request->slug)->first();
+        if($check){
+            return redirect()->back()->with('error', 'يجب الا يكون ال slug  وال id متساويان');
+        }
         $short_link = ShortLink::create($request->validated());
         return redirect()->route('admin.short_links.index')->with('success', 'تم اضافة اللينك بنجاح');
     }
@@ -64,6 +68,10 @@ class ShortLinkController extends Controller
     public function update(ShortLinkValidation $request, $id)
     {
         //
+        $check = ShortLink::query()->where('id',$request->slug)->first();
+        if($check){
+            return redirect()->back()->with('error', 'يجب الا يكون ال slug  وال id متساويان');
+        }
         ShortLink::find($id)->update($request->validated());
         return redirect()->route('admin.short_links.index')->with('success', 'تم تعديل اللينك بنجاح');
     }
@@ -71,7 +79,7 @@ class ShortLinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         //
         ShortLink::where('id', $id)->delete();

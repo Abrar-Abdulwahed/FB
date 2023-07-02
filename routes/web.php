@@ -26,9 +26,10 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('profile')->group(function () {
-    Route::resource('settings', UserSettingController::class);
+    
     Route::resource('ticket', UserTicketController::class);
 });
+Route::resource('profile', UserSettingController::class);
 
 Route::group([], function () {
     Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
@@ -38,8 +39,8 @@ Route::group([], function () {
     Route::get('pages/{slug}', [PageController::class, 'show'])
         ->name('pages.show');
 
-    Route::get('admin/pages/{slug}', [PageController::class, 'show'])
-        ->name('pages.show')->middleware('auth');
+   /*  Route::get('admin/pages/{slug}', [PageController::class, 'show'])
+        ->name('pages.show')->middleware('auth'); */
 });
 
 Route::group([], function () {

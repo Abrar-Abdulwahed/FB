@@ -28,7 +28,7 @@ class ArticleController extends Controller
     {
         $tags = Tag::all();
 
-        $categories  = ArticleCategory::all();
+        $categories = ArticleCategory::all();
 
         return view('articles.create', compact('tags', 'categories'));
     }
@@ -43,13 +43,13 @@ class ArticleController extends Controller
 
         // add slug
         $validated = $validated->merge([
-            'slug' => Article::generateSlug($validated['title'])
+            'slug' => Article::generateSlug($validated['title']),
         ]);
 
         // store image
         if ($request->hasFile('image')) {
             $validated = $validated->merge([
-                'image' => $this->uploadImage($request->file('image'), 'public/articles')
+                'image' => $this->uploadImage($request->file('image'), 'public/articles'),
             ]);
         }
 
@@ -85,7 +85,7 @@ class ArticleController extends Controller
     {
         $article = Article::query()->findOrFail($id);
         $tags = Tag::all();
-        $categories  = ArticleCategory::all();
+        $categories = ArticleCategory::all();
 
         return view('articles.edit', compact('article', 'tags', 'categories'));
     }
@@ -102,7 +102,7 @@ class ArticleController extends Controller
 
         // add slug
         $validated = $validated->merge([
-            'slug' => Article::generateSlug($validated['title'])
+            'slug' => Article::generateSlug($validated['title']),
         ]);
 
         // store image
@@ -113,12 +113,11 @@ class ArticleController extends Controller
             }
 
             $validated = $validated->merge([
-                'image' => $this->uploadImage($request->file('image'), 'public/articles')
+                'image' => $this->uploadImage($request->file('image'), 'public/articles'),
             ]);
         }
 
         $article->update($validated->except('tags'));
-
 
         if (!empty($validated['tags'])) {
             $article->tags()->sync($validated['tags']);

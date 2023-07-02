@@ -5,8 +5,11 @@
         <div class="card-header bg-dark">
             تعديل الرابط المختصر
         </div>
+        @if (session()->has('error'))
+            <p class="alert alert-danger">{{ session('error') }}</p>
+        @endif
         <div class="card-body">
-            <form action="{{ Route('admin.short_links.update', $short_link->id) }}" method="post">
+            <form action="{{ Route('s.update', $short_link->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="form-group">

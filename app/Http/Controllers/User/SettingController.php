@@ -67,33 +67,38 @@ class SettingController extends Controller
         //
         $user = User::findOrFail($id);
         $data = $request->validated();
-        if (!empty($request->avatar)) {
-            $path = $this->uploadAvatar($request, 'avatars');
-            $data['avatar'] = $path;
+        /* if (!empty($request->avatar)) {
+           
             if (!empty($user->avatar)) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
+            $path = $this->uploadAvatar($request, 'avatars');
+            $data['avatar'] = $path;
+            
         }
+        $user->update(['avatar' => $path]); */
 
-        //     $user->update([ 'avatar' => $path]);
+        
         // }
 
         if ($request->hasFile('avatar')) {
             if ($user->avatar != null) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
-            $data['avatar'] = $this->uploadAvatar($request->file('avatar'));
+
+            $data['avatar'] = $this->uploadAvatar($request->avatar);
+            $user->update(['avatar' => $data['avatar']]);
         }
 
         if (!empty($request->email)) {
             $user->update(['email' => $request->email]);
         }
         if (!empty($data['current_password'])) {
-            if (Hash::check($data['current_password'], Auth::user()->password)) {
+            //if (Hash::check($data['current_password'], Auth::user()->password)) {
                 User::where('id', Auth::user()->id)->update(['password' => bcrypt($data['new_password'])]);
-            } else {
+            /* } else {
                 return redirect()->back()->with(['error' => 'كلمة المرور الحالية خاطئة']);
-            }
+            } */
         }
 
         return redirect()->back()->with(['success' => 'تم تحديث بيانات المستخدم بنجاح']);

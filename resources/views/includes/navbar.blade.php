@@ -24,8 +24,8 @@
             {{ Auth::user()->name }}
         </button>
         <ul class="dropdown-menu" style="">
-            <li class="dropdown-item"><a href="{{ route('settings.index') }}">الإعدادات</a></li>
-            <li class="dropdown-item"><a href="{{ route('settings.edit', auth()->user()->id) }}">البروفايل</a></li>
+            <li class="dropdown-item"><a href="{{ route('admin.settings.index') }}">الإعدادات</a></li>
+            <li class="dropdown-item"><a href="{{ route('profile.edit',auth()->user()->id) }}">البروفايل</a></li>
             <li class="dropdown-item"><a href="{{ route('ticket.create') }}">انشاء تذكره</a></li>
             <li class="dropdown-item"><a href="{{ route('ticket.index') }}">قائمه التذاكر</a></li>
 
