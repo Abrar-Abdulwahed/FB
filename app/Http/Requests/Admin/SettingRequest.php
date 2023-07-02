@@ -41,6 +41,8 @@ class SettingRequest extends FormRequest
             'mail_password' => 'required|string',
             'mail_from_address' => 'required|email',
             'mail_from_name' => 'required|string',
+            'header_script' => 'nullable',
+            'footer_script' => 'nullable',
         ];
     }
 }

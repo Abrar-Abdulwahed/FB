@@ -1,39 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'إعدادات الموقع')
 @push('css')
-    <style>
-        .img-preview {
-            width: 200px;
-            height: 200px;
-            box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
-        }
-
-        .img-preview input {
-            display: none;
-        }
-
-        .img-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .img-preview div {
-            position: relative;
-            height: 40px;
-            margin-top: -40px;
-            background: rgba(0, 0, 0, 0.5);
-            text-align: center;
-            line-height: 40px;
-            font-size: 13px;
-            color: #f5f5f5;
-            font-weight: 600;
-        }
-
-        .img-preview div span {
-            font-size: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/previewImage.css') }}">
 @endpush
 @section('content')
     @if (session()->has('success'))
@@ -120,7 +88,8 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="site_description">وصف الموقع</label>
-                                            <textarea class="form-control" id="site_description" rows="10" name="site_description" placeholder="اكتب النص هنا">{{ old('site_description') ?? $settings['site_description'] }}</textarea>
+                                            <textarea class="form-control" id="site_description" rows="10" name="site_description"
+                                                placeholder="اكتب النص هنا">{{ old('site_description') ?? $settings['site_description'] }}</textarea>
                                             @error('site_description')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -340,6 +309,25 @@
                                             <label class="custom-control-label" for="register-status">التسجيل</label>
                                         </div>
                                     </div>
+                                    <div class="mt-5">
+                                        <h5 class="text-muted mb-3">إضافة أكواد للرأس والذيل</h5>
+                                        <div class="form-group">
+                                            <label for="header_script">أكواد الرأس</label>
+                                            <textarea class="form-control" id="header_script" rows="10" name="header_script"
+                                                placeholder="اكتب أكواد الرأس هنا">{{ old('header_script') ?? $settings['header_script'] }}</textarea>
+                                            @error('header_script')
+                                                <p class="text-danger small">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="footer_script">أكواد الذيل</label>
+                                            <textarea class="form-control" id="footer_script" rows="10" name="footer_script"
+                                                placeholder="اكتب أكواد الذيل هنا">{{ old('footer_script') ?? $settings['footer_script'] }}</textarea>
+                                            @error('footer_script')
+                                                <p class="text-danger small">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="reset-db" role="tabpanel"
                                     aria-labelledby="reset-db-tab">
@@ -433,14 +421,80 @@
             });
         });
         ClassicEditor
-            .create(document.querySelector('#reason_locked'), {
-                height: '400px'
-            })
+            .create(document.querySelector('#reason_locked'))
             .then(editor => {
                 console.log(editor);
             })
             .catch(error => {
                 console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#header_script'), {
+                codeBlock: {
+                    languages: [
+                        // Do not render the CSS class for the plain text code blocks.
+                        {
+                            language: 'plaintext',
+                            label: 'Plain text',
+                            class: ''
+                        },
+
+                        // Use the "php-code" class for PHP code blocks.
+                        {
+                            language: 'php',
+                            label: 'PHP',
+                            class: 'php-code'
+                        },
+
+                        // Use the "js" class for JavaScript code blocks.
+                        // Note that only the first ("js") class will determine the language of the block when loading data.
+                        {
+                            language: 'javascript',
+                            label: 'JavaScript',
+                            class: 'js javascript js-code'
+                        },
+
+                        // Python code blocks will have the default "language-python" CSS class.
+                        {
+                            language: 'python',
+                            label: 'Python'
+                        }
+                    ]
+                }
+            });
+        ClassicEditor
+            .create(document.querySelector('#footer_script'), {
+                codeBlock: {
+                    languages: [
+                        // Do not render the CSS class for the plain text code blocks.
+                        {
+                            language: 'plaintext',
+                            label: 'Plain text',
+                            class: ''
+                        },
+
+                        // Use the "php-code" class for PHP code blocks.
+                        {
+                            language: 'php',
+                            label: 'PHP',
+                            class: 'php-code'
+                        },
+
+                        // Use the "js" class for JavaScript code blocks.
+                        // Note that only the first ("js") class will determine the language of the block when loading data.
+                        {
+                            language: 'javascript',
+                            label: 'JavaScript',
+                            class: 'js javascript js-code'
+                        },
+
+                        // Python code blocks will have the default "language-python" CSS class.
+                        {
+                            language: 'python',
+                            label: 'Python'
+                        }
+                    ]
+                }
             });
     </script>
 @endpush
