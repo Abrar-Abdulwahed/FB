@@ -21,7 +21,7 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>الاسم</th>
-
+                        <th>المستخدمين</th>
                         <th style="width:100px">العمليات</th>
                     </tr>
                 </thead>
@@ -30,6 +30,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $role->name }}</td>
+                            <td>{{ $role->users->count() }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ route('admin.roles.edit', $role->id) }}" class="mx-1 btn btn-success"><i

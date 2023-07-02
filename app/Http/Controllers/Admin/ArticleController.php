@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Article\ArticleStoreRequest;
 use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
-use App\Models\ArticleComment;
+use App\Models\ArticleCategory;
+use App\Models\Tag;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,7 @@ class ArticleController extends Controller
     use ImageTrait;
     public function index()
     {
-        $articles = Article::query()->paginate(5);
+        $articles = Article::with('tags')->paginate(5);
 
         return view('articles.index', compact('articles'));
     }
@@ -25,7 +26,11 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::all();
+
+        $categories = ArticleCategory::all();
+
+        return view('articles.create', compact('tags', 'categories'));
     }
 
     /**
@@ -34,17 +39,30 @@ class ArticleController extends Controller
     public function store(ArticleStoreRequest $request)
     {
 
-        $validated = $request->validated();
+        $validated = $request->safe();
 
         // add slug
-        $validated['slug'] = Article::generateSlug($validated['title']);
+        $validated = $validated->merge([
+            'slug' => Article::generateSlug($validated['title']),
+        ]);
 
         // store image
         if ($request->hasFile('image')) {
-            $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
+            $validated = $validated->merge([
+                'image' => $this->uploadImage($request->file('image'), 'public/articles'),
+            ]);
         }
 
-        Article::query()->create($validated);
+        $article = Article::query()
+            ->create($validated->except('tags'));
+
+        if (!empty($validated['tags'])) {
+            $article->tags()->sync($validated['tags']);
+        }
+
+        if (!empty($validated['categories'])) {
+            $article->categories()->sync($validated['categories']);
+        }
 
         return redirect()->route('articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
@@ -53,16 +71,11 @@ class ArticleController extends Controller
     public function show($slug)
     {
 
-        $article = Article::query()->with('comments')->where('slug', '=', $slug)->first();
+        $article = Article::query()
+            ->where('slug', '=', $slug)
+            ->firstOrFail();
 
-        $comments = ArticleComment::where('article_id',$article['id'])->get();
-
-        if (!$article) {
-            return redirect()->route('articles.index')
-                ->with('error', 'فشل في عرض المقال');
-        }
-
-        return view('articles.show', compact('article','comments'));
+        return view('articles.show', compact('article'));
     }
 
     /**
@@ -70,14 +83,11 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::query()->find($id);
+        $article = Article::query()->findOrFail($id);
+        $tags = Tag::all();
+        $categories = ArticleCategory::all();
 
-        if (!$article) {
-            return redirect()->route('admin.articles.index')
-                ->with('error', 'فشل في تعديل المقال');
-        }
-
-        return view('articles.edit', compact('article'));
+        return view('articles.edit', compact('article', 'tags', 'categories'));
     }
 
     /**
@@ -85,17 +95,15 @@ class ArticleController extends Controller
      */
     public function update(ArticleUpdateRequest $request, $id)
     {
-        $article = Article::query()->find($id);
+        $article = Article::query()->findOrFail($id);
 
-        if (!$article) {
-            return redirect()->route('admin.articles.index')
-                ->with('error', 'فشل في تعديل المقال');
-        }
-
-        $validated = $request->validated();
+        $validated = $request->safe();
+        // dd($validated);
 
         // add slug
-        $validated['slug'] = Article::generateSlug($validated['title']);
+        $validated = $validated->merge([
+            'slug' => Article::generateSlug($validated['title']),
+        ]);
 
         // store image
         if ($request->hasFile('image')) {
@@ -103,10 +111,21 @@ class ArticleController extends Controller
                 //Remove old image
                 Storage::disk('local')->delete('public/articles/' . $article->image);
             }
-            $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
+
+            $validated = $validated->merge([
+                'image' => $this->uploadImage($request->file('image'), 'public/articles'),
+            ]);
         }
 
-        $article->update($validated);
+        $article->update($validated->except('tags'));
+
+        if (!empty($validated['tags'])) {
+            $article->tags()->sync($validated['tags']);
+        }
+
+        if (!empty($validated['categories'])) {
+            $article->categories()->sync($validated['categories']);
+        }
 
         return redirect()->route('articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
@@ -117,12 +136,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::query()->find($id);
-
-        if (!$article) {
-            return redirect()->route('admin.articles.index')
-                ->with('error', 'فشل في حذف الدور');
-        }
+        $article = Article::query()->findOrFail($id);
 
         $article->delete();
 
@@ -132,5 +146,14 @@ class ArticleController extends Controller
 
         return redirect()->route('articles.index')
             ->with('success', 'تم حذف المقال بنجاح');
+    }
+
+    public function category($slug)
+    {
+        $category = ArticleCategory::query()->where('slug', $slug)->firstOrFail();
+
+        $articles = $category->articles;
+
+        return view('articles.categories.show', compact('articles'));
     }
 }

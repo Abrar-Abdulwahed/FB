@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\ArticleCategoryController;
 use App\Http\Controllers\Admin\ArticleComment;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
@@ -34,7 +35,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('comments', ArticleComment::class);
     Route::resource('deleted_comments', DeletedArticleCommentController::class);
 
-
+    Route::resource('articles-categories', ArticleCategoryController::class);
+    Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
     Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
     Route::resource('tickets', TicketsController::class);
 
@@ -46,7 +48,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
-
     Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
         ->name('payments.changeActive');
 
@@ -56,4 +57,3 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
 //short links
 Route::resource('s', ShortLinkController::class);
-
