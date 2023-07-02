@@ -10,12 +10,12 @@ use Jenssegers\Agent\Facades\Agent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class ProviderController extends Controller
 {
+    use AvatarTrait;
     public function checkProvider($provider){
         return in_array($provider, ['facebook', 'google']) ? true : false;
     }
@@ -31,18 +31,13 @@ class ProviderController extends Controller
                 return abort(404);
             $socialUser = Socialite::driver($provider)->user();
 
-            // To save image in db and storage with hashname
-            $avatar = file_get_contents($socialUser->avatar);
-            $hashName = hash('sha256', $avatar).'.png';
-            Storage::disk('avatars')->put($hashName, $avatar);
-
             $user = User::updateOrCreate([
                 'provider_id' => $socialUser->id,
                 'provider'    => $provider
             ], [
                 'name' => $socialUser->name,
                 'email' => $socialUser->email,
-                'avatar'=> $hashName,
+                'avatar'=> $this->uploadAvatarFromURL($socialUser->avatar),
             ]);
 
             Auth::login($user);
