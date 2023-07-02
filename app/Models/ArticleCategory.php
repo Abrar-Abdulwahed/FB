@@ -14,4 +14,9 @@ class ArticleCategory extends Model
         'slug',
         'description',
     ];
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class, 'article_category', 'category_id', 'article_id');
+    }
 }

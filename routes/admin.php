@@ -31,6 +31,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
     Route::resource('articles-categories', ArticleCategoryController::class);
+    Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
     Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
     Route::resource('tickets', TicketsController::class);
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Article\ArticleStoreRequest;
 use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\Tag;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Storage;
@@ -27,7 +28,9 @@ class ArticleController extends Controller
     {
         $tags = Tag::all();
 
-        return view('articles.create', compact('tags'));
+        $categories  = ArticleCategory::all();
+
+        return view('articles.create', compact('tags', 'categories'));
     }
 
     /**
@@ -57,6 +60,10 @@ class ArticleController extends Controller
             $article->tags()->sync($validated['tags']);
         }
 
+        if (!empty($validated['categories'])) {
+            $article->categories()->sync($validated['categories']);
+        }
+
         return redirect()->route('articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
     }
@@ -78,8 +85,9 @@ class ArticleController extends Controller
     {
         $article = Article::query()->findOrFail($id);
         $tags = Tag::all();
+        $categories  = ArticleCategory::all();
 
-        return view('articles.edit', compact('article', 'tags'));
+        return view('articles.edit', compact('article', 'tags', 'categories'));
     }
 
     /**
@@ -116,6 +124,10 @@ class ArticleController extends Controller
             $article->tags()->sync($validated['tags']);
         }
 
+        if (!empty($validated['categories'])) {
+            $article->categories()->sync($validated['categories']);
+        }
+
         return redirect()->route('articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
@@ -135,5 +147,14 @@ class ArticleController extends Controller
 
         return redirect()->route('articles.index')
             ->with('success', 'تم حذف المقال بنجاح');
+    }
+
+    public function category($slug)
+    {
+        $category = ArticleCategory::query()->where('slug', $slug)->firstOrFail();
+
+        $articles = $category->articles;
+
+        return view('articles.categories.show', compact('articles'));
     }
 }

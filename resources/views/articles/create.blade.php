@@ -89,6 +89,18 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
+                        <label>اختيار الاقسام</label>
+                        <select class="select2" multiple="multiple" data-placeholder="اختيار الاقسام" name="categories[]"
+                            style="width: 100%;">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ collect(old('categories'))->contains($category->id) ? 'selected' : '' }}>
+                                    {{ $category->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
                         <label for="logo" class="mb-4">الصورة</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="image">

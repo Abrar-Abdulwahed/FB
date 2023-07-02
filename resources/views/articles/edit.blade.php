@@ -93,6 +93,20 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
+                        <label>الاقسام</label>
+                        <select class="select2" multiple="multiple" name="categories[]" style="width: 100%;">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $article->categories->contains('id', $category->id) || collect(old('categories'))->contains($category->id) ? 'selected' : '' }}>
+                                    {{ $category->title }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('categories')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group col-12">
                         <label for="image" class="mb-4">الصورة</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="image">

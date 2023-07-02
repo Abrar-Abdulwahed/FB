@@ -26,7 +26,8 @@ class ArticleUpdateRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'content' => ['required', 'string'],
             'image' => ['nullable', 'image'],
-            'tags' => ['nullable', 'array']
+            'tags' => ['nullable', 'array'],
+            'categories' => ['nullable', 'array'],
         ];
     }
 }
