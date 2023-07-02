@@ -60,12 +60,12 @@
                     </div> --}}
 
                     <div class="custom-control custom-switch mx-3 mt-2 col-12">
-                        <input type="checkbox" class="custom-control-input" id="is_in_footer" name="is_in_footer">
+                        <input type="checkbox" @checked(old('is_in_footer')) class="custom-control-input" id="is_in_footer" name="is_in_footer">
                         <label class="custom-control-label" for="is_in_footer">في ال footer</label>
                     </div>
 
                     <div class="custom-control custom-switch mx-3 my-2 col-12">
-                        <input type="checkbox" class="custom-control-input" id="is_in_menu" name="is_in_menu">
+                        <input type="checkbox" @checked(old('is_in_menu')) class="custom-control-input" id="is_in_menu" name="is_in_menu">
                         <label class="custom-control-label" for="is_in_menu">في القائمة</label>
                     </div>
                     
