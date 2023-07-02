@@ -126,7 +126,7 @@
                                                 <label class="custom-control-label" for="facebook_enable">الفيسبوك</label>
                                             </div>
                                         </div>
-                                        <div class="form-row" id="facebook_enable_div">
+                                        <div class="form-row mt-2" id="facebook_enable_div">
                                             <div class="form-group col-md-6">
                                                 <label for="facebook_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="facebook_client_id" class="form-control"
@@ -155,7 +155,7 @@
                                                 name="google_enable" @checked(old('google_enable') == 'on' || $settings['google_enable'] === 'on')>
                                             <label class="custom-control-label" for="google_enable">جوجل</label>
                                         </div>
-                                        <div class="form-row" id="google_enable_div">
+                                        <div class="form-row mt-2" id="google_enable_div">
                                             <div class="form-group col-md-6">
                                                 <label for="google_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="google_client_id" class="form-control"
@@ -256,7 +256,16 @@
                                 </div>
                                 <div class="tab-pane fade" id="recaptcha-settings" role="tabpanel"
                                     aria-labelledby="recaptcha-settings-tab">
-                                    <div class="form-row">
+                                    <div>
+                                        <input type="text" name="captcha_enable" value="off" hidden />
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="captcha_enable"
+                                                name="captcha_enable" @checked(old('captcha_enable') == 'on' || $settings['captcha_enable'] === 'on')>
+                                            <label class="custom-control-label" for="captcha_enable">تعطيل/تمكين
+                                                الميزة</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-2" id="captcha_enable_div">
                                         <div class="form-group col-md-6">
                                             <label for="recaptcha_site_key" class="text-muted">المعرف</label>
                                             <input type="text" name="recaptcha_site_key" class="form-control"
@@ -377,6 +386,13 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
+            function toggleElement($element, $condition) {
+                if ($condition) {
+                    $element.show();
+                } else {
+                    $element.hide();
+                }
+            }
             if ($('#site_status').val() === 'inactive') {
                 $('#reason_locked_div').show();
             } else {
@@ -393,6 +409,12 @@
                 $('#facebook_enable_div').show();
             } else {
                 $('#facebook_enable_div').hide();
+            }
+
+            if ($('#captcha_enable').is(':checked')) {
+                $('#captcha_enable_div').show();
+            } else {
+                $('#captcha_enable_div').hide();
             }
 
             $('#site_status').change(function() {
@@ -417,6 +439,13 @@
                     $('#facebook_enable_div').show();
                 } else {
                     $('#facebook_enable_div').hide();
+                }
+            });
+            $('#captcha_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#captcha_enable_div').show();
+                } else {
+                    $('#captcha_enable_div').hide();
                 }
             });
         });

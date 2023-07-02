@@ -59,6 +59,7 @@ class SettingController extends Controller
                 'facebook_enable' => $request?->facebook_enable ?? false,
                 'services.facebook.client_id' => $request?->facebook_client_id,
                 'services.facebook.client_secret' => $request?->facebook_client_secret,
+                'captcha_enable' => $request?->captcha_enable,
                 'recaptcha.api_site_key' => $request?->recaptcha_site_key,
                 'recaptcha.api_secret_key' => $request?->recaptcha_secret_key,
                 'mail.default' => $request?->mail_mailer, //mail_mailer
