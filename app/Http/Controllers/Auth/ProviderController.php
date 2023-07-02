@@ -44,7 +44,7 @@ class ProviderController extends Controller
                 'ip'    =>  FacadesRequest::ip(),
             ]);
 
-            // to append new role, NOT repeat role, NOT detach
+            // to append new role, NO repeat role, NO detach
             $user->roles()->SyncWithoutDetaching([2]);
 
             //TODO: Change redirect to the homepage/control panel/whatever according to role
