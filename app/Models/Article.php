@@ -41,4 +41,9 @@ class Article extends Model
     {
         return static::where('slug', $slug)->exists();
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tag');
+    }
 }

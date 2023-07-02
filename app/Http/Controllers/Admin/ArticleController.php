@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Article\ArticleStoreRequest;
 use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
+use App\Models\Tag;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,7 +25,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::all();
+
+        return view('articles.create', compact('tags'));
     }
 
     /**
@@ -43,7 +46,18 @@ class ArticleController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
         }
 
-        Article::query()->create($validated);
+        $article = Article::query()->create([
+            'title' => $validated['title'],
+            'slug' => $validated['slug'],
+            'description' => $validated['description'],
+            'content' => $validated['content'],
+            'image' => $validated['image'] ?? null,
+        ]);
+
+        if (!empty($validated['tags'])) {
+            $article->tags()->sync($validated['tags']);
+        }
+
 
         return redirect()->route('articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
@@ -68,13 +82,14 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::query()->find($id);
+        $tags = Tag::all();
 
         if (!$article) {
             return redirect()->route('admin.articles.index')
                 ->with('error', 'فشل في تعديل المقال');
         }
 
-        return view('articles.edit', compact('article'));
+        return view('articles.edit', compact('article', 'tags'));
     }
 
     /**
@@ -103,8 +118,19 @@ class ArticleController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
         }
 
-        $article->update($validated);
+        $article->update([
+            'title' => $validated['title'],
+            'slug' => $validated['slug'],
+            'description' => $validated['description'],
+            'content' => $validated['content'],
+            'image' => $validated['image'] ?? $article->image,
+        ]);
 
+
+        if (!empty($validated['tags'])) {
+            $article->tags()->sync($validated['tags']);
+        }
+        
         return redirect()->route('articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
