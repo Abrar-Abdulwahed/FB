@@ -1,4 +1,12 @@
 @extends('layouts.user')
+
+@push('css')
+    <style>
+        .span-tag {
+            font-size: 11px;
+        }
+    </style>
+@endpush
 @section('content')
 @section('title')
     الأعضاء
@@ -18,6 +26,7 @@
                 <tr>
                     <th>العنوان</th>
                     <th>الصورة</th>
+                    <th>العلامات</th>
                     <th>اجراءات</th>
                 </tr>
             </thead>
@@ -39,8 +48,13 @@
                             @endif
                         </td>
                         <td>
+                            @foreach ($article->tags as $tag)
+                                <span class="span-tag bg-warning rounded px-1 w-50">{{ $tag->name }}</span>
+                            @endforeach
+                        </td>
+                        <td>
                             <a href="{{ route('admin.articles.show', $article->slug) }}" class="mx-1 btn btn-info"><i
-                                class="fas fa-eye"></i></a>
+                                    class="fas fa-eye"></i></a>
                             <a href="{{ route('admin.articles.edit', $article->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"

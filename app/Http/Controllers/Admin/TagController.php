@@ -42,12 +42,7 @@ class TagController extends Controller
      */
     public function show($slug)
     {
-        $tag = Tag::query()->where('slug', '=', $slug)->first();
-
-        if (!$tag) {
-            return redirect()->route('tags.index')
-                ->with('error', 'فشل في عرض العلامة');
-        }
+        $tag = Tag::query()->where('slug', '=', $slug)->firstOrFail();
 
         return view('tags.show', compact('tag'));
     }

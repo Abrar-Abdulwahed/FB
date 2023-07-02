@@ -82,7 +82,7 @@
                             style="width: 100%;">
                             @foreach ($tags as $tag)
                                 <option value="{{ $tag->id }}"
-                                    {{ collect(old('tages'))->contains($tag->id) ? 'selected' : '' }}>
+                                    {{ collect(old('tags'))->contains($tag->id) ? 'selected' : '' }}>
                                     {{ $tag->name }}
                                 </option>
                             @endforeach

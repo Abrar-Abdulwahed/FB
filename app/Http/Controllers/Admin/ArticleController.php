@@ -15,7 +15,7 @@ class ArticleController extends Controller
     use ImageTrait;
     public function index()
     {
-        $articles = Article::query()->paginate(5);
+        $articles = Article::with('tags')->paginate(5);
 
         return view('articles.index', compact('articles'));
     }
@@ -46,13 +46,8 @@ class ArticleController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
         }
 
-        $article = Article::query()->create([
-            'title' => $validated['title'],
-            'slug' => $validated['slug'],
-            'description' => $validated['description'],
-            'content' => $validated['content'],
-            'image' => $validated['image'] ?? null,
-        ]);
+        $article = Article::query()
+            ->create(array_diff_key($validated, ['tags' => 0]));
 
         if (!empty($validated['tags'])) {
             $article->tags()->sync($validated['tags']);
@@ -66,12 +61,9 @@ class ArticleController extends Controller
     public function show($slug)
     {
 
-        $article = Article::query()->where('slug', '=', $slug)->first();
-
-        if (!$article) {
-            return redirect()->route('articles.index')
-                ->with('error', 'فشل في عرض المقال');
-        }
+        $article = Article::query()
+            ->where('slug', '=', $slug)
+            ->firstOrFail();
 
         return view('articles.show', compact('article'));
     }
@@ -81,13 +73,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::query()->find($id);
+        $article = Article::query()->findOrFail($id);
         $tags = Tag::all();
-
-        if (!$article) {
-            return redirect()->route('admin.articles.index')
-                ->with('error', 'فشل في تعديل المقال');
-        }
 
         return view('articles.edit', compact('article', 'tags'));
     }
@@ -97,12 +84,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleUpdateRequest $request, $id)
     {
-        $article = Article::query()->find($id);
-
-        if (!$article) {
-            return redirect()->route('admin.articles.index')
-                ->with('error', 'فشل في تعديل المقال');
-        }
+        $article = Article::query()->findOrFail($id);
 
         $validated = $request->validated();
 
@@ -118,19 +100,13 @@ class ArticleController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
         }
 
-        $article->update([
-            'title' => $validated['title'],
-            'slug' => $validated['slug'],
-            'description' => $validated['description'],
-            'content' => $validated['content'],
-            'image' => $validated['image'] ?? $article->image,
-        ]);
+        $article->update(array_diff_key($validated, ['tags' => 0]));
 
 
         if (!empty($validated['tags'])) {
             $article->tags()->sync($validated['tags']);
         }
-        
+
         return redirect()->route('articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
@@ -140,12 +116,7 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::query()->find($id);
-
-        if (!$article) {
-            return redirect()->route('admin.articles.index')
-                ->with('error', 'فشل في حذف الدور');
-        }
+        $article = Article::query()->findOrFail($id);
 
         $article->delete();
 
