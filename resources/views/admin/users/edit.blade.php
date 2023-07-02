@@ -4,43 +4,10 @@
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/previewImage.css') }}">
     <style>
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
             background-color: black;
-        }
-
-
-        .img-preview {
-            width: 200px;
-            height: 200px;
-            box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
-        }
-
-        .img-preview input {
-            display: none;
-        }
-
-        .img-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .img-preview div {
-            position: relative;
-            height: 40px;
-            margin-top: -40px;
-            background: rgba(0, 0, 0, 0.5);
-            text-align: center;
-            line-height: 40px;
-            font-size: 13px;
-            color: #f5f5f5;
-            font-weight: 600;
-        }
-
-        .img-preview div span {
-            font-size: 40px;
         }
     </style>
 @endpush
@@ -133,7 +100,7 @@
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-success">تعديل</button>
+                <button type="submit" class="btn btn-success mt-3">تعديل</button>
             </form>
         </div>
     </div>
