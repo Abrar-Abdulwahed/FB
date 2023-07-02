@@ -68,22 +68,26 @@ class SettingController extends Controller
         $user = User::findOrFail($id);
         $data = $request->validated();
         if (!empty($request->avatar)) {
-            $path = $this->uploadAvatar($request, 'avatars');
-            $data['avatar'] = $path;
+           
             if (!empty($user->avatar)) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
+            $path = $this->uploadAvatar($request, 'avatars');
+            $data['avatar'] = $path;
+            
         }
+        $user->update(['avatar' => $path]);
 
-        //     $user->update([ 'avatar' => $path]);
+        
         // }
 
-        if ($request->hasFile('avatar')) {
+        /* if ($request->hasFile('avatar')) {
             if ($user->avatar != null) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
-            $data['avatar'] = $this->uploadAvatar($request->file('avatar'));
-        }
+
+            $data['avatar'] = $this->uploadAvatar($request,'avatar');
+        } */
 
         if (!empty($request->email)) {
             $user->update(['email' => $request->email]);
