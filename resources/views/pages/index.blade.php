@@ -9,7 +9,7 @@
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        الأعضاء
+        الصفحات
     </div>
     <div class="card-body table-responsive">
 

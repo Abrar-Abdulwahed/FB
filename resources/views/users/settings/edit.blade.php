@@ -27,7 +27,7 @@
                 <label>الصورة</label>
                 <input type="file" name="avatar" value="{{ $user->avatar }}" class="form-control">
                 @if (!empty($user['avatar']))
-                    <img src="{{ asset('users/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
+                    <img src="{{ asset('storage/avatars/'.auth()->user()->avatar) }}" style="width:50px; height:50px" class="rounded circle">
                 @endif
                 @error('avatar')
                     <p class="text-danger">{{ $message }}</p>

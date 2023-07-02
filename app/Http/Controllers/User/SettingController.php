@@ -67,7 +67,7 @@ class SettingController extends Controller
         //
         $user = User::findOrFail($id);
         $data = $request->validated();
-        if (!empty($request->avatar)) {
+        /* if (!empty($request->avatar)) {
            
             if (!empty($user->avatar)) {
                 Storage::disk('avatars')->delete($user->avatar);
@@ -76,18 +76,19 @@ class SettingController extends Controller
             $data['avatar'] = $path;
             
         }
-        $user->update(['avatar' => $path]);
+        $user->update(['avatar' => $path]); */
 
         
         // }
 
-        /* if ($request->hasFile('avatar')) {
+        if ($request->hasFile('avatar')) {
             if ($user->avatar != null) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
 
-            $data['avatar'] = $this->uploadAvatar($request,'avatar');
-        } */
+            $data['avatar'] = $this->uploadAvatar($request->avatar);
+            $user->update(['avatar' => $data['avatar']]);
+        }
 
         if (!empty($request->email)) {
             $user->update(['email' => $request->email]);

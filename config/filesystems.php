@@ -46,8 +46,8 @@ return [
 
         'avatars' => [
             'driver' => 'local',
-            'root' => public_path('users'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public/avatars'),
+            'url' => env('APP_URL') . '/storage/avatars',
             'visibility' => 'public',
             'throw' => false,
         ],
