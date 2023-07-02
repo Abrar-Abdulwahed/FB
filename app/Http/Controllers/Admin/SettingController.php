@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SettingRequest;
 use App\Models\Setting;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -19,8 +20,12 @@ class SettingController extends Controller
      */
     public function index()
     {
-        foreach (Setting::all() as $setting) {
-            $settings[$setting->name] = $setting->value;
+        $keys = Setting::pluck('name')->all();
+        foreach ($keys as $key) {
+            $value = Cache::rememberForever("settings.{$key}", function () use ($key) {
+                return Setting::where('name', $key)->value('value');
+            });
+            $settings[$key] = $value;
         }
         return view('admin.settings.index', compact('settings'));
     }
@@ -72,6 +77,7 @@ class SettingController extends Controller
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
+                Cache::forever("settings.{$name}", $value);
             }
             DB::commit();
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
