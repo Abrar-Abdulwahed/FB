@@ -73,6 +73,7 @@ class SettingController extends Controller
                 'article_enable' => $request->article_enable ? "on" : "off",
                 'page_enable' => $request->page_enable ? "on" : "off",
                 'register_enable' => $request->register_enable ? "on" : "off",
+                'email_confirm_enable' => $request?->email_confirm_enable,
                 'header_script' => $request->header_script ,
                 'footer_script' => $request->footer_script,
             ];

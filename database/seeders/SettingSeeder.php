@@ -42,6 +42,7 @@ class SettingSeeder extends Seeder
                 'article_enable'                    => 'on',
                 'page_enable'                       => 'on',
                 'register_enable'                   => 'on',
+                'email_confirm_enable'              => 'on',
                 'header_script'                     => null,
                 'footer_script'                     => null,
             ];

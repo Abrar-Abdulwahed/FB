@@ -310,14 +310,24 @@
                                         </div>
                                     </div>
                                     <div class="mt-5">
-                                        <h5 class="text-muted mb-3">فتح باب التسجيل للموقع أو إغلاقه</h5>
                                         <div class="custom-control custom-switch mt-2">
                                             <input type="checkbox" class="custom-control-input" id="register-status"
                                                 name="register_enable" value="{{ $settings['register_enable'] }}"
                                                 @checked($settings['register_enable'] == 'on')>
-                                            <label class="custom-control-label" for="register-status">التسجيل</label>
+                                            <label class="custom-control-label" for="register-status">تمكين/تعطيل
+                                                التسجيل</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="email_confirm_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="email-confirm-status"
+                                                name="email_confirm_enable"
+                                                value="{{ $settings['email_confirm_enable'] }}"
+                                                @checked($settings['email_confirm_enable'] == 'on')>
+                                            <label class="custom-control-label" for="email-confirm-status">تمكين/تعطيل
+                                                التحقق من الإيميل لفتح حساب</label>
                                         </div>
                                     </div>
+
                                     <div class="mt-5">
                                         <h5 class="text-muted mb-3">إضافة أكواد للرأس والذيل</h5>
                                         <div class="form-group">
