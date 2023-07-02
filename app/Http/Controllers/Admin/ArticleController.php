@@ -36,23 +36,26 @@ class ArticleController extends Controller
     public function store(ArticleStoreRequest $request)
     {
 
-        $validated = $request->validated();
+        $validated = $request->safe();
 
         // add slug
-        $validated['slug'] = Article::generateSlug($validated['title']);
+        $validated = $validated->merge([
+            'slug' => Article::generateSlug($validated['title'])
+        ]);
 
         // store image
         if ($request->hasFile('image')) {
-            $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
+            $validated = $validated->merge([
+                'image' => $this->uploadImage($request->file('image'), 'public/articles')
+            ]);
         }
 
         $article = Article::query()
-            ->create(array_diff_key($validated, ['tags' => 0]));
+            ->create($validated->except('tags'));
 
         if (!empty($validated['tags'])) {
             $article->tags()->sync($validated['tags']);
         }
-
 
         return redirect()->route('articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
@@ -86,10 +89,13 @@ class ArticleController extends Controller
     {
         $article = Article::query()->findOrFail($id);
 
-        $validated = $request->validated();
+        $validated = $request->safe();
+        // dd($validated);
 
         // add slug
-        $validated['slug'] = Article::generateSlug($validated['title']);
+        $validated = $validated->merge([
+            'slug' => Article::generateSlug($validated['title'])
+        ]);
 
         // store image
         if ($request->hasFile('image')) {
@@ -97,10 +103,13 @@ class ArticleController extends Controller
                 //Remove old image
                 Storage::disk('local')->delete('public/articles/' . $article->image);
             }
-            $validated['image'] = $this->uploadImage($request->file('image'), 'public/articles');
+
+            $validated = $validated->merge([
+                'image' => $this->uploadImage($request->file('image'), 'public/articles')
+            ]);
         }
 
-        $article->update(array_diff_key($validated, ['tags' => 0]));
+        $article->update($validated->except('tags'));
 
 
         if (!empty($validated['tags'])) {

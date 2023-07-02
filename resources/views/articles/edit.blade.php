@@ -93,7 +93,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label for="logo" class="mb-4">الصورة</label>
+                        <label for="image" class="mb-4">الصورة</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="image">
                             <label for="file-1" id="file-1-preview" class="w-100 h-100">
