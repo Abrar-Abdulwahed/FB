@@ -39,7 +39,7 @@ class ProviderController extends Controller
             Auth::login($user);
             LoginActivity::create([
                 'user_id'       => auth()->user()->id,
-                'user_agent'    => $provider->header('user-agent'),
+                'user_agent'    => request()->header('user-agent'),
                 'browser'    => Agent::browser(),
                 'ip'    =>  FacadesRequest::ip(),
             ]);
