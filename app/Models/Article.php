@@ -42,6 +42,15 @@ class Article extends Model
         return static::where('slug', $slug)->exists();
     }
 
+    protected function imageDefault(): Attribute
+    {
+        if (!$this->image) {
+            return Attribute::make(
+                get: fn ($value) => Storage::url('articles/default.png'),
+            );
+        }
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'article_tag');

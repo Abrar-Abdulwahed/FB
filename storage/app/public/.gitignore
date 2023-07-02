@@ -1,6 +1,5 @@
 *
-!.gitignore
-!avatars/
-!avatars/default.png
+!articles/
 !images/
+!avatars/
 !.gitignore

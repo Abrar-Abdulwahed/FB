@@ -89,8 +89,17 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <label>الصورة</label>
-                        <input type="file" name="image" class="form-control">
+                        <label for="logo" class="mb-4">الصورة</label>
+                        <div class="img-preview">
+                            <input type="file" id="file-1" accept="image/*" name="image">
+                            <label for="file-1" id="file-1-preview" class="w-100 h-100">
+                                {{-- <img src={{ asset('storage/' . $settings->site_logo) ?? 'https://bit.ly/3ubuq5o' }}
+                                    alt=""> --}}
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
                         @error('image')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

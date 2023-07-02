@@ -9,7 +9,7 @@
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        الأعضاء
+        المقالات
     </div>
     <div class="card-body table-responsive">
 
@@ -26,13 +26,21 @@
             <tbody>
                 @foreach ($articles as $article)
                     <tr>
-                        <td><a target="_blank" href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                        <td><a target="_blank"
+                                href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
-                            <img src="{{ asset('storage/articles/' . $article->image) }}" alt="{{ $article->title }}"
-                                width="70px" height="70px">
+                            @if (!$article->image)
+                                <img src="{{ $article->image_default }}" alt="{{ $article->title }}" width="70px"
+                                    height="70px">
+                            @else
+                                <img src="{{ asset('storage/articles/' . $article->image) }}"
+                                    alt="{{ $article->title }}" width="70px" height="70px">
+                            @endif
                         </td>
                         <td>
+                            <a href="{{ route('admin.articles.show', $article->slug) }}" class="mx-1 btn btn-info"><i
+                                class="fas fa-eye"></i></a>
                             <a href="{{ route('admin.articles.edit', $article->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
