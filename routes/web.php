@@ -39,8 +39,8 @@ Route::group([], function () {
     Route::get('pages/{slug}', [PageController::class, 'show'])
         ->name('pages.show');
 
-    Route::get('admin/pages/{slug}', [PageController::class, 'show'])
-        ->name('pages.show')->middleware('auth');
+   /*  Route::get('admin/pages/{slug}', [PageController::class, 'show'])
+        ->name('pages.show')->middleware('auth'); */
 });
 
 Route::group([], function () {

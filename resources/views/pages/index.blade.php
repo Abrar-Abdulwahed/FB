@@ -3,10 +3,11 @@
 @section('title')
     الصفحات
 @endsection
+@include('partials.session')
+
 <a href={{ route('admin.pages.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     اضافة صفحة</a>
 <div class="clearfix"></div>
-@include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
         الصفحات
