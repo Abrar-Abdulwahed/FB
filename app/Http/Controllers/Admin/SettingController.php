@@ -79,7 +79,6 @@ class SettingController extends Controller
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
-                Cache::forget("settings.{$name}", $value);
                 Cache::forever("settings.{$name}", $value);
             }
             DB::commit();
