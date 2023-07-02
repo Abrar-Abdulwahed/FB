@@ -64,14 +64,14 @@
                                             @error('terms')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
-
-                                            <div class="text-center">
-                                                <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
-                                                @error('g-recaptcha-response')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-
+                                            @if (\App\Models\Setting::where('name', 'captcha_enable')?->first()?->value == 'on')
+                                                <div class="text-center">
+                                                    <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
+                                                    @error('g-recaptcha-response')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            @endif
                                             <button class="btn btn-dark btn-lg px-5 mt-4" type="submit">تسجيل</button>
                                         </form>
                                     @else

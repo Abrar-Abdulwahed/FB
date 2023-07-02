@@ -1,39 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'إعدادات الموقع')
 @push('css')
-    <style>
-        .img-preview {
-            width: 200px;
-            height: 200px;
-            box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
-        }
-
-        .img-preview input {
-            display: none;
-        }
-
-        .img-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .img-preview div {
-            position: relative;
-            height: 40px;
-            margin-top: -40px;
-            background: rgba(0, 0, 0, 0.5);
-            text-align: center;
-            line-height: 40px;
-            font-size: 13px;
-            color: #f5f5f5;
-            font-weight: 600;
-        }
-
-        .img-preview div span {
-            font-size: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/previewImage.css') }}">
 @endpush
 @section('content')
     @if (session()->has('success'))
@@ -120,7 +88,8 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="site_description">وصف الموقع</label>
-                                            <textarea class="form-control" id="site_description" rows="10" name="site_description" placeholder="اكتب النص هنا">{{ old('site_description') ?? $settings['site_description'] }}</textarea>
+                                            <textarea class="form-control" id="site_description" rows="10" name="site_description"
+                                                placeholder="اكتب النص هنا">{{ old('site_description') ?? $settings['site_description'] }}</textarea>
                                             @error('site_description')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -157,7 +126,7 @@
                                                 <label class="custom-control-label" for="facebook_enable">الفيسبوك</label>
                                             </div>
                                         </div>
-                                        <div class="form-row" id="facebook_enable_div">
+                                        <div class="form-row mt-2" id="facebook_enable_div">
                                             <div class="form-group col-md-6">
                                                 <label for="facebook_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="facebook_client_id" class="form-control"
@@ -186,7 +155,7 @@
                                                 name="google_enable" @checked(old('google_enable') == 'on' || $settings['google_enable'] === 'on')>
                                             <label class="custom-control-label" for="google_enable">جوجل</label>
                                         </div>
-                                        <div class="form-row" id="google_enable_div">
+                                        <div class="form-row mt-2" id="google_enable_div">
                                             <div class="form-group col-md-6">
                                                 <label for="google_client_id" class="text-muted">المعرف</label>
                                                 <input type="text" name="google_client_id" class="form-control"
@@ -287,7 +256,16 @@
                                 </div>
                                 <div class="tab-pane fade" id="recaptcha-settings" role="tabpanel"
                                     aria-labelledby="recaptcha-settings-tab">
-                                    <div class="form-row">
+                                    <div>
+                                        <input type="text" name="captcha_enable" value="off" hidden />
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input" id="captcha_enable"
+                                                name="captcha_enable" @checked(old('captcha_enable') == 'on' || $settings['captcha_enable'] === 'on')>
+                                            <label class="custom-control-label" for="captcha_enable">تعطيل/تمكين
+                                                الميزة</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-2" id="captcha_enable_div">
                                         <div class="form-group col-md-6">
                                             <label for="recaptcha_site_key" class="text-muted">المعرف</label>
                                             <input type="text" name="recaptcha_site_key" class="form-control"
@@ -332,12 +310,39 @@
                                         </div>
                                     </div>
                                     <div class="mt-5">
-                                        <h5 class="text-muted mb-3">فتح باب التسجيل للموقع أو إغلاقه</h5>
                                         <div class="custom-control custom-switch mt-2">
                                             <input type="checkbox" class="custom-control-input" id="register-status"
                                                 name="register_enable" value="{{ $settings['register_enable'] }}"
                                                 @checked($settings['register_enable'] == 'on')>
-                                            <label class="custom-control-label" for="register-status">التسجيل</label>
+                                            <label class="custom-control-label" for="register-status">تمكين/تعطيل
+                                                التسجيل</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="email_confirm_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="email_confirm_enable"
+                                                name="email_confirm_enable" @checked(old('email_confirm_enable') == 'on' || $settings['email_confirm_enable'] === 'on')>
+                                            <label class="custom-control-label" for="email_confirm_enable">تمكين/تعطيل
+                                                التحقق من الإيميل لفتح حساب</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5">
+                                        <h5 class="text-muted mb-3">إضافة أكواد للرأس والذيل</h5>
+                                        <div class="form-group">
+                                            <label for="header_script">أكواد الرأس</label>
+                                            <textarea class="form-control" id="header_script" rows="10" name="header_script"
+                                                placeholder="اكتب أكواد الرأس هنا">{{ old('header_script') ?? $settings['header_script'] }}</textarea>
+                                            @error('header_script')
+                                                <p class="text-danger small">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="footer_script">أكواد الذيل</label>
+                                            <textarea class="form-control" id="footer_script" rows="10" name="footer_script"
+                                                placeholder="اكتب أكواد الذيل هنا">{{ old('footer_script') ?? $settings['footer_script'] }}</textarea>
+                                            @error('footer_script')
+                                                <p class="text-danger small">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -389,6 +394,13 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
+            function toggleElement($element, $condition) {
+                if ($condition) {
+                    $element.show();
+                } else {
+                    $element.hide();
+                }
+            }
             if ($('#site_status').val() === 'inactive') {
                 $('#reason_locked_div').show();
             } else {
@@ -405,6 +417,12 @@
                 $('#facebook_enable_div').show();
             } else {
                 $('#facebook_enable_div').hide();
+            }
+
+            if ($('#captcha_enable').is(':checked')) {
+                $('#captcha_enable_div').show();
+            } else {
+                $('#captcha_enable_div').hide();
             }
 
             $('#site_status').change(function() {
@@ -431,16 +449,89 @@
                     $('#facebook_enable_div').hide();
                 }
             });
+            $('#captcha_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#captcha_enable_div').show();
+                } else {
+                    $('#captcha_enable_div').hide();
+                }
+            });
         });
         ClassicEditor
-            .create(document.querySelector('#reason_locked'), {
-                height: '400px'
-            })
+            .create(document.querySelector('#reason_locked'))
             .then(editor => {
                 console.log(editor);
             })
             .catch(error => {
                 console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#header_script'), {
+                codeBlock: {
+                    languages: [
+                        // Do not render the CSS class for the plain text code blocks.
+                        {
+                            language: 'plaintext',
+                            label: 'Plain text',
+                            class: ''
+                        },
+
+                        // Use the "php-code" class for PHP code blocks.
+                        {
+                            language: 'php',
+                            label: 'PHP',
+                            class: 'php-code'
+                        },
+
+                        // Use the "js" class for JavaScript code blocks.
+                        // Note that only the first ("js") class will determine the language of the block when loading data.
+                        {
+                            language: 'javascript',
+                            label: 'JavaScript',
+                            class: 'js javascript js-code'
+                        },
+
+                        // Python code blocks will have the default "language-python" CSS class.
+                        {
+                            language: 'python',
+                            label: 'Python'
+                        }
+                    ]
+                }
+            });
+        ClassicEditor
+            .create(document.querySelector('#footer_script'), {
+                codeBlock: {
+                    languages: [
+                        // Do not render the CSS class for the plain text code blocks.
+                        {
+                            language: 'plaintext',
+                            label: 'Plain text',
+                            class: ''
+                        },
+
+                        // Use the "php-code" class for PHP code blocks.
+                        {
+                            language: 'php',
+                            label: 'PHP',
+                            class: 'php-code'
+                        },
+
+                        // Use the "js" class for JavaScript code blocks.
+                        // Note that only the first ("js") class will determine the language of the block when loading data.
+                        {
+                            language: 'javascript',
+                            label: 'JavaScript',
+                            class: 'js javascript js-code'
+                        },
+
+                        // Python code blocks will have the default "language-python" CSS class.
+                        {
+                            language: 'python',
+                            label: 'Python'
+                        }
+                    ]
+                }
             });
     </script>
 @endpush

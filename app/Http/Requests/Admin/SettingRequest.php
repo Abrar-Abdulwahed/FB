@@ -30,10 +30,12 @@ class SettingRequest extends FormRequest
             'google_enable' => 'required|string|in:on,off',
             'google_client_id' => 'required_if:google_enable,on|nullable|string',
             'google_client_secret' => 'required_if:google_enable,on|nullable|string',
+            'facebook_enable' => 'required|string|in:on,off',
             'facebook_client_id' => 'required_if:facebook_enable,on|nullable|string',
             'facebook_client_secret' => 'required_if:facebook_enable,on|nullable|string',
-            'recaptcha_site_key' => 'required|string',
-            'recaptcha_secret_key' => 'required|string',
+            'captcha_enable'=> 'required|string|in:on,off',
+            'recaptcha_site_key' => 'required_if:captcha_enable,on|nullable|string',
+            'recaptcha_secret_key' => 'required_if:captcha_enable,on|nullable|string',
             'mail_mailer' => 'required|string|in:smtp,sendmail',
             'mail_host' => 'required|string',
             'mail_port' => 'required|numeric|digits_between:3,4',
@@ -41,6 +43,9 @@ class SettingRequest extends FormRequest
             'mail_password' => 'required|string',
             'mail_from_address' => 'required|email',
             'mail_from_name' => 'required|string',
+            'email_confirm_enable'=>'required|string|in:on,off',
+            'header_script' => 'nullable',
+            'footer_script' => 'nullable',
         ];
     }
 }
