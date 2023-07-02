@@ -319,11 +319,9 @@
                                         </div>
                                         <div class="custom-control custom-switch mt-2">
                                             <input type="text" name="email_confirm_enable" value="off" hidden />
-                                            <input type="checkbox" class="custom-control-input" id="email-confirm-status"
-                                                name="email_confirm_enable"
-                                                value="{{ $settings['email_confirm_enable'] }}"
-                                                @checked($settings['email_confirm_enable'] == 'on')>
-                                            <label class="custom-control-label" for="email-confirm-status">تمكين/تعطيل
+                                            <input type="checkbox" class="custom-control-input" id="email_confirm_enable"
+                                                name="email_confirm_enable" @checked(old('email_confirm_enable') == 'on' || $settings['email_confirm_enable'] === 'on')>
+                                            <label class="custom-control-label" for="email_confirm_enable">تمكين/تعطيل
                                                 التحقق من الإيميل لفتح حساب</label>
                                         </div>
                                     </div>
