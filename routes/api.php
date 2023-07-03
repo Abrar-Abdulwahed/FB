@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,5 +12,13 @@ use Illuminate\Support\Facades\Route;
 // api users endpoint
 Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::get('/retrieve', 'retrieve');
-    
+
 });
+
+
+Route::prefix('pages')->controller(PageController::class)->group(function(){
+    Route::get('/index', 'index');
+
+});
+
+
