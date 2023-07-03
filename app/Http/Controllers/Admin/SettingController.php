@@ -20,6 +20,11 @@ class SettingController extends Controller
      */
     public function index()
     {
+        $settings = $this->cache();
+        return view('admin.settings.index', compact('settings'));
+    }
+
+    public function cache(){
         $keys = Setting::pluck('name')->all();
         foreach ($keys as $key) {
             $value = Cache::rememberForever("settings.{$key}", function () use ($key) {
@@ -27,7 +32,7 @@ class SettingController extends Controller
             });
             $settings[$key] = $value;
         }
-        return view('admin.settings.index', compact('settings'));
+        return $settings;
     }
 
     /**
@@ -95,7 +100,11 @@ class SettingController extends Controller
             'password' => 'required|current_password'
         ]);
         try {
+            foreach (Setting::pluck('name')->all() as $name) {
+                Cache::forget("settings.{$name}");
+            }
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+            // $this->cache();
             return redirect()->route('admin.index');
         } catch (\Throwable $e) {
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
