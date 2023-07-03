@@ -53,11 +53,13 @@
                                 <span class="span-tag bg-warning rounded px-1 w-50">{{ $tag->name }}</span>
                             @endforeach
                         </td>
+                        
                         <td>
                             @foreach ($article->categories as $category)
                                 <span class="span-tag bg-warning rounded px-1 w-50">{{ $category->title }}</span>
                             @endforeach
                         </td>
+                        
                         <td>
                             <a href="{{ route('admin.articles.show', $article->slug) }}" class="mx-1 btn btn-info"><i
                                     class="fas fa-eye"></i></a>
