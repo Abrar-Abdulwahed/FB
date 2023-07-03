@@ -5,7 +5,7 @@
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            Articles Categories
+            مقالات الاقسام
         </div>
         <div class="card-body">
             <form action="{{ Route('admin.articles-categories.update', $category->id) }}" method="post">

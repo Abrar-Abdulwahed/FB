@@ -10,7 +10,7 @@
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        Articles Categories
+        مقالات الاقسام
     </div>
     <div class="card-body table-responsive">
         <table class="table table-striped text-center">
