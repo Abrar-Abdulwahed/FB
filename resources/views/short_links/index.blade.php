@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-@section('title','روابط مختصرة')
+@section('title', 'روابط مختصرة')
 <a href={{ route('admin.short_links.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     إضافة</a>
 <div class="clearfix"></div>
@@ -22,6 +22,7 @@
                     <th>الرابط</th>
                     <th>الرابط المختصر</th>
                     <th>slug</th>
+                    <th>الزيارات</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -30,25 +31,33 @@
                     <tr>
                         <td>{{ $short_link->id }}</td>
                         <td>
-                            <a href="{{ route('short_link.show',$short_link) }}" id="myText">{{ $short_link->url }}</a>  
+                            <a href="{{ route('short_link.show', $short_link) }}"
+                                id="myText">{{ $short_link->url }}</a>
                         </td>
                         <td>
                             @if (!empty($short_link->slug))
-                                <input type="text" value="{{ route('short_link.show',$short_link->slug) }}" disabled>                            
-                                <button class="btn" data-clipboard-text="{{ route('short_link.show',$short_link->slug) }}" id="copy-button"><i class="fas fa-copy text-secondary"></i></button>
+                                <input type="text" value="{{ route('short_link.show', $short_link->slug) }}" disabled>
+                                <button class="btn"
+                                    data-clipboard-text="{{ route('short_link.show', $short_link->slug) }}"
+                                    id="copy-button"><i class="fas fa-copy text-secondary"></i></button>
                             @else
-                                <input type="text" value="{{ route('short_link.show',$short_link->id) }}" disabled>                            
-                                <button class="btn" data-clipboard-text="{{ route('short_link.show',$short_link->id) }}" id="copy-button"><i class="fas fa-copy text-secondary"></i></button>
+                                <input type="text" value="{{ route('short_link.show', $short_link->id) }}" disabled>
+                                <button class="btn"
+                                    data-clipboard-text="{{ route('short_link.show', $short_link->id) }}"
+                                    id="copy-button"><i class="fas fa-copy text-secondary"></i></button>
                             @endif
-                           
+
                         </td>
                         <td>{{ $short_link->slug }} </td>
+                        <td>{{ $short_link->statistics()->sum('visits') }} </td>
                         <td>
-                            <a href="{{ route('admin.short_links.edit', $short_link->id) }}" class="mx-1 btn btn-success"><i
-                                    class="fas fa-edit"></i></a>
+                            <a href="{{ route('admin.short_links.statistics', $short_link->id) }}"
+                                class="mx-1 btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('admin.short_links.edit', $short_link->id) }}"
+                                class="mx-1 btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                 data-target="#confirm-delete-{{ $short_link->id }}">
-                                <i class="fas fa-trash p-2"></i>
+                                <i class="fas fa-trash"></i>
                             </button>
                             <div class="modal fade" id="confirm-delete-{{ $short_link->id }}">
                                 <div class="modal-dialog">
@@ -66,7 +75,8 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('admin.short_links.destroy', $short_link->id) }}" method="POST">
+                                            <form action="{{ route('admin.short_links.destroy', $short_link->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-dark btn-md">نعم</button>
@@ -90,8 +100,8 @@
     var clipboard = new ClipboardJS('#copy-button');
 </script>
 <script>
-  navigator.clipboard.readText()
-  .then((text) => console.log("Text from clipboard: ", text))
-  .catch((error) => console.error("Failed to read text from clipboard: ", error));
+    navigator.clipboard.readText()
+        .then((text) => console.log("Text from clipboard: ", text))
+        .catch((error) => console.error("Failed to read text from clipboard: ", error));
 </script>
 @endsection

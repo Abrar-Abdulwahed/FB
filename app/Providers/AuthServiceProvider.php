@@ -29,15 +29,15 @@ class AuthServiceProvider extends ServiceProvider
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
                 ->subject('تفعيل الايميل')
-                ->line(str_replace("userName",$notifiable->name, CustomMessage::where('code', 'verification.message')->first()->text))
+                ->line(str_replace("userName", $notifiable->name, CustomMessage::where('code', 'verification.message')->first()->text))
                 ->action('تفعيل البريد الالكتروني', $url);
         });
 
-        ResetPassword::toMailUsing(function (object $notifiable, string $url) {
+        ResetPassword::toMailUsing(function (object $notifiable, string $token) {
             return (new MailMessage)
                 ->subject(Lang::get('Reset Password Notification'))
-                ->line(str_replace("userName",$notifiable->name, CustomMessage::where('code', 'password.reset_message')->first()->text))
-                ->action(Lang::get('Reset Password'), $url)
+                ->line(str_replace("userName", $notifiable->name, CustomMessage::where('code', 'password.reset_message')->first()->text))
+                ->action(Lang::get('Reset Password'), url('/').'/password/reset/'.$token)
                 ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]));
         });
     }
