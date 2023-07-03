@@ -31,6 +31,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::get('/login-activity', [LoginActivity::class, 'index'])->name('login.activity')->middleware('auth');
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
 
+
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
     Route::resource('comments', ArticleComment::class);
     Route::resource('deleted_comments', DeletedArticleCommentController::class);
