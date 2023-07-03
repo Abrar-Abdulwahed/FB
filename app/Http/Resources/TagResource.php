@@ -17,7 +17,6 @@ class TagResource extends JsonResource
         return [
             'name'=> $this->name,
             'slug'=> $this->slug,
-            'created at'=> $this->created_at->diffForHumans(),
         ];
     }
 }
