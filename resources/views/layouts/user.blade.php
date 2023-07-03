@@ -61,7 +61,9 @@
 
     ClassicEditor
         .create(document.querySelector('#comment'),{
-           
+            language: {
+                content: 'ar'
+            },
             toolbar: {
             items: [
                 'undo', 'redo',

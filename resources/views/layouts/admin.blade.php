@@ -85,10 +85,13 @@
 <script>
     ClassicEditor
         .create(document.querySelector('#description'),{
+            language: {
+                content: 'ar'
+            },
             toolbar: {
                 items: [
                     'undo', 'redo',
-                    '|', 'heading','alignment',
+                    '|', 'heading',
                     '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
                     '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
                     '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
@@ -107,7 +110,9 @@
 <script>
     ClassicEditor
         .create(document.querySelector('#answer'),{
-            plugins: [ Alignment ],
+            language: {
+                content: 'ar'
+            },
             toolbar: {
             items: [
                 'undo', 'redo',
@@ -130,6 +135,9 @@
 <script>
     ClassicEditor
     .create(document.querySelector('#content'),{
+        language: {
+                content: 'ar'
+        },
         toolbar: {
             items: [
                 'undo', 'redo',

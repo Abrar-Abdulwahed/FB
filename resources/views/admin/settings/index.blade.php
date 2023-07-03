@@ -458,7 +458,11 @@
             });
         });
         ClassicEditor
-            .create(document.querySelector('#reason_locked'))
+            .create(document.querySelector('#reason_locked'),{
+                language: {
+                    content: 'ar'
+                },
+            })
             .then(editor => {
                 console.log(editor);
             })
@@ -467,6 +471,9 @@
             });
         ClassicEditor
             .create(document.querySelector('#header_script'), {
+                language: {
+                    content: 'ar'
+                },
                 codeBlock: {
                     languages: [
                         // Do not render the CSS class for the plain text code blocks.
@@ -501,6 +508,9 @@
             });
         ClassicEditor
             .create(document.querySelector('#footer_script'), {
+                language: {
+                    content: 'ar'
+                },
                 codeBlock: {
                     languages: [
                         // Do not render the CSS class for the plain text code blocks.
