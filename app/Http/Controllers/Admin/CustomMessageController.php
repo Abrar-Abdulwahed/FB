@@ -31,7 +31,6 @@ class CustomMessageController extends Controller
      */
     public function store(StoreCustomMessageRequest $request)
     {
-        // dd($request);
         try {
             $message = CustomMessage::create($request->validated());
             return redirect()->route('admin.custom-message.index')->with('success', 'تم إضافة الرسالة بنجاح');
