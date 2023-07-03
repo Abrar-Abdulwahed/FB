@@ -91,6 +91,10 @@ class SettingController extends Controller
 
     public function reset(Request $request)
     {
+        $request->validate([
+            'password' => 'required|current_password'
+        ]);
+        
         try {
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
         } catch (\Throwable $e) {
