@@ -46,7 +46,7 @@
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ $errors->hasAny(['password']) ? 'bg-danger' : '' }}">
                                 <a class="nav-link" id="reset-db-tab" data-toggle="pill" href="#reset-db" role="tab"
                                     aria-controls="reset-db" aria-selected="false">تهيئة قاعدة البيانات</a>
                             </li>
@@ -481,7 +481,7 @@
                 }
             });
         });
-        @if ($errors->any())
+        @if ($errors->has('password'))
             $('#confirm-reset-db').modal('show');
         @endif
         ClassicEditor
