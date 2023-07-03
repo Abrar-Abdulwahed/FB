@@ -59,12 +59,11 @@
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
-                {{-- <div class="form-group">
-                    <label for="text">النص</label>
-                    <textarea id="summernote" name="text">
-                        اكتب النص هنا
-                    </textarea>
-                </div> --}}
+                <div class="form-group col-12 custom-control custom-switch my-4">
+                    <input type="text" class="custom-control-input" name="is_active" value="off">
+                    <input type="checkbox" class="custom-control-input" id="is-active" name="is_active">
+                    <label class="custom-control-label" for="is-active">الحالة</label>
+                </div>
                 <button type="submit" class="btn btn-dark">إضافة</button>
             </form>
         </div>

@@ -27,6 +27,7 @@ class StoreCustomMessageRequest extends FormRequest
             'type' => "required|string|max:5|in:sms,email",
             'language' => "required|string|max:5|in:ar,en",
             'text' => "required|string",
+            'is_active' => "required",
         ];
     }
 }
