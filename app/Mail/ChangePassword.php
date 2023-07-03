@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeUser extends Mailable implements ShouldQueue
+class ChangePassword extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -17,7 +17,7 @@ class WelcomeUser extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $message)
+    public function __construct()
     {
         $this->user = $user;
         $this->message = str_replace("userName", $this->user->name, $message);
@@ -29,7 +29,7 @@ class WelcomeUser extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome User',
+            subject: 'Change Password',
         );
     }
 
@@ -39,7 +39,7 @@ class WelcomeUser extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.welcome_user',
+            markdown: 'mail.change_password',
         );
     }
 

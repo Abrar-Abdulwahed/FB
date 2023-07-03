@@ -10,25 +10,31 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function latest(){
-        $users = User::latest()->get();
-        if($users->count() > 0){
-             return ApiResponse::sendResponse('200','latest users retrived successfully',UserResource::collection($users));
+    
+    public function index(Request $request)
+    {
+        $name = $request->query('name');
+        $email = $request->query('email');
+
+        $query = User::query();
+
+        if ($name)
+        {
+            $query->where('name', 'LIKE', '%' . $name . '%');
         }
-        return ApiResponse::sendResponse('200','users not found',[]);
-    }
 
-    public function search(Request $request){
-        $word = $request->input('search') ?? null;
-        $ads = User::when($word != null ,function ($q) use ($word){
-          $q->where('name','like','%'.$word.'%')
-             ->orWhere('email','like','%'.$word.'%')
-             ->orWhere('role','like','%'.$word.'%');
-        })->latest()->get();
+        if ($email)
+        {
+            $query->where('email', 'LIKE', '%' . $email . '%');
+        }
 
-        if($ads->count() > 0){
-            return ApiResponse::sendResponse('200','search completed',UserResource::collection($ads));
-       }
-       return ApiResponse::sendResponse('200','search not found',[]);
+        $users = $query->get();
+
+        if ($users->isEmpty())
+        {
+            return response()->json(['message' => 'searchnotfound'], 404);
+        }
+
+        return UserResource::collection($users);
     }
 }

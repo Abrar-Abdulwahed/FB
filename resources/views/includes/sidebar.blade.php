@@ -164,6 +164,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link"
+                    href="{{asset('/log-viewer')}}">ملف الاخطاء</a>
+                </li>
+
+                <li class="nav-item">
+
+
+                </li>
+
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>
                             تسجيل الخروج
