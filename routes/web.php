@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ShortLinkController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\SettingController as UserSettingController;
@@ -38,6 +39,8 @@ Route::group([], function () {
 
     Route::get('pages/{slug}', [PageController::class, 'show'])
         ->name('pages.show');
+
+    Route::get('/s/{param}',[ShortLinkController::class,'show']) ->name('short_link.show');   
 
    /*  Route::get('admin/pages/{slug}', [PageController::class, 'show'])
         ->name('pages.show')->middleware('auth'); */

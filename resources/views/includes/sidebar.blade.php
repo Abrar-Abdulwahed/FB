@@ -159,8 +159,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link @if (Route::is('s*')) ? 'active' : '' bg-primary @endif"
-                    href="{{ route('s.index') }}">الروابط المختصرة</a>
+                    <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
+                    href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
                 </li>
 
                 <li class="nav-item">
