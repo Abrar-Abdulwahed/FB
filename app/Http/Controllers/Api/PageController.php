@@ -10,9 +10,11 @@ class PageController extends Controller
 {
 
     public function index()
-    {
-        $pages = Page::all();
+{
+    $pages = Page::paginate(15);
 
-        return PageResource::collection($pages);
-    }
+    return PageResource::collection($pages->items());
+}
+
+
 }
