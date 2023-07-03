@@ -159,10 +159,20 @@
                 </li>
                 @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
                     <li class="nav-item">
-                        <a class="nav-link @if (Route::is('s*')) ? 'active' : '' bg-primary @endif"
-                            href="{{ route('s.index') }}">الروابط المختصرة</a>
+                        <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
+                            href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
                     </li>
                 @endif
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ asset('/log-viewer') }}">ملف الاخطاء</a>
+                </li>
+
+                <li class="nav-item">
+
+
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>

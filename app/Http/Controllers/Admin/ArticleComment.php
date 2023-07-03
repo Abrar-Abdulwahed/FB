@@ -53,9 +53,9 @@ class ArticleComment extends Controller
     public function show($slug)
     {
         //
-        $article = Article::query()->with('comments')->where('slug', '=', $slug)->first();
+        $article = Article::query()->with('comments')->first();
 
-        $comments = ArticleComment::where('article_id',$article->id)->get();
+        $comments = ModelsArticleComment::where('article_id',$article->id)->get();
 
         return view('article_comments.show', compact('article','comments'));
     }
@@ -79,17 +79,31 @@ class ArticleComment extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,$id,$action)
+    public function destroy(Request $request,$id)
     {
         //
         $comment = ModelsArticleComment::query()->find($id);
+        $comment_trash = ModelsArticleComment::withTrashed()->where('id',$id)->first();
 
-        switch($action){
+        //dd($comment);
+        switch($request->action){
             case('block'):
-                $user = $comment::user()->update(['is_banned'],true);
+                $user = $comment->user->update(['is_banned'=>1]);          
+            break;
+            case('block_deleted'):
+                $user = $comment_trash->user->update(['is_banned'=>1]);          
             break;
             case('delete_all'):
                 ModelsArticleComment::where('user_id',$comment->user_id)->delete();
+            break;
+            case('delete_comment_all'):
+                ModelsArticleComment::where('user_id',$comment_trash->user_id)->delete();
+                $comment_trash->forceDelete();
+            break;
+            case('deleted'):
+                $comment_trash->forceDelete();
+                return redirect()->route('admin.deleted_comments.index')
+                    ->with('success', 'تم حذف التعليق نهائيا');
             break;
             default:
             $comment->delete();        

@@ -67,10 +67,10 @@ class DeletedArticleCommentController extends Controller
     public function destroy($id)
     {
         //
-        $comment = ArticleComment::withTrashed()->where('id',$id)->first();
+        /* $comment = ArticleComment::withTrashed()->where('id',$id)->first();
         $comment->forceDelete();
         return redirect()->route('admin.deleted_comments.index')
-            ->with('success', 'تم حذف التعليق نهائيا');
+            ->with('success', 'تم حذف التعليق نهائيا'); */
 
     }
 }
