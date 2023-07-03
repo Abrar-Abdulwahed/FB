@@ -13,5 +13,6 @@ class CustomMessage extends Model
         'type',
         'language',
         'text',
+        'is_active',
     ];
 }

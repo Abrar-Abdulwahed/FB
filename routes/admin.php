@@ -24,6 +24,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('settings', SettingController::class)->only('index', 'store');
     Route::get('/', [AdminHomeController::class, 'index'])->name('index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
+    Route::patch('custom-message/{msg}/active', [CustomMessageController::class, 'changeActive'])
+    ->name('custom-message.changeActive');
 
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
