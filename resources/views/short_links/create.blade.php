@@ -19,7 +19,7 @@
                 <p class="alert alert-danger">{{ session('error') }}</p>
             @endif
             <div class="card-body">
-                <form action="{{ Route('s.store') }}" method="post">
+                <form action="{{ Route('admin.short_links.store') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <label>الرابط</label>

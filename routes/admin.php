@@ -48,12 +48,12 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
+    //short links
+    Route::resource('short_links', ShortLinkController::class)->except('show');
+
     Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
         ->name('payments.changeActive');
 
     Route::resource('payments', PaymentController::class);
     Route::resource('ads', AdController::class)->except('show');
 });
-
-//short links
-Route::resource('s', ShortLinkController::class);
