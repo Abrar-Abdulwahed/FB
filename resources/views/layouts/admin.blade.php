@@ -84,11 +84,34 @@
 
 <script>
     ClassicEditor
+        .create(document.querySelector('#description'),{
+            toolbar: {
+                items: [
+                    'undo', 'redo',
+                    '|', 'heading','alignment',
+                    '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                    '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                    '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                    '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                ],
+                shouldNotGroupWhenFull: true
+                }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+    });
+</script>
+<script>
+    ClassicEditor
         .create(document.querySelector('#answer'),{
+            plugins: [ Alignment ],
             toolbar: {
             items: [
                 'undo', 'redo',
-                '|', 'heading',
+                '|', 'heading','alignment',
                 '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
                 '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
                 '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
@@ -103,13 +126,14 @@
         .catch(error => {
             console.error(error);
     });
-
+</script>
+<script>
     ClassicEditor
     .create(document.querySelector('#content'),{
         toolbar: {
             items: [
                 'undo', 'redo',
-                '|', 'heading',
+                '|', 'heading','alignment',
                 '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
                 '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
                 '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',

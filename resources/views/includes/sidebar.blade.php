@@ -102,7 +102,7 @@
                                 
                             </ul>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.pages.index')) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.pages.index') }}">
                                 <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
                             </a>
@@ -128,7 +128,7 @@
                     </a> 
                 </li>
 
-                <li class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.tickets.*') || Route::is('admin.payments.*') ||  Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index.*') || Route::is('admin.custom-message.edit.*') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.tickets.*') || Route::is('admin.payments.*') ||  Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-cog"></i>
                         <p>
@@ -145,7 +145,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit')  ? 'menu-open' : '' }}">
+                        <li class="nav-item {{ Route::is('admin.custom-message.*')  ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-message"></i>
                                 <p>
@@ -201,7 +201,7 @@
                         </li>
                         <li class="nav-item @if (Route::is('admin.payments.*')) ? 'active' : '' bg-primary @endif ">
                             <a href="{{ route('admin.payments.index') }}" class="nav-link">
-                                <i class="fa-solid fa-credit-card"></i>
+                                <i class="nav-icon fa-solid fa-credit-card"></i>
                                 <p>وسائل الدفع</p> 
                             </a>
                         </li>
