@@ -57,4 +57,4 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 });
 
 //short links
-Route::resource('s', ShortLinkController::class);
+Route::resource('s', ShortLinkController::class)->middleware('feature:short_link');

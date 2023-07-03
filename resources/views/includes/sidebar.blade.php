@@ -39,30 +39,30 @@
                     </ul>
                 </li>
                 <li
-                class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fa-solid fa-message"></i>
-                    <p>
-                        التذاكر
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
+                    class="nav-item {{ Route::is('admin.custom-message.create') || Route::is('admin.custom-message.index') || Route::is('admin.custom-message.edit') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-message"></i>
+                        <p>
+                            التذاكر
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
 
-                    <li class="nav-item @if (Route::is('admin.tickets.index')) ? 'active' : '' bg-primary @endif ">
-                        <a href={{ route('admin.tickets.index') }} class="nav-link">
-                            {{-- <i class="far fa-circle nav-icon"></i> --}}
-                            <p>قائمة التذاكر</p>
-                        </a>
-                    </li>
-                    <li class="nav-item @if (Route::is('admin.TicketsCategory.index')) ? 'active' : '' bg-primary @endif ">
-                        <a href={{ route('admin.TicketsCategory.index') }} class="nav-link">
-                            {{-- <i class="far fa-circle nav-icon"></i> --}}
-                            <p>قائمة تصنيفات التذاكر</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                        <li class="nav-item @if (Route::is('admin.tickets.index')) ? 'active' : '' bg-primary @endif ">
+                            <a href={{ route('admin.tickets.index') }} class="nav-link">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <p>قائمة التذاكر</p>
+                            </a>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.TicketsCategory.index')) ? 'active' : '' bg-primary @endif ">
+                            <a href={{ route('admin.TicketsCategory.index') }} class="nav-link">
+                                {{-- <i class="far fa-circle nav-icon"></i> --}}
+                                <p>قائمة تصنيفات التذاكر</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item {{ Route::is('admin.users.*') || Route::is('admin.roles.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-user"></i>
@@ -107,7 +107,7 @@
                             </li>
                             <li class="nav-item @if (Route::is('admin.deleted_comments.*')) ? 'active' : '' bg-primary @endif">
                                 <a class="nav-link" href="{{ route('admin.deleted_comments.index') }}">
-                                    <i class="fa fa-list-alt nav-icon"></i>عرض التعليقات المحذوفة 
+                                    <i class="fa fa-list-alt nav-icon"></i>عرض التعليقات المحذوفة
                                 </a>
                             </li>
                             <li class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
@@ -157,12 +157,12 @@
                         href="{{ route('admin.ads.index') }}">
                         <i class="nav-icon fa-solid fa-image"></i> الاعلانات</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('s*')) ? 'active' : '' bg-primary @endif"
-                    href="{{ route('s.index') }}">الروابط المختصرة</a>
-                </li>
-
+                @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+                    <li class="nav-item">
+                        <a class="nav-link @if (Route::is('s*')) ? 'active' : '' bg-primary @endif"
+                            href="{{ route('s.index') }}">الروابط المختصرة</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
                         <p>

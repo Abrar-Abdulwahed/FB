@@ -310,6 +310,13 @@
                                                 @checked($settings['page_enable'] == 'on')>
                                             <label class="custom-control-label" for="page-status">المدونات</label>
                                         </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="short_link_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="short_link_enable"
+                                                name="short_link_enable" @checked(old('short_link_enable') == 'on' || $settings['short_link_enable'] === 'on')>
+                                            <label class="custom-control-label" for="short_link_enable">الروابط
+                                                المختصرة</label>
+                                        </div>
                                     </div>
                                     <div class="mt-5">
                                         <div class="custom-control custom-switch mt-2">
@@ -325,6 +332,13 @@
                                                 name="email_confirm_enable" @checked(old('email_confirm_enable') == 'on' || $settings['email_confirm_enable'] === 'on')>
                                             <label class="custom-control-label" for="email_confirm_enable">تمكين/تعطيل
                                                 التحقق من الإيميل لفتح حساب</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="comment_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="comment_enable"
+                                                name="comment_enable" @checked(old('comment_enable') == 'on' || $settings['comment_enable'] === 'on')>
+                                            <label class="custom-control-label" for="comment_enable">تمكين/تعطيل
+                                                التعليقات</label>
                                         </div>
                                     </div>
 

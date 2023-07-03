@@ -74,13 +74,15 @@ class SettingController extends Controller
                 'mail.mailers.smtp.password' => $request?->mail_password,
                 'mail.from.address' => $request?->mail_from_address,
                 'mail.from.name' => $request?->mail_from_name,
+                'header_script' => $request->header_script ,
+                'footer_script' => $request->footer_script,
                 'faq_enable' => $request->faq_enable ? "on" : "off",
                 'article_enable' => $request->article_enable ? "on" : "off",
                 'page_enable' => $request->page_enable ? "on" : "off",
                 'register_enable' => $request->register_enable ? "on" : "off",
                 'email_confirm_enable' => $request?->email_confirm_enable,
-                'header_script' => $request->header_script ,
-                'footer_script' => $request->footer_script,
+                'comment_enable' => $request->comment_enable,
+                'short_link_enable' => $request?->short_link_enable,
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
