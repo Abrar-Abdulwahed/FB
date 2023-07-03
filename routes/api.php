@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\TagController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -17,6 +18,11 @@ Route::prefix('users')->controller(UserController::class)->group(function(){
 
 
 Route::prefix('pages')->controller(PageController::class)->group(function(){
+    Route::get('/index', 'index');
+
+});
+
+Route::prefix('tags')->controller(TagController::class)->group(function(){
     Route::get('/index', 'index');
 
 });
