@@ -225,9 +225,11 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="mail_password" class="text-muted">كلمة سر البريد</label>
-                                            <input type="text" name="mail_password" class="form-control"
-                                                id="mail_password" placeholder="ادخل كملة سر البريد"
+                                            <input type="password" hidden name="mail_password" id="hidden_mail_password"
+                                                class="form-control" placeholder="ادخل كلمة سر البريد"
                                                 value="{{ old('mail_password') ?? $settings['mail.mailers.smtp.password'] }}">
+                                            <input type="password" class="form-control" id="mail_password"
+                                                value="****" placeholder="ادخل كلمة سر البريد">
                                             @error('mail_password')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -481,6 +483,12 @@
                 }
             });
         });
+
+        //copy the value to hidden input
+        $('#mail_password').on('input', function() {
+            $('#hidden_mail_password').val($(this).val());
+        });
+
         @if ($errors->has('password'))
             $('#confirm-reset-db').modal('show');
         @endif
