@@ -21,6 +21,10 @@
         .ck-editor__editable_inline {
             min-height: 400px;
         }
+        .dropdown-item a{
+            text-decoration: none;
+            color: black;
+        }
     </style>
 
      <!-- data tables -->
