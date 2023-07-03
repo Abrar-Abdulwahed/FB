@@ -31,4 +31,31 @@ class UserController extends Controller
        }
        return ApiResponse::sendResponse('200','search not found',[]);
     }
+
+    public function retrieve(Request $request)
+    {
+
+        $name = $request->query('name');
+        $email = $request->query('email');
+
+
+        $query = User::query();
+
+        if ($name) {
+            $query->where('name', 'LIKE', '%' . $name . '%');
+        }
+
+        if ($email) {
+            $query->where('email', 'LIKE', '%' . $email . '%');
+        }
+
+        $users = $query->get();
+
+        if ($users->isEmpty()) {
+            return ApiResponse::sendResponse('404','searchnotfound',[]);
+        }
+
+
+        return ApiResponse::sendResponse('200','users',$users);
+    }
 }
