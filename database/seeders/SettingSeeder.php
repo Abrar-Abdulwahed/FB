@@ -28,6 +28,7 @@ class SettingSeeder extends Seeder
                 'facebook_enable'                   => 'on', 
                 'services.facebook.client_id'       => '216796600748740',
                 'services.facebook.client_secret'   => '465dd3a53f01c039cf544bec281f8085',
+                'captcha_enable'                    => 'on',
                 'recaptcha.api_site_key'            => '6LfU1LImAAAAAAnmzNitKGDofM5vpnn26Ny2-_Rn',
                 'recaptcha.api_secret_key'          => '6LfU1LImAAAAAJuimHgma-JGiwSn_3auQFiTdmNf',
                 'mail.default'                      => 'smtp', //mail_mailer
@@ -41,6 +42,9 @@ class SettingSeeder extends Seeder
                 'article_enable'                    => 'on',
                 'page_enable'                       => 'on',
                 'register_enable'                   => 'on',
+                'email_confirm_enable'              => 'on',
+                'header_script'                     => null,
+                'footer_script'                     => null,
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);

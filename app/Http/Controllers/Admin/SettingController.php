@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SettingRequest;
 use App\Models\Setting;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -19,8 +20,12 @@ class SettingController extends Controller
      */
     public function index()
     {
-        foreach (Setting::all() as $setting) {
-            $settings[$setting->name] = $setting->value;
+        $keys = Setting::pluck('name')->all();
+        foreach ($keys as $key) {
+            $value = Cache::rememberForever("settings.{$key}", function () use ($key) {
+                return Setting::where('name', $key)->value('value');
+            });
+            $settings[$key] = $value;
         }
         return view('admin.settings.index', compact('settings'));
     }
@@ -49,11 +54,12 @@ class SettingController extends Controller
                 'site_status' => $request?->site_status ?? false,
                 'reason_locked' => $request?->site_status === 'active' ? null : $request?->reason_locked,
                 'google_enable' => $request?->google_enable ?? false,
-                'services.google.client_id' => $request?->google_enable === "on" ? $request?->google_client_id : null,
-                'services.google.client_secret' => $request?->google_enable === "on" ? $request?->google_client_secret : null,
+                'services.google.client_id' => $request?->google_client_id,
+                'services.google.client_secret' => $request?->google_client_secret,
                 'facebook_enable' => $request?->facebook_enable ?? false,
-                'services.facebook.client_id' => $request?->facebook_enable === "on" ? $request?->facebook_client_id : null,
-                'services.facebook.client_secret' => $request?->facebook_enable === "on" ? $request?->facebook_client_secret : null,
+                'services.facebook.client_id' => $request?->facebook_client_id,
+                'services.facebook.client_secret' => $request?->facebook_client_secret,
+                'captcha_enable' => $request?->captcha_enable,
                 'recaptcha.api_site_key' => $request?->recaptcha_site_key,
                 'recaptcha.api_secret_key' => $request?->recaptcha_secret_key,
                 'mail.default' => $request?->mail_mailer, //mail_mailer
@@ -67,9 +73,13 @@ class SettingController extends Controller
                 'article_enable' => $request->article_enable ? "on" : "off",
                 'page_enable' => $request->page_enable ? "on" : "off",
                 'register_enable' => $request->register_enable ? "on" : "off",
+                'email_confirm_enable' => $request?->email_confirm_enable,
+                'header_script' => $request->header_script ,
+                'footer_script' => $request->footer_script,
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
+                Cache::forever("settings.{$name}", $value);
             }
             DB::commit();
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
