@@ -25,7 +25,7 @@ class ShortLinkValidation extends FormRequest
         return [
             //
             'url' => 'required|url',
-            'slug' => ['unique:short_links,slug,' . $this->short_link,'nullable'],
+            'slug' => ['unique:short_links,slug,' . $this->short_link,'nullable','alpha'],
         ];
     }
 }

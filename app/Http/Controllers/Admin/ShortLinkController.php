@@ -33,10 +33,10 @@ class ShortLinkController extends Controller
     public function store(ShortLinkValidation $request)
     {
         //
-        $check = ShortLink::query()->where('id',$request->slug)->first();
+        /* $check = ShortLink::query()->where('id',$request->slug)->first();
         if($check){
             return redirect()->back()->with('error', 'يجب الا يكون ال slug  وال id متساويان');
-        }
+        } */
         $short_link = ShortLink::create($request->validated());
         return redirect()->route('admin.short_links.index')->with('success', 'تم اضافة اللينك بنجاح');
     }
@@ -68,10 +68,10 @@ class ShortLinkController extends Controller
     public function update(ShortLinkValidation $request, $id)
     {
         //
-        $check = ShortLink::query()->where('id',$request->slug)->first();
+       /*  $check = ShortLink::query()->where('id',$request->slug)->first();
         if($check){
             return redirect()->back()->with('error', 'يجب الا يكون ال slug  وال id متساويان');
-        }
+        } */
         ShortLink::find($id)->update($request->validated());
         return redirect()->route('admin.short_links.index')->with('success', 'تم تعديل اللينك بنجاح');
     }
