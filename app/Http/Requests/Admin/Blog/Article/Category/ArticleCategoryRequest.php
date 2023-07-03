@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Blog\Article;
+namespace App\Http\Requests\Admin\Blog\Article\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticleStoreRequest extends FormRequest
+class ArticleCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,9 @@ class ArticleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-            'content' => ['required', 'string'],
-            'image' => ['nullable', 'image'],
-            'tags' => ['nullable', 'array'],
-            'categories' => ['nullable', 'array'],
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'description' => 'nullable|string',
         ];
     }
 }
