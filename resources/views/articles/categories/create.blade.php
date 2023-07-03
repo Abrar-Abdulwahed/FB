@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('title')
-    اضافة قسم
+    Articles Categories
 @endsection
 @section('content')
     <div class="container-fluid pt-3">
 
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
-                اضافة قسم
+                Articles Categories
             </div>
             <div class="card-body">
                 <form action="{{ Route('admin.articles-categories.store') }}" method="post">
