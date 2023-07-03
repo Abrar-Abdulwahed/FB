@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('title')
-    اضافة قسم
+    مقالات الاقسام
 @endsection
 @section('content')
     <div class="container-fluid pt-3">
 
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
-                اضافة قسم
+                مقالات الاقسام
             </div>
             <div class="card-body">
                 <form action="{{ Route('admin.articles-categories.store') }}" method="post">
@@ -35,7 +35,7 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">
                             اضافة</button>
                     </div>

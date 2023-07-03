@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    Articles Categories
+    مقالات الاقسام
 @endsection
 <a href={{ route('admin.articles-categories.create') }} class="btn btn-info float-left my-2"> <i
         class="fa-solid fa-plus"></i>
@@ -10,7 +10,7 @@
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        Articles Categories
+        مقالات الاقسام
     </div>
     <div class="card-body table-responsive">
         <table class="table table-striped text-center">

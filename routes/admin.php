@@ -51,6 +51,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     //short links
     Route::resource('short_links', ShortLinkController::class)->except('show');
+    Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
 
     Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
         ->name('payments.changeActive');

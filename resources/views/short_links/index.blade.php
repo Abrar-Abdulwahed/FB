@@ -22,6 +22,7 @@
                     <th>الرابط</th>
                     <th>الرابط المختصر</th>
                     <th>slug</th>
+                    <th>الزيارات</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -43,6 +44,7 @@
                            
                         </td>
                         <td>{{ $short_link->slug }} </td>
+                        <td>{{ $short_link->statistics()->sum('visits') }} </td>
                         <td>
                             <a href="{{ route('admin.short_links.edit', $short_link->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
