@@ -77,4 +77,13 @@ class CustomMessageController extends Controller
             return redirect()->back()->with('error', 'فشل في حذف الرسالة');
         }
     }
+
+    public function changeActive(CustomMessage $msg)
+    {
+        $msg->update([
+            'is_active' => !$msg->is_active,
+        ]);
+        return redirect()->back()
+            ->with('success', 'تم تعديل حالة الرسالة المخصصة بنجاح');
+    }
 }

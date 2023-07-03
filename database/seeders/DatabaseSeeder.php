@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SettingSeeder::class,
             PaymentSeeder::class,
+            ContentSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

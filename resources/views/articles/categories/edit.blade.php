@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('title')
-    تعديل قسم
+    مقالات الاقسام
 @endsection
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            تعديل قسم
+            مقالات الاقسام
         </div>
         <div class="card-body">
             <form action="{{ Route('admin.articles-categories.update', $category->id) }}" method="post">

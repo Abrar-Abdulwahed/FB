@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    Article for Category
+    مقالات الاقسام
 @endsection
 {{-- displat title of each article --}}
 @foreach ($articles as $article)

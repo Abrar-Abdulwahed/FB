@@ -9,17 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeUser extends Mailable
+class WelcomeUser extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $user, $message;
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct($user, $message)
     {
         $this->user = $user;
+        $this->message = str_replace("userName", $this->user->name, $message);
     }
 
     /**
