@@ -48,7 +48,7 @@
 
                 @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
  
-                <li class="nav-item {{ Route::is('admin.articles.*')|| Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deleted_comments.*') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
+                <li class="nav-item {{ Route::is('admin.articles.*')|| Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-newspaper"></i>
                         <p>
@@ -58,7 +58,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li
-                            class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deleted_comments.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
+                            class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-newspaper"></i>
                                 <p>
@@ -72,7 +72,7 @@
                                         <i class="fa fa-list-alt nav-icon"></i>المقالات
                                     </a>
                                 </li>
-                                <li class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deleted_comments.*')  ? 'menu-open' : '' }}">
+                                <li class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments')  ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fa-solid fa-comment"></i>
                                         <p>
@@ -86,8 +86,8 @@
                                                 <i class="fa fa-comment nav-icon"></i>عرض التعليقات
                                             </a>
                                         </li>
-                                        <li class="nav-item @if (Route::is('admin.deleted_comments.*')) ? 'active' : '' bg-primary @endif">
-                                            <a class="nav-link" href="{{ route('admin.deleted_comments.index') }}">
+                                        <li class="nav-item @if (Route::is('admin.deletedComments')) ? 'active' : '' bg-primary @endif">
+                                            <a class="nav-link" href="{{ route('admin.deletedComments') }}">
                                                 <i class="fa fa-comment nav-icon"></i>عرض التعليقات المحذوفة 
                                             </a>
                                         </li>

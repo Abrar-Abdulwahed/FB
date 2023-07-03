@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
-                        <p class="card-text">{!! $comment->comment!!}.</p>
+                        <p class="card-text">{!! $comment->comment!!}</p>
 
                         <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small>
                         </p>

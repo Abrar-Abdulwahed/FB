@@ -32,7 +32,7 @@
                             <img src="{{ asset('storage/avatars/'.$comment->user->avatar) }}" style="width:50px; height:50px" class="rounded circle">
                         </td>
                         <td><a target="_blank" href="{{ route('admin.comments.show', $comment->article_id) }}">{{ $comment->article->title }}</a></td>
-                        <td>{{ $comment->comment }}</td>
+                        <td>{!! $comment->comment !!}</td>
                         <td>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                             data-target="#confirm-block-{{ $comment->id }}">
