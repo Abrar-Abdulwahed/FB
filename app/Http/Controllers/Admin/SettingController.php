@@ -94,9 +94,9 @@ class SettingController extends Controller
         $request->validate([
             'password' => 'required|current_password'
         ]);
-        
         try {
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+            return redirect()->route('admin.index');
         } catch (\Throwable $e) {
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
