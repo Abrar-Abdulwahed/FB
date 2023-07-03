@@ -23,7 +23,7 @@ class UserResource extends JsonResource
                 ];
             }),
             'status'=> $this->is_banned,
-            'created at'=> $this->created_at->diffForHumans(),
+            'created_at'=> $this->created_at->diffForHumans(),
         ];
     }
 }

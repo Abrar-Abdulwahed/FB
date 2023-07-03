@@ -11,11 +11,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // api users endpoint
-Route::prefix('users')->controller(UserController::class)->group(function(){
-    Route::get('/retrieve', 'retrieve');
 
-});
-
+Route::get('/users',[UserController::class ,'index']);
 
 Route::get('/pages',[PageController::class ,'index']);
 
