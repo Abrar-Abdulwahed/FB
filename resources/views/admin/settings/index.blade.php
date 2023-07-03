@@ -225,9 +225,11 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="mail_password" class="text-muted">كلمة سر البريد</label>
-                                            <input type="text" name="mail_password" class="form-control"
-                                                id="mail_password" placeholder="ادخل كملة سر البريد"
+                                            <input type="password" hidden name="mail_password" id="hidden_mail_password"
+                                                class="form-control" placeholder="ادخل كلمة سر البريد"
                                                 value="{{ old('mail_password') ?? $settings['mail.mailers.smtp.password'] }}">
+                                            <input type="password" class="form-control" id="mail_password"
+                                                value="****" placeholder="ادخل كلمة سر البريد">
                                             @error('mail_password')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -308,6 +310,13 @@
                                                 @checked($settings['page_enable'] == 'on')>
                                             <label class="custom-control-label" for="page-status">المدونات</label>
                                         </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="short_link_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="short_link_enable"
+                                                name="short_link_enable" @checked(old('short_link_enable') == 'on' || $settings['short_link_enable'] === 'on')>
+                                            <label class="custom-control-label" for="short_link_enable">الروابط
+                                                المختصرة</label>
+                                        </div>
                                     </div>
                                     <div class="mt-5">
                                         <div class="custom-control custom-switch mt-2">
@@ -323,6 +332,13 @@
                                                 name="email_confirm_enable" @checked(old('email_confirm_enable') == 'on' || $settings['email_confirm_enable'] === 'on')>
                                             <label class="custom-control-label" for="email_confirm_enable">تمكين/تعطيل
                                                 التحقق من الإيميل لفتح حساب</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="comment_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="comment_enable"
+                                                name="comment_enable" @checked(old('comment_enable') == 'on' || $settings['comment_enable'] === 'on')>
+                                            <label class="custom-control-label" for="comment_enable">تمكين/تعطيل
+                                                التعليقات</label>
                                         </div>
                                     </div>
 
@@ -481,6 +497,12 @@
                 }
             });
         });
+
+        //copy the value to hidden input
+        $('#mail_password').on('input', function() {
+            $('#hidden_mail_password').val($(this).val());
+        });
+
         @if ($errors->has('password'))
             $('#confirm-reset-db').modal('show');
         @endif
