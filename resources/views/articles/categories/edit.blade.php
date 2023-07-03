@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Articles Categories
+    مقالات الاقسام
 @endsection
 @section('content')
     <div class="card shadow-sm">

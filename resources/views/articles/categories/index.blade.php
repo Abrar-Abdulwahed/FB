@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    Articles Categories
+    مقالات الاقسام
 @endsection
 <a href={{ route('admin.articles-categories.create') }} class="btn btn-info float-left my-2"> <i
         class="fa-solid fa-plus"></i>
