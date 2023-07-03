@@ -34,28 +34,28 @@ class UserController extends Controller
 
     public function retrieve(Request $request)
     {
-
         $name = $request->query('name');
         $email = $request->query('email');
 
-
         $query = User::query();
 
-        if ($name) {
+        if ($name)
+        {
             $query->where('name', 'LIKE', '%' . $name . '%');
         }
 
-        if ($email) {
+        if ($email)
+        {
             $query->where('email', 'LIKE', '%' . $email . '%');
         }
 
         $users = $query->get();
 
-        if ($users->isEmpty()) {
-            return ApiResponse::sendResponse('404','searchnotfound',[]);
+        if ($users->isEmpty())
+        {
+            return response()->json(['message' => 'searchnotfound'], 404);
         }
 
-
-        return ApiResponse::sendResponse('200','users',$users);
+        return UserResource::collection($users);
     }
 }

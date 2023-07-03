@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Route;
 
 // api users endpoint
 Route::prefix('users')->controller(UserController::class)->group(function(){
-    // Route::get('/','index');
-    Route::get('/latest','latest');
-    Route::get('/search','search');
     Route::get('/retrieve', 'retrieve');
-
-
+    
 });
