@@ -7,10 +7,12 @@ use App\Models\User;
 use App\Traits\AvatarTrait;
 use App\Models\UserEmailHistory;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\User\UserStoreRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
+use App\Http\Requests\Admin\User\UserDestroyRequest;
 
 class UserController extends Controller
 {
@@ -75,7 +77,6 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
-
         $validated = $request->validated();
 
         // store image
@@ -94,42 +95,32 @@ class UserController extends Controller
             'banned_until' => $validated['is_banned'] == 0 ? null : $validated['banned_until'],
             'avatar' => $validated['avatar'] ?? $user->avatar,
         ]);
-
-        // $user->name = $validated['name'];
-        // $user->email = $validated['email'];
-        // if ($validated['password']) {
-        //     $user->password = Hash::make($validated['password']);
-        // }
-        // $user->is_banned = $validated['is_banned'];
-        // $user->banned_until = $validated['is_banned'] == 0 ? null : $validated['banned_until'];
-
-        // $user->save();
-
         $user->roles()->sync($request->roles);
-
         return redirect()->route('admin.users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(UserDestroyRequest $request,$id)
     {
-        //
-        $user = User::query()->findOrFail($id);
-
-        $user->delete();
-
-        if ($user->avatar) {
-            Storage::disk('avatars')->delete($user->avatar);
+        try{
+            $user = User::query()->findOrFail($id);
+            $user->delete();
+            if ($user->avatar) {
+                Storage::disk('avatars')->delete($user->avatar);
+            }
+            return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
+        }catch(\Throwable $e){
+            return redirect()->back()->with(['error' => $e]);
         }
-        return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
     }
 
     public function email_history($user_id){
         $emails = UserEmailHistory::where('user_id', $user_id)->get();
         return view('admin.users.email_history.index', compact('emails', 'user_id'));
     }
+    
     public function email_show($email_id){
         $email = UserEmailHistory::findOrFail($email_id);
         return view('admin.users.email_history.show', compact('email'));
