@@ -6,13 +6,13 @@ $settings = Setting::settings();
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-4 text-end">
-               {{--  @foreach ($settings as $setting) --}}
-                    <img class="img-fluid" src="{{ asset('storage/' . $settings['site_logo']) }}" alt="">
-                    <div>
-                        <p>{{ $settings['site_description'] }}</p>
-                    </div>
+                {{--  @foreach ($settings as $setting) --}}
+                <img class="img-fluid" src="{{ asset('storage/' . $settings['site_logo']) }}" alt="">
+                <div>
+                    <p>{{ $settings['site_description'] }}</p>
+                </div>
                 {{-- @endforeach --}}
-               
+
                 <div class="clearfix my-2">
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-facebook-f"></i></a>
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -35,8 +35,8 @@ $settings = Setting::settings();
                     <li> معرض الاعمال</li>
                 </ul>
             </div>
-            
-            
+
+
         </div>
     </div>
 </section>
@@ -50,6 +50,6 @@ $settings = Setting::settings();
             <li><a>شروط الاستخدام</a></li>
             <li><a>ضمان الحقوق</a></li>
         </ul>
-        <p class="text-center text-md-start">مستقل احد مشاريع شركة حسوب</p>
+        <p class="text-center text-md-start">{{ config('app.name') }} احد مشاريع شركة x</p>
     </div>
 </footer>
