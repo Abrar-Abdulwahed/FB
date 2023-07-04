@@ -5,54 +5,55 @@
 @include('partials.session')
 <div class="card shadow-sm">
 
-    <!-- PIE CHART -->
     <div class="row">
 
-        <div class="col-md-6">
-            <div class="card card-danger">
-                <div class="card-header">
-                    <h3 class="card-title">Countries</h3>
+        @if (count($countryVisits) > 0 || count($browserVisits) > 0)
+            <!-- PIE CHART -->
+            <div class="col-md-6">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">البلاد</h3>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <canvas id="pieChart"
-                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-                <!-- /.card-body -->
-            </div>
-        </div>
-        <!-- /.card -->
-
-        <!-- DONUT CHART -->
-        <div class="col-md-6">
-            <div class="card card-danger">
-                <div class="card-header">
-                    <h3 class="card-title">Browsers</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+                    <div class="card-body">
+                        <canvas id="pieChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
+                    <!-- /.card-body -->
                 </div>
-                <div class="card-body">
-                    <canvas id="donutChart"
-                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-                <!-- /.card-body -->
             </div>
-        </div>
+
+            <!-- DONUT CHART -->
+            <div class="col-md-6">
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">المتصفحات</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="donutChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        @endif
     </div>
 
     <!-- /.card -->

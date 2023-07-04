@@ -167,7 +167,7 @@ class ShortLinkController extends Controller
             session()->flash('error', 'لا يوجد زيارات للبلاد');
         }
 
-        if(count($countryVisits) < 1 && count($browserVisits) < 1){
+        if (count($countryVisits) < 1 && count($browserVisits) < 1) {
             session()->flash('error', 'لا يوجد زيارات للبلاد والمتصفحات');
         }
 
@@ -188,6 +188,6 @@ class ShortLinkController extends Controller
         ]);
 
 
-        return view('short_links.statistics', compact('donutData', 'pieData', 'countryVisits'));
+        return view('short_links.statistics', compact('donutData', 'pieData', 'countryVisits', 'browserVisits'));
     }
 }
