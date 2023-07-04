@@ -3,56 +3,56 @@
 @section('title')
     تسجيل دخول
 @endsection
-<div class="container">
-    <div class="row justify-conten-center col-md-12 col-sm-12">
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <section class="vh-1 00 gradient-custom">
-                <div class="contai ner py -5 h-1 00">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                            <div class="card text-dark" style="background-color:#ECEFF4 ; border-radius: 1rem;">
-                                <div class="card-body p-5 text-center">
-                                    <div class="mb-md-2 mt-md-4 pb-5">
-                                        <h2 class="fw-bold mb-2 text-uppercase">تسجيل دخول</h2>
-                                        <p class="text-dark-50 mb-5">تسجيل الدخول لحسابك</p>
-                                        @include('components.app_login')
-                                        <div class="form-outline form-dark mb-3">
-                                            <input type="text" class="form-control py-2" name="email"
-                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " />
-                                            <label class="form-label" for="email"></label>
-                                            @error('email')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="form-outline form-dark mb-3">
-                                            <input type="password" class="form-control py-2" name="password"
-                                                placeholder="كلمة المرور" />
-                                            <label class="form-label" for="password"></label>
-                                            @error('password')
-                                                <p class="text-danger">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <p class="small mb-5 pb-lg-2"><a class="text-dark-50"
-                                                href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-                                        </p>
-                                        <button class="btn btn-dark btn-lg px-5" type="submit">تسجيل الدخول</button>
-                                    </div>
-
-                                    <div class="mt-0">
-                                        <p class="mb-0">ليس لديك حساب <a href="{{ route('register') }}"
-                                                class="text-dark-50 fw-bold">إنشاء حساب</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-md-8 bg-white p-3 col-11 rounded-top">
+                <div class="form-header py-lg-4 px-lg-4 pb-3 shadow-sm">
+                    <div class="row align-items-end justify-content-center col-md-12">
+                        <div class="line col-md-6 ol-sm-10 text-center mb-5 pt-lg-3">
+                            <h4>إنشاء حساب جديد</h4>
                         </div>
+                        {{--  <div class="row justify-content-center align-items-center mb-3">
+                            <button type="button" class="btn btn-primary col-lg-5 col-sm-11 mx-2 mb-2 "> بإستخدام مايكروسوفت<i class="fa-brands fa-windows px-2"></i></button>
+                            <button type="button" class="btn btn-danger col-lg-5 col-sm-11 mx-2 mb-2 "> بإستخدام جوجل<i class="fa-brands fa-google px-2"></i></button>
+                        </div>  --}}
+                        @include('components.app_login')
                     </div>
+                    <form method="POST" action="{{ route('login') }}" class="form-content text-end col-md-12 justify-content-center py-lg-4 px-lg-4">
+                        @csrf
+                        <div class="row align-items-end justify-content-center">
+
+                            <label for="email" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">البريد الالكترونى<br>
+                                <input type="text"name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني "  id="email" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            </label>
+        
+                            <label for="password" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">كلمة المرور<br>
+                                <input type="password"  name="password" placeholder="كلمة المرور" id="password" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                            @error('password')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            </label>
+
+                            <a href="{{ route('password.request') }}" class="text-center" style="text-decoration: none"> نسيت كلمة المرور؟</a>
+                           
+                            <div class="d-flex justify-content-center m-3">
+                                <button type="submit" class="btn btn-dark btn-lg px-5">تسجيل الدخول</button>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <p class="mb-0">ليس لديك حساب ؟ <a href="{{ route('register') }}" class="text-primary-50 fw-bold">انشاء حساب </a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-            </section>
-        </form>
+                
+            </div>
+        </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
