@@ -112,7 +112,7 @@ class UserController extends Controller
             }
             return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
         }catch(\Throwable $e){
-            // return redirect()->back()->with(['error' => $e]);
+            return redirect()->back()->with(['error' => $e]);
         }
     }
 
