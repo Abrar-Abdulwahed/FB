@@ -13,7 +13,7 @@ class EmailHistoryController extends Controller
      */
     public function index()
     {
-        $emails = UserEmailHistory::with('custom_message')->paginate(1);
+        $emails = UserEmailHistory::with('custom_message')->paginate(5);
         return view('admin.email_history.index', compact('emails'));
     }
 
