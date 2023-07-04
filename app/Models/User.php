@@ -32,6 +32,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_banned',
         'banned_until'
     ];
+    
+    // protected $dispatchesEvents = [
+    //     'saved' => UserSaved::class,
+    //     'deleted' => UserDeleted::class,
+    // ];
 
     public function getAvatarImageAttribute()
     {
@@ -63,5 +68,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+    public function emails()
+    {
+        return $this->hasMany(UserEmailHistory::class);
     }
 }

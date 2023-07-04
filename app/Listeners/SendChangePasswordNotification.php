@@ -29,11 +29,5 @@ class SendChangePasswordNotification
         $message = CustomMessage::where('code', 'password.change_message')->first();
         $mail = new ChangePassword($user, $message->text);
         Mail::to($user->email)->send($mail);
-        UserEmailHistory::create([
-            'recipient' => $user->name,
-            'title' => $mail->envelope()->subject,
-            'custom_message_id' => $message->id,
-        ]);
-
     }
 }

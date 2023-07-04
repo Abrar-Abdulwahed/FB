@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\User\UserStoreRequest;
-use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\AvatarTrait;
+use App\Models\UserEmailHistory;
+use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\User\UserStoreRequest;
+use App\Http\Requests\Admin\User\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -123,6 +124,15 @@ class UserController extends Controller
             Storage::disk('avatars')->delete($user->avatar);
         }
         return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
+    }
+
+    public function email_history($user_id){
+        $emails = UserEmailHistory::where('user_id', $user_id)->get();
+        return view('admin.users.email_history.index', compact('emails', 'user_id'));
+    }
+    public function email_show($email_id){
+        $email = UserEmailHistory::findOrFail($email_id);
+        return view('admin.users.email_history.show', compact('email'));
     }
 
     public function verifyEmail($id)

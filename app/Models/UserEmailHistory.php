@@ -10,13 +10,13 @@ class UserEmailHistory extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'recipient',
-        'custom_message_id',
+        'user_id',
+        'text'
     ];
 
     // Relations
-    public function custom_message()
+    public function user()
     {
-        return $this->belongsTo(CustomMessage::class);
+        return $this->belongsTo(User::class);
     }
 }

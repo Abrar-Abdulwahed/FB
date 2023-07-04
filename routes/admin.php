@@ -30,6 +30,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
+    Route::get('users/{user_id}/email-history', [UserController::class, 'email_history'])->name('user.email_history');
+    Route::get('users/{user_id}/email-history/{email_id}', [UserController::class, 'email_show'])->name('user.email_show');
+
 
     Route::get('/login-activity', [LoginActivity::class, 'index'])->name('login.activity')->middleware('auth');
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
@@ -63,5 +66,5 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('payments', PaymentController::class);
     Route::resource('ads', AdController::class)->except('show');
 
-    Route::resource('email/history', EmailHistoryController::class)->only('index', 'show');
+    // Route::resource('email/history', EmailHistoryController::class)->only('index', 'show', 'destroy');
 });

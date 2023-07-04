@@ -21,13 +21,6 @@ class CustomMessage extends Model
         $this->attributes['is_active'] = $value === 'on' ? 1 : 0;
     }
 
-    // Relations
-    public function emails()
-    {
-        return $this->hasMany(UserEmailHistory::class);
-    }
-
-
     protected $casts = [
         'is_active' => 'integer',
     ];

@@ -35,12 +35,6 @@
                                 <p>إنشاء رسالة مخصصة</p>
                             </a>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.history.index')) ? 'active' : '' bg-primary @endif">
-                            <a href={{ route('admin.history.index') }} class="nav-link">
-                                <i class="fa fa-commenting nav-icon"></i>
-                                <p>سجل رسائل البريد الالكتروني</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <li

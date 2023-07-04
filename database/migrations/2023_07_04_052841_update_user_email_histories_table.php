@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('user_email_histories', function (Blueprint $table) {
-            $table->string('recipient');
+            $table->dropForeign(['custom_message_id']);
+            $table->dropColumn('custom_message_id');
+            $table->longText('text');
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

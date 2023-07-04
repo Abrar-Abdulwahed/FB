@@ -5,6 +5,9 @@ namespace App\Providers;
 use App\Events\WelcomeUserEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Mail\Events\MessageSent;
+use App\Listeners\UserEmailHistorySaved;
+use Illuminate\Mail\Events\MessageSending;
 use App\Listeners\SendWelcomeUserNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +25,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         WelcomeUserEvent::class => [
             SendWelcomeUserNotification::class,
+        ],
+        // MessageSending::class => [
+        //     LogSendingMessage::class,
+        // ],
+        MessageSent::class => [
+            UserEmailHistorySaved::class,
         ],
     ];
 
