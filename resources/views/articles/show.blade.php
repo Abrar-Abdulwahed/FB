@@ -46,7 +46,7 @@
         <div class="row">
             <div class="form-group col-12">
                 <input type="hidden" name="article_id" value="{{ $article->id }}">
-                <textarea name="comment" id="comment" class="form-control">{{ old('comment') }}</textarea>
+                <textarea name="comment" id="comment" class="form-control ckeditor">{{ old('comment') }}</textarea>
                 @error('comment')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
