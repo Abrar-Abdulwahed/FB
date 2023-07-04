@@ -16,74 +16,79 @@
                             <button type="button" class="btn btn-danger col-lg-5 col-sm-11 mx-2 mb-2 "> بإستخدام جوجل<i class="fa-brands fa-google px-2"></i></button>
                         </div>  --}}
                     @include('components.app_login')
-                    @if (\App\Models\Setting::where('name', 'register_enable')?->first()?->value == 'on')
                 </div>
-                <form method="POST" action="{{ route('register') }}"
-                    class="form-content text-end col-md-12 justify-content-center py-lg-4 px-lg-4">
-                    @csrf
-                    <div class="row align-items-end justify-content-center">
+                @if (\App\Models\Setting::where('name', 'register_enable')?->first()?->value == 'on')
+                    <form method="POST" action="{{ route('register') }}"
+                        class="form-content text-end col-md-12 justify-content-center py-lg-4 px-lg-4">
+                        @csrf
+                        <div class="row align-items-end justify-content-center">
 
 
-                        <label for="name" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">الاسم<br>
-                            <input type="text"name="name" value="{{ old('name') }}" placeholder=" الاسم "
-                                id="name" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
-                            @error('name')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </label>
-
-
-                        <label for="email" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">البريد
-                            الالكترونى<br>
-                            <input type="text"name="email" value="{{ old('email') }}"
-                                placeholder="البريد الالكتروني " id="email"
-                                class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
-                            @error('email')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </label>
-
-                        <label for="password" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">كلمة المرور<br>
-                            <input type="password" name="password" placeholder="كلمة المرور" id="password"
-                                class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
-                            @error('password')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </label>
-
-                        <label for="password_confirmation" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold"> تاكيد
-                            كلمة المرور<br>
-                            <input type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور"
-                                id="password_confirmation"
-                                class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
-                            @error('password_confirmation')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </label>
-
-                        <div class="col-lg-10 col-sm-12 text-lg-end text-center mt-3 mb-2 pt-md-2">
-                            <input type="checkbox" name="terms">
-                            <label class="px-2">هل توافق على شروط الخدمة</label><br>
-                        </div>
-                        @error('terms')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        @if (\App\Models\Setting::where('name', 'captcha_enable')?->first()?->value == 'on')
-                            <div class="text-center">
-                                <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
-                                @error('g-recaptcha-response')
+                            <label for="name" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">الاسم<br>
+                                <input type="text"name="name" value="{{ old('name') }}" placeholder=" الاسم "
+                                    id="name" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                                @error('name')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
+                            </label>
+
+
+                            <label for="email" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">البريد
+                                الالكترونى<br>
+                                <input type="text"name="email" value="{{ old('email') }}"
+                                    placeholder="البريد الالكتروني " id="email"
+                                    class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </label>
+
+                            <label for="password" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">كلمة المرور<br>
+                                <input type="password" name="password" placeholder="كلمة المرور" id="password"
+                                    class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                                @error('password')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </label>
+
+                            <label for="password_confirmation" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold"> تاكيد
+                                كلمة المرور<br>
+                                <input type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور"
+                                    id="password_confirmation"
+                                    class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                                @error('password_confirmation')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </label>
+
+                            <div class="col-lg-10 col-sm-12 text-lg-end text-center mt-3 mb-2 pt-md-2">
+                                <input type="checkbox" name="terms">
+                                <label class="px-2">هل توافق على شروط الخدمة</label><br>
                             </div>
-                        @endif
-                        <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary px-4 py-2 mt-4 w-25">تأكيد</button>
-                        </div>
-                </form>
+                            @error('terms')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                            @if (\App\Models\Setting::where('name', 'captcha_enable')?->first()?->value == 'on')
+                                <div class="text-center">
+                                    <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
+                                    @error('g-recaptcha-response')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            @endif
+                            <div class="d-flex justify-content-center m-3">
+                                <button type="submit" class="btn btn-dark btn-lg px-5">تسجيل الدخول</button>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <p class="mb-0">هل تملك حساب بالفعل؟<a href="{{ route('login') }}" class="text-primary-50 fw-bold">تسجيل الدخول</a>
+                                </p>
+                            </div>
+                    </form>
                  @else
-                <div class="alert alert-warning" role="alert">
-                    التسجيل مغلق مؤقتا
-                </div>
+                    <div class="alert alert-warning" role="alert">
+                        التسجيل مغلق مؤقتا
+                    </div>
                 @endif
 
 

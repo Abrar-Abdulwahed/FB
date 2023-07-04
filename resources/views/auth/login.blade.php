@@ -34,9 +34,16 @@
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                             </label>
+
+                            <a href="{{ route('password.request') }}" class="text-center" style="text-decoration: none"> نسيت كلمة المرور؟</a>
                            
-                            <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary px-4 py-2 mt-4 w-25">تأكيد</button>
+                            <div class="d-flex justify-content-center m-3">
+                                <button type="submit" class="btn btn-dark btn-lg px-5">تسجيل الدخول</button>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <p class="mb-0">ليس لديك حساب ؟ <a href="{{ route('register') }}" class="text-primary-50 fw-bold">انشاء حساب </a>
+                                </p>
                             </div>
 
                         </div>

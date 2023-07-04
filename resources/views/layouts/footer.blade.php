@@ -1,11 +1,18 @@
+<?php
+use App\Models\Setting;
+$settings = Setting::settings();
+?>
 <section id="sec-2" class="bg-white mt-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-4 text-end">
-                <img class="img-fluid" src="https://blog.mostaql.com/wp-content/uploads/2019/01/Mostaql-Logo.png" alt="">
-                <div>
-                    <p>مستقل هو منصّة تصل بين أصحاب المشاريع والمستقلين في العالم العربي. إن كنت صاحب مشاريع تستطيع استخدام مستقل لانجاز مشاريعك من خلال الانترنت بسهولة وأمان وتستطيع كمستقل تصفّح المشاريع الموجودة وإضافة عروضك على المشاريع التي تستطيع إنجازها. يضمن مستقل حقوقك كاملة ويعمل وسيطًا بين صاحب المشروع والمستقل.</p>
-                </div>
+               {{--  @foreach ($settings as $setting) --}}
+                    <img class="img-fluid" src="{{ asset('storage/' . $settings['site_logo']) }}" alt="">
+                    <div>
+                        <p>{{ $settings['site_description'] }}</p>
+                    </div>
+                {{-- @endforeach --}}
+               
                 <div class="clearfix my-2">
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-facebook-f"></i></a>
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-twitter"></i></a>
