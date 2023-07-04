@@ -30,7 +30,7 @@ class UserUpdateRequest extends FormRequest
             'roles' => ['required', 'array', function (string $attribute, mixed $value,  $fail)
             {
                 $id = $this->route()->parameters['user'];
-                if(!in_array('0',$this->roles) &&  User::where('id','<>', $id)->whereHas('roles', fn($q) => $q->where('name','admin'))->count() == 0){
+                if(!in_array('1',$this->roles) &&  User::where('id','<>', $id)->whereHas('roles', fn($q) => $q->where('name','admin'))->count() == 0){
                     $fail('لابد أن يكون هناك مستخدم واحد على الأقل بدور أدمن');
                 }
             }
