@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\DeletedArticleCommentController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\FileUploadController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\LoginActivity;
 use App\Http\Controllers\Admin\PageController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TicketCategoryController;
 use App\Http\Controllers\Admin\TicketsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(function () {
@@ -35,8 +37,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
     Route::resource('comments', ArticleComment::class);
-    Route::get('/deleted_comments',[ArticleComment::class,'deletedComments'])->name('deletedComments');
-    Route::post('/restore_comments/{id}',[ArticleComment::class,'restoreComments'])->name('restoreComments');
+    Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
+    Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
 
     Route::resource('articles-categories', ArticleCategoryController::class);
     Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
@@ -62,4 +64,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('payments', PaymentController::class);
     Route::resource('ads', AdController::class)->except('show');
+
+    Route::get('uploads/{id}/download', [FileUploadController::class, 'download'])->name('uploads.download');
+    Route::resource('uploads', FileUploadController::class)->except('show', 'edit', 'update');
 });
