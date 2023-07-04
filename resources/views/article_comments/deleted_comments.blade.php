@@ -32,7 +32,7 @@
                             <img src="{{ asset('storage/avatars/'.$comment->user->avatar) }}" style="width:50px; height:50px" class="rounded circle">
                         </td>
                         <td><a target="_blank" href="{{ route('admin.comments.show', $comment->article_id) }}">{{ $comment->article->title }}</a></td>
-                        <td>{{ $comment->comment }}</td>
+                        <td>{!! $comment->comment !!}</td>
                         <td>
 
                             <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
@@ -55,10 +55,9 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('admin.deleted_comments.update', $comment->id) }}"
+                                            <form action="{{ route('admin.restoreComments', $comment->id) }}"
                                                 method="POST">
                                                 @csrf
-                                                @method('put')
                                                 <button type="submit" class="btn btn-dark btn-md">نعم</button>
                                             </form>
                                         </div>

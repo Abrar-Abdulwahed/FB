@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
-                        <p class="card-text">{!! $comment->comment!!}.</p>
+                        <p class="card-text">{!! $comment->comment!!}</p>
 
                         <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small>
                         </p>
@@ -60,16 +60,3 @@
     </form>
 @endsection
 
-@push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#comment'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-@endpush
