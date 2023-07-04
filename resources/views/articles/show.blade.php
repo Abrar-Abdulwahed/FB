@@ -16,21 +16,21 @@
                 title : {{ $article->title }}
             </div>
             <div>
-                content : {{ $article->content }}
+                content : {!! $article->content !!}
             </div>
         </div>
     </div>
 
     <div class="card mb-3" style="max-width: 100%;">
         @foreach ($article->comments as $comment)
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{{ asset('users/' . $comment->user->avatar) }} class="img-fluid rounded-end" alt="...">
+            <div class="row">
+                <div class="col-md-1 m-3">
+                    <img src="{{ asset('storage/avatars/'.$comment->user->avatar) }}" style="width:50px; height:50px" class="rounded circle">
                     <p class="card-text">{{ $comment->user->name }}</p>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="card-body">
-                        <p class="card-text">{{ $comment->comment }}.</p>
+                        <p class="card-text">{!! $comment->comment!!}</p>
 
                         <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small>
                         </p>
@@ -43,9 +43,7 @@
 
     <form action="{{ Route('admin.comments.store') }}" method="post">
         @csrf
-        <div class="row col-12">
-
-
+        <div class="row">
             <div class="form-group col-12">
                 <input type="hidden" name="article_id" value="{{ $article->id }}">
                 <textarea name="comment" id="comment" class="form-control">{{ old('comment') }}</textarea>
@@ -58,21 +56,7 @@
                 <button type="submit" class="btn btn-sm btn-primary">
                     اضف تعليق</button>
             </div>
-
         </div>
     </form>
 @endsection
 
-@push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#comment'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-@endpush

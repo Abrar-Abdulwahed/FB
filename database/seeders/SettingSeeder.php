@@ -38,13 +38,15 @@ class SettingSeeder extends Seeder
                 'mail.mailers.smtp.password'        => '9558a59e2b581e',
                 'mail.from.address'                 => 'no-reply@mailtrap.club',
                 'mail.from.name'                    => 'Freelancer',
+                'header_script'                     => null,
+                'footer_script'                     => null,
                 'faq_enable'                        => 'on',
                 'article_enable'                    => 'on',
                 'page_enable'                       => 'on',
+                'short_link_enable'                 => 'on',
                 'register_enable'                   => 'on',
                 'email_confirm_enable'              => 'on',
-                'header_script'                     => null,
-                'footer_script'                     => null,
+                'comment_enable'                    => 'on',
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);

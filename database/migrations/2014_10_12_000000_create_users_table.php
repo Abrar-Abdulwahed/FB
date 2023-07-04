@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['user', 'admin'])->default('user');
             $table->string('avatar')->nullable();
             $table->boolean('is_banned')->default(false);
             $table->timestamp('banned_until')->nullable();

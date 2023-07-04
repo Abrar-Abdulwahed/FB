@@ -24,6 +24,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('settings', SettingController::class)->only('index', 'store');
     Route::get('/', [AdminHomeController::class, 'index'])->name('index')->middleware('check_user');
     Route::resource('custom-message', CustomMessageController::class)->except('show');
+    Route::patch('custom-message/{msg}/active', [CustomMessageController::class, 'changeActive'])
+        ->name('custom-message.changeActive');
 
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
@@ -33,7 +35,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
     Route::resource('comments', ArticleComment::class);
-    Route::resource('deleted_comments', DeletedArticleCommentController::class);
+    Route::get('/deleted_comments',[ArticleComment::class,'deletedComments'])->name('deletedComments');
+    Route::post('/restore_comments/{id}',[ArticleComment::class,'restoreComments'])->name('restoreComments');
 
     Route::resource('articles-categories', ArticleCategoryController::class);
     Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
@@ -49,8 +52,10 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('faqs', FaqController::class)->middleware('feature:faq');
 
     //short links
-    Route::resource('short_links', ShortLinkController::class)->except('show');
-    Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
+    Route::middleware('feature:short_link')->group(function () {
+        Route::resource('short_links', ShortLinkController::class)->except('show');
+        Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
+    });
 
     Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
         ->name('payments.changeActive');

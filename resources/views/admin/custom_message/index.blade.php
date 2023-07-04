@@ -24,6 +24,7 @@
                         <th>اللغة</th>
                         <th>النوع</th>
                         <th>النص</th>
+                        <th>الحالة</th>
                         <th style="width:100px">العمليات</th>
                     </tr>
                 </thead>
@@ -37,6 +38,20 @@
                                     class="badge {{ $item->type == 'sms' ? 'bg-danger' : 'bg-success' }}">{{ $item->type }}</span>
                             </td>
                             <td>{{ \Str::limit($item->text, 50, '...') }}</td>
+                            <td>
+                                <form class="enable-message-form"
+                                    action="{{ route('admin.custom-message.changeActive', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <div class="form-group col-12 mr-3 custom-control custom-switch my-4">
+                                        <input type="checkbox" class="custom-control-input"
+                                            id="is-active-{{ $loop->index }}" name="is_active"
+                                            @checked($item->is_active == 1)>
+                                        <label class="custom-control-label" for="is-active-{{ $loop->index }}"></label>
+                                    </div>
+                                </form>
+                            </td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ route('admin.custom-message.edit', $item->id) }}"
@@ -87,3 +102,16 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        let forms = document.querySelectorAll('.enable-message-form');
+
+        forms.forEach(form => {
+            let switchBtn = form.querySelector('.custom-switch input[type="checkbox"]');
+            switchBtn.addEventListener('change', function() {
+                form.submit();
+            });
+        });
+    </script>
+@endpush

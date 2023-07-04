@@ -56,6 +56,11 @@
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="form-group col-12 custom-control custom-switch my-4">
+                    <input type="text" class="custom-control-input" name="is_active" value="off">
+                    <input type="checkbox" class="custom-control-input" id="is-active" name="is_active" @checked($message->is_active == 1)>
+                    <label class="custom-control-label" for="is-active">الحالة</label>
+                </div>
                 <button type="submit" class="btn btn-success">تعديل</button>
             </form>
         </div>

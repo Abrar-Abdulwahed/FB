@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\api\TagController;
+use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -9,10 +11,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // api users endpoint
-Route::prefix('users')->controller(UserController::class)->group(function(){
-    // Route::get('/','index');
-    Route::get('/latest','latest');
-    Route::get('/search','search');
+
+Route::get('/users',[UserController::class ,'index']);
+
+Route::get('/pages',[PageController::class ,'index']);
+
+Route::get('/tags',[TagController::class ,'index']);
 
 
-});
+
+

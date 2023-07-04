@@ -46,7 +46,7 @@
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {{ $errors->hasAny(['password']) ? 'bg-danger' : '' }}">
                                 <a class="nav-link" id="reset-db-tab" data-toggle="pill" href="#reset-db" role="tab"
                                     aria-controls="reset-db" aria-selected="false">تهيئة قاعدة البيانات</a>
                             </li>
@@ -225,9 +225,11 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="mail_password" class="text-muted">كلمة سر البريد</label>
-                                            <input type="text" name="mail_password" class="form-control"
-                                                id="mail_password" placeholder="ادخل كملة سر البريد"
+                                            <input type="password" hidden name="mail_password" id="hidden_mail_password"
+                                                class="form-control" placeholder="ادخل كلمة سر البريد"
                                                 value="{{ old('mail_password') ?? $settings['mail.mailers.smtp.password'] }}">
+                                            <input type="password" class="form-control" id="mail_password"
+                                                value="****" placeholder="ادخل كلمة سر البريد">
                                             @error('mail_password')
                                                 <p class="text-danger small">{{ $message }}</p>
                                             @enderror
@@ -308,6 +310,13 @@
                                                 @checked($settings['page_enable'] == 'on')>
                                             <label class="custom-control-label" for="page-status">المدونات</label>
                                         </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="short_link_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="short_link_enable"
+                                                name="short_link_enable" @checked(old('short_link_enable') == 'on' || $settings['short_link_enable'] === 'on')>
+                                            <label class="custom-control-label" for="short_link_enable">الروابط
+                                                المختصرة</label>
+                                        </div>
                                     </div>
                                     <div class="mt-5">
                                         <div class="custom-control custom-switch mt-2">
@@ -323,6 +332,13 @@
                                                 name="email_confirm_enable" @checked(old('email_confirm_enable') == 'on' || $settings['email_confirm_enable'] === 'on')>
                                             <label class="custom-control-label" for="email_confirm_enable">تمكين/تعطيل
                                                 التحقق من الإيميل لفتح حساب</label>
+                                        </div>
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="text" name="comment_enable" value="off" hidden />
+                                            <input type="checkbox" class="custom-control-input" id="comment_enable"
+                                                name="comment_enable" @checked(old('comment_enable') == 'on' || $settings['comment_enable'] === 'on')>
+                                            <label class="custom-control-label" for="comment_enable">تمكين/تعطيل
+                                                التعليقات</label>
                                         </div>
                                     </div>
 
@@ -374,10 +390,41 @@
                                 </p>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                {{-- <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button> --}}
                                 <form action="{{ route('admin.settings.reset') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                    <div class="row mb-3">
+                                        <label for="password"
+                                            class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password" type="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                name="password" autocomplete="current-password">
+
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-0">
+                                        <div class="col-md-8 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Confirm Password') }}
+                                            </button>
+
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" target="_blank"
+                                                    href="{{ route('password.request') }}">
+                                                    {{ __('Forgot Your Password?') }}
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    {{-- <button type="submit" class="btn btn-dark btn-md">نعم</button> --}}
                                 </form>
                             </div>
                         </div>
@@ -394,13 +441,6 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
         $(document).ready(function() {
-            function toggleElement($element, $condition) {
-                if ($condition) {
-                    $element.show();
-                } else {
-                    $element.hide();
-                }
-            }
             if ($('#site_status').val() === 'inactive') {
                 $('#reason_locked_div').show();
             } else {
@@ -457,8 +497,21 @@
                 }
             });
         });
+
+        //copy the value to hidden input
+        $('#mail_password').on('input', function() {
+            $('#hidden_mail_password').val($(this).val());
+        });
+
+        @if ($errors->has('password'))
+            $('#confirm-reset-db').modal('show');
+        @endif
         ClassicEditor
-            .create(document.querySelector('#reason_locked'))
+            .create(document.querySelector('#reason_locked'),{
+                language: {
+                    content: 'ar'
+                },
+            })
             .then(editor => {
                 console.log(editor);
             })
@@ -467,6 +520,9 @@
             });
         ClassicEditor
             .create(document.querySelector('#header_script'), {
+                language: {
+                    content: 'ar'
+                },
                 codeBlock: {
                     languages: [
                         // Do not render the CSS class for the plain text code blocks.
@@ -501,6 +557,9 @@
             });
         ClassicEditor
             .create(document.querySelector('#footer_script'), {
+                language: {
+                    content: 'ar'
+                },
                 codeBlock: {
                     languages: [
                         // Do not render the CSS class for the plain text code blocks.
