@@ -8,18 +8,6 @@
         </div>
         <div class="card-body table-responsive">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search Mail">
-                            <div class="input-group-append">
-                                <div class="btn btn-primary">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-body p-0">
                     <div class="table-responsive mailbox-messages">
                         <table class="table table-hover table-striped">
@@ -28,7 +16,7 @@
                                     <th style="width: 10px">#</th>
                                     <th>إلى</th>
                                     <th>العنوان</th>
-                                    <th>التاريخ</th>
+                                    <th>تايخ الإرسال</th>
                                 </tr>
                             </thead>
                             <tbody>
