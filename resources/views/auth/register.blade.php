@@ -21,7 +21,7 @@
                     <form method="POST" action="{{ route('register') }}"
                         class="form-content text-end col-md-12 justify-content-center py-lg-4 px-lg-4">
                         @csrf
-                        <div class="row align-items-end justify-content-center">
+                        <div class="row align-items-end justify-content-center p-3">
 
 
                             <label for="name" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">الاسم<br>

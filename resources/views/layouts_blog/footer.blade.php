@@ -16,7 +16,7 @@ $settings = Setting::settings();
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-twitter"></i></a>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-6">
+           {{--  <div class="col-lg-2 col-md-3 col-sm-6">
                 <h6 class="text-center text-sm-end">مستقل</h6>
                 <ul>
                     <li>موقع مستقل</li>
@@ -24,13 +24,12 @@ $settings = Setting::settings();
                     <li>إبدا العمل الحر</li>
                     <li>تصفّح المشاريع</li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="col-lg-2 col-md-3 col-sm-6">
                 <h6 class="text-center text-sm-end">روابط</h6>
                 <ul>
-                    <li>أضف مشروعك</li>
-                    <li>مستقل للمؤسسات</li>
-                    <li> معرض الاعمال</li>
+                    <li>تجربة رابط</li>
+                    
                 </ul>
             </div>
             

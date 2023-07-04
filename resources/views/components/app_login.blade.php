@@ -4,7 +4,6 @@
             role="button">
             <i class="fab fa-facebook-f mx-2 "></i> تسجيل الدخول عن طريق الفيسبوك
         </a>
-        <p class="mt-3">أو</p>
     @endif
     @if (\App\Models\Setting::where('name', 'google_enable')?->first()?->value == 'on')
         <br>
