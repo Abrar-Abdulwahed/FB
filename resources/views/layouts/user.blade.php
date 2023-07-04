@@ -60,7 +60,7 @@
     });
 
     ClassicEditor
-        .create(document.querySelector('#comment'),{
+        .create(document.querySelector('.ckeditor'),{
             language: {
                 content: 'ar'
             },
