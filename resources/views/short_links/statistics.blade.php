@@ -2,12 +2,7 @@
 @section('content')
 @section('title', 'روابط مختصرة')
 <div class="clearfix"></div>
-@if (session()->has('success'))
-    <p class="alert alert-success" role="alert">{{ session('success') }}</p>
-@endif
-@if (session()->has('error'))
-    <p class="alert alert-danger">{{ session('error') }}</p>
-@endif
+@include('partials.session')
 <div class="card shadow-sm">
 
     <!-- PIE CHART -->
@@ -103,6 +98,7 @@
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
         var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData = {!! $donutData !!}
         var donutOptions = {
             maintainAspectRatio: false,
             responsive: true,
@@ -112,7 +108,7 @@
         // You can switch between pie and douhnut using the method below.
         new Chart(donutChartCanvas, {
             type: 'doughnut',
-            data: /*donutData*/ {!! $donutData !!},
+            data: donutData,
             options: donutOptions
         })
 
