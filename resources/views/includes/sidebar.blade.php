@@ -28,7 +28,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-user"></i>
                         <p>
-                            ادارة المستخدمين
+                             ادارة المستخدمين  
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -49,7 +49,7 @@
                 @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
 
                     <li
-                        class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
+                        class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.articles-categories.*') || Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa-solid fa-newspaper"></i>
                             <p>
@@ -59,7 +59,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li
-                                class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
+                                class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.articles-categories.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa-solid fa-newspaper"></i>
                                     <p>
@@ -68,12 +68,14 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                    @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
                                     <li
                                         class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
                                         <a class="nav-link" href="{{ route('admin.articles.index') }}">
                                             <i class="fa fa-list-alt nav-icon"></i>المقالات
                                         </a>
                                     </li>
+                                    @endif
                                     <li
                                         class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') ? 'menu-open' : '' }}">
                                         <a href="#" class="nav-link">
@@ -97,15 +99,20 @@
                                                 </a>
                                             </li>
                                         </ul>
-
-                                    <li
-                                        class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
+                                    @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
+                                    <li class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
                                         <a class="nav-link" href="{{ route('admin.tags.index') }}">
                                             <i class="fa fa-tag nav-icon"></i>Tags
                                         </a>
                                     </li>
-                            </li>
+                                    @endif
 
+                                    <li class="nav-item @if (Route::is('admin.articles-categories.*')) ? 'active' : '' bg-primary @endif">
+                                        <a class="nav-link" href="{{ route('admin.articles-categories.index') }}">
+                                            <i class="fa fa-tag nav-icon"></i>التصنيفات
+                                        </a>
+                                    </li>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
@@ -117,7 +124,7 @@
                     @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
                         <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.faqs.index') }}">
-                                <i class="nav-icon fa-solid fa-question"></i>الاسئلة الشائعة
+                                <i class="nav-icon fa-solid fa-question"></i>ادارة الاسئلة الشائعة
                             </a>
                         </li>
                     @endif
@@ -126,13 +133,15 @@
             </li>
             @endif
 
-            <li class="nav-item">
-                <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
-                    href="{{ route('admin.short_links.index') }}">
-                    <i class="fa fa-link"></i>
-                    <p>اختصار الروابط</p>
-                </a>
-            </li>
+            @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
+                        href="{{ route('admin.short_links.index') }}">
+                        <i class="nav-icon fa fa-link"></i>
+                        <p>اختصار الروابط</p> 
+                    </a>
+                </li>
+            @endif
 
             <li
                 class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.tickets.*') || Route::is('admin.payments.*') || Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
@@ -227,15 +236,19 @@
                     <p>الاعلانات</p>
                 </a>
             </li>
-            @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+           {{--  @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
                 <li class="nav-item">
                     <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
                         href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
                 </li>
-            @endif
+            @endif --}}
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ asset('/log-viewer') }}">ملف الاخطاء</a>
+                <a class="nav-link" href="{{ asset('/log-viewer') }}">
+                    <i class="nav-icon fa fa-exclamation-triangle"></i>
+                    <p>ملف الاخطاء</p>
+
+                </a>
             </li>
 
 
