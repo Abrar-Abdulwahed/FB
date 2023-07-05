@@ -6,10 +6,38 @@
               <i class="fa-solid fa-user-plus ps-2"></i>
           </a>
 
-          <a href="{{ route('login') }}" class="text-black-60 me-2 btn border border-dark-subtle py-2 px-4" type="button">
+          {{-- <a href="{{ route('login') }}" class="text-black-60 me-2 btn border border-dark-subtle py-2 px-4" type="button">
               دخول
               <i class="fa-solid fa-arrow-right-to-bracket pe-1"></i>
-          </a>
+          </a> --}}
+
+        @auth
+        <div class="mr-0 ml-auto">
+            <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <img src="{{ auth()->user()->avatar_image }}" style="border-radius: 50%" width="50px" height="50px">
+    
+                {{ Auth::user()->name }}
+            </button>
+            <ul class="dropdown-menu" style="">
+                <li class="dropdown-item"><i class="nav-icon fa-solid fa-cog nav-icon"></i><a href="{{ route('admin.settings.index') }}">الاعدادات </a></li>
+                <li><hr class="dropdown-divider"></li>
+                
+                <li class="dropdown-item"><i class="nav-icon fa-solid fa-user nav-icon"></i><a href="{{ route('profile.edit',auth()->user()->id) }}">البروفايل</a></li>
+                <li><hr class="dropdown-divider"></li>
+    
+                <li class="dropdown-item"><i class="nav-icon fa-solid fa-plus nav-icon"></i><a href="{{ route('ticket.create') }}">انشاء تذكره</a></li>
+                <li><hr class="dropdown-divider"></li>
+    
+                <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a href="{{ route('ticket.index') }}">قائمه التذاكر</a></li>
+    
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a
+                        class="text-dark text-decoration-none" href="{{ route('logout') }}">تسجيل
+                        الخروج</a></li>
+            </ul>
+        </div>
+        @endauth
+        
 
           <button
           class="navbar-toggler"
