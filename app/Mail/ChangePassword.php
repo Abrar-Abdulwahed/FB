@@ -17,7 +17,7 @@ class ChangePassword extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($user, $message)
     {
         $this->user = $user;
         $this->message = str_replace("userName", $this->user->name, $message);

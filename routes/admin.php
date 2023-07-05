@@ -1,26 +1,28 @@
 <?php
 
-use App\Http\Controllers\Admin\AdController;
-use App\Http\Controllers\Admin\ArticleCategoryController;
-use App\Http\Controllers\Admin\ArticleComment;
-use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\Admin\CustomMessageController;
-use App\Http\Controllers\Admin\DeletedArticleCommentController;
-use App\Http\Controllers\Admin\FaqController;
+
 use App\Http\Controllers\Admin\FileUploadController;
-use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\Admin\LoginActivity;
-use App\Http\Controllers\Admin\PageController;
-use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\ShortLinkController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Admin\TicketCategoryController;
-use App\Http\Controllers\Admin\TicketsController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\LoginActivity;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\ArticleComment;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TicketsController;
+use App\Http\Controllers\Admin\ShortLinkController;
+use App\Http\Controllers\Admin\EmailHistoryController;
+use App\Http\Controllers\Admin\CustomMessageController;
+use App\Http\Controllers\Admin\TicketCategoryController;
+use App\Http\Controllers\Admin\ArticleCategoryController;
+use App\Http\Controllers\Admin\DeletedArticleCommentController;
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
 Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(function () {
     Route::resource('settings', SettingController::class)->only('index', 'store');
@@ -31,6 +33,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
     Route::resource('users', UserController::class);
+    Route::get('users/{user_id}/email-history', [UserController::class, 'email_history'])->name('user.email_history');
+    Route::get('users/{user_id}/email-history/{email_id}', [UserController::class, 'email_show'])->name('user.email_show');
+
 
     Route::get('/login-activity', [LoginActivity::class, 'index'])->name('login.activity')->middleware('auth');
     Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
@@ -65,6 +70,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('payments', PaymentController::class);
     Route::resource('ads', AdController::class)->except('show');
 
+    // Route::resource('email/history', EmailHistoryController::class)->only('index', 'show', 'destroy');
     Route::get('uploads/{id}/download', [FileUploadController::class, 'download'])->name('uploads.download');
     Route::resource('uploads', FileUploadController::class)->except('show', 'edit', 'update');
 });
