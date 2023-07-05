@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('user_email_histories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('custom_message_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->longText('text');
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

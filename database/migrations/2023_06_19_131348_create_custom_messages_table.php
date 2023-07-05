@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('type')->max(5);
             $table->string('language')->max(5);
             $table->longText('text');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }

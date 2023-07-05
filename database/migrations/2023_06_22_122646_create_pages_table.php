@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description')->nullable();
             $table->longText('content');
-            $table->string('image')->change();
             $table->boolean('is_in_footer')->default(false);
             $table->boolean('is_in_menu')->default(false);
             $table->timestamps();
