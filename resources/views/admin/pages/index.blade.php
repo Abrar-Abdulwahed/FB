@@ -18,7 +18,6 @@
             <thead>
                 <tr>
                     <th>العنوان</th>
-                    <th>الصورة</th>
                     <th>اجراءات</th>
                 </tr>
             </thead>
@@ -28,10 +27,6 @@
                 @foreach ($pages as $page)
                     <tr>
                         <td><a target="_blank" href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a></td>
-                        <td>
-                            <img src="{{ asset('storage/pages/' . $page->image) }}" alt="{{ $page->title }}"
-                                width="70px" height="70px">
-                        </td>
                         <td>
                             <a href="{{ route('admin.pages.edit', $page->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
