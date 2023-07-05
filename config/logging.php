@@ -79,7 +79,7 @@ $config = [
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
             // 'level' => env('LOG_LEVEL', 'critical'),
-            'level' => 'emergency',
+            'level' => 'error',
             'replace_placeholders' => true,
         ],
 
