@@ -48,19 +48,18 @@ class ShortLinkController extends Controller
      */
     public function show($param)
     {
-        //
         $short_link = ShortLink::with('statistics')->where('slug', $param)->orWhere('id', $param)->firstOrFail();
 
-        // check if user has cookie
+        // check if visit stored in cache
         if (
-            request()->hasCookie('link_statistics')
-            && request()->cookie('link_statistics') == $short_link->id
+            cache()->has("link_statistics_{$short_link->id}")
+            && cache("link_statistics_{$short_link->id}") == $short_link->id
         ) {
             return redirect()->to($short_link->url);
         }
 
-        // add cookie if it does not exist 
-        $cookie = cookie('link_statistics', $short_link->id, 60 * 24 * 365);
+        // add to cache if it does not exist 
+        cache()->put("link_statistics_{$short_link->id}", $short_link->id, now()->addDay());
 
         $ip = request()->ip();
         $country = Location::get($ip) ? Location::get($ip)->countryName : Location::get()->countryName;
@@ -89,7 +88,7 @@ class ShortLinkController extends Controller
             ]);
         }
 
-        return redirect()->to($short_link->url)->withCookie($cookie);
+        return redirect()->to($short_link->url);
     }
 
     /**
