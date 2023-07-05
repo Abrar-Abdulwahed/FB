@@ -32,6 +32,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
         ->name('custom-message.changeActive');
 
     Route::get('users/verify/{id}', [UserController::class, 'verifyEmail'])->name('users.verifyEmail');
+    Route::get('users/{user}/activities', [UserController::class, 'activities'])->name('users.activities');
     Route::resource('users', UserController::class);
     Route::get('users/{user_id}/email-history', [UserController::class, 'email_history'])->name('user.email_history');
     Route::get('users/{user_id}/email-history/{email_id}', [UserController::class, 'email_show'])->name('user.email_show');

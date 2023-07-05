@@ -12,10 +12,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -31,13 +33,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'provider_token',
         'avatar',
         'is_banned',
-        'banned_until'
+        'banned_until',
+        'last_activity'
     ];
-    
+
     // protected $dispatchesEvents = [
     //     'saved' => UserSaved::class,
     //     'deleted' => UserDeleted::class,
     // ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email', 'avatar', 'is_banned', 'banned_until', 'last_activity', 'updated_at'])
+            ->dontLogIfAttributesChangedOnly(['last_activity', 'updated_at']);
+    }
 
     public function getAvatarImageAttribute()
     {

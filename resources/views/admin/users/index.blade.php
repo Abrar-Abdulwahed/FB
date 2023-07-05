@@ -63,6 +63,8 @@
                                         class="fas fa-sign-in"></i></a>
                                 <a href="{{ route('admin.user.email_history', $user->id) }}" target="_blank"
                                     class="mx-1 btn btn-warning"><i class="fas fa-envelope"></i></a>
+                                <a href="{{ route('admin.users.activities', $user->id) }}"
+                                    class="mx-1 btn btn-secondary"><i class="fas fa-eye"></i></a>
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
                                         class="fas fa-edit"></i></a>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"

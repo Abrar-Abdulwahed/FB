@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\User\UserStoreRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Http\Requests\Admin\User\UserDestroyRequest;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -102,26 +103,28 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserDestroyRequest $request,$id)
+    public function destroy(UserDestroyRequest $request, $id)
     {
-        try{
+        try {
             $user = User::query()->findOrFail($id);
             $user->delete();
             if ($user->avatar) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
             return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
-        }catch(\Throwable $e){
+        } catch (\Throwable $e) {
             return redirect()->back()->with(['error' => $e]);
         }
     }
 
-    public function email_history($user_id){
+    public function email_history($user_id)
+    {
         $emails = UserEmailHistory::where('user_id', $user_id)->get();
         return view('admin.users.email_history.index', compact('emails', 'user_id'));
     }
-    
-    public function email_show($email_id){
+
+    public function email_show($email_id)
+    {
         $email = UserEmailHistory::findOrFail($email_id);
         return view('admin.users.email_history.show', compact('email'));
     }
@@ -133,5 +136,17 @@ class UserController extends Controller
         event(new Registered($user));
 
         return redirect()->route('admin.users.index');
+    }
+
+    public function activities(User $user)
+    {
+        $activities =  Activity::query()
+            ->where('causer_type', '=', User::class)
+            ->where('causer_id', '=', $user->id)
+            ->get();
+
+            // dd($activities->first());
+
+        return view('admin.users.activities.index', compact('activities'));
     }
 }
