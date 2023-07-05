@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\FileUploadRequest;
 use App\Models\FileUpload;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,12 +22,12 @@ class FileUploadController extends Controller
         return view('uploads.create');
     }
 
-    public function store(FileUploadRequest $request)
+    public function store(Request $request)
     {
 
         $file = $request->file('file');
         if (!$file) {
-            return redirect()->route('admin.uploads.index');
+            return redirect()->back();
         }
 
         $file->store('public/uploads');
@@ -38,7 +37,6 @@ class FileUploadController extends Controller
             'name' => $file_name
         ]);
 
-        // return redirect()->route('admin.uploads.index');
         // Return the file data
         return response()->json([
             'name' => $file->hashName(),

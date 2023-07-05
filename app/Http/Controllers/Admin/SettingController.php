@@ -7,11 +7,8 @@ use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\SettingRequest;
 
@@ -23,15 +20,17 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $settings = $this->cacheOrGet();
+
+        $settings = $this->cache();
         return view('admin.settings.index', compact('settings'));
     }
 
-    public function cacheOrGet(){
-        $cachedSettings = Cache::rememberForever("settings", function () {
-            return Setting::pluck('value', 'name')->toArray();
-        });
-        foreach ($cachedSettings as $key=>$value) {
+    public function cache(){
+        $keys = Setting::pluck('name')->all();
+        foreach ($keys as $key) {
+            $value = Cache::rememberForever("settings.{$key}", function () use ($key) {
+                return Setting::where('name', $key)->value('value');
+            });
             $settings[$key] = $value;
         }
         return $settings;
@@ -88,8 +87,8 @@ class SettingController extends Controller
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
+                Cache::forever("settings.{$name}", $value);
             }
-            Cache::forever("settings", $settings);
             DB::commit();
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         } catch (\Throwable $e) {
@@ -98,65 +97,20 @@ class SettingController extends Controller
         }
     }
 
-    public function cleanup(Request $request)
-    {
-        $action = $request->query('action');
-        switch ($action) {
-            case 'reset-db':
-                $this->resetDatabase($request);
-                break;
-            case 'clear-session-cookie':
-                $this->clearSessionCookie();
-                break;
-            case 'clear-cache':
-                $this->clearCache();
-                break;
-            default:
-                abort(404);
-        }
-        return redirect()->route('admin.index');
-    }
-
-    protected function resetDatabase(Request $request)
+    public function reset(Request $request)
     {
         $request->validate([
             'password' => 'required|current_password'
         ]);
         try {
-            Cache::forget("settings");
+            foreach (Setting::pluck('name')->all() as $name) {
+                Cache::forget("settings.{$name}");
+            }
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+            // $this->cache();
             return redirect()->route('admin.index');
         } catch (\Throwable $e) {
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
-    }
-
-    protected function clearSessionCookie(){
-        Session::flush();
-        // remove all session files manually
-        $directory = storage_path('framework/sessions');
-
-        foreach(array_diff(scandir($directory), array('..', '.')) as $file) {
-            if($file !== ".gitignore") {
-                Storage::delete($directory . '/' . $file);
-            }
-        }
-        foreach ($_COOKIE as $key => $value) {
-            Cookie::forget($key);
-        }
-        return redirect()->route('admin.index');
-    }
-
-    protected function clearCache(){
-        Artisan::call('cache:clear');
-        Cache::flush();
-        // remove all cache files manually
-        $directory = storage_path('framework/cache/data');
-        foreach(array_diff(scandir($directory), array('..', '.')) as $file) {
-            if($file !== ".gitignore" && File::isDirectory($directory)) {
-                File::deleteDirectory($directory . '/' . $file);
-            }
-        }
-        return redirect()->route('admin.index');
     }
 }

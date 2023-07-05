@@ -32,14 +32,9 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item @if (Route::is('admin.users.*') && request('role') == null) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.users.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">
                                 <i class="far fa-address-book nav-icon"></i>المستخدمين
-                            </a>
-                        </li>
-                        <li class="nav-item @if (Route::is('admin.users.index') && request('role') === 'admin') ? 'active' : '' bg-primary @endif">
-                            <a class="nav-link" href="{{ url('/admin/users?role=' . $role->name) }}">
-                                <i class="far fa-solid fa-user-secret  nav-icon"></i>الأعضاء الأدمن
                             </a>
                         </li>
                         <li class="nav-item @if (Route::is('admin.roles.*')) ? 'active' : '' bg-primary @endif">
@@ -53,7 +48,7 @@
                 {{--  @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on') --}}
 
                 <li
-                    class="nav-item {{ Route::is('admin.blogs.*') || Route::is('admin.blogs-categories.*') || Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
+                    class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.articles-categories.*') || Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-newspaper"></i>
                         <p>
@@ -63,7 +58,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li
-                            class="nav-item {{ Route::is('admin.blogs.*') || Route::is('admin.blogs-categories.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
+                            class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.articles-categories.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-newspaper"></i>
                                 <p>
@@ -74,14 +69,14 @@
                             <ul class="nav nav-treeview">
                                 @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
                                     <li
-                                        class="nav-item @if (Route::is('admin.blogs.*')) ? 'active' : '' bg-primary @endif">
-                                        <a class="nav-link" href="{{ route('admin.blogs.index') }}">
+                                        class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
+                                        <a class="nav-link" href="{{ route('admin.articles.index') }}">
                                             <i class="fa fa-list-alt nav-icon"></i>المقالات
                                         </a>
                                     </li>
                                 @endif
                                 <li
-                                    class="nav-item {{ Route::is('admin.blogs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') ? 'menu-open' : '' }}">
+                                    class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') ? 'menu-open' : '' }}">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fa-solid fa-comment"></i>
                                         <p>
@@ -113,8 +108,8 @@
                                 @endif
 
                                 <li
-                                    class="nav-item @if (Route::is('admin.blogs-categories.*')) ? 'active' : '' bg-primary @endif">
-                                    <a class="nav-link" href="{{ route('admin.blogs-categories.index') }}">
+                                    class="nav-item @if (Route::is('admin.articles-categories.*')) ? 'active' : '' bg-primary @endif">
+                                    <a class="nav-link" href="{{ route('admin.articles-categories.index') }}">
                                         <i class="fa fa-tag nav-icon"></i>التصنيفات
                                     </a>
                                 </li>

@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('custom_messages', function (Blueprint $table) {
-            $table->string('subject')->default('');
-        });
+        Schema::table('articles', function (Blueprint $table) {
+            //
+/*             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->after('image');
+ */        });
     }
 
     /**
@@ -21,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('custom_messages', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             //
         });
     }

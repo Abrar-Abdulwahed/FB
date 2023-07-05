@@ -17,7 +17,7 @@ class PageController extends Controller
     {
         $pages = Page::query()->paginate(5);
 
-        return view('admin.pages.index', compact('pages'));
+        return view('pages.index', compact('pages'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.create');
+        return view('pages.create');
     }
 
     /**
@@ -71,7 +71,7 @@ class PageController extends Controller
                 ->with('error', 'فشل في عرض الصفحة');
         }
 
-        return view('admin.pages.show', compact('page'));
+        return view('pages.show', compact('page'));
     }
 
     /**
@@ -86,7 +86,7 @@ class PageController extends Controller
                 ->with('error', 'فشل في تعديل الصفحة');
         }
 
-        return view('admin.pages.edit', compact('page'));
+        return view('pages.edit', compact('page'));
     }
 
     /**

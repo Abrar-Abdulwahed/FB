@@ -15,7 +15,7 @@ class FaqController extends Controller
     {
         //
         $faqs = Faq::paginate(5);
-        return view('admin.faqs.index', compact('faqs'));
+        return view('faqs.index', compact('faqs'));
     }
 
     /**
@@ -24,7 +24,7 @@ class FaqController extends Controller
     public function create()
     {
         //
-        return view('admin.faqs.create');
+        return view('faqs.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class FaqController extends Controller
     {
         //
         $faq = Faq::find($id);
-        return view('admin.faqs.edit', compact('faq'));
+        return view('faqs.edit', compact('faq'));
     }
 
     /**

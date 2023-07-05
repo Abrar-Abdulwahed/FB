@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\AvatarTrait;
-use Illuminate\Http\Request;
 use App\Models\UserEmailHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,18 +20,10 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $roles = Role::all();
-        $selectedRole = $request->input('role') ?? "all";
-        $query = User::query();
-        if ($selectedRole && $selectedRole !== "all") {
-            $query->whereHas('roles', function ($query) use ($selectedRole) {
-                $query->where('name', $selectedRole);
-            });
-        }
-        $users = $query->with('roles')->get();
-        return view('admin.users.index', compact('users', 'roles'));
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**

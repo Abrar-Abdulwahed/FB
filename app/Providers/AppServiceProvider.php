@@ -32,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
             foreach ($settings as $setting) {
                 config()->set($setting['name'], $setting['value']);
             }
+            
+            //Event to send email for user
+            // User::created(function($user){
+            //     Mail::to($user)->send(new WelcomeUser($user));
+            // });
         }
 
     }

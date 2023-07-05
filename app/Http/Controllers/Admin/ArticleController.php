@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Blog;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Article\ArticleStoreRequest;
@@ -8,7 +8,9 @@ use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Tag;
+use App\Models\User;
 use App\Traits\ImageTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -16,9 +18,11 @@ class ArticleController extends Controller
     use ImageTrait;
     public function index()
     {
-        $articles = Article::with('tags')->paginate(5);
+        $articles = Article::with('tags','user')->paginate(5);
 
-        return view('admin.blog.index', compact('articles'));
+        $user = User::onlyTrashed()->with('articles')->paginate(5);
+
+        return view('articles.index', compact('articles','user'));  
     }
 
     /**
@@ -30,7 +34,7 @@ class ArticleController extends Controller
 
         $categories = ArticleCategory::all();
 
-        return view('admin.blog.create', compact('tags', 'categories'));
+        return view('articles.create', compact('tags', 'categories'));
     }
 
     /**
@@ -53,6 +57,7 @@ class ArticleController extends Controller
             ]);
         }
 
+        $user_id = Auth::user()->id;
         $article = Article::query()
             ->create($validated->except('tags'));
 
@@ -62,20 +67,20 @@ class ArticleController extends Controller
 
         if (!empty($validated['categories'])) {
             $article->categories()->sync($validated['categories']);
-        }
+        }    
 
-        return redirect()->route('admin.blogs.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
     }
 
     public function show($slug)
     {
 
-        $article = Article::query()
+       /*  $article = Article::query()
             ->where('slug', '=', $slug)
             ->firstOrFail();
 
-        return view('admin.blog.show', compact('article'));
+        return view('articles.show', compact('article')); */
     }
 
     /**
@@ -87,7 +92,7 @@ class ArticleController extends Controller
         $tags = Tag::all();
         $categories = ArticleCategory::all();
 
-        return view('admin.blog.edit', compact('article', 'tags', 'categories'));
+        return view('articles.edit', compact('article', 'tags', 'categories'));
     }
 
     /**
@@ -154,6 +159,6 @@ class ArticleController extends Controller
 
         $articles = $category->articles;
 
-        return view('admin.blog.categories.show', compact('articles'));
+        return view('articles.categories.show', compact('articles'));
     }
 }

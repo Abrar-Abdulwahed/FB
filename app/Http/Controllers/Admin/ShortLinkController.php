@@ -17,7 +17,7 @@ class ShortLinkController extends Controller
     {
         //
         $short_links = ShortLink::paginate(5);
-        return view('admin.short_links.index', compact('short_links'));
+        return view('short_links.index', compact('short_links'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ShortLinkController extends Controller
     public function create()
     {
         //
-        return view('admin.short_links.create');
+        return view('short_links.create');
     }
 
     /**
@@ -48,23 +48,21 @@ class ShortLinkController extends Controller
      */
     public function show($param)
     {
+        //
         $short_link = ShortLink::with('statistics')->where('slug', $param)->orWhere('id', $param)->firstOrFail();
 
-        // get user ip 
-        $ip = request()->ip();
-
-        // check if visit stored in cache
+        // check if user has cookie
         if (
-            cache()->has("link_statistics_{$short_link->id}_{$ip}")
-            && cache("link_statistics_{$short_link->id}_{$ip}") == $short_link->id
+            request()->hasCookie('link_statistics')
+            && request()->cookie('link_statistics') == $short_link->id
         ) {
             return redirect()->to($short_link->url);
         }
 
-        // add to cache if it does not exist 
-        cache()->put("link_statistics_{$short_link->id}_{$ip}", $short_link->id, now()->addDay());
+        // add cookie if it does not exist 
+        $cookie = cookie('link_statistics', $short_link->id, 60 * 24 * 365);
 
-
+        $ip = request()->ip();
         $country = Location::get($ip) ? Location::get($ip)->countryName : Location::get()->countryName;
         $browser = Agent::browser();
         $user_agent = request()->header('user-agent');
@@ -91,7 +89,7 @@ class ShortLinkController extends Controller
             ]);
         }
 
-        return redirect()->to($short_link->url);
+        return redirect()->to($short_link->url)->withCookie($cookie);
     }
 
     /**
@@ -101,7 +99,7 @@ class ShortLinkController extends Controller
     {
         //
         $short_link = ShortLink::find($id);
-        return view('admin.short_links.edit', compact('short_link'));
+        return view('short_links.edit', compact('short_link'));
     }
 
     /**
@@ -190,6 +188,6 @@ class ShortLinkController extends Controller
         ]);
 
 
-        return view('admin.short_links.statistics', compact('donutData', 'pieData', 'countryVisits', 'browserVisits'));
+        return view('short_links.statistics', compact('donutData', 'pieData', 'countryVisits', 'browserVisits'));
     }
 }

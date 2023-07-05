@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Blog;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
@@ -18,12 +18,12 @@ class ArticleComment extends Controller
         //
         $comments = ModelsArticleComment::query()->paginate(5);
 
-        return view('admin.blog.comments.index', compact('comments'));
+        return view('article_comments.index', compact('comments'));
     }
 
     public function deletedComments(){
-        $comments = ModelsArticleComment::onlyTrashed()->paginate(5);;
-        return view('admin.blog.comments.deleted_comments',compact('comments'));
+        $comments = ModelsArticleComment::onlyTrashed()->paginate(5);
+        return view('article_comments.deleted_comments',compact('comments'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ArticleComment extends Controller
 
         $comments = ModelsArticleComment::where('article_id',$article->id)->get();
 
-        return view('admin.blog.comments.show', compact('article','comments'));
+        return view('article_comments.show', compact('article','comments'));
     }
 
     /**
