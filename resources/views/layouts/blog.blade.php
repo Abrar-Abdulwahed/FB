@@ -13,16 +13,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     
     <style>
-        figcaption p{
+        figcaption p , figure p{
             text-align:right;
         }
+
 
     </style>
 </head>
 
 <body class="bg-body-secondary m-o p-0">
     <!-- Start navbar -->
-    @include('layouts_blog.navbar')      
+    @include('includes.includes_blog.navbar')      
     <!-- End navbar -->
 
     <!-- Start content -->
@@ -30,7 +31,7 @@
     <!-- End content -->
 
     <!-- Start Footer -->
-    @include('layouts_blog.footer')
+    @include('includes.includes_blog.footer')
     <!-- End Footer -->
 
     <script src="{{ asset('js/blog/bootstrap.bundle.min.js') }}"></script>

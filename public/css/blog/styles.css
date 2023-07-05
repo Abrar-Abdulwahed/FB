@@ -157,9 +157,8 @@ html{
 	color: rgb(71, 71, 251);
 }
 #sec-7 figure .cont-1{
-	text-align: justify;
 	font-size: 1rem;
-	text-align: end;
+	text-align: start;
 	word-spacing: 1.5px;
 	line-height: 30px;
 	padding: 0 15px;
