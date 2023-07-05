@@ -3,7 +3,7 @@
 @section('title')
     تسجيل دخول
 @endsection
-    <div class="container ">
+    <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8 bg-white p-3 col-11 rounded-top">
                 <div class="form-header py-lg-4 px-lg-4 pb-3 shadow-sm">
@@ -17,7 +17,7 @@
                         </div>  --}}
                         @include('components.app_login')
                     </div>
-                    <form method="POST" action="{{ route('login') }}" class="form-content text-end col-md-12 justify-content-center py-lg-4 px-lg-4">
+                    <form method="POST" action="{{ route('login') }}" class="form-content text-end col-md-12 justify-content-center px-lg-4">
                         @csrf
                         <div class="row align-items-end justify-content-center p-3">
 
