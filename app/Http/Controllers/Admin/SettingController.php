@@ -150,6 +150,13 @@ class SettingController extends Controller
     protected function clearCache(){
         Artisan::call('cache:clear');
         Cache::flush();
+        // remove all cache files manually
+        $directory = storage_path('framework/cache/data');
+        foreach(array_diff(scandir($directory), array('..', '.')) as $file) {
+            if($file !== ".gitignore" && File::isDirectory($directory)) {
+                File::deleteDirectory($directory . '/' . $file);
+            }
+        }
         return redirect()->route('admin.index');
     }
 }
