@@ -34,8 +34,8 @@ class SettingSeeder extends Seeder
                 'mail.default'                      => 'smtp', //mail_mailer
                 'mail.mailers.smtp.host'            => 'sandbox.smtp.mailtrap.io',
                 'mail.mailers.smtp.port'            => '2525',
-                'mail.mailers.smtp.username'        => '3c15e3d6e42357',
-                'mail.mailers.smtp.password'        => '9558a59e2b581e',
+                'mail.mailers.smtp.username'        => 'afc6ec5280b09e',
+                'mail.mailers.smtp.password'        => 'e75b3575c9e84c',
                 'mail.from.address'                 => 'no-reply@mailtrap.club',
                 'mail.from.name'                    => 'Freelancer',
                 'header_script'                     => null,

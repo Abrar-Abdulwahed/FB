@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.layout')
     @section('content')
     <div class="clearfix"></div>
     @if (session()->has('success'))
@@ -21,7 +21,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="type">النوع</label>
-                        <select class="form-control" name="type" id="type">
+                        <select class="form-control" name="ticket_category_id" id="type">
                             <option value="">اختر نوع الرسالة</option>
                             @foreach ($categories as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>

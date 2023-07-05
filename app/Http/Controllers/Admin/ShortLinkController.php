@@ -51,11 +51,16 @@ class ShortLinkController extends Controller
         //
         $short_link = ShortLink::with('statistics')->where('slug', $param)->orWhere('id', $param)->firstOrFail();
 
-        $cookie = null;
-        if (!request()->hasCookie('link_statistics')) {
-            // Add the cookie if it doesn't exist
-            $cookie = cookie('link_statistics', $short_link->id, 60 * 24 * 365);
+        // check if user has cookie
+        if (
+            request()->hasCookie('link_statistics')
+            && request()->cookie('link_statistics') == $short_link->id
+        ) {
+            return redirect()->to($short_link->url);
         }
+
+        // add cookie if it does not exist 
+        $cookie = cookie('link_statistics', $short_link->id, 60 * 24 * 365);
 
         $ip = request()->ip();
         $country = Location::get($ip) ? Location::get($ip)->countryName : Location::get()->countryName;
@@ -84,11 +89,7 @@ class ShortLinkController extends Controller
             ]);
         }
 
-        if ($cookie) {
-            return redirect()->to($short_link->url)->withCookie($cookie);
-        }
-
-        return redirect()->to($short_link->url);
+        return redirect()->to($short_link->url)->withCookie($cookie);
     }
 
     /**
@@ -144,16 +145,30 @@ class ShortLinkController extends Controller
         $browsers = array_column($browsers, 'browser');
         $countries = array_column($countries, 'country');
 
+        $browserVisits = [];
         foreach ($browsers as $browser) {
             $browserVisits[] = $short_link->statistics()
                 ->where('browser', '=', $browser)
                 ->sum('visits');
         }
 
+        $countryVisits = [];
         foreach ($countries as $country) {
             $countryVisits[] = $short_link->statistics()
                 ->where('country', '=', $country)
                 ->sum('visits');
+        }
+
+        if (count($browserVisits) < 1) {
+            session()->flash('error', 'لا يوجد زيارات للمتصفحات');
+        }
+
+        if (count($countryVisits) < 1) {
+            session()->flash('error', 'لا يوجد زيارات للبلاد');
+        }
+
+        if (count($countryVisits) < 1 && count($browserVisits) < 1) {
+            session()->flash('error', 'لا يوجد زيارات للبلاد والمتصفحات');
         }
 
         $pieData = json_encode([
@@ -173,6 +188,6 @@ class ShortLinkController extends Controller
         ]);
 
 
-        return view('short_links.statistics', compact('donutData', 'pieData'));
+        return view('short_links.statistics', compact('donutData', 'pieData', 'countryVisits', 'browserVisits'));
     }
 }

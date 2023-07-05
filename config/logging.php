@@ -1,5 +1,6 @@
 <?php
 
+use Logger\TelegramLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -54,7 +55,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily'],
+            'channels' => ['daily' , 'telegram'],
             'ignore_exceptions' => false,
         ],
 
@@ -78,7 +79,8 @@ return [
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
-            'level' => env('LOG_LEVEL', 'critical'),
+            // 'level' => env('LOG_LEVEL', 'critical'),
+            'level' => 'emergency',
             'replace_placeholders' => true,
         ],
 
@@ -126,6 +128,20 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'telegram' => [
+            'driver' => 'custom',
+            'via'    => Logger\TelegramLogger::class,
+            'level'  => 'error',
+            'chat_id' => env('TELEGRAM_CHAT_ID'),
+            'token' => env('TELEGRAM_BOT_TOKEN'),
+        ],
     ],
 
 ];
+
+if (env('APP_ENV') == 'production') {
+    $config['channels']['stack']['channels'] = ['daily', 'slack'];
+}
+
+return $config;
