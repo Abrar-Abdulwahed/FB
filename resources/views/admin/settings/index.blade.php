@@ -41,14 +41,20 @@
                                     aria-controls="recaptcha-settings" aria-selected="false">حروف التحقق</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link {{ $errors->hasAny(['telegram_chat_id', 'telegram_token', 'slack_url']) ? 'bg-danger' : '' }}"
+                                    id="error-report-settings-tab" data-toggle="pill" href="#error-report-settings"
+                                    role="tab" aria-controls="error-report-settings" aria-selected="false">التبليغ عن
+                                    الأخطاء</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="additional-settings-tab" data-toggle="pill"
                                     href="#additional-settings" role="tab" aria-controls="additional-settings"
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
                             <li class="nav-item {{ $errors->hasAny(['password']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="cleanup-tab" data-toggle="pill" href="#cleanup" role="tab"
-                                    aria-controls="cleanup" aria-selected="false">التنظيف</a>
+                                <a class="nav-link" id="reset-db-tab" data-toggle="pill" href="#reset-db" role="tab"
+                                    aria-controls="reset-db" aria-selected="false">تهيئة قاعدة البيانات</a>
                             </li>
                         </ul>
                     </div>
@@ -288,6 +294,61 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="error-report-settings" role="tabpanel"
+                                    aria-labelledby="error-report-tab">
+                                    <div>
+                                        <input type="text" name="telegram_report_enable" value="off" hidden />
+                                        <div class="custom-control custom-switch mt-2">
+                                            <input type="checkbox" class="custom-control-input"
+                                                id="telegram_report_enable" name="telegram_report_enable"
+                                                @checked(old('telegram_report_enable') == 'on' || $settings['telegram_report_enable'] === 'on')>
+                                            <label class="custom-control-label"
+                                                for="telegram_report_enable">تيليجرام</label>
+                                        </div>
+                                        <div class="form-row mt-2" id="telegram_report_enable_div">
+                                            <div class="form-group col-md-6">
+                                                <label for="telegram_chat_id" class="text-muted">معرف الشات</label>
+                                                <input type="text" name="telegram_chat_id" class="form-control"
+                                                    id="telegram_chat_id" placeholder="ادخل معرف الشات لتيليجرام"
+                                                    value="{{ old('telegram_chat_id') ?? $settings['logging.channels.telegram.chat_id'] }}">
+                                                @error('telegram_chat_id')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="telegram_token" class="text-muted">سلسلة الرموز</label>
+                                                <input type="text" name="telegram_token" class="form-control"
+                                                    id="telegram_token" placeholder="ادخل التوكن"
+                                                    value="{{ old('telegram_token') ?? $settings['logging.channels.telegram.token'] }}">
+                                                @error('telegram_token')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" name="slack_report_enable" value="off" hidden />
+                                            <div class="custom-control custom-switch mt-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="slack_report_enable" name="slack_report_enable"
+                                                    @checked(old('slack_report_enable') == 'on' || $settings['slack_report_enable'] === 'on')>
+                                                <label class="custom-control-label" for="slack_report_enable">سلاك</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-2" id="slack_report_enable_div">
+                                            <div class="form-group col-md-6">
+                                                <label for="slack_url" class="text-muted">الرابط</label>
+                                                <input type="text" name="slack_url" class="form-control"
+                                                    id="slack_url" placeholder="ادخل رابط التقرير إلى سلاك"
+                                                    value="{{ old('slack_url') ?? $settings['logging.channels.slack.url'] }}">
+                                                @error('slack_url')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade" id="additional-settings" role="tabpanel"
                                     aria-labelledby="additional-settings-tab">
                                     <div>
@@ -362,20 +423,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="cleanup" role="tabpanel" aria-labelledby="cleanup-tab">
+                                <div class="tab-pane fade" id="reset-db" role="tabpanel"
+                                    aria-labelledby="reset-db-tab">
                                     <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#confirm-reset-db">
                                         تهيئة قاعدة البيانات
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                    <button type="button" class="mx-1 btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#confirm-clear-session-cookie">
-                                        حذف الجلسات وملفات تعريف الارتباط
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                    <button type="button" class="mx-1 btn btn-info btn-sm" data-toggle="modal"
-                                        data-target="#confirm-clear-cache">
-                                        حذف التخزين المؤقت
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>
@@ -400,10 +452,8 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 {{-- <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button> --}}
-                                <form action="{{ route('admin.settings.cleanup', ['action' => 'reset-db']) }}"
-                                    method="POST">
+                                <form action="{{ route('admin.settings.reset') }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
                                     <div class="row mb-3">
                                         <label for="password"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
@@ -436,56 +486,6 @@
                                         </div>
                                     </div>
                                     {{-- <button type="submit" class="btn btn-dark btn-md">نعم</button> --}}
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="confirm-clear-session-cookie">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <p class="modal-title">تأكيد تنظيف الجلسات وملفات تعريف الارتباط</p>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body text-left">
-                                <p>هل أنت متأكد من هذه الخطوة؟ يؤدي هذا الخيار إلى تسجيل خروجك من النظام
-                                </p>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
-                                <form action="{{ route('admin.settings.cleanup', ['action' => 'clear-session-cookie']) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="confirm-clear-cache">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <p class="modal-title">تأكيد حذف الكاش</p>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body text-left">
-                                <p>قد يتم تحميل الموقع بشكل أبطأ عند زيارته في المرة القادمة
-                                </p>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
-                                <form action="{{ route('admin.settings.cleanup', ['action' => 'clear-cache']) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
                                 </form>
                             </div>
                         </div>
@@ -526,6 +526,18 @@
                 $('#captcha_enable_div').hide();
             }
 
+            if ($('#telegram_report_enable').is(':checked')) {
+                $('#telegram_report_enable_div').show();
+            } else {
+                $('#telegram_report_enable_div').hide();
+            }
+
+            if ($('#slack_report_enable').is(':checked')) {
+                $('#slack_report_enable_div').show();
+            } else {
+                $('#slack_report_enable_div').hide();
+            }
+
             $('#site_status').change(function() {
                 var selectedValue = $(this).val();
                 if (selectedValue === 'inactive') {
@@ -550,11 +562,28 @@
                     $('#facebook_enable_div').hide();
                 }
             });
+
             $('#captcha_enable').change(function() {
                 if ($(this).is(':checked')) {
                     $('#captcha_enable_div').show();
                 } else {
                     $('#captcha_enable_div').hide();
+                }
+            });
+
+            $('#telegram_report_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#telegram_report_enable_div').show();
+                } else {
+                    $('#telegram_report_enable_div').hide();
+                }
+            });
+
+            $('#slack_report_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#slack_report_enable_div').show();
+                } else {
+                    $('#slack_report_enable_div').hide();
                 }
             });
         });
@@ -568,7 +597,7 @@
             $('#confirm-reset-db').modal('show');
         @endif
         ClassicEditor
-            .create(document.querySelector('#reason_locked'), {
+            .create(document.querySelector('#reason_locked'),{
                 language: {
                     content: 'ar'
                 },
@@ -584,74 +613,12 @@
                 language: {
                     content: 'ar'
                 },
-                codeBlock: {
-                    languages: [
-                        // Do not render the CSS class for the plain text code blocks.
-                        {
-                            language: 'plaintext',
-                            label: 'Plain text',
-                            class: ''
-                        },
-
-                        // Use the "php-code" class for PHP code blocks.
-                        {
-                            language: 'php',
-                            label: 'PHP',
-                            class: 'php-code'
-                        },
-
-                        // Use the "js" class for JavaScript code blocks.
-                        // Note that only the first ("js") class will determine the language of the block when loading data.
-                        {
-                            language: 'javascript',
-                            label: 'JavaScript',
-                            class: 'js javascript js-code'
-                        },
-
-                        // Python code blocks will have the default "language-python" CSS class.
-                        {
-                            language: 'python',
-                            label: 'Python'
-                        }
-                    ]
-                }
             });
         ClassicEditor
             .create(document.querySelector('#footer_script'), {
                 language: {
                     content: 'ar'
                 },
-                codeBlock: {
-                    languages: [
-                        // Do not render the CSS class for the plain text code blocks.
-                        {
-                            language: 'plaintext',
-                            label: 'Plain text',
-                            class: ''
-                        },
-
-                        // Use the "php-code" class for PHP code blocks.
-                        {
-                            language: 'php',
-                            label: 'PHP',
-                            class: 'php-code'
-                        },
-
-                        // Use the "js" class for JavaScript code blocks.
-                        // Note that only the first ("js") class will determine the language of the block when loading data.
-                        {
-                            language: 'javascript',
-                            label: 'JavaScript',
-                            class: 'js javascript js-code'
-                        },
-
-                        // Python code blocks will have the default "language-python" CSS class.
-                        {
-                            language: 'python',
-                            label: 'Python'
-                        }
-                    ]
-                }
             });
     </script>
 @endpush

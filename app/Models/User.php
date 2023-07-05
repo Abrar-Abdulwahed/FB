@@ -5,19 +5,20 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Events\UserUpdated;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, LogsActivity;
+    use HasApiTokens, HasFactory, Notifiable, LogsActivity, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar',
         'is_banned',
         'banned_until',
-        'last_activity'
+        'last_activity',
     ];
 
     // protected $dispatchesEvents = [
@@ -88,5 +89,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function emails()
     {
         return $this->hasMany(UserEmailHistory::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }

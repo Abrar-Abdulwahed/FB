@@ -18,6 +18,7 @@ class Article extends Model
         'description',
         'content',
         'image',
+        'user_id'
     ];
 
     public static function generateSlug($title)
@@ -64,5 +65,10 @@ class Article extends Model
     public function categories()
     {
         return $this->belongsToMany(ArticleCategory::class, 'article_category', 'article_id', 'category_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

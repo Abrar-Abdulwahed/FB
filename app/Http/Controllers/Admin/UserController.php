@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Role;
-use App\Models\User;
-use App\Traits\AvatarTrait;
-use Illuminate\Http\Request;
-use App\Models\UserEmailHistory;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\User\UserDestroyRequest;
 use App\Http\Requests\Admin\User\UserStoreRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
-use App\Http\Requests\Admin\User\UserDestroyRequest;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\UserEmailHistory;
+use App\Traits\AvatarTrait;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
@@ -25,11 +24,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $roles = Role::all();
-        $selectedRole = $request->input('role') ?? "all";
         $query = User::query();
-        if ($selectedRole && $selectedRole !== "all") {
-            $query->whereHas('roles', function ($query) use ($selectedRole) {
-                $query->where('name', $selectedRole);
+
+        if ($request->has('role') && $request->role !== "all") {
+            $query->whereHas('roles', function ($query) use ($request) {
+                $query->where('name', $request->role);
             });
         }
         $users = $query->with('roles')->get();
@@ -149,12 +148,12 @@ class UserController extends Controller
 
     public function activities(User $user)
     {
-        $activities =  Activity::query()
+        $activities = Activity::query()
             ->where('causer_type', '=', User::class)
             ->where('causer_id', '=', $user->id)
             ->get();
 
-            // dd($activities->first());
+        // dd($activities->first());
 
         return view('admin.users.activities.index', compact('activities'));
     }
