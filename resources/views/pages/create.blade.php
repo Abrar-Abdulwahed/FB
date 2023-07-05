@@ -40,13 +40,13 @@
                         @enderror
                     </div>
 
-                    <div class="form-group col-12">
+                    {{-- <div class="form-group col-12">
                         <label>الصورة</label>
                         <input type="file" name="image" class="form-control">
                         @error('image')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     {{-- <div class="custom-control custom-switch">
                         <input data-id="{{$product->id}}" name="is_in_menu" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $product->status ? 'checked' : '' }}> 

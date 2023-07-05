@@ -13,6 +13,7 @@ use App\Traits\AvatarTrait;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -143,5 +144,17 @@ class UserController extends Controller
         event(new Registered($user));
 
         return redirect()->route('admin.users.index');
+    }
+
+    public function activities(User $user)
+    {
+        $activities = Activity::query()
+            ->where('causer_type', '=', User::class)
+            ->where('causer_id', '=', $user->id)
+            ->get();
+
+        // dd($activities->first());
+
+        return view('admin.users.activities.index', compact('activities'));
     }
 }
