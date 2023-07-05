@@ -238,6 +238,14 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.uploads.index') }}">
+                    <i class="nav-icon fa-solid fa-download"></i>
+                    <p>ملفات الرفع</p>
+
+                </a>
+            </li>
+
 
             <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
