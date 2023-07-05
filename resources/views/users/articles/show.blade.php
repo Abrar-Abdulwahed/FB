@@ -20,7 +20,6 @@
                         <h3 class="text-center">{{ $article->title }}</h3>
                         <img src="{{ asset('storage/articles/'.$article->image) }}" alt="">
                         
-    
                         <h4> <p> <span class="bold"> {{ $article->description }}</span> </h4>
                         <p class="cont-1">{!! $article->content !!}</p>
                     </figure>
@@ -28,32 +27,52 @@
             </div>
         </div>
     </section>
+
+    <!-- Start Section-2 -->
+    <section id="sec-2">
+		<div class="container">
+            <div class="row">
+                <div class="col-sm-12 my-4 bg-white">
+                    <div class="row py-4">
+                        <div class="col-sm-10">
+                            <h4>{{ $article->user->name}}</h4>
+                            <p class="text-end">مختص التسويق الرقمي، أساعد الشركات على تحقيق أهدافهم البيعية من خلال خبرة تمتد لأكثر من 5 سنوات في التسويق بالمحتوى</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <img src="{{ asset('storage/avatars/'.$article->user->avatar) }}" class="w-75 rounded circle"><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</section>
+<!-- End Section-2 -->
     
     @auth
     <section id="sec-8" class="my-4">
         <div class="container">
-        <h5 class="text-end">إترك تعليق</h5>
+            <h5 class="text-end">إترك تعليق</h5>
 
-        <form class="bg-white py-3 px-4" action="{{ Route('articles.comments') }}" method="post">
-            @csrf
-        
-            <div class="comment row m-4">
-
-                <div class="comm-area col-lg-12 col-md-12">
-                    <label class="area-content" for="area">التعليق </label><br> 
-                    <input type="hidden" name="article_id" value="{{ $article->id }}">
-                    <textarea class="box my-4" name="comment" id="area" cols="105" rows="6"></textarea>
-                    @error('comment')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
+            <form class="bg-white py-3 px-4" action="{{ Route('articles.comments') }}" method="post">
+                @csrf
             
-                <div>
-                    <button class="btn btn-primary" type="submit" >إرسال التعليق</button>
+                <div class="comment row m-4">
+
+                    <div class="comm-area col-lg-12 col-md-12">
+                        <label class="area-content" for="area">التعليق </label><br> 
+                        <input type="hidden" name="article_id" value="{{ $article->id }}">
+                        <textarea class="box my-4" name="comment" id="area" cols="105" rows="6"></textarea>
+                        @error('comment')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                
+                    <div>
+                        <button class="btn btn-primary" type="submit" >إرسال التعليق</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     </section>
    
     @endauth

@@ -8,7 +8,9 @@ use App\Http\Requests\Admin\Blog\Article\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Tag;
+use App\Models\User;
 use App\Traits\ImageTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -16,9 +18,11 @@ class ArticleController extends Controller
     use ImageTrait;
     public function index()
     {
-        $articles = Article::with('tags')->paginate(5);
+        $articles = Article::with('tags','user')->paginate(5);
 
-        return view('articles.index', compact('articles'));
+        $user = User::onlyTrashed()->with('articles')->paginate(5);
+
+        return view('articles.index', compact('articles','user'));
     }
 
     /**
@@ -53,6 +57,7 @@ class ArticleController extends Controller
             ]);
         }
 
+        $user_id = Auth::user()->id;
         $article = Article::query()
             ->create($validated->except('tags'));
 
@@ -62,7 +67,7 @@ class ArticleController extends Controller
 
         if (!empty($validated['categories'])) {
             $article->categories()->sync($validated['categories']);
-        }
+        }    
 
         return redirect()->route('admin.articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');

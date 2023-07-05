@@ -28,6 +28,7 @@
                     <th>الصورة</th>
                     <th>العلامات</th>
                     <th>الاقسام</th>
+                    <th>كاتب المقال</th>
                     <th>اجراءات</th>
                 </tr>
             </thead>
@@ -58,6 +59,11 @@
                             @foreach ($article->categories as $category)
                                 <span class="span-tag bg-warning rounded px-1 w-50">{{ $category->title }}</span>
                             @endforeach
+                        </td>
+
+                        <td>
+                            <img src="{{ asset('storage/avatars/'.$article->user->avatar) }}" style="width:50px; height:50px" class="rounded circle"><br>
+                            {{ $article->user->name }}
                         </td>
                         
                         <td>

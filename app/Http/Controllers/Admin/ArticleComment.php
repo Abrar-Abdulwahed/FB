@@ -22,7 +22,7 @@ class ArticleComment extends Controller
     }
 
     public function deletedComments(){
-        $comments = ModelsArticleComment::onlyTrashed()->paginate(5);;
+        $comments = ModelsArticleComment::onlyTrashed()->paginate(5);
         return view('article_comments.deleted_comments',compact('comments'));
     }
 

@@ -43,12 +43,14 @@ class ContentSeeder extends Seeder
             $article_1 = Article::query()->create([
                 'title' => 'مرحبا بك ',
                 'slug' => 'article-1-test',
-                'content' => 'anything'
+                'content' => 'anything',
+                'user_id'=>1
             ]);
             $article_2 = Article::query()->create([
                 'title' => 'تجربة مقال ثاني',
                 'slug' => 'article-2-test',
-                'content' => 'anything'
+                'content' => 'anything',
+                'user_id'=>1
             ]);
 
             $article_1->tags()->sync([$tag_1->id, $tag_2->id]);

@@ -53,6 +53,8 @@
 
             <form action="{{ Route('admin.articles.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
                 <div class="row col-12">
 
                     <div class="form-group col-12">
