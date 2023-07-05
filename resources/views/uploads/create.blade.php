@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}"n>
 @endpush
 @section('content')
+    @include('partials.session')
+
     <div class="container-fluid pt-3">
 
         <div class="card shadow-sm">
@@ -127,7 +129,7 @@
             if (extension === 'html' || extension === 'css' || extension === 'js' || extension === 'php') {
                 // حذف الملف من قائمة الرفع وإظهار رسالة خطأ
                 myDropzone.removeFile(file);
-                alert('غير مسموح بادخال هذا النوع من الملفات');
+                // alert('غير مسموح بادخال هذا النوع من الملفات');
             }
             file.previewElement.querySelector(".start").onclick = function() {
                 myDropzone.enqueueFile(file)
@@ -160,6 +162,12 @@
         document.querySelector("#actions .cancel").onclick = function() {
             myDropzone.removeAllFiles(true)
         }
+
+        // Redirect to another page on successful upload
+        myDropzone.on("success", function(file, response) {
+            // Redirect to another page using JavaScript or the window.location.href property
+            window.location.href = "{{ route('admin.uploads.index') }}";
+        });
         // DropzoneJS Demo Code End
     </script>
 @endpush
