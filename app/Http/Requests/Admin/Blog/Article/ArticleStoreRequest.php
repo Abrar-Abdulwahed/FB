@@ -28,6 +28,7 @@ class ArticleStoreRequest extends FormRequest
             'image' => ['nullable', 'image'],
             'tags' => ['nullable', 'array'],
             'categories' => ['nullable', 'array'],
+            'user_id'=>['required'],
         ];
     }
 }

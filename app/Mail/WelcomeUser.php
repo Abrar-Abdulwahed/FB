@@ -17,10 +17,9 @@ class WelcomeUser extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $subject, $message)
+    public function __construct($user, $message)
     {
         $this->user = $user;
-        $this->subject = $subject;
         $this->message = str_replace("userName", $this->user->name, $message);
     }
 
@@ -30,7 +29,7 @@ class WelcomeUser extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->subject,
+            subject: 'Welcome User',
         );
     }
 

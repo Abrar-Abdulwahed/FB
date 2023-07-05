@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Role;
-use App\Models\User;
-use App\Traits\AvatarTrait;
-use Illuminate\Http\Request;
-use App\Models\UserEmailHistory;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\User\UserDestroyRequest;
 use App\Http\Requests\Admin\User\UserStoreRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
-use App\Http\Requests\Admin\User\UserDestroyRequest;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\UserEmailHistory;
+use App\Traits\AvatarTrait;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -23,11 +22,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::all();        
+        $roles = Role::all();
         $query = User::query();
 
-        if($request->has('role') && $request->role !== "all") {
-            $query->whereHas('roles', function ($query) use($request){
+        if ($request->has('role') && $request->role !== "all") {
+            $query->whereHas('roles', function ($query) use ($request) {
                 $query->where('name', $request->role);
             });
         }
@@ -111,26 +110,28 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserDestroyRequest $request,$id)
+    public function destroy(UserDestroyRequest $request, $id)
     {
-        try{
+        try {
             $user = User::query()->findOrFail($id);
             $user->delete();
             if ($user->avatar) {
                 Storage::disk('avatars')->delete($user->avatar);
             }
             return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
-        }catch(\Throwable $e){
+        } catch (\Throwable $e) {
             return redirect()->back()->with(['error' => $e]);
         }
     }
 
-    public function email_history($user_id){
+    public function email_history($user_id)
+    {
         $emails = UserEmailHistory::where('user_id', $user_id)->get();
         return view('admin.users.email_history.index', compact('emails', 'user_id'));
     }
-    
-    public function email_show($email_id){
+
+    public function email_show($email_id)
+    {
         $email = UserEmailHistory::findOrFail($email_id);
         return view('admin.users.email_history.show', compact('email'));
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Blog;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Article\Category\ArticleCategoryRequest;
@@ -12,7 +12,7 @@ class ArticleCategoryController extends Controller
     public function index()
     {
         $categories = ArticleCategory::paginate(5);
-        return view('admin.blog.categories.index', compact('categories'));
+        return view('articles.categories.index', compact('categories'));
     }
 
     /**
@@ -20,7 +20,7 @@ class ArticleCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.categories.create');
+        return view('articles.categories.create');
     }
 
     /**
@@ -31,7 +31,7 @@ class ArticleCategoryController extends Controller
         ArticleCategory::query()->create($request->validated());
 
         return redirect()
-            ->route('admin.blogs-categories.index')
+            ->route('admin.articles-categories.index')
             ->with('success', 'تم اضافة القسم بنجاح');
     }
 
@@ -48,7 +48,7 @@ class ArticleCategoryController extends Controller
     public function edit($id)
     {
         $category = ArticleCategory::query()->findOrFail($id);
-        return view('admin.blog.categories.edit', compact('category'));
+        return view('articles.categories.edit', compact('category'));
     }
 
     /**
@@ -61,7 +61,7 @@ class ArticleCategoryController extends Controller
             ->update($request->validated());
 
         return redirect()
-            ->route('admin.blogs-categories.index')
+            ->route('admin.articles-categories.index')
             ->with('success', 'تم تعديل القسم بنجاح');
     }
 

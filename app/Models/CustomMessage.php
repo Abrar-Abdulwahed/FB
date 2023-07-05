@@ -10,7 +10,6 @@ class CustomMessage extends Model
     use HasFactory;
     protected $fillable = [
         'code',
-        'subject',
         'type',
         'language',
         'text',

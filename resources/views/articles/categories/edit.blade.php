@@ -8,7 +8,7 @@
             مقالات الاقسام
         </div>
         <div class="card-body">
-            <form action="{{ Route('admin.blogs-categories.update', $category->id) }}" method="post">
+            <form action="{{ Route('admin.articles-categories.update', $category->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="form-group">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\Role\RoleStoreRequest;
@@ -16,7 +16,7 @@ class RoleController extends Controller
     {
         $roles = Role::query()->paginate(5);
 
-        return view('admin.roles.index', compact('roles'));
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.roles.create');
+        return view('roles.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class RoleController extends Controller
                 ->with('error', 'فشل في تعديل الدور');
         }
 
-        return view('admin.roles.edit', compact('role'));
+        return view('roles.edit', compact('role'));
     }
 
     /**

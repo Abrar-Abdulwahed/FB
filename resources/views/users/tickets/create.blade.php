@@ -14,7 +14,7 @@
         <div class="card-body">
             <form id="quickForm" method="POST" action={{ route('ticket.store') }}>
                 @csrf
-                 <input type="text" name="subject" placeholder="العنوان" value="{{ old('subject') }}">
+                 <input type="text" name="subject" placeholder="العنوان">
                  @error('subject')
                  <p class="text-danger small">{{ $message }}</p>
                  @enderror
@@ -24,8 +24,7 @@
                         <select class="form-control" name="ticket_category_id" id="type">
                             <option value="">اختر نوع الرسالة</option>
                             @foreach ($categories as $category)
-                            <option value="{{$category->id}}"
-                                @selected($category->id == old('ticket_category_id'))>{{$category->name}}</option>
+                            <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
                         @error('ticket_category_id')
@@ -36,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="message">النص</label>
-                    <textarea class="form-control" id="text" rows="3" name="message" placeholder="اكتب النص هنا">{{ old('message') }}</textarea>
+                    <textarea class="form-control" id="text" rows="3" name="message" placeholder="اكتب النص هنا">{{ old('text') }}</textarea>
                     @error('message')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror

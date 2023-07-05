@@ -30,10 +30,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $role->name }}</td>
-                            <td>{{ $role->users->count() }}
-                                <a class="btn btn-sm btn-info" target="_blank"
-                                    href="{{ url('/admin/users?role=' . $role->name) }}"><i class="fas fa-eye"></i></a>
-                            </td>
+                            <td>{{ $role->users->count() }}</td>
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ route('admin.roles.edit', $role->id) }}" class="mx-1 btn btn-success"><i

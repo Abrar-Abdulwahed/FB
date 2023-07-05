@@ -24,7 +24,7 @@ class UserTicketController extends Controller
     {
         $ticket = Ticket::with('user', 'category')->find($id);
         $ticket->messages = TicketMessage::with('user')->where('ticket_id', $id)->get();
-        return view('admin.users.tickets.show', compact('ticket'));
+        return view('users.tickets.show', compact('ticket'));
     }
 
     public function create()
