@@ -8,7 +8,7 @@
         <div class="col-md-8 bg-white p-3 col-11 rounded-top">
             <div class="form-header py-lg-4 px-lg-4 pb-3 shadow-sm">
                 <div class="row align-items-end justify-content-center col-md-12">
-                    <div class="line col-md-6 ol-sm-10 text-center mb-5 pt-lg-3">
+                    <div class="line col-md-6 ol-sm-10 text-center mb-3 pt-lg-3">
                         <h4>إنشاء حساب جديد</h4>
                     </div>
                     {{--  <div class="row justify-content-center align-items-center mb-3">
@@ -21,10 +21,10 @@
                     <form method="POST" action="{{ route('register') }}"
                         class="form-content text-end col-md-12 justify-content-center px-lg-4">
                         @csrf
-                        <div class="row align-items-end justify-content-center p-3">
+                        <div class="row align-items-end justify-content-center px-3">
 
 
-                            <label for="name" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">الاسم<br>
+                            <label for="name" class="col-sm-11 col-lg-10 text-end fs-6 fw-bold">الاسم<br>
                                 <input type="text"name="name" value="{{ old('name') }}" placeholder=" الاسم "
                                     id="name" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
                                 @error('name')
