@@ -21,23 +21,24 @@
         .ck-editor__editable_inline {
             min-height: 400px;
         }
-        .dropdown-item a{
+
+        .dropdown-item a {
             text-decoration: none;
             color: black;
         }
     </style>
 
-     <!-- data tables -->
-<!-- data tables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
+    <!-- data tables -->
+    <!-- data tables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
 
 </head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        @include('includes.navbar')
-        @include('includes.sidebar')
+        @include('includes.admin.navbar')
+        @include('includes.admin.sidebar')
         <div class="content-wrapper mt-2">
             <div class="content">
                 <div class="container-fluid">
@@ -45,7 +46,7 @@
                 </div>
             </div>
         </div>
-        @include('includes.footer')
+        @include('includes.admin.footer')
     </div>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
@@ -54,26 +55,27 @@
     @stack('js')
 
     <!-- datatable -->
-    
- <!-- datatable -->
- <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
- <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script></body>
 
- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> 
+    <!-- datatable -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script>
+</body>
 
- <script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
- <script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
+<script>
     var table = new DataTable('#users', {
-    language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
-    },
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
+        },
     });
 
     var table = new DataTable('#short_links', {
-    language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
-    },
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
+        },
     });
 </script>
 
@@ -83,20 +85,20 @@
 
 <script>
     ClassicEditor
-        .create(document.querySelector('.ckeditor'),{
+        .create(document.querySelector('.ckeditor'), {
             language: {
                 content: 'ar'
             },
             toolbar: {
-            items: [
-                'undo', 'redo',
-                '|', 'heading','alignment',
-                '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-                '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
-                '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
-                '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
-            ],
-            shouldNotGroupWhenFull: true
+                items: [
+                    'undo', 'redo',
+                    '|', 'heading', 'alignment',
+                    '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                    '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                    '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                    '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                ],
+                shouldNotGroupWhenFull: true
             }
         })
         .then(editor => {
@@ -104,7 +106,7 @@
         })
         .catch(error => {
             console.error(error);
-    });
+        });
 </script>
 
 </html>

@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.guest')
 @section('content')
 @section('title')
     استعادة كلمة المرور
@@ -11,7 +11,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        
+
         <form class="" method="POST" action="{{ route('password.email') }}">
             @csrf
             <section class="vh-1 00 gradient-custom">
@@ -21,16 +21,18 @@
                             <div class="card text-dark" style="background-color:#ECEFF4 ; border-radius: 1rem;">
                                 <div class="card-body p-5 text-center">
                                     <div class="mb-md-2 mt-md-4 pb-4">
-                                        <h2 class="fw-bold mb-2 text-uppercase"> استعادة كلمة السر</h2>                                   
+                                        <h2 class="fw-bold mb-2 text-uppercase"> استعادة كلمة السر</h2>
                                         <div class="form-outline form-dark my-4">
-                                            <input type="email" class="form-control py-2" name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني " />
+                                            <input type="email" class="form-control py-2" name="email"
+                                                value="{{ old('email') }}" placeholder="البريد الالكتروني " />
                                             <label class="form-label" for="email"></label>
                                             @error('email')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
-                                        </div> 
-                                                                 
-                                        <button class="btn btn-dark col-12 md-4" type="submit">ارسل رابط استعادة كلمة المرور</button>
+                                        </div>
+
+                                        <button class="btn btn-dark col-12 md-4" type="submit">ارسل رابط استعادة كلمة
+                                            المرور</button>
                                     </div>
                                 </div>
                             </div>
