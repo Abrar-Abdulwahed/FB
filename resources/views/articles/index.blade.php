@@ -38,7 +38,7 @@
                 @foreach ($articles as $article)
                     <tr>
                         <td><a target="_blank"
-                                href="{{ route('admin.articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                                href="{{ route('articles.show',$article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
                             @if (!$article->image)
@@ -67,7 +67,7 @@
                         </td>
                         
                         <td>
-                            <a href="{{ route('admin.articles.show', $article->slug) }}" class="mx-1 btn btn-info"><i
+                            <a href="{{ route('articles.show',$article->slug) }}" class="mx-1 btn btn-info"><i
                                     class="fas fa-eye"></i></a>
                             <a href="{{ route('admin.articles.edit', $article->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>

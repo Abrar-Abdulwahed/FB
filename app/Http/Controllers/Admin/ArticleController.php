@@ -22,7 +22,7 @@ class ArticleController extends Controller
 
         $user = User::onlyTrashed()->with('articles')->paginate(5);
 
-        return view('articles.index', compact('articles','user'));
+        return view('articles.index', compact('articles','user'));  
     }
 
     /**
@@ -76,11 +76,11 @@ class ArticleController extends Controller
     public function show($slug)
     {
 
-        $article = Article::query()
+       /*  $article = Article::query()
             ->where('slug', '=', $slug)
             ->firstOrFail();
 
-        return view('articles.show', compact('article'));
+        return view('articles.show', compact('article')); */
     }
 
     /**
