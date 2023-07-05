@@ -3,7 +3,7 @@
 @section('title')
     تسجيل دخول
 @endsection
-    <div class="container ">
+    <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8 bg-white p-3 col-11 rounded-top">
                 <div class="form-header py-lg-4 px-lg-4 pb-3 shadow-sm">
@@ -17,19 +17,19 @@
                         </div>  --}}
                         @include('components.app_login')
                     </div>
-                    <form method="POST" action="{{ route('login') }}" class="form-content text-end col-md-12 justify-content-center py-lg-4 px-lg-4">
+                    <form method="POST" action="{{ route('login') }}" class="form-content text-end col-md-12 justify-content-center px-lg-4">
                         @csrf
                         <div class="row align-items-end justify-content-center p-3">
 
                             <label for="email" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">البريد الالكترونى<br>
-                                <input type="text"name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني "  id="email" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                            <input type="text" name="email" value="{{ old('email') }}" placeholder="البريد الالكتروني "  id="email" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
                             @error('email')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                             </label>
         
                             <label for="password" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">كلمة المرور<br>
-                                <input type="password"  name="password" placeholder="كلمة المرور" id="password" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
+                            <input type="password"  name="password" placeholder="كلمة المرور" id="password" class="border w-100 py-2 px-2 my-1 text-end fs-6 rounded mt-3 mb-3">
                             @error('password')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

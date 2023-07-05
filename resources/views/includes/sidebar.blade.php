@@ -183,6 +183,12 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            <li class="nav-item @if (Route::is('admin.custom-message.index')) ? 'active' : '' bg-primary @endif">
+                                <a href={{ route('admin.custom-message.index') }} class="nav-link">
+                                    <i class="fa fa-commenting nav-icon"></i>
+                                    <p>جميع الرسائل المخصصة</p>
+                                </a>
+                            </li>
                             <li class="nav-item @if (Route::is('admin.custom-message.create')) ? 'active' : '' bg-primary @endif">
                                 <a href={{ route('admin.custom-message.create') }} class="nav-link">
                                     <i class="fa fa-commenting nav-icon"></i>
