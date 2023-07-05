@@ -32,9 +32,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item @if (Route::is('admin.users.*')) ? 'active' : '' bg-primary @endif">
+                        <li class="nav-item @if (Route::is('admin.users.*') && request('role') == null) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">
                                 <i class="far fa-address-book nav-icon"></i>المستخدمين
+                            </a>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.users.index') && request('role') === 'admin') ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ url('/admin/users?role=' . $role->name) }}">
+                                <i class="far fa-solid fa-user-secret  nav-icon"></i>الأعضاء الأدمن
                             </a>
                         </li>
                         <li class="nav-item @if (Route::is('admin.roles.*')) ? 'active' : '' bg-primary @endif">

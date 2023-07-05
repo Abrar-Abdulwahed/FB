@@ -12,6 +12,22 @@
         الأعضاء
     </div>
     <div class="card-body">
+        <form id="filter-form" class="form-row align-items-center mb-3" action="{{ route('admin.users.index') }}"
+            method="GET">
+            <label for="role">فلترة حسب</label>
+            <div class="col-md-4">
+                <select name="role" class="form-control" id="role">
+                    <option value="all" @selected(request('role') === 'all' || null)>كل الأدوار</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->name }}" @selected(request('role') == $role->name)>
+                            {{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-sm btn-info"><i class="fa-solid fa-filter"></i></button>
+            </div>
+        </form>
         <div class="table-responsive">
             <table class="table table-striped text-center" id="users">
                 <thead>
@@ -59,8 +75,8 @@
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ route('admin.login.activity', $user->id) }}" class="mx-1 btn btn-primary"><i
-                                        class="fas fa-sign-in"></i></a>
+                                <a href="{{ route('admin.login.activity', $user->id) }}"
+                                    class="mx-1 btn btn-primary"><i class="fas fa-sign-in"></i></a>
                                 <a href="{{ route('admin.user.email_history', $user->id) }}" target="_blank"
                                     class="mx-1 btn btn-warning"><i class="fas fa-envelope"></i></a>
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="mx-1 btn btn-success"><i
