@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.layout')
 @section('title')
 عرض صفحة
 @endsection
@@ -13,7 +13,7 @@
                 title : {{ $page->title }}
             </div>
             <div>
-                content : {{ $page->content }}
+                content : {!! $page->content !!}
             </div>
         </div>
     </div>

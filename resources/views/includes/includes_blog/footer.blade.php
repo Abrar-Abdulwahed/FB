@@ -16,7 +16,7 @@ $settings = Setting::settings();
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-twitter"></i></a>
                 </div>
             </div>
-           {{--  <div class="col-lg-2 col-md-3 col-sm-6">
+            {{--  <div class="col-lg-2 col-md-3 col-sm-6">
                 <h6 class="text-center text-sm-end">مستقل</h6>
                 <ul>
                     <li>موقع مستقل</li>
@@ -29,11 +29,11 @@ $settings = Setting::settings();
                 <h6 class="text-center text-sm-end">روابط</h6>
                 <ul>
                     <li>تجربة رابط</li>
-                    
+
                 </ul>
             </div>
-            
-            
+
+
         </div>
     </div>
 </section>
@@ -42,14 +42,13 @@ $settings = Setting::settings();
 
 <!-- Start Footer -->
 <footer>
-<div class="container d-md-flex justify-content-between d-sm-block text-sm-center">
-    <ul class="d-inline-flex">
-        <li><a>اتصل بنا</a></li>
-        <li><a>الاسئلة الشائعة</a></li>
-        <li><a>شروط الاستخدام</a></li>
-        <li><a>ضمان الحقوق</a></li>
-    </ul>
-    <p>مستقل احد مشاريع شركة حسوب</p>
-</div>
+    <div class="container d-md-flex justify-content-between d-sm-block text-sm-center">
+        <ul class="d-inline-flex">
+            @foreach (App\Models\Page::where('is_in_footer', 1)->select('title', 'slug')->get() as $page)
+                <li><a href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a></li>
+            @endforeach
+        </ul>
+        <p>مستقل احد مشاريع شركة حسوب</p>
+    </div>
 </footer>
 <!-- End Footer -->

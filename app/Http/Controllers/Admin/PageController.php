@@ -40,14 +40,14 @@ class PageController extends Controller
         $validated['slug'] = Page::generateSlug($validated['title']);
 
         // store image
-        if ($request->hasFile('image')) {
-            $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
-        }
+        // if ($request->hasFile('image')) {
+        //     $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
+        // }
 
         Page::query()->create([
             'is_in_footer' => array_key_exists('is_in_footer', $validated) && $validated['is_in_footer'] == 'on' ? true : false,
             'is_in_menu' => array_key_exists('is_in_menu', $validated) && $validated['is_in_menu'] == 'on' ? true : false,
-            'image' => $validated['image'] ?? null,
+            // 'image' => $validated['image'] ?? null,
             'slug' => $validated['slug'],
             'title' => $validated['title'],
             'content' => $validated['content'],
@@ -64,12 +64,7 @@ class PageController extends Controller
     public function show($slug)
     {
 
-        $page = Page::query()->where('slug', '=', $slug)->first();
-
-        if (!$page) {
-            return redirect()->route('admin.pages.index')
-                ->with('error', 'فشل في عرض الصفحة');
-        }
+        $page = Page::query()->where('slug', '=', $slug)->firstOrFail();
 
         return view('admin.pages.show', compact('page'));
     }
@@ -107,18 +102,18 @@ class PageController extends Controller
         $validated['slug'] = Page::generateSlug($validated['title']);
 
         // store image
-        if ($request->hasFile('image')) {
-            if ($page->image) {
-                //Remove old image
-                Storage::disk('local')->delete('public/pages/' . $page->image);
-            }
-            $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
-        }
+        // if ($request->hasFile('image')) {
+        //     if ($page->image) {
+        //         //Remove old image
+        //         Storage::disk('local')->delete('public/pages/' . $page->image);
+        //     }
+        //     $validated['image'] = $this->uploadImage($request->file('image'), 'public/pages');
+        // }
 
         $page->update([
             'is_in_footer' => array_key_exists('is_in_footer', $validated) && $validated['is_in_footer'] == 'on' ? true : false,
             'is_in_menu' => array_key_exists('is_in_menu', $validated) && $validated['is_in_menu'] == 'on' ? true : false,
-            'image' => $validated['image'] ?? null,
+            // 'image' => $validated['image'] ?? null,
             'slug' => $validated['slug'],
             'title' => $validated['title'],
             'content' => $validated['content'],

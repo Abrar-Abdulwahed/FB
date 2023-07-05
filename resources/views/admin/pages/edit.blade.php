@@ -35,13 +35,13 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-12">
+                    {{-- <div class="form-group col-12">
                         <label>الصورة</label>
                         <input type="file" name="image" class="form-control">
                         @error('image')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
 
                     <div class="custom-control custom-switch mx-3 mt-2 col-12">
                         <input @checked($page->is_in_footer) type="checkbox" class="custom-control-input" id="is_in_footer" name="is_in_footer">
