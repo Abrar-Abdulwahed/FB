@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="text">النص</label>
-                    <textarea class="form-control" id="text" rows="3" name="text" placeholder="اكتب النص هنا">{{ $message->text }}</textarea>
+                    <textarea class="form-control ckeditor" id="text" rows="3" name="text" placeholder="اكتب النص هنا">{{ $message->text }}</textarea>
                     @error('text')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror

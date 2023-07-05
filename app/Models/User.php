@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Events\UserUpdated;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -32,6 +33,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'is_banned',
         'banned_until'
     ];
+    
+    // protected $dispatchesEvents = [
+    //     'saved' => UserSaved::class,
+    //     'deleted' => UserDeleted::class,
+    // ];
 
     public function getAvatarImageAttribute()
     {
@@ -59,9 +65,18 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    // Events
+    protected $dispatchesEvents = [
+        'updated' => UserUpdated::class,
+    ];
+
     // relations
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+    public function emails()
+    {
+        return $this->hasMany(UserEmailHistory::class);
     }
 }
