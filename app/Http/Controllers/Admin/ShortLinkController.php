@@ -50,18 +50,21 @@ class ShortLinkController extends Controller
     {
         $short_link = ShortLink::with('statistics')->where('slug', $param)->orWhere('id', $param)->firstOrFail();
 
+        // get user ip 
+        $ip = request()->ip();
+
         // check if visit stored in cache
         if (
-            cache()->has("link_statistics_{$short_link->id}")
-            && cache("link_statistics_{$short_link->id}") == $short_link->id
+            cache()->has("link_statistics_{$short_link->id}_{$ip}")
+            && cache("link_statistics_{$short_link->id}_{$ip}") == $short_link->id
         ) {
             return redirect()->to($short_link->url);
         }
 
         // add to cache if it does not exist 
-        cache()->put("link_statistics_{$short_link->id}", $short_link->id, now()->addDay());
+        cache()->put("link_statistics_{$short_link->id}_{$ip}", $short_link->id, now()->addDay());
 
-        $ip = request()->ip();
+
         $country = Location::get($ip) ? Location::get($ip)->countryName : Location::get()->countryName;
         $browser = Agent::browser();
         $user_agent = request()->header('user-agent');
