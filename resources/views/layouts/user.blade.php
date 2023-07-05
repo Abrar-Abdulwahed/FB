@@ -49,11 +49,38 @@
  <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script></body>
 
  <script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
+ <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+
  <script>
+
     var table = new DataTable('#users', {
-    language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
-    },
-});
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
+        },
+    });
+
+    ClassicEditor
+        .create(document.querySelector('.ckeditor'),{
+            language: {
+                content: 'ar'
+            },
+            toolbar: {
+            items: [
+                'undo', 'redo',
+                '|', 'heading','|','alignment:right',
+                '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                '|', 'bulletedList','numberedList','todoList', 'outdent', 'indent'
+            ],
+            shouldNotGroupWhenFull: true
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+    });
  </script>
 </html>

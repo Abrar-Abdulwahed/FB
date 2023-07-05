@@ -27,14 +27,14 @@
                     </div>
                     <div class="form-group col-12">
                         <label>المحتوى</label>
-                        <textarea name="content" id="content" class="form-control">{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" class="form-control ckeditor">{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-12">
                         <label>الوصف</label>
-                        <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" class="form-control ckeditor">{{ old('description') }}</textarea>
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -82,19 +82,7 @@
 @endsection
 
 @push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#description'), {
-                height: '400px'
-            })
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+  
 
   <!-- Bootstrap Switch -->
   <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>

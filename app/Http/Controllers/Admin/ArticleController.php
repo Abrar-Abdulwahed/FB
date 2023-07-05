@@ -64,7 +64,7 @@ class ArticleController extends Controller
             $article->categories()->sync($validated['categories']);
         }
 
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم اضافة المقال بنجاح');
     }
 

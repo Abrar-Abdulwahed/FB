@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Http\Controllers\Admin\FileUploadController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\FaqController;
@@ -39,7 +42,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
     Route::resource('comments', ArticleComment::class);
-    Route::resource('deleted_comments', DeletedArticleCommentController::class);
+    Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
+    Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
 
     Route::resource('articles-categories', ArticleCategoryController::class);
     Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
@@ -67,4 +71,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
     Route::resource('ads', AdController::class)->except('show');
 
     // Route::resource('email/history', EmailHistoryController::class)->only('index', 'show', 'destroy');
+    Route::get('uploads/{id}/download', [FileUploadController::class, 'download'])->name('uploads.download');
+    Route::resource('uploads', FileUploadController::class)->except('show', 'edit', 'update');
 });

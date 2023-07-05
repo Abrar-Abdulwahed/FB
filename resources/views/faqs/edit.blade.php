@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label> الاجابة</label>
-                    <textarea name="answer" id="answer" class="form-control">{!! $faq->answer !!}</textarea>
+                    <textarea name="answer" id="answer" class="form-control ckeditor">{!! $faq->answer !!}</textarea>
                     @error('answer')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror

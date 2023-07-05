@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-7">
                     <div class="card-body">
-                        <p class="card-text">{!! $comment->comment!!}.</p>
+                        <p class="card-text">{!! $comment->comment!!}</p>
 
                         <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small>
                         </p>
@@ -46,7 +46,7 @@
         <div class="row">
             <div class="form-group col-12">
                 <input type="hidden" name="article_id" value="{{ $article->id }}">
-                <textarea name="comment" id="comment" class="form-control">{{ old('comment') }}</textarea>
+                <textarea name="comment" id="comment" class="form-control ckeditor">{{ old('comment') }}</textarea>
                 @error('comment')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -60,16 +60,3 @@
     </form>
 @endsection
 
-@push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#comment'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-@endpush

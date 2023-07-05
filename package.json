@@ -14,6 +14,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-alignment": "^38.1.0",
         "sweetalert2": "^11.7.12"
     }
 }

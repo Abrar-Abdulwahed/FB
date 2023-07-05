@@ -21,6 +21,11 @@ class ArticleComment extends Controller
         return view('article_comments.index', compact('comments'));
     }
 
+    public function deletedComments(){
+        $comments = ModelsArticleComment::onlyTrashed()->paginate(5);;
+        return view('article_comments.deleted_comments',compact('comments'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -45,6 +50,12 @@ class ArticleComment extends Controller
         ]);
         return redirect()->back()->with('success','تم اضافة التعليق بنجاح');
 
+    }
+
+    public function restoreComments(Request $request,$id){
+        $comment =ModelsArticleComment::withTrashed()->where('id',$id)->restore();
+        return redirect()->route('admin.comments.index')
+            ->with('success', 'تم استعادة التعليق بنجاح');
     }
 
     /**

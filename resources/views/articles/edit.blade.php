@@ -66,14 +66,14 @@
                     </div>
                     <div class="form-group col-12">
                         <label>المحتوى</label>
-                        <textarea name="content" id="content" class="form-control">{{ old('content', $article->content) }}</textarea>
+                        <textarea name="content" id="content" class="form-control ckeditor">{{ old('content', $article->content) }}</textarea>
                         @error('content')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-12">
                         <label>الوصف</label>
-                        <textarea name="description" id="description" class="form-control">{{ old('description', $article->description) }}</textarea>
+                        <textarea name="description" id="description" class="form-control ckeditor">{{ old('description', $article->description) }}</textarea>
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror

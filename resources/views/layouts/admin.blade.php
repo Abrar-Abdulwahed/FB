@@ -21,6 +21,10 @@
         .ck-editor__editable_inline {
             min-height: 400px;
         }
+        .dropdown-item a{
+            text-decoration: none;
+            color: black;
+        }
     </style>
 
      <!-- data tables -->
@@ -76,15 +80,17 @@
 
 
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 
 <script>
     ClassicEditor
-        .create(document.querySelector('#answer'),{
+        .create(document.querySelector('.ckeditor'),{
+            language: {
+                content: 'ar'
+            },
             toolbar: {
             items: [
                 'undo', 'redo',
-                '|', 'heading',
+                '|', 'heading','alignment',
                 '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
                 '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
                 '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
@@ -99,26 +105,6 @@
         .catch(error => {
             console.error(error);
     });
-
-    ClassicEditor
-    .create(document.querySelector('#content'),{
-        toolbar: {
-            items: [
-                'undo', 'redo',
-                '|', 'heading',
-                '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-                '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
-                '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
-                '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
-            ],
-            shouldNotGroupWhenFull: true
-            }
-    })
-    .then(editor => {
-        console.log(editor);
-    })
-    .catch(error => {
-        console.error(error);
-    });
 </script>
+
 </html>
