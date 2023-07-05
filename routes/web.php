@@ -37,7 +37,7 @@ Route::group([], function () {
     Route::get('articles/{slug}', [UserArticleController::class, 'show'])
         ->name('articles.show');
     Route::post('articles/comments', [UserArticleController::class, 'store'])
-    ->name('articles.comments');
+    ->name('articles.comments')->middleware('auth');
 
     Route::get('pages/{slug}', [PageController::class, 'show'])
         ->name('pages.show');
