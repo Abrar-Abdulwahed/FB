@@ -3,7 +3,7 @@
 @section('title')
     مقالات الاقسام
 @endsection
-<a href={{ route('admin.articles-categories.create') }} class="btn btn-info float-left my-2"> <i
+<a href={{ route('admin.blogs-categories.create') }} class="btn btn-info float-left my-2"> <i
         class="fa-solid fa-plus"></i>
     إضافة</a>
 <div class="clearfix"></div>
@@ -29,7 +29,7 @@
                         <td>{{ $category->title }}</td>
                         <td>{{ $category->slug }} </td>
                         <td>
-                            <a href="{{ route('admin.articles-categories.edit', $category->id) }}"
+                            <a href="{{ route('admin.blogs-categories.edit', $category->id) }}"
                                 class="mx-1 btn btn-success"><i class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                 data-target="#confirm-delete-{{ $category->id }}">
@@ -52,7 +52,7 @@
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
                                             <form
-                                                action="{{ route('admin.articles-categories.destroy', $category->id) }}"
+                                                action="{{ route('admin.blogs-categories.destroy', $category->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')

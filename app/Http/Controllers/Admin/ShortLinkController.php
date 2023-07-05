@@ -17,7 +17,7 @@ class ShortLinkController extends Controller
     {
         //
         $short_links = ShortLink::paginate(5);
-        return view('short_links.index', compact('short_links'));
+        return view('admin.short_links.index', compact('short_links'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ShortLinkController extends Controller
     public function create()
     {
         //
-        return view('short_links.create');
+        return view('admin.short_links.create');
     }
 
     /**
@@ -99,7 +99,7 @@ class ShortLinkController extends Controller
     {
         //
         $short_link = ShortLink::find($id);
-        return view('short_links.edit', compact('short_link'));
+        return view('admin.short_links.edit', compact('short_link'));
     }
 
     /**
@@ -188,6 +188,6 @@ class ShortLinkController extends Controller
         ]);
 
 
-        return view('short_links.statistics', compact('donutData', 'pieData', 'countryVisits', 'browserVisits'));
+        return view('admin.short_links.statistics', compact('donutData', 'pieData', 'countryVisits', 'browserVisits'));
     }
 }

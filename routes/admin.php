@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\LoginActivity;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Admin\ArticleComment;
+use App\Http\Controllers\Admin\Blog\TagController;
+use App\Http\Controllers\Admin\Blog\ArticleComment;
 use App\Http\Controllers\Admin\PageController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\Blog\ArticleController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TicketsController;
@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\ShortLinkController;
 use App\Http\Controllers\Admin\EmailHistoryController;
 use App\Http\Controllers\Admin\CustomMessageController;
 use App\Http\Controllers\Admin\TicketCategoryController;
-use App\Http\Controllers\Admin\ArticleCategoryController;
+use App\Http\Controllers\Admin\Blog\ArticleCategoryController;
 use App\Http\Controllers\Admin\DeletedArticleCommentController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
@@ -45,13 +45,13 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     Route::get('/login-activity', [LoginActivity::class, 'index'])->name('login.activity')->middleware('auth');
 
-    Route::resource('articles', ArticleController::class)->middleware('feature:article');
+    Route::resource('blogs', ArticleController::class)->middleware('feature:article');
     Route::resource('comments', ArticleComment::class);
     Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
     Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
 
-    Route::resource('articles-categories', ArticleCategoryController::class);
-    Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
+    Route::resource('blogs-categories', ArticleCategoryController::class);
+    Route::get('blogs/categories/{slug}', [ArticleController::class, 'category'])->name('blogs.category');
     Route::resource('TicketsCategory', TicketCategoryController::class)->except(['show']);
     Route::resource('tickets', TicketsController::class);
 
