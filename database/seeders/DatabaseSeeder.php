@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             PaymentSeeder::class,
             ContentSeeder::class,
+            SettingSeederTwo::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

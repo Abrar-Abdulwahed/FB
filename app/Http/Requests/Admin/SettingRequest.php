@@ -48,6 +48,11 @@ class SettingRequest extends FormRequest
             'email_confirm_enable'=>'required|string|in:on,off',
             'comment_enable'=>'required|string|in:on,off',
             'short_link_enable'=>'required|string|in:on,off',
+            'telegram_report_enable'=>'required|string|in:on,off',
+            'telegram_chat_id'=>'required|string',
+            'telegram_token'=>'required|string',
+            'slack_report_enable'=>'required|string|in:on,off',
+            'slack_url'=>'required|url',
         ];
     }
 }
