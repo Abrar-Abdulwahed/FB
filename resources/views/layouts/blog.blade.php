@@ -1,52 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', '')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/blog/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/blog/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('css/blog/styles.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Roboto+Slab&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300&family=Noto+Serif:wght@300&family=Roboto+Condensed:wght@300&family=Roboto+Slab&display=swap"
+        rel="stylesheet">
 
-    <style>
-        figcaption p , figure p{
-            text-align:right;
-        }
-        .dropdown-item a{
-            text-decoration: none;
-            color: black;
-        }
-
-
-    </style>
 </head>
 
 <body class="bg-body-secondary m-o p-0">
     <!-- Start navbar -->
-    @include('includes.includes_blog.navbar')      
+    @include('includes.blog.navbar')
     <!-- End navbar -->
 
     <!-- Start content -->
-    @yield('content')      
+    @yield('content')
     <!-- End content -->
 
     <!-- Start Footer -->
-    @include('includes.includes_blog.footer')
+    @include('includes.blog.footer')
     <!-- End Footer -->
-
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/blog/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/blog/main.js') }}"></script>
 </body>
+
 </html>

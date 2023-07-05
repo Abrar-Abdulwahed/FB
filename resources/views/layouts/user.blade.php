@@ -15,25 +15,24 @@
 
     @stack('css')
 
-     <!-- data tables -->
-<!-- data tables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
+    <!-- data tables -->
+    <!-- data tables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.2.1/css/fixedColumns.dataTables.min.css">
 
 </head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        @include('includes.navbar')
-        @include('includes.sidebar')
-        <div class="content-wrapper mt-2">
+        @include('includes.user.navbar')
+        <div class="mt-2">
             <div class="content">
                 <div class="container-fluid">
                     @yield('content')
                 </div>
             </div>
         </div>
-        @include('includes.footer')
+        @include('includes.user.footer')
     </div>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
@@ -42,17 +41,17 @@
     @stack('js')
 
     <!-- datatable -->
-    
- <!-- datatable -->
- <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
- <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
- <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script></body>
 
- <script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
- <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+    <!-- datatable -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/4.2.1/js/dataTables.fixedColumns.min.js"></script>
+</body>
 
- <script>
+<script src="//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 
+<script>
     var table = new DataTable('#users', {
         language: {
             url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json',
@@ -60,20 +59,20 @@
     });
 
     ClassicEditor
-        .create(document.querySelector('.ckeditor'),{
+        .create(document.querySelector('.ckeditor'), {
             language: {
                 content: 'ar'
             },
             toolbar: {
-            items: [
-                'undo', 'redo',
-                '|', 'heading','|','alignment:right',
-                '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-                '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
-                '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
-                '|', 'bulletedList','numberedList','todoList', 'outdent', 'indent'
-            ],
-            shouldNotGroupWhenFull: true
+                items: [
+                    'undo', 'redo',
+                    '|', 'heading', '|', 'alignment:right',
+                    '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                    '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                    '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                    '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                ],
+                shouldNotGroupWhenFull: true
             }
         })
         .then(editor => {
@@ -81,6 +80,7 @@
         })
         .catch(error => {
             console.error(error);
-    });
- </script>
+        });
+</script>
+
 </html>

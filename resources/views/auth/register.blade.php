@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.guest')
 @section('content')
 @section('title')
     تسجيل حساب جديد
@@ -51,7 +51,8 @@
                                 @enderror
                             </label>
 
-                            <label for="password_confirmation" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold"> تاكيد
+                            <label for="password_confirmation" class="col-sm-11 col-lg-10 text-end py-1 fs-6 fw-bold">
+                                تاكيد
                                 كلمة المرور<br>
                                 <input type="password" name="password_confirmation" placeholder="تأكيد كلمة المرور"
                                     id="password_confirmation"
@@ -81,11 +82,12 @@
                             </div>
 
                             <div class="text-center m-3">
-                                <p class="mb-0">هل تملك حساب بالفعل؟<a href="{{ route('login') }}" class="text-primary-50 fw-bold">تسجيل الدخول</a>
+                                <p class="mb-0">هل تملك حساب بالفعل؟<a href="{{ route('login') }}"
+                                        class="text-primary-50 fw-bold">تسجيل الدخول</a>
                                 </p>
                             </div>
                     </form>
-                 @else
+                @else
                     <div class="alert alert-warning" role="alert">
                         التسجيل مغلق مؤقتا
                     </div>

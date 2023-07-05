@@ -1,12 +1,11 @@
 <?php
 
-use Logger\TelegramLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 
-return [
+$config = [
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +54,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily' , 'telegram'],
+            'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -131,8 +130,8 @@ return [
 
         'telegram' => [
             'driver' => 'custom',
-            'via'    => Logger\TelegramLogger::class,
-            'level'  => 'error',
+            'via' => Logger\TelegramLogger::class,
+            'level' => 'error',
             'chat_id' => env('TELEGRAM_CHAT_ID'),
             'token' => env('TELEGRAM_BOT_TOKEN'),
         ],
@@ -141,7 +140,14 @@ return [
 ];
 
 if (env('APP_ENV') == 'production') {
-    $config['channels']['stack']['channels'] = ['daily', 'slack'];
+    if (true) {
+        $config['channels']['stack']['channels'][] = 'telegram';
+    }
+    if (true) {
+        $config['channels']['stack']['channels'][] = 'slack';
+    }
 }
+
+// dd($config['channels']['stack']['channels']);
 
 return $config;

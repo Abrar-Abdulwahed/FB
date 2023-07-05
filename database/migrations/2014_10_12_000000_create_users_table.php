@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->boolean('is_banned')->default(false);
             $table->timestamp('banned_until')->nullable();
+            $table->dateTime('last_activity')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
