@@ -47,8 +47,8 @@
                                     إضافية</a>
                             </li>
                             <li class="nav-item {{ $errors->hasAny(['password']) ? 'bg-danger' : '' }}">
-                                <a class="nav-link" id="reset-db-tab" data-toggle="pill" href="#reset-db" role="tab"
-                                    aria-controls="reset-db" aria-selected="false">تهيئة قاعدة البيانات</a>
+                                <a class="nav-link" id="cleanup-tab" data-toggle="pill" href="#cleanup" role="tab"
+                                    aria-controls="cleanup" aria-selected="false">التنظيف</a>
                             </li>
                         </ul>
                     </div>
@@ -362,11 +362,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="reset-db" role="tabpanel"
-                                    aria-labelledby="reset-db-tab">
+                                <div class="tab-pane fade" id="cleanup" role="tabpanel" aria-labelledby="cleanup-tab">
                                     <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
                                         data-target="#confirm-reset-db">
                                         تهيئة قاعدة البيانات
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                    <button type="button" class="mx-1 btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#confirm-clear-session-cookie">
+                                        حذف الجلسات وملفات تعريف الارتباط
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                    <button type="button" class="mx-1 btn btn-info btn-sm" data-toggle="modal"
+                                        data-target="#confirm-clear-cache">
+                                        حذف التخزين المؤقت
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>
@@ -391,8 +400,10 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 {{-- <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button> --}}
-                                <form action="{{ route('admin.settings.reset') }}" method="POST">
+                                <form action="{{ route('admin.settings.cleanup', ['action' => 'reset-db']) }}"
+                                    method="POST">
                                     @csrf
+                                    @method('DELETE')
                                     <div class="row mb-3">
                                         <label for="password"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
@@ -425,6 +436,56 @@
                                         </div>
                                     </div>
                                     {{-- <button type="submit" class="btn btn-dark btn-md">نعم</button> --}}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-clear-session-cookie">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد تنظيف الجلسات وملفات تعريف الارتباط</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <p>هل أنت متأكد من هذه الخطوة؟ يؤدي هذا الخيار إلى تسجيل خروجك من النظام
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                <form action="{{ route('admin.settings.cleanup', ['action' => 'clear-session-cookie']) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-clear-cache">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد حذف الكاش</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <p>قد يتم تحميل الموقع بشكل أبطأ عند زيارته في المرة القادمة
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                <form action="{{ route('admin.settings.cleanup', ['action' => 'clear-cache']) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
                                 </form>
                             </div>
                         </div>
@@ -507,7 +568,7 @@
             $('#confirm-reset-db').modal('show');
         @endif
         ClassicEditor
-            .create(document.querySelector('#reason_locked'),{
+            .create(document.querySelector('#reason_locked'), {
                 language: {
                     content: 'ar'
                 },

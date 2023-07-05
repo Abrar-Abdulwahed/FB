@@ -56,7 +56,7 @@ class SettingController extends Controller
         //
         $user = User::findOrFail($id);
 
-        return view('users.settings.edit', compact('user'));
+        return view('admin.users.settings.edit', compact('user'));
     }
 
     /**

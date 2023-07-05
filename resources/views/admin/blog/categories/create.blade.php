@@ -10,7 +10,7 @@
                 مقالات الاقسام
             </div>
             <div class="card-body">
-                <form action="{{ Route('admin.articles-categories.store') }}" method="post">
+                <form action="{{ Route('admin.blogs-categories.store') }}" method="post">
                     @csrf
                     <div class="form-group">
                         <label>العنوان</label>

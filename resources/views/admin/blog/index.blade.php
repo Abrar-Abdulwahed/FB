@@ -11,7 +11,7 @@
 @section('title')
     الأعضاء
 @endsection
-<a href={{ route('admin.articles.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
+<a href={{ route('admin.blogs.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     اضافة مقال</a>
 <div class="clearfix"></div>
 @include('partials.session')
@@ -37,7 +37,7 @@
                 @foreach ($articles as $article)
                     <tr>
                         <td><a target="_blank"
-                                href="{{ route('admin.articles.show', $article->slug) }}">{{ $article->title }}</a></td>
+                                href="{{ route('admin.blogs.show', $article->slug) }}">{{ $article->title }}</a></td>
                         <td>
 
                             @if (!$article->image)
@@ -53,17 +53,17 @@
                                 <span class="span-tag bg-warning rounded px-1 w-50">{{ $tag->name }}</span>
                             @endforeach
                         </td>
-                        
+
                         <td>
                             @foreach ($article->categories as $category)
                                 <span class="span-tag bg-warning rounded px-1 w-50">{{ $category->title }}</span>
                             @endforeach
                         </td>
-                        
+
                         <td>
-                            <a href="{{ route('admin.articles.show', $article->slug) }}" class="mx-1 btn btn-info"><i
+                            <a href="{{ route('admin.blogs.show', $article->slug) }}" class="mx-1 btn btn-info"><i
                                     class="fas fa-eye"></i></a>
-                            <a href="{{ route('admin.articles.edit', $article->id) }}" class="mx-1 btn btn-success"><i
+                            <a href="{{ route('admin.blogs.edit', $article->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
                                 data-target="#confirm-delete-{{ $article->id }}">
@@ -85,7 +85,7 @@
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
                                                 data-dismiss="modal">إغلاق</button>
-                                            <form action="{{ route('admin.articles.destroy', $article->id) }}"
+                                            <form action="{{ route('admin.blogs.destroy', $article->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')

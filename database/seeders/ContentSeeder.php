@@ -8,7 +8,6 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Seeder as ModelsSeeder;
 use App\Models\Tag;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ContentSeeder extends Seeder
@@ -43,12 +42,12 @@ class ContentSeeder extends Seeder
             $article_1 = Article::query()->create([
                 'title' => 'مرحبا بك ',
                 'slug' => 'article-1-test',
-                'content' => 'anything'
+                'content' => 'anything',
             ]);
             $article_2 = Article::query()->create([
                 'title' => 'تجربة مقال ثاني',
                 'slug' => 'article-2-test',
-                'content' => 'anything'
+                'content' => 'anything',
             ]);
 
             $article_1->tags()->sync([$tag_1->id, $tag_2->id]);
@@ -63,7 +62,7 @@ class ContentSeeder extends Seeder
                 Page::query()->create([
                     'title' => $title,
                     'slug' => 'page-' . $key + 1 . '-test',
-                    'content' => 'anything'
+                    'content' => 'anything',
                 ]);
             }
 
@@ -71,6 +70,8 @@ class ContentSeeder extends Seeder
                 'title' => 'anything',
                 'answer' => 'anything',
             ]);
+
+            ModelsSeeder::create(array('class_name' => __CLASS__));
         }
     }
 }
