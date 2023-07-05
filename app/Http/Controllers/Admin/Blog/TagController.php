@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Blog\Tag\TagValidation;
@@ -15,7 +15,7 @@ class TagController extends Controller
     {
         //
         $tags = Tag::paginate(5);
-        return view('tags.index', compact('tags'));
+        return view('admin.blog.tags.index', compact('tags'));
     }
 
     /**
@@ -24,7 +24,7 @@ class TagController extends Controller
     public function create()
     {
         //
-        return view('tags.create');
+        return view('admin.blog.tags.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class TagController extends Controller
     {
         $tag = Tag::query()->where('slug', '=', $slug)->firstOrFail();
 
-        return view('tags.show', compact('tag'));
+        return view('admin.blog.tags.show', compact('tag'));
     }
 
 
@@ -55,7 +55,7 @@ class TagController extends Controller
     {
         //
         $tag = Tag::find($id);
-        return view('tags.edit', compact('tag'));
+        return view('admin.blog.tags.edit', compact('tag'));
     }
 
     /**
