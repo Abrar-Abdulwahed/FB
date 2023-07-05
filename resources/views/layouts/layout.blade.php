@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> {{ config('app.name') }}| @yield('title')</title>
    
+    <link rel="stylesheet" href="{{ asset('css/blog/styles.css') }}">
+
     <link href="{{ asset('plugins/auth/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/auth/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/auth/css/style.css') }}" rel="stylesheet">
@@ -24,12 +26,12 @@
 
 <body class="bg-body-secondary">
     <!-- navbar -->
-    @include('layouts.navbar')
+    @include('includes.includes_blog.navbar')
 
     @yield('content')
 
     <!-- footer -->
-    @include('layouts.footer')
+    @include('includes.includes_blog.footer')
 
 
 
