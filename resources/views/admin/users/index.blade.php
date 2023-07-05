@@ -75,7 +75,9 @@
                                     <span class="badge bg-black">{{ $role->name }}</span>
                                 @endforeach
                             </td>
-                            <td>{{ $user->last_activity != null ? Carbon\Carbon::parse($user->last_activity)->diffForHumans(Carbon\Carbon::now()) : 'لم يظهر' }}</td>
+                            <td>{{ Carbon\Carbon::parse($user->last_activity) }}
+                                <br>
+                                {{ $user->last_activity != null ? Carbon\Carbon::parse($user->last_activity)->diffForHumans(Carbon\Carbon::now()) : 'لم يظهر' }}</td>
                             <td>
                                 <a href="{{ route('admin.login.activity', $user->id) }}"
                                     class="mx-1 btn btn-primary"><i class="fas fa-sign-in"></i></a>
