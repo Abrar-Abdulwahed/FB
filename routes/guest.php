@@ -1,13 +1,9 @@
 <?php
-use App\Http\Controllers\User\SettingController;
-use App\Http\Controllers\User\UserArticleController;
-use App\Http\Controllers\User\UserTicketController;
-use Illuminate\Support\Facades\Route;
 
-Route::prefix('profile')->group(function () {
-    Route::resource('ticket', UserTicketController::class);
-});
-Route::resource('profile', SettingController::class);
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\ShortLinkController;
+use App\Http\Controllers\User\UserArticleController;
+use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
     Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
