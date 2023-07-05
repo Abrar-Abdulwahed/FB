@@ -1,6 +1,5 @@
 <?php
 
-use Logger\TelegramLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -55,7 +54,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily' , 'telegram'],
+            'channels' => ['daily', 'telegram', 'slack'],
             'ignore_exceptions' => false,
         ],
 
@@ -80,7 +79,7 @@ return [
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
             // 'level' => env('LOG_LEVEL', 'critical'),
-            'level' => 'emergency',
+            'level' => 'error',
             'replace_placeholders' => true,
         ],
 
@@ -131,8 +130,8 @@ return [
 
         'telegram' => [
             'driver' => 'custom',
-            'via'    => Logger\TelegramLogger::class,
-            'level'  => 'error',
+            'via' => Logger\TelegramLogger::class,
+            'level' => 'error',
             'chat_id' => env('TELEGRAM_CHAT_ID'),
             'token' => env('TELEGRAM_BOT_TOKEN'),
         ],
