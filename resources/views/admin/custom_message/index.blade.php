@@ -21,6 +21,7 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>الرمز</th>
+                        <th>العنوان</th>
                         <th>اللغة</th>
                         <th>النوع</th>
                         <th>النص</th>
@@ -33,11 +34,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->code }}</td>
+                            <td>{{ $item->subject }}</td>
                             <td>{{ $item->language }}</td>
                             <td><span
                                     class="badge {{ $item->type == 'sms' ? 'bg-danger' : 'bg-success' }}">{{ $item->type }}</span>
                             </td>
-                            <td>{{ \Str::limit($item->text, 50, '...') }}</td>
+                            <td>{!! \Str::limit($item->text, 50, '...') !!}</td>
                             <td>
                                 <form class="enable-message-form"
                                     action="{{ route('admin.custom-message.changeActive', $item->id) }}" method="POST">
