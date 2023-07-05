@@ -37,6 +37,11 @@
                                 <i class="far fa-address-book nav-icon"></i>المستخدمين
                             </a>
                         </li>
+                        <li class="nav-item @if (Route::is('admin.users.index') && request('role') === 'admin') ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ url('/admin/users?role=' . 'admin') }}">
+                                <i class="far fa-solid fa-user-secret  nav-icon"></i>الأعضاء الأدمن
+                            </a>
+                        </li>
                         <li class="nav-item @if (Route::is('admin.roles.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.roles.index') }}">
                                 <i class="fa fa-tasks nav-icon"></i>الأدوار
