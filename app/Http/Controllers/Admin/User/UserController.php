@@ -23,12 +23,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::all();
-        $selectedRole = $request->input('role') ?? "all";
+        $roles = Role::all();        
         $query = User::query();
-        if ($selectedRole && $selectedRole !== "all") {
-            $query->whereHas('roles', function ($query) use ($selectedRole) {
-                $query->where('name', $selectedRole);
+
+        if($request->has('role') && $request->role !== "all") {
+            $query->whereHas('roles', function ($query) use($request){
+                $query->where('name', $request->role);
             });
         }
         $users = $query->with('roles')->get();
