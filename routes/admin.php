@@ -25,8 +25,14 @@ use App\Http\Controllers\Admin\DeletedArticleCommentController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 
 Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(function () {
-    Route::resource('settings', SettingController::class)->only('index', 'store');
     Route::get('/', [AdminHomeController::class, 'index'])->name('index')->middleware('check_user');
+
+    //Settings routes
+	Route::prefix('settings')->name('settings.')->group(function () {
+        Route::resource('/', SettingController::class)->only('index', 'store');
+        Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+    });
+
     Route::resource('custom-message', CustomMessageController::class)->except('show');
     Route::patch('custom-message/{msg}/active', [CustomMessageController::class, 'changeActive'])
         ->name('custom-message.changeActive');
@@ -38,7 +44,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
 
     Route::get('/login-activity', [LoginActivity::class, 'index'])->name('login.activity')->middleware('auth');
-    Route::post('settings/resetdb', [App\Http\Controllers\Admin\SettingController::class, 'reset'])->name('settings.reset');
 
     Route::resource('articles', ArticleController::class)->middleware('feature:article');
     Route::resource('comments', ArticleComment::class);
