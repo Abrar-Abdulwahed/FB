@@ -36,6 +36,8 @@ Route::group([], function () {
     Route::get('articles', [UserArticleController::class, 'index'])->name('articles.index');
     Route::get('articles/{slug}', [UserArticleController::class, 'show'])
         ->name('articles.show');
+    Route::post('articles/comments', [UserArticleController::class, 'store'])
+    ->name('articles.comments');
 
     Route::get('pages/{slug}', [PageController::class, 'show'])
         ->name('pages.show');

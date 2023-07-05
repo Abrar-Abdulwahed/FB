@@ -49,6 +49,17 @@ html{
 		position: absolute;
 		right: 20px;
 	}
+	#sec-8 .comment{
+		display: flex;
+		flex-direction: row;
+	}
+	#sec-8 form{
+		width: 78% !important;
+		height: 78% !important;
+	}
+	#sec-8 form .comm-area .box{
+		width: 92% !important;
+	}
 }
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
@@ -88,6 +99,136 @@ html{
 	margin-right: -100px;
 }
 /* End Section-1 */
+
+/* Section 7 */
+#sec-7{
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	width: 75%;
+	margin: auto;
+}
+#sec-7 img {
+	width: 40%;
+	display: block;
+	border-radius: 50%;
+	box-shadow: 0 0 10px 3px #02c6fd;
+	margin: auto;
+}
+#sec-7 figure {
+	margin-bottom: 15px;
+}
+#sec-2 figure figcaption {
+	background-color: #fff;
+	color: #000;
+	padding: 15px 10px;
+	margin-right: 10px;
+}
+.caption{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.caption a{
+	text-decoration: none;
+	color: rgb(12, 12, 254);
+}
+#sec-7 figure figcaption p{
+	text-align: justify;
+	font-size: 1rem;
+	text-align: end;
+	word-spacing: 1.5px;
+	line-height: 30px;
+	margin-top: 15px;
+	padding-bottom: 20px;
+	border-bottom: 1.5px solid #000;
+}
+#sec-7 h3{
+	font-size: 45px;
+	font-weight: bolder;
+	margin-bottom: 30px;
+}
+
+#sec-7 figure figcaption .bold{
+	font-weight: bolder;
+	text-align: end;
+	color: rgb(71, 71, 251);
+}
+#sec-7 figure .cont-1{
+	text-align: justify;
+	font-size: 1rem;
+	text-align: end;
+	word-spacing: 1.5px;
+	line-height: 30px;
+	padding: 0 15px;
+}
+#sec-7 figure .cont-2{
+	text-align: justify;
+	font-size: 1rem;
+	text-align: end;
+	word-spacing: 1.5px;
+	line-height: 30px;
+	padding: 0 15px;
+	border-bottom: 1.5px solid #000;
+	padding-bottom: 20px;
+}
+#sec-7 h4{
+	font-size: 25px;
+	font-weight: bolder;
+	margin-bottom: 10px;
+	color: #434242;
+	text-align: right;
+	padding: 0 15px;
+}
+
+/* Start Section-8 */
+#sec-8 form{
+	margin-left: 90px;
+	width: 83.5%;
+	direction: rtl;
+	height: 360px;
+	margin-bottom: 50px;
+}
+#sec-8 h5{
+	padding: 0;
+	margin: 0 90px 25px 0;
+	font-size: 25px;
+}
+#sec-8 form .f-1{
+	margin-bottom: 15px;
+	justify-content: space-around;
+}
+#sec-8 form .f-1 .inp-1{
+	box-shadow: 1px 1px 3px 3px #c5d7f5;
+	border: none;
+	background-color: #fafafa;
+	outline:none ;
+	border-radius: 6px;
+	line-height: 2;
+	width: 100%;
+}
+#sec-8 form .f-1 .in-1{
+	margin-bottom: 10px;
+}
+#sec-8 form .comm-area .box{
+	margin-top: 10px;
+	box-shadow: 1px 1px 3px 3px #c5d7f5;
+	border: none;
+	border-radius: 6px;
+}
+#sec-8 form .comm-area{
+	margin-right: 35px;
+	margin-bottom: 15px;
+}
+#sec-8 form .btn{
+	margin-right: 35px;
+	margin-bottom: 10px;
+	padding: 10px;
+	text-align: left;
+	cursor:pointer
+}
 
 /* Start Section-2 */
 #sec-2 figure img{

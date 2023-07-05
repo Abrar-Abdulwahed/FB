@@ -1,6 +1,6 @@
 @extends('layouts.blog')
 
-@section('title', 'المدونة')
+@section('title', 'المقالات')
 
 @section('content')
     <!-- Start Section-2 -->
@@ -17,7 +17,7 @@
                         
                         <figcaption>
                             <div class="caption">
-                                <a href="#">{{ $article->title }}</a>
+                                <a href="{{ route('articles.show',$article->slug) }}">{{ $article->title }}</a>
                                 <span>{{ $article->created_at->format('d M Y') }}</span>
                             </div>
                             <div> <span class="bold text-end"> {{ $article->description }} </span>
