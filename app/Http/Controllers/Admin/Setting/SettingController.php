@@ -7,6 +7,7 @@ use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
@@ -142,7 +143,7 @@ class SettingController extends Controller
 
         foreach(array_diff(scandir($directory), array('..', '.')) as $file) {
             if($file !== ".gitignore") {
-                Storage::delete($directory . '/' . $file);
+                File::delete($directory . '/' . $file);
             }
         }
         foreach ($_COOKIE as $key => $value) {
