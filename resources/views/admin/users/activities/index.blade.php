@@ -32,21 +32,11 @@
                                     <thead>
                                         <tr>
                                             <th>status</th>
-                                            @if ($activity->subject_type === 'App\Models\User')
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>avatar</th>
-                                                <th>is_banned</th>
-                                                <th>banned_until</th>
-                                            @elseif ($activity->subject_type === 'App\Models\Article')
-                                                <th>slug</th>
-                                                <th>image</th>
-                                                <th>title</th>
-                                                <th>content</th>
-                                                <th>description</th>
-                                            @elseif ($activity->subject_type === 'App\Models\Role')
-                                                <th>name</th>
-                                            @endif
+                                            @foreach ($activity->properties as $values)
+                                                @foreach ($values as $key => $value)
+                                                    <th>{{ $key }}</th>
+                                                @endforeach
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>

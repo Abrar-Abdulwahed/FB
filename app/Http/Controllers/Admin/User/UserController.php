@@ -152,8 +152,9 @@ class UserController extends Controller
             ->where('causer_type', '=', User::class)
             ->where('causer_id', '=', $user->id)
             ->get();
+            
 
-        // dd($activities->first());
+        // dd($activities->first()->properties['old']);
 
         return view('admin.users.activities.index', compact('activities'));
     }
