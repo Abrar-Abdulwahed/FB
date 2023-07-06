@@ -62,7 +62,7 @@
                         </td>
 
                         <td>
-                            <img src="{{ asset('storage/avatars/' . $article->user->avatar) }}"
+                            <img src="{{ $article->user->avatar_image }}"
                                 style="width:50px; height:50px" class="rounded circle"><br>
                             {{ $article->user->name }}
                         </td>
