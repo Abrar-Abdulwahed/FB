@@ -158,6 +158,7 @@ class UserController extends Controller
         $activities = Activity::query()
             ->where('causer_type', '=', User::class)
             ->where('causer_id', '=', $user->id)
+            ->orderByDesc('created_at')
             ->get();
 
         return view('admin.users.activities.index', compact('activities'));
