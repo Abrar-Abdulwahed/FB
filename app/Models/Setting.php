@@ -12,7 +12,12 @@ class Setting extends Model
         'name',
         'value',
     ];
-
+    protected function imageDefault(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Storage::url($this->attributes['site_logo']),
+        );
+    }
     public static function settings(){
         foreach(Setting::pluck('name')->all() as $key){
             $getSettings[$key]=Setting::where('name', $key)->value('value');

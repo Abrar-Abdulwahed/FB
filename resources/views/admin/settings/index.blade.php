@@ -80,7 +80,7 @@
                                                 <div class="img-preview">
                                                     <input type="file" id="file-1" accept="image/*" name="site_logo">
                                                     <label for="file-1" id="file-1-preview" class="w-100 h-100">
-                                                        <img src={{ $settings['site_logo'] ? asset('storage/' . $settings['site_logo']) : 'https://bit.ly/3ubuq5o' }}
+                                                        <img src={{ asset('storage/' . $settings['site_logo']) }}
                                                             alt="">
                                                         <div>
                                                             <span>+</span>
