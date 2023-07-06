@@ -19,19 +19,19 @@
                         </li>
 
                         <li class="dropdown-item"><i class="nav-icon fa-solid fa-user nav-icon"></i><a
-                                href="{{ route('profile.edit', auth()->user()->id) }}">البروفايل</a></li>
+                                href="{{ route('user.profile.edit', auth()->user()->id) }}">البروفايل</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li class="dropdown-item"><i class="nav-icon fa-solid fa-plus nav-icon"></i><a
-                                href="{{ route('ticket.create') }}">انشاء تذكره</a></li>
+                                href="{{ route('user.ticket.create') }}">انشاء تذكره</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a
-                                href="{{ route('ticket.index') }}">قائمه التذاكر</a></li>
+                                href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
 
                         <li class="dropdown-divider"></li>
                         <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a

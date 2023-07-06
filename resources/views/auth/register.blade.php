@@ -82,7 +82,7 @@
                             </div>
 
                             <div class="text-center m-3">
-                                <p class="mb-0">هل تملك حساب بالفعل؟<a href="{{ route('login') }}"
+                                <p class="mb-0 text-center">هل تملك حساب بالفعل؟<a href="{{ route('login') }}"
                                         class="text-primary-50 fw-bold">تسجيل الدخول</a>
                                 </p>
                             </div>

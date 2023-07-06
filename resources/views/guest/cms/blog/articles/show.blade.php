@@ -2,6 +2,7 @@
 
 @section('title', $article->title)
 @section('content')
+
     @if (session()->has('error'))
         <p class="alert alert-danger" role="alert">{{ session('error') }}</p>
     @endif
@@ -9,19 +10,43 @@
         <section id="sec-9" class="mb-5">
             <div class="container">
                 <div class="row">
+                    <nav aria-label="breadcrumb" style="direction: rtl">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="{{ route('guest.articles.index') }}">الصفحة الرئيسية</a></li>
+                          <li class="breadcrumb-item">
+                            <a href="#">
+                                @foreach ($article->categories as $item)
+                                {{ $item->title }}
+                                @endforeach
+                                
+                            </a>
+                          </li>
+                          <li class="breadcrumb-item active" aria-current="page">{{ $article->title }}</li>
+                        </ol>
+                    </nav>
                     <div class="d-flex justify-content-center bg-white">
                         <figure class="col-xs-12">
-                            <div class="caption mx-3 my-3">
-                                <span> {{ $article->created_at->format('d M Y') }} </span>
+                            <div class="caption mx-5 my-3 text-center">
+                                <span class="text-center"> {{ $article->created_at->format('d M Y') }} </span>
                             </div>
                             <h3 class="text-center">{{ $article->title }}</h3>
-                            <img src="{{ asset('storage/articles/' . $article->image) }}" alt="">
-
+                            @if (!empty($article->image))
+                                <img src="{{ asset('storage/articles/' . $article->image) }}" alt="">
+                            @else
+                                <img src="{{ $article->image_default }}" alt="">
+                            @endif
                             <h4>
                                 <p> <span class="bold"> {{ $article->description }}</span>
                             </h4>
                             <p class="cont-1">{!! $article->content !!}</p>
+                            
                         </figure>
+                        
+                    </div>
+                    <div class="col-xs-12">
+                        @foreach ($article->tags as $tag)
+                            <span class="badge bg-black">{{ $tag->name }}</span>
+                        @endforeach
                     </div>
                     <div class="col-sm-12 my-4 bg-white">
                         <div class="row py-4">

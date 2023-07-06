@@ -12,7 +12,7 @@
             إنشاء رسالة
         </div>
         <div class="card-body">
-            <form id="quickForm" method="POST" action={{ route('ticket.store') }}>
+            <form id="quickForm" method="POST" action={{ route('user.ticket.store') }}>
                 @csrf
                 <div class="form-group mt-4">
                     <label for="message">العنوان</label>

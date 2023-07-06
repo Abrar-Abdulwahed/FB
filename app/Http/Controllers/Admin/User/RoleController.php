@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\Role\RoleDestroyRequest;
 use App\Http\Requests\Admin\User\Role\RoleStoreRequest;
 use App\Http\Requests\Admin\User\Role\RoleUpdateRequest;
 use App\Models\Role;
@@ -78,7 +79,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(RoleDestroyRequest $request,$id)
     {
         $role = Role::query()->find($id);
 
