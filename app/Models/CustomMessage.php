@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomMessage extends Model
 {
@@ -16,6 +17,11 @@ class CustomMessage extends Model
         'text',
         'is_active',
     ];
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('is_active', 1);
+    }
 
     public function setIsActiveAttribute($value)
     {

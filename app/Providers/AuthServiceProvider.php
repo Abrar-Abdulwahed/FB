@@ -26,21 +26,25 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
-            $message = CustomMessage::where('code', 'verification.message')->first();
-            return (new MailMessage)
-                ->subject($message->subject)
-                ->line(str_replace("userName", $notifiable->name, $message->text))
-                ->action('تفعيل البريد الالكتروني', $url);
-        });
+        $verifyEmailMsg = CustomMessage::active()->where('code', 'verification.message')->first();
+        if($verifyEmailMsg){
+            VerifyEmail::toMailUsing(function (object $notifiable, string $url) use ($verifyEmailMsg) {
+                return (new MailMessage)
+                    ->subject('تفعيل الايميل')
+                    ->line(str_replace("userName", $notifiable->name, $verifyEmailMsg->text))
+                    ->action('تفعيل البريد الالكتروني', $url);
+            });
+        }
 
-        ResetPassword::toMailUsing(function (object $notifiable, string $token) {
-            $message = CustomMessage::where('code', 'password.reset_message')->first();
-            return (new MailMessage)
-                ->subject($message->subject)
-                ->line(str_replace("userName", $notifiable->name, $message->text))
-                ->action(Lang::get('Reset Password'), url('/').'/password/reset/'.$token)
-                ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]));
-        });
+        $resetPasswordMsg = CustomMessage::active()->where('code', 'password.reset_message')->first();
+        if($resetPasswordMsg){
+            ResetPassword::toMailUsing(function (object $notifiable, string $token) use ($resetPasswordMsg) {
+                return (new MailMessage)
+                    ->subject(Lang::get('Reset Password Notification'))
+                    ->line(str_replace("userName", $notifiable->name, $resetPasswordMsg->text))
+                    ->action(Lang::get('Reset Password'), url('/').'/password/reset/'.$token)
+                    ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]));
+            });
+        }
     }
 }
