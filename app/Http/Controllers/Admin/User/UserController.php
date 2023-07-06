@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $roles = Role::all();
-        $query = User::withTrashed();
+        $query = User::query();
 
         if ($request->has('role') && $request->role !== "all") {
             $query->whereHas('roles', function ($query) use ($request) {
@@ -32,11 +32,12 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->with('roles')->get();
-
         if ($request->has('trashed')) {
-            $users = $query->whereNotNull('deleted_at')->get();
+            $query->withTrashed()->get();
         }
+
+
+        $users = $query->with('roles')->get();
 
         return view('admin.users.index', compact('users', 'roles'));
     }
