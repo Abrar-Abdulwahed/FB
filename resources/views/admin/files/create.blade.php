@@ -10,8 +10,10 @@
     <div class="container-fluid pt-3">
 
         @include('partials.session')
-        @if (session()->has('errors'))
-            <div id="dropzone-errors"></div>
+        @if (session()->has('file-type-error'))
+            <div class='alert alert-danger'>
+                {{ session('file-type-error') }}
+            </div>
         @endif
 
         <div class="card shadow-sm">
@@ -134,7 +136,6 @@
                 // حذف الملف من قائمة الرفع وإظهار رسالة خطأ
                 // myDropzone.removeFile(file);
                 // alert('غير مسموح بادخال هذا النوع من الملفات');
-                {{ session()->put('error', 'غير مسموح بادخال هذا النوع من الملفات') }}
             }
             file.previewElement.querySelector(".start").onclick = function() {
                 myDropzone.enqueueFile(file)
@@ -174,6 +175,7 @@
         })
 
         myDropzone.on("error", function(file, response) {
+            console.log(response.errors);
             // Parse the response JSON to get the validation errors
             var errors = response.errors;
 
@@ -182,6 +184,8 @@
             errorContainer.innerHTML = "";
 
             for (var field in errors) {
+                console.log(field)
+                {{ session()->put('file-type-error', 'غير مسموح بادخال هذا النوع من الملفات') }}
                 var errorMessage = errors[field].join("<br>");
                 errorContainer.innerHTML += "<div class='alert alert-danger'>" + errorMessage + "</div>";
 

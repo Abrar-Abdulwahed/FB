@@ -25,7 +25,7 @@ class FileUploadRequest extends FormRequest
             'file' => 'required|mimetypes:video/*,audio/*,image/*,!text/html,!text/css,!application/javascript,!application/x-httpd-php',
         ];
     }
-    
+
     public function messages(): array
     {
         return [
