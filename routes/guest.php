@@ -25,7 +25,7 @@ Route::group(['as' => 'guest.'], function () {
         Route::post('articles/comments', [ArticleController::class, 'store'])
             ->name('articles.comments')->middleware('auth');
 
-        Route::get('faq', [FaqController::class, 'index'])
+        Route::get('support/faq', [FaqController::class, 'index'])
             ->name('support.faq.index');
     });
 

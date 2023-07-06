@@ -11,7 +11,6 @@ class FaqController extends Controller
     {
         $faqs = Faq::all();
 
-        return "error";
-        // return view('admin.users.faqs.index', compact('faqs'));
+        return view('guest.cms.faqs.index', compact('faqs'));
     }
 }

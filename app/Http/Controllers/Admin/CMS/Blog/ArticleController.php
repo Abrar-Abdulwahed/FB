@@ -132,7 +132,7 @@ class ArticleController extends Controller
             $article->categories()->sync($validated['categories']);
         }
 
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم تعديل الدور بنجاح');
     }
 
@@ -149,7 +149,7 @@ class ArticleController extends Controller
             Storage::disk('local')->delete('public/articles/' . $article->image);
         }
 
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', 'تم حذف المقال بنجاح');
     }
 

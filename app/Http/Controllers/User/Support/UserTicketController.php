@@ -35,16 +35,14 @@ class UserTicketController extends Controller
 
     public function store(StoreTicketRequest $request)
     {
-        $user_id = auth()->id();
-        $ticket = Ticket::create([
-            'user_id' => $user_id,
-            'ticket_category_id' => $request->type,
-            'subject' => $request->subject,
-            'message' => $request->message,
-        ]);
-        if ($ticket) {
-            return redirect()->route("ticket.create")->with('success', 'تمت اضافه التذكره بنجاح');
-        }
+        $validated = $request->validated();
 
+        $validated = array_merge($validated, [
+            'user_id' => $request->user()->id
+        ]);
+
+        Ticket::query()->create($validated);
+
+        return redirect()->route('ticket.index')->with('success', 'تمت اضافه التذكره بنجاح');
     }
 }

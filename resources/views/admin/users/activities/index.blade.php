@@ -32,22 +32,20 @@
                                     <thead>
                                         <tr>
                                             <th>status</th>
-                                            <th>name</th>
-                                            <th>email</th>
-                                            <th>avatar</th>
-                                            <th>is_banned</th>
-                                            <th>banned_until</th>
+                                            @foreach ($activity->properties as $values)
+                                                @foreach ($values as $key => $value)
+                                                    <th>{{ $key }}</th>
+                                                @endforeach
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($activity->properties as $key => $value)
+                                        @forelse ($activity->properties as $key => $values)
                                             <tr>
                                                 <td>{{ $key === 'old' ? 'old' : 'new' }}</td>
-                                                <td>{{ $value['name'] ?? '' }}</td>
-                                                <td>{{ $value['email'] ?? '' }}</td>
-                                                <td>{{ $value['avatar'] ?? '' }}</td>
-                                                <td>{{ $value['is_banned'] ?? '' }}</td>
-                                                <td>{{ $value['banned_until'] ?? '' }}</td>
+                                                @foreach ($values as $value)
+                                                    <td>{{ $value }}</td>
+                                                @endforeach
 
                                             </tr>
                                         @empty
