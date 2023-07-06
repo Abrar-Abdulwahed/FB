@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
 use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
 use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
 use App\Http\Controllers\Admin\CMS\Faq\FaqController;
-use App\Http\Controllers\Admin\Cms\Page\PageController;
+use App\Http\Controllers\Admin\CMS\Page\PageController;
 use App\Http\Controllers\Admin\FileUpload\FileUploadController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Setting\CustomMessage\CustomMessageController;

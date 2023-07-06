@@ -597,7 +597,7 @@
             $('#confirm-reset-db').modal('show');
         @endif
         ClassicEditor
-            .create(document.querySelector('#reason_locked'),{
+            .create(document.querySelector('#reason_locked'), {
                 language: {
                     content: 'ar'
                 },

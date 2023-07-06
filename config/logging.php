@@ -139,14 +139,6 @@ $config = [
 
 ];
 
-if (env('APP_ENV') == 'production') {
-    if (true) {
-        $config['channels']['stack']['channels'][] = 'telegram';
-    }
-    if (true) {
-        $config['channels']['stack']['channels'][] = 'slack';
-    }
-}
 
 // dd($config['channels']['stack']['channels']);
 
