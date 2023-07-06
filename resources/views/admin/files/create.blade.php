@@ -134,6 +134,7 @@
                 // حذف الملف من قائمة الرفع وإظهار رسالة خطأ
                 // myDropzone.removeFile(file);
                 // alert('غير مسموح بادخال هذا النوع من الملفات');
+                {{ session()->put('error', 'غير مسموح بادخال هذا النوع من الملفات') }}
             }
             file.previewElement.querySelector(".start").onclick = function() {
                 myDropzone.enqueueFile(file)
@@ -183,6 +184,7 @@
             for (var field in errors) {
                 var errorMessage = errors[field].join("<br>");
                 errorContainer.innerHTML += "<div class='alert alert-danger'>" + errorMessage + "</div>";
+
             }
 
             // Remove the file from the upload queue

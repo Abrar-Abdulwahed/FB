@@ -37,7 +37,7 @@ class FileUploadController extends Controller
         FileUpload::query()->create([
             'name' => $file_name,
         ]);
-
+        session()->forget('error');
         // Return the file data
         return response()->json([
             'name' => $file->hashName(),
