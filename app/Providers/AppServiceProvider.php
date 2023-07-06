@@ -33,11 +33,18 @@ class AppServiceProvider extends ServiceProvider
             foreach ($settings as $setting) {
                 config()->set($setting['name'], $setting['value']);
             }
-            
-            //Event to send email for user
-            // User::created(function($user){
-            //     Mail::to($user)->send(new WelcomeUser($user));
-            // });
+
+            $channels = ['daily'];
+
+            if (app()->environment() == 'production') {
+                if (Setting::where('name', 'telegram_report_enable')->first()?->value === "on") {
+                    $channels[] = 'telegram';
+                }
+                if (Setting::where('name', 'slack_report_enable')->first()?->value === "on") {
+                    $channels[] = 'slack';
+                }
+            }
+            config()->set('logging.channels.stack.channels', $channels);
         }
 
     }

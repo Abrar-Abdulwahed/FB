@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SettingRequest;
 use App\Models\Setting;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\SettingRequest;
 
 class SettingController extends Controller
 {
@@ -20,18 +22,15 @@ class SettingController extends Controller
      */
     public function index()
     {
-
-        $settings = $this->cache();
+        $settings = $this->cacheOrGet();
         return view('admin.settings.index', compact('settings'));
     }
 
-    public function cache()
-    {
-        $keys = Setting::pluck('name')->all();
-        foreach ($keys as $key) {
-            $value = Cache::rememberForever("settings.{$key}", function () use ($key) {
-                return Setting::where('name', $key)->value('value');
-            });
+    public function cacheOrGet(){
+        $cachedSettings = Cache::rememberForever("settings", function () {
+            return Setting::pluck('value', 'name')->toArray();
+        });
+        foreach ($cachedSettings as $key=>$value) {
             $settings[$key] = $value;
         }
         return $settings;
@@ -76,7 +75,7 @@ class SettingController extends Controller
                 'mail.mailers.smtp.password' => $request?->mail_password,
                 'mail.from.address' => $request?->mail_from_address,
                 'mail.from.name' => $request?->mail_from_name,
-                'header_script' => $request->header_script,
+                'header_script' => $request->header_script ,
                 'footer_script' => $request->footer_script,
                 'faq_enable' => $request->faq_enable ? "on" : "off",
                 'article_enable' => $request->article_enable ? "on" : "off",
@@ -93,8 +92,8 @@ class SettingController extends Controller
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);
-                Cache::forever("settings.{$name}", $value);
             }
+            Cache::forever("settings", $settings);
             DB::commit();
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         } catch (\Throwable $e) {
@@ -103,20 +102,65 @@ class SettingController extends Controller
         }
     }
 
-    public function reset(Request $request)
+    public function cleanup(Request $request)
+    {
+        $action = $request->query('action');
+        switch ($action) {
+            case 'reset-db':
+                $this->resetDatabase($request);
+                break;
+            case 'clear-session-cookie':
+                $this->clearSessionCookie();
+                break;
+            case 'clear-cache':
+                $this->clearCache();
+                break;
+            default:
+                abort(404);
+        }
+        return redirect()->route('admin.index');
+    }
+
+    protected function resetDatabase(Request $request)
     {
         $request->validate([
-            'password' => 'required|current_password',
+            'password' => 'required|current_password'
         ]);
         try {
-            foreach (Setting::pluck('name')->all() as $name) {
-                Cache::forget("settings.{$name}");
-            }
+            Cache::forget("settings");
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
-            // $this->cache();
             return redirect()->route('admin.index');
         } catch (\Throwable $e) {
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
+    }
+
+    protected function clearSessionCookie(){
+        Session::flush();
+        // remove all session files manually
+        $directory = storage_path('framework/sessions');
+
+        foreach(array_diff(scandir($directory), array('..', '.')) as $file) {
+            if($file !== ".gitignore") {
+                Storage::delete($directory . '/' . $file);
+            }
+        }
+        foreach ($_COOKIE as $key => $value) {
+            Cookie::forget($key);
+        }
+        return redirect()->route('admin.index');
+    }
+
+    protected function clearCache(){
+        Artisan::call('cache:clear');
+        Cache::flush();
+        // remove all cache files manually
+        $directory = storage_path('framework/cache/data');
+        foreach(array_diff(scandir($directory), array('..', '.')) as $file) {
+            if($file !== ".gitignore" && File::isDirectory($directory)) {
+                File::deleteDirectory($directory . '/' . $file);
+            }
+        }
+        return redirect()->route('admin.index');
     }
 }

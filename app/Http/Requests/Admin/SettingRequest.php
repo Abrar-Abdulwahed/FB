@@ -52,7 +52,7 @@ class SettingRequest extends FormRequest
             'telegram_chat_id'=>'required|string',
             'telegram_token'=>'required|string',
             'slack_report_enable'=>'required|string|in:on,off',
-            'slack_url'=>'required|url',
+            'slack_url'=>'nullable|url|starts_with:https://hooks.slack.com/services/',
         ];
     }
 }

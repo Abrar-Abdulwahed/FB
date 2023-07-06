@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
 use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
 use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
 use App\Http\Controllers\Admin\CMS\Faq\FaqController;
-use App\Http\Controllers\Admin\Cms\Page\PageController;
+use App\Http\Controllers\Admin\CMS\Page\PageController;
 use App\Http\Controllers\Admin\FileUpload\FileUploadController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Setting\CustomMessage\CustomMessageController;
@@ -66,10 +66,12 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     // Settings
     Route::group([], function () {
-        Route::resource('settings', SettingController::class)->only('index', 'store');
-
         Route::group(['prefix' => 'settings'], function () {
-            Route::post('settings/resetdb', [SettingController::class, 'reset'])->name('settings.reset');
+            //Settings routes
+            Route::name('settings.')->group(function () {
+                Route::resource('/', SettingController::class)->only('index', 'store');
+                Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+            });
 
             Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
                 ->name('payments.changeActive');
