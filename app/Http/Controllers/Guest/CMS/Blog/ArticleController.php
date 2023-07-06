@@ -19,8 +19,8 @@ class ArticleController extends Controller
     public function show($slug)
     {
 
-        $article = Article::query()->where('slug', '=', $slug)->firstOrFail();
-
+        $article = Article::with('categories')->where('slug', '=', $slug)->firstOrFail();
+        //dd($article->categories);
         return view('guest.cms.blog.articles.show', compact('article'));
     }
 
