@@ -24,14 +24,20 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $roles = Role::all();
-        $query = User::query();
+        $query = User::withTrashed();
 
         if ($request->has('role') && $request->role !== "all") {
             $query->whereHas('roles', function ($query) use ($request) {
                 $query->where('name', $request->role);
             });
         }
+
         $users = $query->with('roles')->get();
+
+        if ($request->has('trashed')) {
+            $users = $query->whereNotNull('deleted_at')->get();
+        }
+
         return view('admin.users.index', compact('users', 'roles'));
     }
 
@@ -152,9 +158,6 @@ class UserController extends Controller
             ->where('causer_type', '=', User::class)
             ->where('causer_id', '=', $user->id)
             ->get();
-            
-
-        // dd($activities->first()->properties['old']);
 
         return view('admin.users.activities.index', compact('activities'));
     }
