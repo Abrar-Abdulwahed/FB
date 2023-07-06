@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+/* $middlewares = [];
+if($emailVerificationRequired){
+   $middlewares[] = 'verified';
+} */
+
 Route::group([], __DIR__ . '/guest.php');
 Route::group([], __DIR__ . '/user.php');
 Route::group([], __DIR__ . '/auth.php');
