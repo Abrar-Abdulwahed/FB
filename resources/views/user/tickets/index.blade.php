@@ -54,7 +54,7 @@
 
                             <td class="text-right py-0 align-middle">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('ticket.show', $item->id) }}" class="mx-1 btn btn-success">مشاهده
+                                    <a href="{{ route('user.ticket.show', $item->id) }}" class="mx-1 btn btn-success">مشاهده
                                         الرساله</i></a>
                                 </div>
                             </td>

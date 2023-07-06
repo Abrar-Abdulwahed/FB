@@ -12,7 +12,7 @@
         تعديل بيانات المستخدم
     </div>
     <div class="card-body">
-        <form action="{{ Route('profile.update', $user->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ Route('user.profile.update', $user->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
