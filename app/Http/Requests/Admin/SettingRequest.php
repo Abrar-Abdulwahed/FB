@@ -24,7 +24,7 @@ class SettingRequest extends FormRequest
         return [
             'app_name' => 'required|string',
             'site_description' => 'required|string',
-            'site_logo' => 'nullable|image|mimes:png',
+            'site_logo' => 'nullable|image',
             'site_status' => 'required|in:active,inactive',
             'reason_locked' => 'required_if:site_status,inactive|nullable',
             'google_enable' => 'required|string|in:on,off',
