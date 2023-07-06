@@ -14,17 +14,22 @@
         <div class="card-body">
             <form id="quickForm" method="POST" action={{ route('ticket.store') }}>
                 @csrf
-                <input type="text" name="subject" placeholder="العنوان">
-                @error('subject')
-                    <p class="text-danger small">{{ $message }}</p>
-                @enderror
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="form-group mt-4">
+                    <label for="message">العنوان</label>
+                    <input type="text" name="subject" class="form-control" value="{{ old('subject') }}"
+                        placeholder="العنوان">
+                    @error('subject')
+                        <p class="text-danger small">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-row mt-4">
+                    <div class="form-group col-md-12">
                         <label for="type">النوع</label>
                         <select class="form-control" name="ticket_category_id" id="type">
                             <option value="">اختر نوع الرسالة</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}" @selected(old('ticket_category_id') == $category->id)>{{ $category->name }}
+                                </option>
                             @endforeach
                         </select>
                         @error('ticket_category_id')
@@ -33,9 +38,9 @@
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-4">
                     <label for="message">النص</label>
-                    <textarea class="form-control" id="text" rows="3" name="message" placeholder="اكتب النص هنا">{{ old('text') }}</textarea>
+                    <textarea class="form-control" id="text" rows="3" name="message" placeholder="اكتب النص هنا">{{ old('message') }}</textarea>
                     @error('message')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
