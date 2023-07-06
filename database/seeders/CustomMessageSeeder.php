@@ -19,6 +19,7 @@ class CustomMessageSeeder extends Seeder
             $messages = [
                 [
                     'code' => 'register.message',
+                    'subject'=> 'إنشاء حساب في موقعنا',
                     'type' => 'email',
                     'language' => 'ar',
                     'text' => '
@@ -29,6 +30,7 @@ class CustomMessageSeeder extends Seeder
                 ],
                 [
                     'code' => 'verification.message',
+                    'subject'=> 'تفعيل الإيميل',
                     'type' => 'email',
                     'language' => 'ar',
                     'text' => '
@@ -39,6 +41,7 @@ class CustomMessageSeeder extends Seeder
                 ],
                 [
                     'code' => 'register.welcome_message',
+                    'subject'=> 'نرحب بك في موقعنا',
                     'type' => 'email',
                     'language' => 'ar',
                     'text' => '
@@ -53,6 +56,7 @@ class CustomMessageSeeder extends Seeder
                 ],
                 [
                     'code' => 'password.reset_message',
+                    'subject'=> 'تنبيه استعادة كلمة المرور',
                     'type' => 'email',
                     'language' => 'ar',
                     'text' => '
@@ -63,6 +67,7 @@ class CustomMessageSeeder extends Seeder
                 ],
                 [
                     'code' => 'password.change_message',
+                    'subject'=> 'تغيير كلمة المرور',
                     'type' => 'email',
                     'language' => 'ar',
                     'text' => '
@@ -76,6 +81,7 @@ class CustomMessageSeeder extends Seeder
             foreach ($messages as $message) {
                 CustomMessage::create([
                     'code' => $message['code'],
+                    'subject' => $message['subject'],
                     'type' => $message['type'],
                     'language' => $message['language'],
                     'text' => $message['text'],
