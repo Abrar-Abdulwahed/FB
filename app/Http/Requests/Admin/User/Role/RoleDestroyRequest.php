@@ -33,10 +33,10 @@ class RoleDestroyRequest extends FormRequest
         return [
             function (Validator $validator) {
                 $id = $this->route()->parameters['role'];
-                if(Role::where(['id'=>1])->where('users', fn($q) => $q->where('name','admin'))
-                ->where('name','user')->count() == 0){
+                //dd($id);
+                if($id==1 || $id==2){
                     $validator->errors()->add(
-                        'users',
+                        'roles',
                        ' ممنوع الحذف',
                     );
                 }
