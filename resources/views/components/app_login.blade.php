@@ -11,6 +11,6 @@
             role="button">
             <i class="fab fa-google mx-2 px-2"></i>تسجيل الدخول عن طريق جوجل
         </a>
-        <p class="mt-3">أو</p>
+        <p class="mt-3 text-center">أو</p>
     @endif
 </div>

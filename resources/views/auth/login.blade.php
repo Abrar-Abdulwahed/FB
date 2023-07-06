@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="text-center m-3">
-                            <p class="mb-0">ليس لديك حساب ؟ <a href="{{ route('register') }}"
+                            <p class="mb-0 text-center">ليس لديك حساب ؟ <a href="{{ route('register') }}"
                                     class="text-primary-50 fw-bold">انشاء حساب </a>
                             </p>
                         </div>
