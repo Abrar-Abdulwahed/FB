@@ -13,6 +13,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300&family=Noto+Serif:wght@300&family=Roboto+Condensed:wght@300&family=Roboto+Slab&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 </head>
 
@@ -29,5 +31,6 @@
     @include('includes.blog.footer')
     <!-- End Footer -->
 </body>
-
+<script src="{{ asset('js/blog/bootstrap.bundle.js') }}"></script>
+<script src="{{ asset('js/blog/main.js') }}"></script>
 </html>
