@@ -1,0 +1,33 @@
+.message {
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.message p {
+
+  margin: 0;
+  font-size: 16px;
+}
+
+.user-avatar img {
+
+  width: 80%;
+  border-radius: 50%;
+}
+
+.admin-tag {
+  background-color: #2c09ee;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.admin-message {
+  background-color: #3498db;
+  color: #fff;
+}

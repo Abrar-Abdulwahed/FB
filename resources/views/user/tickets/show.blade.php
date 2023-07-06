@@ -1,5 +1,9 @@
 @extends('layouts.user')
 
+@push('css')
+    <link rel="stylesheet" href="{{ asset('css/support/tickets.css') }}">
+@endpush
+
 @section('content')
     <div class="clearfix"></div>
     @if (session()->has('success'))
@@ -27,13 +31,13 @@
                                     @if ($ticket->user->role == 'admin')
                                         <div class="admin-tag">Admin</div>
                                     @else
-                                        <div>User</div>
+                                        <div class="admin-tag" style="background-color:#2ecc71">User</div>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="col-10">
-                                <div>
+                                <div class="message @if ($ticket->is_admin == 1) admin-message @endif">
                                     <p>{{ $ticket->message }}</p>
                                 </div>
                             </div>
@@ -45,24 +49,30 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-2 text-center">
-                                    <div>
+                                    <div class="user-avatar">
                                         <img src="{{ asset('storage/avatars/' . $message->user->avatar) }}"
                                             alt="User avatar">
                                         {{ $message->user->name }}
                                         @if ($message->is_admin)
-                                            <div>Admin</div>
+                                            <div class="admin-tag">Admin</div>
                                         @else
-                                            <div>User</div>
+                                            <div class="admin-tag" style="background-color:#2ecc71">User</div>
                                         @endif
                                     </div>
                                 </div>
 
                                 <div class="col-10">
-                                    <div>
-                                        <p>{{ $message->message }}</p>
+                                    <div class="message @if ($message->is_admin) admin-message @endif">
+                                        <div class="d-flex justify-content-between">
+
+                                            <p>{{ $message->message }}</p>
+                                            <div class="d-flex flex-column" style="font-size: 10px">
+                                                <span>{{ $message->created_at }}</span>
+                                                <span>{{ $message->created_at->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         </br>

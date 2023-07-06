@@ -36,7 +36,7 @@
                                     class="badge bg-success">
                                     @if(isset($item->category->name)){{ $item->category->name }} 
                                     @else
-                                    null
+                                    لا يوجد
                                     @endif
                                 </span>
                             </td>
@@ -44,12 +44,12 @@
                             
                             @if ($item->status)
                             <td><span class="badge bg-success">
-                                open
+                                مفتوح
                             </span>
                         </td>
                             @else
                             <td><span class="badge bg-danger">
-                                closed
+                                مغلق
                             </span>
                         </td>
                             @endif
