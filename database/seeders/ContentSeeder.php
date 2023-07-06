@@ -8,6 +8,7 @@ use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Seeder as ModelsSeeder;
 use App\Models\Tag;
+use App\Models\TicketCategory;
 use Illuminate\Database\Seeder;
 
 class ContentSeeder extends Seeder
@@ -71,6 +72,10 @@ class ContentSeeder extends Seeder
             Faq::query()->create([
                 'title' => 'anything',
                 'answer' => 'anything',
+            ]);
+
+            TicketCategory::query()->create([
+                'name' => 'عام'
             ]);
 
             ModelsSeeder::create(array('class_name' => __CLASS__));
