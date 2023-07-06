@@ -12,6 +12,7 @@
                         @if (!empty($article->image))
                             <img src="{{ asset('storage/articles/' . $article->image) }}" alt="">
                         @else
+                            <img src="{{ $article->image_default }}" alt="">
                         @endif
 
                         <figcaption>

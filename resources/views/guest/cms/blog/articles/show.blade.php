@@ -15,8 +15,11 @@
                                 <span> {{ $article->created_at->format('d M Y') }} </span>
                             </div>
                             <h3 class="text-center">{{ $article->title }}</h3>
-                            <img src="{{ asset('storage/articles/' . $article->image) }}" alt="">
-
+                            @if (!empty($article->image))
+                                <img src="{{ asset('storage/articles/' . $article->image) }}" alt="">
+                            @else
+                                <img src="{{ $article->image_default }}" alt="">
+                            @endif
                             <h4>
                                 <p> <span class="bold"> {{ $article->description }}</span>
                             </h4>
