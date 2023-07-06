@@ -30,22 +30,32 @@
                             <td>
                                 <table>
                                     <thead>
-                                        {{-- <tr>
+                                        <tr>
                                             <th>status</th>
-                                            <th>name</th>
-                                            <th>email</th>
-                                            <th>avatar</th>
-                                            <th>is_banned</th>
-                                            <th>banned_until</th>
-                                        </tr> --}}
+                                            @if ($activity->subject_type === 'App\Models\User')
+                                                <th>name</th>
+                                                <th>email</th>
+                                                <th>avatar</th>
+                                                <th>is_banned</th>
+                                                <th>banned_until</th>
+                                            @elseif ($activity->subject_type === 'App\Models\Article')
+                                                <th>slug</th>
+                                                <th>image</th>
+                                                <th>title</th>
+                                                <th>content</th>
+                                                <th>description</th>
+                                            @elseif ($activity->subject_type === 'App\Models\Role')
+                                                <th>name</th>
+                                            @endif
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($activity->properties as $key => $values)
                                             <tr>
                                                 <td>{{ $key === 'old' ? 'old' : 'new' }}</td>
-                                               @foreach ($values as $value)
-                                                   <td>{{ $value }}</td>
-                                               @endforeach
+                                                @foreach ($values as $value)
+                                                    <td>{{ $value }}</td>
+                                                @endforeach
 
                                             </tr>
                                         @empty
