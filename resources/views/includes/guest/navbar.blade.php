@@ -99,7 +99,7 @@
                 @foreach (App\Models\Page::where('is_in_menu', 1)->select('title', 'slug')->get() as $page)
                     <li class="nav-item">
                         <a class="nav-link p-2 p-lg-3 active"
-                            href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a>
+                            href="{{ route('guest.pages.show', $page->slug) }}">{{ $page->title }}</a>
                     </li>
                 @endforeach
             </ul>

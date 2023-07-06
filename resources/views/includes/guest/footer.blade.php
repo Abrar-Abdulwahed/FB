@@ -45,7 +45,7 @@ $settings = Setting::settings();
     <div class="container d-md-flex justify-content-between d-sm-block text-sm-center">
         <ul class="d-inline-flex">
             @foreach (App\Models\Page::where('is_in_footer', 1)->select('title', 'slug')->get() as $page)
-                <li><a href="{{ route('pages.show', $page->slug) }}">{{ $page->title }}</a></li>
+                <li><a href="{{ route('guest.pages.show', $page->slug) }}">{{ $page->title }}</a></li>
             @endforeach
         </ul>
         <p>مستقل احد مشاريع شركة X</p>
