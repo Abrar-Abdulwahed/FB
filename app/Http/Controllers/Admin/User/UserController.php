@@ -33,7 +33,7 @@ class UserController extends Controller
         }
 
         if ($request->has('trashed')) {
-            $query->withTrashed()->get();
+            $query->onlyTrashed()->get();
         }
 
 
