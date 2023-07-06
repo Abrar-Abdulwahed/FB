@@ -2,17 +2,17 @@
 
 @section('title', 'عرض مقالة')
 @section('content')
-    {{-- @if (session()->has('success'))
+    @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
     @endif
     @if (session()->has('error'))
         <p class="alert alert-danger" role="alert">{{ session('error') }}</p>
     @endif
     <div class="bg-body-secondary">
-        <section id="sec-7" class="mb-5">
+        <section id="sec-9" class="mb-5">
             <div class="container">
                 <div class="row">
-                    <div class="d-flex justify-content-end bg-white">
+                    <div class="d-flex justify-content-center bg-white">
                         <figure class="col-xs-12">
                             <div class="caption mx-3 my-3">
                                 <span> {{ $article->created_at->format('d M Y') }} </span>
@@ -26,20 +26,11 @@
                             <p class="cont-1">{!! $article->content !!}</p>
                         </figure>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Start Section-2 -->
-        <section id="sec-2">
-            <div class="container">
-                <div class="row">
                     <div class="col-sm-12 my-4 bg-white">
                         <div class="row py-4">
                             <div class="col-sm-10">
                                 <h4>{{ $article->user->name }}</h4>
-                                <p class="text-end">مختص التسويق الرقمي، أساعد الشركات على تحقيق أهدافهم البيعية من خلال
-                                    خبرة تمتد لأكثر من 5 سنوات في التسويق بالمحتوى</p>
+                                <p class="text-end"> </p>
                             </div>
                             <div class="col-sm-2">
                                 <img src="{{ asset('storage/avatars/' . $article->user->avatar) }}"
@@ -50,14 +41,13 @@
                 </div>
             </div>
         </section>
-        <!-- End Section-2 -->
 
         @auth
             <section id="sec-8" class="my-4">
                 <div class="container">
                     <h5 class="text-end">إترك تعليق</h5>
 
-                    <form class="bg-white py-3 px-4" action="{{ Route('guest.articles.comments') }}" method="post">
+                    <form class="bg-white py-3 px" action="{{ Route('guest.articles.comments') }}" method="post">
                         @csrf
 
                         <div class="comment row m-4">
@@ -82,32 +72,29 @@
         @endauth
 
 
-        <section id="sec-9" class="my-4 p-4 bg-white">
-            <h3>التعليقات</h3>
+        <section id="sec-10" class="my-4 p-4 bg-white">
+            <div class="row"><h3>التعليقات</h3></div>
             @foreach ($article->comments as $comment)
-                <div class="row m-4">
-                    <div class="col-md-1 mx-3">
-                        <img src="{{ asset('storage/avatars/' . $comment->user->avatar) }}" style="width:50px; height:50px"
-                            class="rounded circle">
-                        <p class="card-text">{{ $comment->user->name }}</p>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="card-body">
-                            <p class="card-text">{!! $comment->comment !!}</p>
-
-                            <p class="card-text"><small
-                                    class="text-muted">{{ $comment->created_at->format('d M Y') }}</small>
-                            </p>
-                        </div>
+                <div class="row">
+                
+                <div class="col-md-8">
+                    <div class="card-body">
+                    <p class="card-text">{!! $comment->comment !!}</p>
+                    <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small></p>
                     </div>
                 </div>
+                <div class="col-md-1">
+                    <img src="{{ asset('storage/avatars/' . $comment->user->avatar) }}" style="width:50px; height:50px"
+                                class="rounded circle">
+                    <p class="card-text">{{ $comment->user->name }}</p>
+                </div>
+                </div>
             @endforeach
-
         </section>
-    </div> --}}
+    </div>
 
 
-    <!-- Start Section-2 -->
+    {{-- <!-- Start Section-2 -->
     <section id="sec-2">
         <div class="container">
             <div class="row">
@@ -282,6 +269,6 @@
             </form>
         </div>
     </section>
-    <!-- End Section-4 -->
+    <!-- End Section-4 --> --}}
 
 @endsection
