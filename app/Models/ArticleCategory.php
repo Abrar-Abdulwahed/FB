@@ -27,4 +27,10 @@ class ArticleCategory extends Model
         return LogOptions::defaults()
             ->logFillable();
     }
+
+    public static function article_categories()
+    {
+        $getGategories = ArticleCategory::get();
+        return $getGategories;
+    }
 }

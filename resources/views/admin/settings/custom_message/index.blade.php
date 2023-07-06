@@ -21,6 +21,7 @@
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>الرمز</th>
+                        <th>العنوان</th>
                         <th>اللغة</th>
                         <th>النوع</th>
                         <th>النص</th>
@@ -33,11 +34,12 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->code }}</td>
+                            <td>{{ $item->subject }}</td>
                             <td>{{ $item->language }}</td>
                             <td><span
                                     class="badge {{ $item->type == 'sms' ? 'bg-danger' : 'bg-success' }}">{{ $item->type }}</span>
                             </td>
-                            <td>{{ \Str::limit($item->text, 50, '...') }}</td>
+                            <td>{!! \Str::limit($item->text, 50, '...') !!}</td>
                             <td>
                                 <form class="enable-message-form"
                                     action="{{ route('admin.custom-message.changeActive', $item->id) }}" method="POST">
@@ -45,6 +47,7 @@
                                     @method('PATCH')
 
                                     <div class="form-group col-12 mr-3 custom-control custom-switch my-4">
+                                        <input type="text" class="custom-control-input" name="is_active" value="off">
                                         <input type="checkbox" class="custom-control-input"
                                             id="is-active-{{ $loop->index }}" name="is_active"
                                             @checked($item->is_active == 1)>

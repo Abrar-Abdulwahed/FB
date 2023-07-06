@@ -20,13 +20,23 @@
         <div class="card-body">
             <form id="quickForm" method="POST" action={{ route('admin.custom-message.store') }}>
                 @csrf
-                <div class="form-group">
-                    <label for="code">الرمز</label>
-                    <input type="text" name="code" class="form-control" id="code" placeholder="ادخل الرمز"
-                        value="{{ old('code') }}">
-                    @error('code')
-                        <p class="text-danger small">{{ $message }}</p>
-                    @enderror
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="code">الرمز</label>
+                        <input type="text" name="code" class="form-control" id="code" placeholder="ادخل الرمز"
+                            value="{{ old('code') }}">
+                        @error('code')
+                            <p class="text-danger small">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="subject">العنوان</label>
+                        <input type="text" name="subject" class="form-control" id="subject" placeholder="ادخل العنوان"
+                            value="{{ old('subject') }}">
+                        @error('subject')
+                            <p class="text-danger small">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">

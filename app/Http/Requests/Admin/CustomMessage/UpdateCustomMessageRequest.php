@@ -24,6 +24,7 @@ class UpdateCustomMessageRequest extends FormRequest
     {
         return [
             'code' => "required|string|max:25|unique:custom_messages,code," . $this->custom_message,
+            'subject' => "required|string|max:25|unique:custom_messages,subject," . $this->custom_message,
             'type' => "required|string|max:5|in:sms,email",
             'language' => "required|string|max:5|in:ar,en",
             'text' => "required|string",
