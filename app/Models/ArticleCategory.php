@@ -19,4 +19,9 @@ class ArticleCategory extends Model
     {
         return $this->belongsToMany(Article::class, 'article_category', 'category_id', 'article_id');
     }
+
+    public static function article_categories(){
+        $getGategories = ArticleCategory::get();
+        return $getGategories;
+    }
 }
