@@ -12,10 +12,10 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped text-center">
+            <table class="table table-striped text-center" id="users-activities">
                 <thead>
                     <tr>
-                        <th style="width: 10px">#</th>
+                        {{-- <th style="width: 10px">#</th> --}}
                         <th>Description</th>
                         <th>Subject type</th>
                         <th>Properties</th>
@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach ($activities as $activity)
                         <tr>
-                            <td>{{ $activity->id }}</td>
+                            {{-- <td>{{ $activity->id }}</td> --}}
                             <td>{{ $activity->description }}</td>
                             <td>{{ $activity->subject_type }}</td>
                             <td>

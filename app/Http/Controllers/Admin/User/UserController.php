@@ -31,7 +31,14 @@ class UserController extends Controller
                 $query->where('name', $request->role);
             });
         }
+
+        if ($request->has('trashed')) {
+            $query->onlyTrashed()->get();
+        }
+
+
         $users = $query->with('roles')->get();
+
         return view('admin.users.index', compact('users', 'roles'));
     }
 
@@ -151,10 +158,8 @@ class UserController extends Controller
         $activities = Activity::query()
             ->where('causer_type', '=', User::class)
             ->where('causer_id', '=', $user->id)
+            ->orderByDesc('created_at')
             ->get();
-            
-
-        // dd($activities->first()->properties['old']);
 
         return view('admin.users.activities.index', compact('activities'));
     }

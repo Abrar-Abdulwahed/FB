@@ -4,12 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Ticket extends Model
 {
-    protected $fillable=['user_id','ticket_category_id','subject','message'];
-    use HasFactory;
+    protected $fillable = ['user_id', 'ticket_category_id', 'subject', 'message'];
+    use HasFactory, LogsActivity;
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable();
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -27,6 +34,4 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketMessage::class);
     }
-
-    
 }

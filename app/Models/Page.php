@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Page extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable  = [
         'title',
@@ -42,5 +44,10 @@ class Page extends Model
     protected static function slugExists($slug)
     {
         return static::where('slug', $slug)->exists();
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable();
     }
 }

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ArticleCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'title',
@@ -20,7 +22,14 @@ class ArticleCategory extends Model
         return $this->belongsToMany(Article::class, 'article_category', 'category_id', 'article_id');
     }
 
-    public static function article_categories(){
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable();
+    }
+
+    public static function article_categories()
+    {
         $getGategories = ArticleCategory::get();
         return $getGategories;
     }

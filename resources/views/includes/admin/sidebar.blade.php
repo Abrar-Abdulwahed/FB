@@ -42,6 +42,11 @@
                                 <i class="far fa-solid fa-user-secret  nav-icon"></i>الأعضاء الأدمن
                             </a>
                         </li>
+                        <li class="nav-item @if (Route::is('admin.users.index') && request()->has('trashed')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ url('/admin/users?trashed') }}">
+                                <i class="fa-solid fa-trash-can-arrow-up nav-icon"></i>المستخدمين المحذوفين
+                            </a>
+                        </li>
                         <li class="nav-item @if (Route::is('admin.roles.*')) ? 'active' : '' bg-primary @endif">
                             <a class="nav-link" href="{{ route('admin.roles.index') }}">
                                 <i class="fa fa-tasks nav-icon"></i>الأدوار
