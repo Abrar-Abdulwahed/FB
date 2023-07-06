@@ -2,9 +2,6 @@
 
 @section('title', $article->title)
 @section('content')
-    @if (session()->has('success'))
-        <p class="alert alert-success" role="alert">{{ session('success') }}</p>
-    @endif
     @if (session()->has('error'))
         <p class="alert alert-danger" role="alert">{{ session('error') }}</p>
     @endif
@@ -33,7 +30,8 @@
                                 <p class="text-end"> </p>
                             </div>
                             <div class="col-sm-2">
-                                <img src="{{ asset('storage/avatars/' . $article->user->avatar) }}"
+                                <img
+                                src="{{ $article->user->avatar_image }}"
                                     class="w-75 rounded circle"><br>
                             </div>
                         </div>
@@ -76,49 +74,23 @@
 
 
         <div class="container" id="comments">
-            <div class="row"><h3>التعليقات</h3></div>
-            @foreach ($article->comments as $comment)
-            <div class="card mb-3">
-                <div class="row m-4">
-                    
-                   {{--  <div class="col-md-8">
-                        <div class="row"> --}}
-                            
+            @if (count($article->comments)>0)
+                <div class="row"><h3>التعليقات</h3></div>
+                @foreach ($article->comments as $comment)
+                    <div class="card mb-3">
+                        <div class="row m-4">
                             <div class="col-md-2 col-lg-2">
-                                <img src="{{ asset('storage/avatars/' . $comment->user->avatar) }}" class="mx-2" style="width:50px; height:50px; border-radius: 50%; margin-right: 55% !important">
-                                <p class="card-text" style="text-align: left">{{ $comment->user->name }}</p>
+                                <img src="{{ $comment->user->avatar_image }}" class="mx-2" style="width:50px; height:50px; border-radius: 50%; margin-right: 30% !important">
+                                <p class="card-text" style="text-align: center">{{ $comment->user->name }}</p>
                             </div>
-                            <div class="card-body col-md-6 col-lg-6">
+                            <div class="card-body col-md-6 col-lg-10">
                                 <p class="card-text" style="text-align: right">{!! $comment->comment !!}</p>
                             </div>
-                            <p class="card-text" style="padding-left: 10% !important"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small></p>
-
-                       {{--  </div>
-                    </div> --}}
-                    
-                </div>
-            </div>
-            @endforeach
-        </div>
-        {{-- <section id="sec-10" class="my-4 p-4 bg-white">
-            <div class="container">
-                    <div class="row">
-                    
-                    <div class="col-lg-8 col-md-8">
-                        <div class="card-body">
-                        <p class="card-text">{!! $comment->comment !!}</p>
-                        <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small></p>
+                            <p class="card-text"><small class="text-muted">{{ $comment->created_at->format('d M Y') }}</small></p>  
                         </div>
                     </div>
-                    <div class="col-lg-1 col-md-1">
-                        <img src="{{ asset('storage/avatars/' . $comment->user->avatar) }}" style="width:50px; height:50px"
-                                    class="rounded circle">
-                        <p class="card-text">{{ $comment->user->name }}</p>
-                    </div>
-                    </div>
                 @endforeach
-            </div>
-        </section> --}}
+            @endif   
+        </div>
     </div>
-
 @endsection

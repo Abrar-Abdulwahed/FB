@@ -505,6 +505,7 @@ html{
 #comments{
 	text-align: start;
 	direction: rtl;
+	width: 80%;
 }
 .card-body{
 	border-style: inset;
