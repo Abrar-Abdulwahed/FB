@@ -9,12 +9,18 @@
 @section('content')
     <div class="container-fluid pt-3">
 
+        @include('partials.session')
+        @if (session()->has('errors'))
+            <div id="dropzone-errors"></div>
+        @endif
+
         <div class="card shadow-sm">
             <div class="card-header bg-dark">
                 اضافة ملفات
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.uploads.store') }}" method="POST" class="dropzone" id="my-dropzone">
+                <form action="{{ route('admin.uploads.store') }}" method="POST" class="dropzone" id="my-dropzone"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="card card-default">
 
@@ -126,8 +132,8 @@
             var extension = file.name.split('.').pop();
             if (extension === 'html' || extension === 'css' || extension === 'js' || extension === 'php') {
                 // حذف الملف من قائمة الرفع وإظهار رسالة خطأ
-                myDropzone.removeFile(file);
-                alert('غير مسموح بادخال هذا النوع من الملفات');
+                // myDropzone.removeFile(file);
+                // alert('غير مسموح بادخال هذا النوع من الملفات');
             }
             file.previewElement.querySelector(".start").onclick = function() {
                 myDropzone.enqueueFile(file)
@@ -160,6 +166,28 @@
         document.querySelector("#actions .cancel").onclick = function() {
             myDropzone.removeAllFiles(true)
         }
+
+        myDropzone.on("success", function(file, response) {
+            // Redirect to another page using JavaScript or the window.location.href property
+            window.location.href = "{{ route('admin.uploads.index') }}";
+        })
+
+        myDropzone.on("error", function(file, response) {
+            // Parse the response JSON to get the validation errors
+            var errors = response.errors;
+
+            // Display the validation errors in the error container
+            var errorContainer = document.querySelector("#dropzone-errors");
+            errorContainer.innerHTML = "";
+
+            for (var field in errors) {
+                var errorMessage = errors[field].join("<br>");
+                errorContainer.innerHTML += "<div class='alert alert-danger'>" + errorMessage + "</div>";
+            }
+
+            // Remove the file from the upload queue
+            myDropzone.removeFile(file);
+        });
         // DropzoneJS Demo Code End
     </script>
 @endpush

@@ -7291,7 +7291,9 @@ var defaultOptions = {
   /**
    * The text used before any files are dropped.
    */
-  dictDefaultMessage: "Drop files here to upload",
+  // dictDefaultMessage: "Drop files here to upload",
+  dictDefaultMessage: "اسحب الملفات هنا للتحميل",
+
 
   /**
    * The text that replaces the default message text it the browser is not supported.
