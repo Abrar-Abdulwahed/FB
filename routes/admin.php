@@ -66,10 +66,12 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     // Settings
     Route::group([], function () {
-        Route::resource('settings', SettingController::class)->only('index', 'store');
-
         Route::group(['prefix' => 'settings'], function () {
-            Route::post('settings/resetdb', [SettingController::class, 'reset'])->name('settings.reset');
+            //Settings routes
+            Route::name('settings.')->group(function () {
+                Route::resource('/', SettingController::class)->only('index', 'store');
+                Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+            });
 
             Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
                 ->name('payments.changeActive');
