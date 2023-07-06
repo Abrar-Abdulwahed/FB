@@ -73,7 +73,7 @@ class SettingController extends Controller
                 'mail.mailers.smtp.host' => $request?->mail_host,
                 'mail.mailers.smtp.port' => $request?->mail_port,
                 'mail.mailers.smtp.username' => $request?->mail_username,
-                'mail.mailers.smtp.password' => $request?->mail_password,
+                'mail.mailers.smtp.password' => $request?->mail_password === "****"? Setting::where('name', 'mail.mailers.smtp.password')->first()->value:$request?->mail_password,
                 'mail.from.address' => $request?->mail_from_address,
                 'mail.from.name' => $request?->mail_from_name,
                 'header_script' => $request->header_script ,
