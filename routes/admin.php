@@ -41,7 +41,8 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
         Route::group(['prefix' => 'blog'], function () {
             // articles
             Route::group([], function () {
-                Route::group(['prefix' => 'articles'], function () {
+                Route::group(['prefix' => 'articles', 'middleware' => 'feature:article'], function () {
+                    Route::resource('articles', ArticleController::class);
                     Route::resource('articles-categories', ArticleCategoryController::class);
                     Route::resource('tags', TagController::class);
                     Route::group([], function () {
@@ -51,7 +52,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
                     });
 
                 });
-                Route::resource('articles', ArticleController::class)->middleware('feature:article');
+                
                 // Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
             });
         });
