@@ -1,5 +1,7 @@
 @extends('layouts.guest')
-
+@section('title')
+    الاسئلة الشائعة
+@endsection
 @section('content')
     <!-- Start Section-1 -->
     <div class="container">

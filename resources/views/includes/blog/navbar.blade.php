@@ -119,6 +119,11 @@ $article_categories = ArticleCategory::article_categories();
                                             href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
                         
                                     <li class="dropdown-divider"></li>
+
+                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a
+                                        href="{{ route('guest.support.faq.index') }}">الأسئلة الشائعة</a></li>
+            
+                                    <li class="dropdown-divider"></li>
                                     <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a
                                             class="text-dark text-decoration-none" href="{{ route('logout') }}">تسجيل
                                             الخروج</a></li>
