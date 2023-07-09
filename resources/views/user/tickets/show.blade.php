@@ -39,10 +39,14 @@
                             <div class="col-10">
                                 <div class="message @if ($ticket->is_admin == 1) admin-message @endif">
                                     <p>{{ $ticket->message }}</p>
+                                    <div class="d-flex flex-column mt-3" style="font-size: 10px">
+                                        <span>{{ $ticket->created_at }}</span>
+                                        <span>{{ $ticket->created_at->diffForHumans() }}</span>
+                                    </div>
                                 </div>
-                                <span class="text-muted">{{ $ticket->created_at }}</span>
+                               {{--  <span class="text-muted">{{ $ticket->created_at }}</span>
                                 <br>
-                                <span class="text-muted">{{ $ticket->created_at->diffForHumans() }}</span>
+                                <span class="text-muted">{{ $ticket->created_at->diffForHumans() }}</span> --}}
                             </div>
 
                         </div>
@@ -66,14 +70,11 @@
 
                                 <div class="col-10">
                                     <div class="message @if ($message->is_admin) admin-message @endif">
-                                        <div class="d-flex justify-content-between">
-
                                             <p>{{ $message->message }}</p>
-                                            <div class="d-flex flex-column" style="font-size: 10px">
+                                            <div class="d-flex flex-column mt-3" style="font-size: 10px">
                                                 <span>{{ $message->created_at }}</span>
                                                 <span>{{ $message->created_at->diffForHumans() }}</span>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

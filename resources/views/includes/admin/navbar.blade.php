@@ -24,16 +24,18 @@
                 <hr class="dropdown-divider">
             </li>
 
+            <li class="dropdown-item"><i class="fa-solid fa-question nav-icon"></i><a
+                href="{{ route('guest.support.faq.index') }}">الاسئلة الشائعة</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            
             <li class="dropdown-item"><i class="nav-icon fa-solid fa-plus nav-icon"></i><a
                     href="{{ route('user.ticket.create') }}">انشاء تذكره</a></li>
             <li>
                 <hr class="dropdown-divider">
             </li>
-            <li class="dropdown-item"><i class="fa-solid fa-question nav-icon"></i><a
-                    href="{{ route('guest.support.faq.index') }}">الاسئلة الشائعة</a></li>
-            <li>
-                <hr class="dropdown-divider">
-            </li>
+            
 
             <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a
                     href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
