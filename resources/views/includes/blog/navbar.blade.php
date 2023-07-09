@@ -163,8 +163,6 @@ $article_categories = ArticleCategory::article_categories();
                 </a>
             @endif
             
-            
-            <button type="button" class="btn btn-primary py-3 px-4 rounded-pill">ابدا مشروعك</button>
         </nav>
     </div>
 </section>

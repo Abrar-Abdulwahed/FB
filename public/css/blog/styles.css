@@ -87,8 +87,8 @@ html{
 }
 #sec-1 .container{
 	display: grid;
-	grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+/* 	grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
+ */    gap: 20px;
 	direction: rtl;
 }
 #sec-1 .navbar-brand{
