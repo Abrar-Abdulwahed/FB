@@ -29,6 +29,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
+                @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-success">
@@ -44,6 +45,7 @@
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
+                @endif
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
@@ -73,6 +75,84 @@
                             <i class="ion ion-pie-graph"></i>
                         </div>
                         <a href="{{ route('admin.tickets.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <!-- ./col -->
+                @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>{{ $pages }}</h3>
+
+                            <p>عدد الصفحات</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('admin.pages.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                @endif
+                <!-- ./col -->
+
+                <!-- ./col -->
+                @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{ $faqs_count }}</h3>
+
+                            <p>عدد الاسئلة الشائعة</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('admin.faqs.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                @endif
+                <!-- ./col -->
+
+                <!-- ./col -->
+                @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3>{{ $short_links }}</h3>
+
+                            <p>عدد الروابط المختصرة</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('admin.short_links.index') }}" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                @endif
+                <!-- ./col -->
+
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>{{ $comments }}</h3>
+
+                            <p>عدد التعليقات</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="{{ route('admin.comments.index') }}" class="small-box-footer">More info <i
                                 class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\SettingRequest;
 
+
 class SettingController extends Controller
 {
     use ImageTrait;
@@ -24,6 +25,7 @@ class SettingController extends Controller
     public function index()
     {
         $settings = $this->cacheOrGet();
+       
         return view('admin.settings.index', compact('settings'));
     }
 
