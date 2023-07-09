@@ -69,14 +69,14 @@
                             @error('terms')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
-                            @if (\App\Models\Setting::where('name', 'captcha_enable')?->first()?->value == 'on')
+                            @feature('captcha')
                                 <div class="text-center">
                                     <div style="display: inline-block"> {!! htmlFormSnippet() !!} </div>
                                     @error('g-recaptcha-response')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            @endif
+                            @endfeature
                             <div class="d-flex justify-content-center m-3">
                                 <button type="submit" class="btn btn-dark btn-lg px-5">تسجيل الدخول</button>
                             </div>

@@ -45,8 +45,6 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                @else
-                    <div></div>
                 @endfeature
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">

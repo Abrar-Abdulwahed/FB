@@ -35,8 +35,8 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $channels = ['daily'];
-
-            if (app()->environment() == 'production') {
+            // app()->environment() == 'production'
+            if (true) {
                 if (Setting::where('name', 'telegram_report_enable')->first()?->value === "on") {
                     $channels[] = 'telegram';
                 }

@@ -109,7 +109,6 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                    @else
                                     @endfeature
                                     <li
                                         class="nav-item @if (Route::is('admin.articles-categories.*')) ? 'active' : '' bg-primary @endif">
@@ -117,16 +116,15 @@
                                             <i class="fa fa-tag nav-icon"></i>التصنيفات
                                         </a>
                                     </li>
-                                @else
                                 @endfeature
-                                @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
+                                @feature('page')
                                     <li
                                         class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
                                         <a class="nav-link" href="{{ route('admin.tags.index') }}">
                                             <i class="fa fa-tag nav-icon"></i>Tags
                                         </a>
                                     </li>
-                                @endif
+                                @endfeature
                             </ul>
                         </li>
                         <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
@@ -135,13 +133,13 @@
                             </a>
                         </li>
 
-                        @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
+                        @feature('faq')
                             <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
                                 <a class="nav-link" href="{{ route('admin.faqs.index') }}">
                                     <i class="nav-icon fa-solid fa-question"></i>ادارة الاسئلة الشائعة
                                 </a>
                             </li>
-                        @endif
+                        @endfeature
                     </ul>
 
                 </li>
@@ -154,7 +152,7 @@
                     </a>
                 </li>
 
-                @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+                @feature('short_link')
                     <li class="nav-item">
                         <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
                             href="{{ route('admin.short_links.index') }}">
@@ -162,7 +160,7 @@
                             <p>اختصار الروابط</p>
                         </a>
                     </li>
-                @endif
+                @endfeature
 
                 <li
                     class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.payments.*') || Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
@@ -237,7 +235,7 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('*ads*') ? 'active' : '' }}"
+                    <a class="nav-link @if (Route::is('admin.ads.*')) ? 'active' : '' bg-primary @endif"
                         href="{{ route('admin.ads.index') }}">
                         <i class="nav-icon fa-solid fa-image"></i>
                         <p>الاعلانات</p>
@@ -257,9 +255,9 @@
 
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.uploads.index') }}">
+                    <a class="nav-link @if (Route::is('admin.uploads.*')) ? 'active' : '' bg-primary @endif"
+                        href="{{ route('admin.uploads.index') }}">
                         <i class="nav-icon fa-solid fa-download"></i>
                         <p>ملفات الرفع</p>
 

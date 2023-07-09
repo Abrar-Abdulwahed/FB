@@ -399,7 +399,6 @@
                                                 <label class="custom-control-label" for="comment_enable">تمكين/تعطيل
                                                     التعليقات</label>
                                             </div>
-                                        @else
                                         @endfeature
                                     </div>
 
