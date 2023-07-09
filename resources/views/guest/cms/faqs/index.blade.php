@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 @section('title')
-    الاسئلة الشائعة
+    الاسئلةالشائعة
 @endsection
 @section('content')
     <!-- Start Section-1 -->
@@ -26,14 +26,11 @@
 
                     <div class="collapse pb-3" id="faq-{{ $index }}">
                         <ul>
-                            <li>{{ $faq->answer }}</li>
+                            <li class=" pe-3">{{ $faq->answer }}</li>
                         </ul>
-                        <div>
-
-                        </div>
                     </div>
                 </div>
-
+                <hr class="text-center" style="width: 90%; text-align:center; margin: 0 auto">
                 <p class="line"></p>
             @endforeach
         </div>
