@@ -26,7 +26,7 @@
 
                     <div class="collapse pb-3" id="faq-{{ $index }}">
                         <ul>
-                            <li class=" pe-3">{{ $faq->answer }}</li>
+                            <li class="pe-3"><p>{!! $faq->answer !!}</p></li>
                         </ul>
                     </div>
                 </div>

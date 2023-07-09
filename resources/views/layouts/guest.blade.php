@@ -24,6 +24,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     @stack('css')
     {!! ReCaptcha::htmlScriptTagJsApi() !!}
+
+    <style>
+        .pe-3 p{
+            text-align: start;
+        }
+    </style>
 </head>
 
 <body class="bg-body-secondary">
