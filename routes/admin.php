@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Ad\AdController;
 use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
 use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
+use App\Http\Controllers\Admin\CMS\Blog\Comment\ArticleComment;
 use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
 use App\Http\Controllers\Admin\CMS\Faq\FaqController;
 use App\Http\Controllers\Admin\CMS\Page\PageController;

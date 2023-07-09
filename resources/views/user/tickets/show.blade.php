@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-2 text-center">
                                 <div class="user-avatar">
-                                    <img src="{{ asset('storage/avatars/' . $ticket->user->avatar) }}" alt="User avatar">
+                                    <img src="{{ $ticket->user->avatar_image }}" alt="User avatar">
                                     {{ $ticket->user->name }}
                                     @if ($ticket->user->role == 'admin')
                                         <div class="admin-tag">Admin</div>
@@ -40,6 +40,9 @@
                                 <div class="message @if ($ticket->is_admin == 1) admin-message @endif">
                                     <p>{{ $ticket->message }}</p>
                                 </div>
+                                <span class="text-muted">{{ $ticket->created_at }}</span>
+                                <br>
+                                <span class="text-muted">{{ $ticket->created_at->diffForHumans() }}</span>
                             </div>
 
                         </div>
@@ -50,7 +53,7 @@
                             <div class="row">
                                 <div class="col-2 text-center">
                                     <div class="user-avatar">
-                                        <img src="{{ asset('storage/avatars/' . $message->user->avatar) }}"
+                                        <img src="{{ $message->user->avatar_image }}"
                                             alt="User avatar">
                                         {{ $message->user->name }}
                                         @if ($message->is_admin)

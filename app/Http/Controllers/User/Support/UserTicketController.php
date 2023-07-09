@@ -43,6 +43,6 @@ class UserTicketController extends Controller
 
         Ticket::query()->create($validated);
 
-        return redirect()->route('ticket.index')->with('success', 'تمت اضافه التذكره بنجاح');
+        return redirect()->route('index.ticket.index')->with('success', 'تمت اضافه التذكره بنجاح');
     }
 }

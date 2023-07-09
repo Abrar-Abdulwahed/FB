@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Guest\CMS\Blog\ArticleController;
 use App\Http\Controllers\Guest\CMS\FAQ\FaqController;
 use App\Http\Controllers\Guest\CMS\Page\PageController;
