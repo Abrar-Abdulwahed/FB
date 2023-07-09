@@ -110,6 +110,9 @@ class SettingController extends Controller
             case 'reset-db':
                 $this->resetDatabase($request);
                 break;
+            case 'load-settings':
+                $this->loadSettings($request);
+                break;
             case 'clear-session-cookie':
                 $this->clearSessionCookie();
                 break;
@@ -132,6 +135,24 @@ class SettingController extends Controller
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
             return redirect()->route('admin.index');
         } catch (\Throwable $e) {
+            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
+        }
+    }
+
+    protected function loadSettings(Request $request){
+        $request->validate([
+            'password' => 'required|current_password'
+        ]);
+        try {
+            if(file_exists(config_path('config.php'))){
+                foreach(config('config') as $key => $value){
+                    if($value !== null){
+                        Setting::updateOrCreate(['name' => $key], ['value' => $value]);
+                    }
+                }
+                Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
+            }
+        }catch (\Throwable $e) {
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
     }

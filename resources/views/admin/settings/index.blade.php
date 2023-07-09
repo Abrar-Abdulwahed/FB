@@ -438,6 +438,11 @@
                                         حذف التخزين المؤقت
                                         <i class="fas fa-info"></i>
                                     </button>
+                                    <button type="button" class="mx-1 btn btn-warning btn-sm" data-toggle="modal"
+                                        data-target="#confirm-load">
+                                        تحميل الإعدادات
+                                        <i class="fas fa-info"></i>
+                                    </button>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-dark mt-4 d-inline-block">حفظ</button>
@@ -546,6 +551,62 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-load">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد إعادة التحميل</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <p>هل أنت متأكد من هذه الخطوة، سيتم تحميل الإعدادات من السيرفر
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                {{-- <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button> --}}
+                                <form action="{{ route('admin.settings.cleanup', ['action' => 'load-settings']) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="row mb-3">
+                                        <label for="password"
+                                            class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password" type="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                name="password" autocomplete="current-password">
+
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-0">
+                                        <div class="col-md-8 offset-md-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Confirm Password') }}
+                                            </button>
+
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" target="_blank"
+                                                    href="{{ route('password.request') }}">
+                                                    {{ __('Forgot Your Password?') }}
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    {{-- <button type="submit" class="btn btn-dark btn-md">نعم</button> --}}
                                 </form>
                             </div>
                         </div>
