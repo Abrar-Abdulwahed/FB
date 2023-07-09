@@ -19,6 +19,7 @@ class FeatureEnabling
         if(Setting::where('name', $option.'_enable')->first()?->value == "off"){
             abort(404);
         }
+
         return $next($request);
     }
 }

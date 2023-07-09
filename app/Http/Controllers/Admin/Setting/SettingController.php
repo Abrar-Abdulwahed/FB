@@ -83,7 +83,7 @@ class SettingController extends Controller
                 'page_enable' => $request->page_enable ? "on" : "off",
                 'register_enable' => $request->register_enable ? "on" : "off",
                 'email_confirm_enable' => $request?->email_confirm_enable,
-                'comment_enable' => $request->comment_enable,
+                'comment_enable' => $request->comment_enable ?? "off",
                 'short_link_enable' => $request?->short_link_enable,
                 'telegram_report_enable' => $request?->telegram_report_enable,
                 'logging.channels.telegram.chat_id' => $request?->telegram_chat_id,

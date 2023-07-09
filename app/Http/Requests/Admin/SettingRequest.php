@@ -46,7 +46,7 @@ class SettingRequest extends FormRequest
             'header_script' => 'nullable',
             'footer_script' => 'nullable',
             'email_confirm_enable'=>'required|string|in:on,off',
-            'comment_enable'=>'required|string|in:on,off',
+            'comment_enable'=>'sometimes|string|in:on,off',
             'short_link_enable'=>'required|string|in:on,off',
             'telegram_report_enable'=>'required|string|in:on,off',
             'telegram_chat_id'=>'required|string',

@@ -45,6 +45,10 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
             config()->set('logging.channels.stack.channels', $channels);
+
+            Blade::if('feature', function ($feature) {
+                return Setting::where('name', $feature.'_enable')->first()?->value == 'on';
+            });
         }
 
     }

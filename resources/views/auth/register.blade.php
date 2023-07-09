@@ -17,7 +17,7 @@
                         </div>  --}}
                     @include('components.app_login')
                 </div>
-                @if (\App\Models\Setting::where('name', 'register_enable')?->first()?->value == 'on')
+                @feature('register')
                     <form method="POST" action="{{ route('register') }}"
                         class="form-content text-end col-md-12 justify-content-center px-lg-4">
                         @csrf
@@ -91,7 +91,7 @@
                     <div class="alert alert-warning" role="alert">
                         التسجيل مغلق مؤقتا
                     </div>
-                @endif
+                @endfeature
 
 
             </div>

@@ -391,13 +391,16 @@
                                             <label class="custom-control-label" for="email_confirm_enable">تمكين/تعطيل
                                                 التحقق من الإيميل لفتح حساب</label>
                                         </div>
-                                        <div class="custom-control custom-switch mt-2">
-                                            <input type="text" name="comment_enable" value="off" hidden />
-                                            <input type="checkbox" class="custom-control-input" id="comment_enable"
-                                                name="comment_enable" @checked(old('comment_enable') == 'on' || $settings['comment_enable'] === 'on')>
-                                            <label class="custom-control-label" for="comment_enable">تمكين/تعطيل
-                                                التعليقات</label>
-                                        </div>
+                                        @feature('article')
+                                            <div class="custom-control custom-switch mt-2">
+                                                <input type="text" name="comment_enable" value="off" hidden />
+                                                <input type="checkbox" class="custom-control-input" id="comment_enable"
+                                                    name="comment_enable" @checked(old('comment_enable') == 'on' || $settings['comment_enable'] === 'on')>
+                                                <label class="custom-control-label" for="comment_enable">تمكين/تعطيل
+                                                    التعليقات</label>
+                                            </div>
+                                        @else
+                                        @endfeature
                                     </div>
 
                                     <div class="mt-5">
