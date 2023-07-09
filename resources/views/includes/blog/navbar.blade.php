@@ -140,9 +140,10 @@ $article_categories = ArticleCategory::article_categories();
                         
                                     
                         
-                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i>  <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <li class="dropdown-item"><a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                       document.getElementById('logout-form').submit();">
+                                                      <i class="nav-icon fa-solid fa-sign-out"></i>
                                          {{ __('تسجيل الخروج') }}
                                      </a></li>
                                 </ul>
