@@ -23,6 +23,3 @@ Route::group([], __DIR__ . '/user.php');
 Route::group([], __DIR__ . '/auth.php');
 Route::group([], __DIR__ . '/admin.php');
 
-Route::get('/exception', function () {
-    throw new Exception('Test Exception');
-});

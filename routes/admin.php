@@ -73,6 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
             Route::name('settings.')->group(function () {
                 Route::resource('/', SettingController::class)->only('index', 'store');
                 Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+                Route::post('exception', [SettingController::class, 'test'])->name('test_report');
             });
 
             Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])

@@ -258,6 +258,15 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-6">
+                                            <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
+                                                data-target="#confirm-test-report-email">
+                                                إرسال إيميل تجريبي
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="recaptcha-settings" role="tabpanel"
                                     aria-labelledby="recaptcha-settings-tab">
@@ -342,6 +351,15 @@
                                                 @error('slack_url')
                                                     <p class="text-danger small">{{ $message }}</p>
                                                 @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-3">
+                                            <div class="form-group col-md-6">
+                                                <button type="button" class="mx-1 btn btn-danger btn-sm"
+                                                    data-toggle="modal" data-target="#confirm-test-report-channel">
+                                                    إرسال تبليغ تجريبي
+                                                    <i class="fas fa-info"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -607,6 +625,46 @@
                                         </div>
                                     </div>
                                     {{-- <button type="submit" class="btn btn-dark btn-md">نعم</button> --}}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-test-report-email">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد الاختبار</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                <form action="{{ route('admin.settings.test_report', ['action' => 'email']) }}"
+                                    method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-test-report-channel">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="modal-title">تأكيد الاختبار</p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                                <form action="{{ route('admin.settings.test_report', ['action' => 'channel']) }}"
+                                    method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
                                 </form>
                             </div>
                         </div>

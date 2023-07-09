@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
+use Exception;
 use App\Models\Setting;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
@@ -182,6 +183,20 @@ class SettingController extends Controller
             if($file !== ".gitignore" && File::isDirectory($directory)) {
                 File::deleteDirectory($directory . '/' . $file);
             }
+        }
+        return redirect()->route('admin.index');
+    }
+
+    public function test(Request $request){
+        $action = $request->query('action');
+        switch ($action) {
+            case 'email':
+                throw new Exception('Test Exception via email');
+            case 'channel':
+                throw new Exception('Test Exception via channels');
+                break;
+            default:
+                abort(404);
         }
         return redirect()->route('admin.index');
     }
