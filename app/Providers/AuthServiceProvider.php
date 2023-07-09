@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
                 return (new MailMessage)
                     ->subject($resetPasswordMsg->subject)
                     ->line(str_replace("userName", $notifiable->name, $resetPasswordMsg->text))
-                    ->action(Lang::get('Reset Password'), url('/').'/password/reset/'.$token)
+                    ->action(Lang::get('Reset Password'), route('password.reset', $token))
                     ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]));
             });
         }
