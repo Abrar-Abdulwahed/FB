@@ -33,6 +33,10 @@
             </div>
         </div>
         @include('includes.user.footer')
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </div>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
