@@ -180,6 +180,22 @@
                     </li>
                 @endfeature
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ asset('/log-viewer') }}">
+                        <i class="nav-icon fa fa-exclamation-triangle"></i>
+                        <p>ملف الاخطاء</p>
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::is('admin.uploads.*')) ? 'active' : '' bg-primary @endif"
+                        href="{{ route('admin.uploads.index') }}">
+                        <i class="nav-icon fa-solid fa-download"></i>
+                        <p>ملفات الرفع</p>
+
+                    </a>
+                </li>
+
                 <li
                     class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.payments.*') || Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
@@ -250,38 +266,6 @@
                         </li>
                     </ul>
                 </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.ads.*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.ads.index') }}">
-                        <i class="nav-icon fa-solid fa-image"></i>
-                        <p>الاعلانات</p>
-                    </a>
-                </li>
-                {{--  @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
-                </li>
-            @endif --}}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ asset('/log-viewer') }}">
-                        <i class="nav-icon fa fa-exclamation-triangle"></i>
-                        <p>ملف الاخطاء</p>
-
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.uploads.*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.uploads.index') }}">
-                        <i class="nav-icon fa-solid fa-download"></i>
-                        <p>ملفات الرفع</p>
-
-                    </a>
-                </li>
-
 
                 <li class="nav-item">
                     <a class="dropdown-item" href="{{ route('logout') }}"

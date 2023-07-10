@@ -3,6 +3,8 @@
 use Illuminate\Support\Str;
 
 return [
+    'admin_email'=> null,
+    'admin_password'=> null,
     'app.name' => null,
     'site_description' => null,
     'site_logo' => null,

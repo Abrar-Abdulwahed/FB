@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Admin\Setting;
 
 use Exception;
+use App\Models\User;
 use App\Models\Setting;
+use App\Mail\TestMailable;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
@@ -108,55 +114,67 @@ class SettingController extends Controller
 
     public function cleanup(Request $request)
     {
-        $action = $request->query('action');
-        switch ($action) {
-            case 'reset-db':
-                $this->resetDatabase($request);
-                break;
-            case 'load-settings':
-                $this->loadSettings($request);
-                break;
-            case 'clear-session-cookie':
-                $this->clearSessionCookie();
-                break;
-            case 'clear-cache':
-                $this->clearCache();
-                break;
-            default:
-                abort(404);
+        $request->validate([
+            'resetdb_password' => 'sometimes|current_password',
+            'load_password' => 'sometimes|current_password'
+        ]);
+        try{
+            $action = $request->query('action');
+            switch ($action) {
+                case 'reset-db':
+                    $this->resetDatabase();
+                    $msg = 'تم تهيئة البيانات بنجاح';
+                    break;
+                case 'load-settings':
+                    $this->loadSettings($request);
+                    $msg = 'تم تحميل الإعدادات بنجاح';
+                    break;
+                case 'clear-session-cookie':
+                    $this->clearSessionCookie();
+                    $msg = 'تم حذف الجلسات وبيانات تعريف الارتباط';
+                    break;
+                case 'clear-cache':
+                    $this->clearCache();
+                    $msg = 'تم حذف الملفات المؤقتة بنجاح';
+                    break;
+                default:
+                    abort(404);
+            }
+            return redirect()->route('admin.settings.index')->with('success', $msg);
+        }catch(\Exception $e){
+            return redirect()->back()->withError('حدث خطأ ما، حاول مرة أخرى!');
         }
-        return redirect()->route('admin.index');
     }
 
-    protected function resetDatabase(Request $request)
+    protected function resetDatabase()
     {
-        $request->validate([
-            'password' => 'required|current_password'
-        ]);
-        try {
-            Cache::forget("settings");
-            Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
-            return redirect()->route('admin.index');
-        } catch (\Throwable $e) {
-            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
-        }
+        Cache::forget("settings");
+        Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
     }
 
     protected function loadSettings(Request $request){
-        $request->validate([
-            'password' => 'required|current_password'
-        ]);
-        try {
-            if(file_exists(config_path('config.php'))){
-                foreach(config('config') as $key => $value){
-                    if($value !== null){
-                        Setting::updateOrCreate(['name' => $key], ['value' => $value]);
+        if(File::exists(base_path('config.php'))){
+            $settings = include(base_path('config.php'));
+            $this->clearCache();
+            foreach($settings as $key => $value){
+                if($value !== null){
+                    if(($key == 'admin_email')){
+                        User::findOrFail(1)->update([
+                            'email' => $value,
+                        ]);
                     }
+                    elseif($key == 'admin_password'){
+                        User::findOrFail(1)->update([
+                            'password' => Hash::make($value),
+                        ]);
+                    }
+                    else
+                        Setting::updateOrCreate(['name' => $key], ['value' => $value]);
                 }
-                Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
             }
-        }catch (\Throwable $e) {
-            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
+            Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
+        }else{
+            return redirect()->route('admin.settings.index')->withError('error', 'ملف الإعدادات غير موجود');
         }
     }
 
@@ -173,7 +191,6 @@ class SettingController extends Controller
         foreach ($_COOKIE as $key => $value) {
             Cookie::forget($key);
         }
-        return redirect()->route('admin.index');
     }
 
     protected function clearCache(){
@@ -186,20 +203,24 @@ class SettingController extends Controller
                 File::deleteDirectory($directory . '/' . $file);
             }
         }
-        return redirect()->route('admin.index');
     }
 
     public function test(Request $request){
         $action = $request->query('action');
         switch ($action) {
             case 'email':
-                throw new Exception('Test Exception via email');
-            case 'channel':
+                try{
+                    Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
+                }catch(\Exception $e){
+                    return redirect()->back()->with('error', $e->getMessage());
+                }
+                break;
+            case 'report':
                 throw new Exception('Test Exception via channels');
                 break;
             default:
                 abort(404);
         }
-        return redirect()->route('admin.index');
+        return redirect()->back()->with('success', 'تم الاختبار بنجاح');
     }
 }

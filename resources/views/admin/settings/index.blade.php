@@ -52,7 +52,8 @@
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
-                            <li class="nav-item {{ $errors->hasAny(['password']) ? 'bg-danger' : '' }}">
+                            <li
+                                class="nav-item {{ $errors->hasAny(['load_password', 'resetdb_password']) ? 'bg-danger' : '' }}">
                                 <a class="nav-link" id="cleanup-tab" data-toggle="pill" href="#cleanup" role="tab"
                                     aria-controls="cleanup" aria-selected="false">التنظيف</a>
                             </li>
@@ -261,7 +262,7 @@
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-6">
                                             <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#confirm-test-report-email">
+                                                data-target="#confirm-test-email">
                                                 إرسال إيميل تجريبي
                                                 <i class="fas fa-info"></i>
                                             </button>
@@ -362,6 +363,11 @@
                                                 </button>
                                             </div>
                                         </div>
+                                        <div class="form-row mt-3">
+                                            <div class="form-group col-md-6">
+                                                حالة الموقع: {{ app()->environment() }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="additional-settings" role="tabpanel"
@@ -456,11 +462,13 @@
                                         حذف التخزين المؤقت
                                         <i class="fas fa-info"></i>
                                     </button>
-                                    <button type="button" class="mx-1 btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#confirm-load">
-                                        تحميل الإعدادات
-                                        <i class="fas fa-info"></i>
-                                    </button>
+                                    @if (Illuminate\Support\Facades\File::exists(base_path('config.php')))
+                                        <button type="button" class="mx-1 btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#confirm-load">
+                                            تحميل الإعدادات
+                                            <i class="fas fa-info"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-dark mt-4 d-inline-block">حفظ</button>
@@ -488,15 +496,15 @@
                                     @csrf
                                     @method('DELETE')
                                     <div class="row mb-3">
-                                        <label for="password"
+                                        <label for="resetdb_password"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                name="password" autocomplete="current-password">
+                                            <input id="resetdb_password" type="password"
+                                                class="form-control @error('resetdb_password') is-invalid @enderror"
+                                                name="resetdb_password" autocomplete="current-password">
 
-                                            @error('password')
+                                            @error('resetdb_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -594,15 +602,15 @@
                                     @csrf
                                     @method('DELETE')
                                     <div class="row mb-3">
-                                        <label for="password"
+                                        <label for="load_password"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                name="password" autocomplete="current-password">
+                                            <input id="load_password" type="password"
+                                                class="form-control @error('load_password') is-invalid @enderror"
+                                                name="load_password" autocomplete="current-password">
 
-                                            @error('password')
+                                            @error('load_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -630,7 +638,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="confirm-test-report-email">
+                <div class="modal fade" id="confirm-test-email">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -639,12 +647,19 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                            <div class="modal-footer justify-content-center">
                                 <form action="{{ route('admin.settings.test_report', ['action' => 'email']) }}"
                                     method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                    <label for="test-email">ادخل الإيميل المراد الإرسال له</label>
+                                    <input type="email" name="test_email" id="test-email"
+                                        placeholder="example@example.com"
+                                        class="form-control @error('test-email') is-invalid @enderror" />
+                                    <div class="d-flex justify-content-between mt-5">
+                                        <button type="button" class="btn btn-default btn-md"
+                                            data-dismiss="modal">إغلاق</button>
+                                        <button type="submit" class="btn btn-dark btn-md">إرسال</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -661,7 +676,7 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
-                                <form action="{{ route('admin.settings.test_report', ['action' => 'channel']) }}"
+                                <form action="{{ route('admin.settings.test_report', ['action' => 'report']) }}"
                                     method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-dark btn-md">نعم</button>
@@ -767,8 +782,11 @@
             });
         });
 
-        @if ($errors->has('password'))
+        @if ($errors->has('resetdb_password'))
             $('#confirm-reset-db').modal('show');
+        @endif
+        @if ($errors->has('load_password'))
+            $('#confirm-load').modal('show');
         @endif
         ClassicEditor
             .create(document.querySelector('#reason_locked'), {

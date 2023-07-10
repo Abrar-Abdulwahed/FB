@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Ad\AdController;
 use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
 use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
 use App\Http\Controllers\Admin\CMS\Blog\Comment\ArticleComment;
@@ -21,7 +20,7 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'check_user', 'roles:admin'])->as('admin.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     // users
@@ -98,8 +97,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
         Route::resource('short_links', ShortLinkController::class)->except('show');
         Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
     });
-
-    Route::resource('ads', AdController::class)->except('show');
 
     Route::group([], function () {
         Route::get('uploads/{id}/download', [FileUploadController::class, 'download'])->name('uploads.download');
