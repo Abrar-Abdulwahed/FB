@@ -140,7 +140,6 @@ class SettingController extends Controller
                 default:
                     abort(404);
             }
-
             return redirect()->route('admin.settings.index')->with('success', $msg);
         }catch(\Exception $e){
             return redirect()->back()->withError('حدث خطأ ما، حاول مرة أخرى!');
@@ -156,6 +155,7 @@ class SettingController extends Controller
     protected function loadSettings(Request $request){
         if(File::exists(base_path('config.php'))){
             $settings = include(base_path('config.php'));
+            $this->clearCache();
             foreach($settings as $key => $value){
                 if($value !== null){
                     if(($key == 'admin_email')){
