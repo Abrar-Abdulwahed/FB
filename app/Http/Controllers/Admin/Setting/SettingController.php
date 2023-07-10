@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Setting;
 
 use Exception;
+use App\Models\User;
 use App\Models\Setting;
 use App\Mail\TestMailable;
 use App\Traits\ImageTrait;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -157,7 +159,18 @@ class SettingController extends Controller
             $settings = include(base_path('config.php'));
             foreach($settings as $key => $value){
                 if($value !== null){
-                    Setting::updateOrCreate(['name' => $key], ['value' => $value]);
+                    if(($key == 'admin_email')){
+                        User::findOrFail(1)->update([
+                            'email' => $value,
+                        ]);
+                    }
+                    elseif($key == 'admin_password'){
+                        User::findOrFail(1)->update([
+                            'password' => Hash::make($value),
+                        ]);
+                    }
+                    else
+                        Setting::updateOrCreate(['name' => $key], ['value' => $value]);
                 }
             }
             Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
