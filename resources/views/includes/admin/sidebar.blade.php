@@ -269,8 +269,8 @@
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
+                        <i class="fa-solid fa-sign-out" style="font-size: 1.2rem"></i>
                         {{ __('تسجيل الخروج') }}
-                        <i class="nav-icon fa-solid fa-sign-out mr-4"></i>
                     </a>
                 </li>
             </ul>
