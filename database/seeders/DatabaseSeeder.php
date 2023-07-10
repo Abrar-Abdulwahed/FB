@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             SettingSeeder::class,
-            SettingSeederTwo::class,
             PaymentSeeder::class,
             ContentSeeder::class,
             FaqSeeder::class,
+            // additional
+            SettingSeederTwo::class,
+            CustomMessageTwo::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

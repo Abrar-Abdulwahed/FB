@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Events\TicketCreatedEvent;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ticket extends Model
 {
@@ -34,4 +35,9 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketMessage::class);
     }
+
+    // Events
+    protected $dispatchesEvents = [
+        'created' => TicketCreatedEvent::class,
+    ];
 }
