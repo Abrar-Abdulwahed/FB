@@ -40,7 +40,7 @@ class StoreTicketRequest extends FormRequest
                 if(in_array(1,$roles->toArray())){
                     $validator->errors()->add(
                         'subject',
-                       'غير مسموح',
+                       'لا يمكن للأدمن انشاء تذاكر دعم فني',
                     );
                 }
             }
