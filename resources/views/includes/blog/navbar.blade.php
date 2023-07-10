@@ -10,6 +10,21 @@ $article_categories = ArticleCategory::article_categories();
             <a class="navbar-brand me-auto" href="#">
                 <img class="w-50" src="{{ asset('storage/' . $settings['site_logo']) }}" alt="">
             </a>
+
+            <div class="collapse navbar-collapse" id="main">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link p-2 p-lg-3" aria-current="page" href="#">المقدمة</a>
+                    </li>
+                    @foreach (App\Models\Page::where('is_in_menu', 1)->select('title', 'slug')->get() as $page)
+                        <li class="nav-item">
+                            <a class="nav-link p-2 p-lg-3 active"
+                                href="{{ route('guest.pages.show', $page->slug) }}">{{ $page->title }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -105,23 +120,32 @@ $article_categories = ArticleCategory::article_categories();
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-item"><i class="nav-icon fa-solid fa-user nav-icon"></i><a
                                         href="{{ route('user.profile.edit', auth()->user()->id) }}">البروفايل</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                        
-                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-plus nav-icon"></i><a
-                                            href="{{ route('user.ticket.create') }}">انشاء تذكره</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                        
-                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a
-                                            href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
-                        
                                     <li class="dropdown-divider"></li>
-                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a
-                                            class="text-dark text-decoration-none" href="{{ route('logout') }}">تسجيل
-                                            الخروج</a></li>
+
+
+                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a
+                                        href="{{ route('guest.support.faq.index') }}">الأسئلة الشائعة</a></li>
+            
+                                    <li class="dropdown-divider"></li>
+
+                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-plus nav-icon"></i><a
+                                        href="{{ route('user.ticket.create') }}">انشاء تذكره</a></li>
+                                    <li class="dropdown-divider"></li>
+
+
+                                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-newspaper nav-icon"></i><a
+                                        href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
+                    
+                                    <li class="dropdown-divider"></li>
+                        
+                                    
+                        
+                                    <li class="dropdown-item"><a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                                      <i class="nav-icon fa-solid fa-sign-out"></i>
+                                         {{ __('تسجيل الخروج') }}
+                                     </a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -140,8 +164,6 @@ $article_categories = ArticleCategory::article_categories();
                 </a>
             @endif
             
-            
-            <button type="button" class="btn btn-primary py-3 px-4 rounded-pill">ابدا مشروعك</button>
         </nav>
     </div>
 </section>

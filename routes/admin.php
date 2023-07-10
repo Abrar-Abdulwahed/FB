@@ -1,24 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Ad\AdController;
-use App\Http\Controllers\Admin\User\RoleController;
-use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
+use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
+use App\Http\Controllers\Admin\CMS\Blog\Comment\ArticleComment;
+use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
 use App\Http\Controllers\Admin\CMS\Faq\FaqController;
 use App\Http\Controllers\Admin\CMS\Page\PageController;
-use App\Http\Controllers\Admin\Setting\SettingController;
-use App\Http\Controllers\Admin\Support\TicketsController;
-use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
-use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
-use App\Http\Controllers\Admin\User\LoginActivityController;
-use App\Http\Controllers\Admin\ShortLink\ShortLinkController;
-use App\Http\Controllers\Admin\CMS\Blog\Comment\ArticleComment;
 use App\Http\Controllers\Admin\FileUpload\FileUploadController;
-use App\Http\Controllers\Admin\Setting\Payment\PaymentController;
-use App\Http\Controllers\Admin\Support\Category\TicketCategoryController;
-use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Setting\CustomMessage\CustomMessageController;
+use App\Http\Controllers\Admin\Setting\Payment\PaymentController;
+use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\ShortLink\ShortLinkController;
+use App\Http\Controllers\Admin\Support\Category\TicketCategoryController;
+use App\Http\Controllers\Admin\Support\TicketsController;
+use App\Http\Controllers\Admin\User\LoginActivityController;
+use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\User\UserController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -53,7 +53,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
                     });
 
                 });
-                
+
                 // Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
             });
         });
@@ -91,7 +91,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     //short links
     Route::middleware('feature:short_link')->group(function () {
-        Route::resource('short_links', ShortLinkController::class)->except('show');
+        Route::resource('short_links', ShortLinkController::class) /* ->except('show') */;
         Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
     });
 

@@ -37,6 +37,10 @@
     <!-- Start Footer -->
     @include('includes.blog.footer')
     <!-- End Footer -->
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 </body>
 <script src="{{ asset('js/blog/bootstrap.bundle.js') }}"></script>
 <script src="{{ asset('js/blog/main.js') }}"></script>

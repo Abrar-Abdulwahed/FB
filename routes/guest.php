@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Guest\ErrorController;
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Guest\CMS\Blog\ArticleController;
 use App\Http\Controllers\Guest\CMS\FAQ\FaqController;
 use App\Http\Controllers\Guest\CMS\Page\PageController;
-use App\Http\Controllers\Guest\CMS\Blog\ArticleController;
+use App\Http\Controllers\Guest\ErrorController;
 use App\Http\Controllers\Guest\ShortLink\ShortLinkController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
@@ -20,7 +20,7 @@ Route::group(['as' => 'guest.'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::group([], function () {
-        Route::group(['middleware' => 'feature:article'], function(){
+        Route::group(['middleware' => 'feature:article'], function () {
             Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
             Route::get('articles/{slug}', [ArticleController::class, 'show'])
                 ->name('articles.show');

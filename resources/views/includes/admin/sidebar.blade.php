@@ -266,13 +266,11 @@
 
 
                 <li class="nav-item">
-                    <a href="{{ route('logout') }}" class="nav-link d-flex justify-content-between">
-                        <p>
-                            تسجيل الخروج
-                        </p>
-                        <p>
-                            <i class="nav-icon fa-solid fa-sign-out"></i>
-                        </p>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                        {{ __('تسجيل الخروج') }}
+                        <i class="nav-icon fa-solid fa-sign-out mr-4"></i>
                     </a>
                 </li>
             </ul>

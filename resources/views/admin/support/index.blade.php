@@ -44,7 +44,7 @@
                             
                             @if ($item->status)
                             <td><span class="badge bg-success">
-                                مفتوح
+                                مفتوحة
                             </span>
                         </td>
                             @else

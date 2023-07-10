@@ -34,6 +34,7 @@
                                 href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
 
                         <li class="dropdown-divider"></li>
+
                         <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a
                                 class="text-dark text-decoration-none" href="{{ route('logout') }}">تسجيل
                                 الخروج</a></li>
@@ -78,9 +79,12 @@
                             href="{{ route('user.ticket.index') }}">قائمه التذاكر</a></li>
 
                     <li class="dropdown-divider"></li>
-                    <li class="dropdown-item"><i class="nav-icon fa-solid fa-sign-out"></i> <a
-                            class="text-dark text-decoration-none" href="{{ route('logout') }}">تسجيل
-                            الخروج</a></li>
+                    <li class="dropdown-item"><a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                                      <i class="nav-icon fa-solid fa-sign-out"></i>
+                         {{ __('تسجيل الخروج') }}
+                     </a></li>
                 </ul>
             </div>
         @endauth
