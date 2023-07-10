@@ -23,13 +23,18 @@ class PageUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
             'content' => ['required', 'string'],
             // 'image' => ['nullable', 'image'],
             'is_in_footer' => 'nullable|in:on,off',
             'is_in_menu' => 'nullable|in:on,off',
-            'is_active' => 'nullable|in:off,on',
+            'is_active' => 'nullable|in:on,off',
 
+        ];
+    }
+
+    public function messages(){
+        return [
+            'title.required' => 'هذا الحقل مطلوب',
         ];
     }
 }

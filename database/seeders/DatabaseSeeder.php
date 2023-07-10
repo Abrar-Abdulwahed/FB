@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PaymentSeeder::class,
             ContentSeeder::class,
             FaqSeeder::class,
+            FaqCategorySeeder::class,
             // additional
             SettingSeederTwo::class,
             CustomMessageTwo::class,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\CMS\Faq;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Faq\FaqValidation;
 use App\Models\Faq;
+use App\Models\FaqCategory;
 
 class FaqController extends Controller
 {
@@ -24,7 +25,8 @@ class FaqController extends Controller
     public function create()
     {
         //
-        return view('admin.cms.faqs.create');
+        $categories = FaqCategory::all();
+        return view('admin.cms.faqs.create',compact('categories'));
     }
 
     /**
@@ -33,7 +35,10 @@ class FaqController extends Controller
     public function store(FaqValidation $request)
     {
         //
-        $faq = Faq::create($request->validated());
+        $validated = $request->validated();
+        $faq = Faq::query()->create($request->validated());
+        $faq->categories()->sync($request->categories);
+
         return redirect()->route('admin.faqs.index')->with('success', 'تم اضافة السؤال بنجاح');
     }
 
@@ -52,7 +57,8 @@ class FaqController extends Controller
     {
         //
         $faq = Faq::find($id);
-        return view('admin.cms.faqs.edit', compact('faq'));
+        $categories = FaqCategory::all();
+        return view('admin.cms.faqs.edit', compact('faq','categories'));
     }
 
     /**
@@ -61,7 +67,11 @@ class FaqController extends Controller
     public function update(FaqValidation $request, $id)
     {
         //
-        Faq::find($id)->update($request->validated());
+        $faq = Faq::findOrFail($id);
+        $faq->update($request->validated());
+
+        $faq->categories()->sync($request->categories);
+
         return redirect()->route('admin.faqs.index')->with('success', 'تم تعديل السؤال بنجاح');
     }
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
 use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
 use App\Http\Controllers\Admin\CMS\Blog\Comment\ArticleComment;
 use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
+use App\Http\Controllers\Admin\CMS\Faq\Category\FaqCategory;
 use App\Http\Controllers\Admin\CMS\Faq\FaqController;
 use App\Http\Controllers\Admin\CMS\Page\PageController;
 use App\Http\Controllers\Admin\FileUpload\FileUploadController;
@@ -60,6 +61,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user', 'roles:admin'])->as('a
                 ->name('pages.changeActive');
                 
         Route::resource('faqs', FaqController::class)->middleware('feature:faq');
+        Route::resource('faqs-categories', FaqCategory::class);
     });
 
     Route::group(['prefix' => 'support'], function () {

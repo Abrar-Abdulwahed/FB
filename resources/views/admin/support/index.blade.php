@@ -46,7 +46,7 @@
                             <td><span class="badge bg-success">
                                 مفتوحة
                             </span>
-                        </td>
+                            </td>
                             @else
                             <td><span class="badge bg-danger">
                                 مغلق

@@ -16,4 +16,9 @@ class Faq extends Model
         return LogOptions::defaults()
             ->logFillable();
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(FaqCategory::class, 'faq_faq_category','faq_id','faq_category_id');
+    }
 }

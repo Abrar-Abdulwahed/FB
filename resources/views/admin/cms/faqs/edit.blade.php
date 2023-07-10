@@ -25,6 +25,20 @@
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="form-group col-12">
+                    <label>الاقسام</label>
+                    <select class="select2" multiple="multiple" name="categories[]" style="width: 100%;">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"
+                                {{ $faq->categories->contains('id', $category->id) || collect(old('categories'))->contains($category->id) ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('categories')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
                 <button type="submit" class="btn btn-success">تعديل</button>
             </form>
         </div>

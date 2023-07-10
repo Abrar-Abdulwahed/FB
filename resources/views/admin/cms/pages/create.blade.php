@@ -32,13 +32,6 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-12">
-                        <label>الوصف</label>
-                        <textarea name="description" id="description" class="form-control ckeditor">{{ old('description') }}</textarea>
-                        @error('description')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
 
                     {{-- <div class="form-group col-12">
                         <label>الصورة</label>

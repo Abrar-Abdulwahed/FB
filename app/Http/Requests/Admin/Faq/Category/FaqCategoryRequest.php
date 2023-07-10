@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Page;
+namespace App\Http\Requests\Admin\Faq\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PageStoreRequest extends FormRequest
+class FaqCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,8 @@ class PageStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
-            // 'image' => ['nullable', 'image'],
-            'is_in_footer' => 'nullable|in:on,off',
-            'is_in_menu' => 'nullable|in:on,off',
-            'is_active' => 'nullable|in:on,off',
+            //
+            'name' => 'required|string',
         ];
     }
 }

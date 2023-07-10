@@ -28,7 +28,7 @@ class SettingSeeder extends Seeder
                 'facebook_enable' => 'on',
                 'services.facebook.client_id' => '216796600748740',
                 'services.facebook.client_secret' => '465dd3a53f01c039cf544bec281f8085',
-                'captcha_enable' => 'on',
+                'captcha_enable' => 'off',
                 'recaptcha.api_site_key' => '6LfU1LImAAAAAAnmzNitKGDofM5vpnn26Ny2-_Rn',
                 'recaptcha.api_secret_key' => '6LfU1LImAAAAAJuimHgma-JGiwSn_3auQFiTdmNf',
                 'mail.default' => 'smtp', //mail_mailer
@@ -45,7 +45,7 @@ class SettingSeeder extends Seeder
                 'page_enable' => 'on',
                 'short_link_enable' => 'on',
                 'register_enable' => 'on',
-                'email_confirm_enable' => 'on',
+                'email_confirm_enable' => 'off',
                 'comment_enable' => 'on',
                 'telegram_report_enable' => 'on',
                 'slack_report_enable' => 'on',
