@@ -159,9 +159,11 @@ class SettingController extends Controller
                     }
                 }
                 Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
+            }else{
+                return redirect()->route('admin.settings.index')->withError('error', 'ملف الإعدادات غير موجود');
             }
         }catch (\Throwable $e) {
-            return redirect()->route('admin.settings.index')->withError('error', 'فشل في تهيئية قاعدة البيانات');
+            return redirect()->route('admin.settings.index')->withError('error', 'فشل في تحميل الإعدادات');
         }
     }
 
