@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'feature' => \App\Http\Middleware\FeatureEnabling::class,
         'appLogin' => \App\Http\Middleware\AppLoginEnabling::class,
         'register' => \App\Http\Middleware\Register::class,
+        'roles' => \App\Http\Middleware\Roles::class,
     ];
 }
