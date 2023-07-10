@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Setting\CustomMessage;
 
+use App\Models\CustomMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CustomMessage\StoreCustomMessageRequest;
 use App\Http\Requests\Admin\CustomMessage\UpdateCustomMessageRequest;
-use App\Models\CustomMessage;
+use App\Http\Requests\Admin\CustomMessage\ChangeActiveCustomMessageRequest;
 
 class CustomMessageController extends Controller
 {
@@ -78,17 +79,13 @@ class CustomMessageController extends Controller
         }
     }
 
-    public function changeActive(CustomMessage $msg)
+    public function changeActive(ChangeActiveCustomMessageRequest $request, CustomMessage $msg)
     {
-        if($msg->disactivable()){
-            $isUpdated = $msg->update([
-                'is_active' => $msg->is_active == 1? "off": "on",
-            ]);
-            return redirect()->back()
-                ->with('success', 'تم تعديل حالة الرسالة المخصصة بنجاح');
-        }else{
-            return redirect()->back()
-                ->with('error', 'لا يمكنك تغيير حالة هذه الرسالة');
-        }
+        $isUpdated = $msg->update([
+            'is_active' => $msg->is_active == 1? "off": "on",
+        ]);
+        return redirect()->back()
+            ->with('success', 'تم تعديل حالة الرسالة المخصصة بنجاح');
+
     }
 }

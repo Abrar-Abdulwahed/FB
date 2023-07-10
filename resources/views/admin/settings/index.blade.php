@@ -52,7 +52,8 @@
                                     aria-selected="false">إعدادات
                                     إضافية</a>
                             </li>
-                            <li class="nav-item {{ $errors->hasAny(['password']) ? 'bg-danger' : '' }}">
+                            <li
+                                class="nav-item {{ $errors->hasAny(['load_password', 'resetdb_password']) ? 'bg-danger' : '' }}">
                                 <a class="nav-link" id="cleanup-tab" data-toggle="pill" href="#cleanup" role="tab"
                                     aria-controls="cleanup" aria-selected="false">التنظيف</a>
                             </li>
@@ -495,15 +496,15 @@
                                     @csrf
                                     @method('DELETE')
                                     <div class="row mb-3">
-                                        <label for="password"
+                                        <label for="resetdb_password"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                name="password" autocomplete="current-password">
+                                            <input id="resetdb_password" type="password"
+                                                class="form-control @error('resetdb_password') is-invalid @enderror"
+                                                name="resetdb_password" autocomplete="current-password">
 
-                                            @error('password')
+                                            @error('resetdb_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -601,15 +602,15 @@
                                     @csrf
                                     @method('DELETE')
                                     <div class="row mb-3">
-                                        <label for="password"
+                                        <label for="load_password"
                                             class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                name="password" autocomplete="current-password">
+                                            <input id="load_password" type="password"
+                                                class="form-control @error('load_password') is-invalid @enderror"
+                                                name="load_password" autocomplete="current-password">
 
-                                            @error('password')
+                                            @error('load_password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -781,8 +782,11 @@
             });
         });
 
-        @if ($errors->has('password'))
+        @if ($errors->has('resetdb_password'))
             $('#confirm-reset-db').modal('show');
+        @endif
+        @if ($errors->has('load_password'))
+            $('#confirm-load').modal('show');
         @endif
         ClassicEditor
             .create(document.querySelector('#reason_locked'), {

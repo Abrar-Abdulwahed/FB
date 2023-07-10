@@ -114,11 +114,15 @@ class SettingController extends Controller
 
     public function cleanup(Request $request)
     {
+        $request->validate([
+            'resetdb_password' => 'sometimes|current_password',
+            'load_password' => 'sometimes|current_password'
+        ]);
         try{
             $action = $request->query('action');
             switch ($action) {
                 case 'reset-db':
-                    $this->resetDatabase($request);
+                    $this->resetDatabase();
                     $msg = 'تم تهيئة البيانات بنجاح';
                     break;
                 case 'load-settings':
@@ -138,25 +142,20 @@ class SettingController extends Controller
             }
             return redirect()->route('admin.settings.index')->with('success', $msg);
         }catch(\Exception $e){
-            return redirect()->route('admin.settings.index')->withError('error', 'حدث خطأ ما، حاول مرة أخرى!');
+            return redirect()->back()->withError('حدث خطأ ما، حاول مرة أخرى!');
         }
     }
 
-    protected function resetDatabase(Request $request)
+    protected function resetDatabase()
     {
-        $request->validate([
-            'password' => 'required|current_password'
-        ]);
         Cache::forget("settings");
         Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
     }
 
     protected function loadSettings(Request $request){
-        $request->validate([
-            'password' => 'required|current_password'
-        ]);
         if(File::exists(base_path('config.php'))){
             $settings = include(base_path('config.php'));
+            $this->clearCache();
             foreach($settings as $key => $value){
                 if($value !== null){
                     if(($key == 'admin_email')){
