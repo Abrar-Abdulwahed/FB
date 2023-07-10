@@ -198,7 +198,11 @@ class SettingController extends Controller
         $action = $request->query('action');
         switch ($action) {
             case 'email':
-                Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
+                try{
+                    Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
+                }catch(\Exception $e){
+                    return redirect()->back()->with('error', $e->getMessage());
+                }
                 break;
             case 'report':
                 throw new Exception('Test Exception via channels');
@@ -206,6 +210,6 @@ class SettingController extends Controller
             default:
                 abort(404);
         }
-        return redirect()->route('admin.index');
+        return redirect()->back()->with('success', 'تم الاختبار بنجاح');
     }
 }
