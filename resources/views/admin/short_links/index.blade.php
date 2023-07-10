@@ -36,7 +36,8 @@
                         </td>
                         <td>
                             @if (!empty($short_link->slug))
-                                <input type="text" value="{{ route('admin.short_links.show', $short_link->slug) }}" disabled>
+                                <input type="text" value="{{ route('admin.short_links.show', $short_link->slug) }}"
+                                    disabled>
                                 <button class="btn"
                                     data-clipboard-text="{{ route('admin.short_links.show', $short_link->slug) }}"
                                     id="copy-button"><i class="fas fa-copy text-secondary"></i></button>

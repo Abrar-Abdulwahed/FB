@@ -17,7 +17,7 @@ class LockSite
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $allowedNames = ['locked', 'logout'];
+        $allowedNames = ['guest.locked', 'logout'];
         $allowedURLs = [
             route('app.login', 'facebook'),
             route('app.login', 'google'),
@@ -25,10 +25,12 @@ class LockSite
             route('login'), // add the login URL with the GET method
             url('login'), // add the login URL with the POST method
         ];
-
-        if (Setting::where('name', 'site_status')->first()?->value === 'inactive' && !in_array(request()->url(), $allowedURLs) && !in_array(Route::currentRouteName(), $allowedNames) && !Route::is('admin.*')) {
+        if (Setting::where('name', 'site_status')->first()?->value === 'inactive' 
+            && !in_array(request()->url(), $allowedURLs) 
+            && !in_array(Route::currentRouteName(), $allowedNames) 
+            && !Route::is('admin.*')) {
             return redirect('/locked');
-        } elseif (Setting::where('name', 'site_status')->first()?->value === 'active' && Route::is('locked')) {
+        } elseif (Setting::where('name', 'site_status')->first()?->value === 'active' && Route::is('guest.locked')) {
             return abort(404);
         }
         return $next($request);

@@ -46,14 +46,14 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
                     Route::resource('articles', ArticleController::class);
                     Route::resource('articles-categories', ArticleCategoryController::class);
                     Route::resource('tags', TagController::class);
-                    Route::group([], function () {
+                    Route::group(['middleware' => 'feature:comment'], function () {
                         Route::resource('comments', ArticleComment::class);
                         Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
                         Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
                     });
 
                 });
-                
+
                 // Route::get('articles/categories/{slug}', [ArticleController::class, 'category'])->name('articles.category');
             });
         });
@@ -73,6 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
             Route::name('settings.')->group(function () {
                 Route::resource('/', SettingController::class)->only('index', 'store');
                 Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+                Route::post('exception', [SettingController::class, 'test'])->name('test_report');
             });
 
             Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])
@@ -90,7 +91,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     //short links
     Route::middleware('feature:short_link')->group(function () {
-        Route::resource('short_links', ShortLinkController::class)/* ->except('show') */;
+        Route::resource('short_links', ShortLinkController::class) /* ->except('show') */;
         Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
     });
 

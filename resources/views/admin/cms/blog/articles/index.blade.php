@@ -9,7 +9,7 @@
 @endpush
 @section('content')
 @section('title')
-    الأعضاء
+    المقالات
 @endsection
 <a href={{ route('admin.articles.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
     اضافة مقال</a>
@@ -62,8 +62,8 @@
                         </td>
 
                         <td>
-                            <img src="{{ $article->user->avatar_image }}"
-                                style="width:50px; height:50px" class="rounded circle"><br>
+                            <img src="{{ $article->user->avatar_image }}" style="width:50px; height:50px"
+                                class="rounded circle"><br>
                             {{ $article->user->name }}
                         </td>
 

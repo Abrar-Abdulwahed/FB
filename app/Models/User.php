@@ -5,16 +5,17 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Events\UserUpdated;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Notifications\CustomPasswordResetNotification;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -37,11 +38,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'banned_until',
         'last_activity',
     ];
-
-    // protected $dispatchesEvents = [
-    //     'saved' => UserSaved::class,
-    //     'deleted' => UserDeleted::class,
-    // ];
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -95,4 +91,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Article::class);
     }
+
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $this->notify(new CustomPasswordResetNotification($token));
+    // }
+    
 }

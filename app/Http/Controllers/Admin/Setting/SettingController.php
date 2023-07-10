@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
+use Exception;
 use App\Models\Setting;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
@@ -85,7 +86,7 @@ class SettingController extends Controller
                 'page_enable' => $request->page_enable ? "on" : "off",
                 'register_enable' => $request->register_enable ? "on" : "off",
                 'email_confirm_enable' => $request?->email_confirm_enable,
-                'comment_enable' => $request->comment_enable,
+                'comment_enable' => $request->comment_enable ?? "off",
                 'short_link_enable' => $request?->short_link_enable,
                 'telegram_report_enable' => $request?->telegram_report_enable,
                 'logging.channels.telegram.chat_id' => $request?->telegram_chat_id,
@@ -112,6 +113,9 @@ class SettingController extends Controller
             case 'reset-db':
                 $this->resetDatabase($request);
                 break;
+            case 'load-settings':
+                $this->loadSettings($request);
+                break;
             case 'clear-session-cookie':
                 $this->clearSessionCookie();
                 break;
@@ -134,6 +138,24 @@ class SettingController extends Controller
             Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
             return redirect()->route('admin.index');
         } catch (\Throwable $e) {
+            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
+        }
+    }
+
+    protected function loadSettings(Request $request){
+        $request->validate([
+            'password' => 'required|current_password'
+        ]);
+        try {
+            if(file_exists(config_path('config.php'))){
+                foreach(config('config') as $key => $value){
+                    if($value !== null){
+                        Setting::updateOrCreate(['name' => $key], ['value' => $value]);
+                    }
+                }
+                Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
+            }
+        }catch (\Throwable $e) {
             return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
     }
@@ -163,6 +185,20 @@ class SettingController extends Controller
             if($file !== ".gitignore" && File::isDirectory($directory)) {
                 File::deleteDirectory($directory . '/' . $file);
             }
+        }
+        return redirect()->route('admin.index');
+    }
+
+    public function test(Request $request){
+        $action = $request->query('action');
+        switch ($action) {
+            case 'email':
+                throw new Exception('Test Exception via email');
+            case 'channel':
+                throw new Exception('Test Exception via channels');
+                break;
+            default:
+                abort(404);
         }
         return redirect()->route('admin.index');
     }

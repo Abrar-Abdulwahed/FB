@@ -20,14 +20,16 @@ Route::group(['as' => 'guest.'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::group([], function () {
-        Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
-        Route::get('articles/{slug}', [ArticleController::class, 'show'])
-            ->name('articles.show');
-        Route::post('articles/comments', [ArticleController::class, 'store'])
-            ->name('articles.comments')->middleware('auth');
+        Route::group(['middleware' => 'feature:article'], function () {
+            Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+            Route::get('articles/{slug}', [ArticleController::class, 'show'])
+                ->name('articles.show');
+            Route::post('articles/comments', [ArticleController::class, 'store'])
+                ->name('articles.comments')->middleware('auth');
+        });
 
-        Route::get('support/faq', [FaqController::class, 'index'])
-            ->name('support.faq.index');
+        Route::get('support/faq', [FaqController::class, 'index'])->name('support.faq.index')->middleware('feature:faq');
+
     });
 
     Route::group([], function () {
@@ -35,9 +37,8 @@ Route::group(['as' => 'guest.'], function () {
         Route::get('/locked', [ErrorController::class, 'lock'])->name('locked');
     });
 
-    Route::get('pages/{slug}', [PageController::class, 'show'])
-        ->name('pages.show');
+    Route::get('pages/{slug}', [PageController::class, 'show'])->name('pages.show')->middleware('feature:page');
 
-    Route::get('/s/{param}', [ShortLinkController::class, 'show'])->name('short_link.show');
+    Route::get('/s/{param}', [ShortLinkController::class, 'show'])->name('short_link.show')->middleware('feature:short_link');
 
 });

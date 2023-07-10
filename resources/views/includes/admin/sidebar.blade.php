@@ -77,199 +77,202 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on')
+                                @feature('article')
                                     <li
                                         class="nav-item @if (Route::is('admin.articles.*')) ? 'active' : '' bg-primary @endif">
                                         <a class="nav-link" href="{{ route('admin.articles.index') }}">
                                             <i class="fa fa-list-alt nav-icon"></i>المقالات
                                         </a>
                                     </li>
-                                @endif
-                                <li
-                                    class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') ? 'menu-open' : '' }}">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fa-solid fa-comment"></i>
-                                        <p>
-                                            التعليقات
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
+                                    @feature('comment')
                                         <li
-                                            class="nav-item @if (Route::is('admin.comments.*')) ? 'active' : '' bg-primary @endif">
-                                            <a class="nav-link" href="{{ route('admin.comments.index') }}">
-                                                <i class="fa fa-comment nav-icon"></i>عرض التعليقات
+                                            class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') ? 'menu-open' : '' }}">
+                                            <a href="#" class="nav-link">
+                                                <i class="nav-icon fa-solid fa-comment"></i>
+                                                <p>
+                                                    التعليقات
+                                                    <i class="fas fa-angle-left right"></i>
+                                                </p>
                                             </a>
+                                            <ul class="nav nav-treeview">
+                                                <li
+                                                    class="nav-item @if (Route::is('admin.comments.*')) ? 'active' : '' bg-primary @endif">
+                                                    <a class="nav-link" href="{{ route('admin.comments.index') }}">
+                                                        <i class="fa fa-comment nav-icon"></i>عرض التعليقات
+                                                    </a>
+                                                </li>
+                                                <li
+                                                    class="nav-item @if (Route::is('admin.deletedComments')) ? 'active' : '' bg-primary @endif">
+                                                    <a class="nav-link" href="{{ route('admin.deletedComments') }}">
+                                                        <i class="fa fa-comment nav-icon"></i>عرض التعليقات المحذوفة
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
-                                        <li
-                                            class="nav-item @if (Route::is('admin.deletedComments')) ? 'active' : '' bg-primary @endif">
-                                            <a class="nav-link" href="{{ route('admin.deletedComments') }}">
-                                                <i class="fa fa-comment nav-icon"></i>عرض التعليقات المحذوفة
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
-                                <li
-                                    class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
-                                    <a class="nav-link" href="{{ route('admin.tags.index') }}">
-                                        <i class="fa fa-tag nav-icon"></i>Tags
-                                    </a>
-                                </li>
-                                @endif
+                                    @endfeature
+                                    <li
+                                        class="nav-item @if (Route::is('admin.articles-categories.*')) ? 'active' : '' bg-primary @endif">
+                                        <a class="nav-link" href="{{ route('admin.articles-categories.index') }}">
+                                            <i class="fa fa-tag nav-icon"></i>التصنيفات
+                                        </a>
+                                    </li>
+                                @endfeature
+                                @feature('page')
+                                    <li
+                                        class="nav-item @if (Route::is('admin.tags.*')) ? 'active' : '' bg-primary @endif">
+                                        <a class="nav-link" href="{{ route('admin.tags.index') }}">
+                                            <i class="fa fa-tag nav-icon"></i>Tags
+                                        </a>
+                                    </li>
+                                @endfeature
+                            </ul>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
+                            <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
+                            </a>
+                        </li>
 
+                        @feature('faq')
+                            <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.faqs.index') }}">
+                                    <i class="nav-icon fa-solid fa-question"></i>ادارة الاسئلة الشائعة
+                                </a>
+                            </li>
+                        @endfeature
+                    </ul>
+
+                </li>
+                {{-- @endif --}}
+
+                <li class="nav-item @if (Route::is('admin.tickets.*')) ? 'active' : '' bg-primary @endif ">
+                    <a href={{ route('admin.tickets.index') }} class="nav-link">
+                        <i class="nav-icon fa-solid fa-message"></i>
+                        <p>الدعم الفني</p>
+                    </a>
+                </li>
+
+                @feature('short_link')
+                    <li class="nav-item">
+                        <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
+                            href="{{ route('admin.short_links.index') }}">
+                            <i class="nav-icon fa fa-link"></i>
+                            <p>اختصار الروابط</p>
+                        </a>
+                    </li>
+                @endfeature
+
+                <li
+                    class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.payments.*') || Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa-solid fa-cog"></i>
+                        <p>
+                            الاعدادات
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item @if (Route::is('admin.settings.*')) ? 'active' : '' bg-primary @endif">
+                            <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-cog"></i>
+                                <p>
+                                    الاعدادات
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item {{ Route::is('admin.custom-message.*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-message"></i>
+                                <p>
+                                    الرسائل المخصصة
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li
-                                    class="nav-item @if (Route::is('admin.articles-categories.*')) ? 'active' : '' bg-primary @endif">
-                                    <a class="nav-link" href="{{ route('admin.articles-categories.index') }}">
-                                        <i class="fa fa-tag nav-icon"></i>التصنيفات
+                                    class="nav-item @if (Route::is('admin.custom-message.index')) ? 'active' : '' bg-primary @endif">
+                                    <a href={{ route('admin.custom-message.index') }} class="nav-link">
+                                        <i class="fa fa-commenting nav-icon"></i>
+                                        <p>جميع الرسائل المخصصة</p>
                                     </a>
                                 </li>
+                                <li
+                                    class="nav-item @if (Route::is('admin.custom-message.create')) ? 'active' : '' bg-primary @endif">
+                                    <a href={{ route('admin.custom-message.create') }} class="nav-link">
+                                        <i class="fa fa-commenting nav-icon"></i>
+                                        <p>إنشاء رسالة مخصصة</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item {{ Route::is('admin.TicketsCategory.*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-newspaper"></i>
+                                <p>
+                                    انواع تذاكر الدعم الفني
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li
+                                    class="nav-item @if (Route::is('admin.TicketsCategory.*')) ? 'active' : '' bg-primary @endif ">
+                                    <a href={{ route('admin.TicketsCategory.index') }} class="nav-link">
+                                        <i class="nav-icon fa-solid fa-message"></i>
+                                        <p>قائمة تصنيفات التذاكر</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item @if (Route::is('admin.payments.*')) ? 'active' : '' bg-primary @endif ">
+                            <a href="{{ route('admin.payments.index') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-credit-card"></i>
+                                <p>وسائل الدفع</p>
+                            </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
-                    <a class="nav-link" href="{{ route('admin.pages.index') }}">
-                        <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
-                    </a>
-                </li>
 
-                @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
-                    <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
-                        <a class="nav-link" href="{{ route('admin.faqs.index') }}">
-                            <i class="nav-icon fa-solid fa-question"></i>ادارة الاسئلة الشائعة
-                        </a>
-                    </li>
-                @endif
-            </ul>
 
-            </li>
-            {{-- @endif --}}
-
-            <li class="nav-item @if (Route::is('admin.tickets.*')) ? 'active' : '' bg-primary @endif ">
-                <a href={{ route('admin.tickets.index') }} class="nav-link">
-                    <i class="nav-icon fa-solid fa-message"></i>
-                    <p>الدعم الفني</p>
-                </a>
-            </li>
-
-            @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
                 <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.short_links.index') }}">
-                        <i class="nav-icon fa fa-link"></i>
-                        <p>اختصار الروابط</p>
+                    <a class="nav-link @if (Route::is('admin.ads.*')) ? 'active' : '' bg-primary @endif"
+                        href="{{ route('admin.ads.index') }}">
+                        <i class="nav-icon fa-solid fa-image"></i>
+                        <p>الاعلانات</p>
                     </a>
                 </li>
-            @endif
-
-            <li
-                class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.payments.*') || Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fa-solid fa-cog"></i>
-                    <p>
-                        الاعدادات
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item @if (Route::is('admin.settings.*')) ? 'active' : '' bg-primary @endif">
-                        <a href="{{ route('admin.settings.index') }}" class="nav-link">
-                            <i class="nav-icon fa-solid fa-cog"></i>
-                            <p>
-                                الاعدادات
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ Route::is('admin.custom-message.*') ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa-solid fa-message"></i>
-                            <p>
-                                الرسائل المخصصة
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item @if (Route::is('admin.custom-message.index')) ? 'active' : '' bg-primary @endif">
-                                <a href={{ route('admin.custom-message.index') }} class="nav-link">
-                                    <i class="fa fa-commenting nav-icon"></i>
-                                    <p>جميع الرسائل المخصصة</p>
-                                </a>
-                            </li>
-                            <li class="nav-item @if (Route::is('admin.custom-message.create')) ? 'active' : '' bg-primary @endif">
-                                <a href={{ route('admin.custom-message.create') }} class="nav-link">
-                                    <i class="fa fa-commenting nav-icon"></i>
-                                    <p>إنشاء رسالة مخصصة</p>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item {{ Route::is('admin.TicketsCategory.*') ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa-solid fa-newspaper"></i>
-                            <p>
-                                انواع تذاكر الدعم الفني
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li
-                                class="nav-item @if (Route::is('admin.TicketsCategory.*')) ? 'active' : '' bg-primary @endif ">
-                                <a href={{ route('admin.TicketsCategory.index') }} class="nav-link">
-                                    <i class="nav-icon fa-solid fa-message"></i>
-                                    <p>قائمة تصنيفات التذاكر</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item @if (Route::is('admin.payments.*')) ? 'active' : '' bg-primary @endif ">
-                        <a href="{{ route('admin.payments.index') }}" class="nav-link">
-                            <i class="nav-icon fa-solid fa-credit-card"></i>
-                            <p>وسائل الدفع</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('*ads*') ? 'active' : '' }}"
-                    href="{{ route('admin.ads.index') }}">
-                    <i class="nav-icon fa-solid fa-image"></i>
-                    <p>الاعلانات</p>
-                </a>
-            </li>
-            {{--  @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+                {{--  @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
                 <li class="nav-item">
                     <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
                         href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
                 </li>
             @endif --}}
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ asset('/log-viewer') }}">
-                    <i class="nav-icon fa fa-exclamation-triangle"></i>
-                    <p>ملف الاخطاء</p>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ asset('/log-viewer') }}">
+                        <i class="nav-icon fa fa-exclamation-triangle"></i>
+                        <p>ملف الاخطاء</p>
 
-                </a>
-            </li>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::is('admin.uploads.*')) ? 'active' : '' bg-primary @endif"
+                        href="{{ route('admin.uploads.index') }}">
+                        <i class="nav-icon fa-solid fa-download"></i>
+                        <p>ملفات الرفع</p>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.uploads.index') }}">
-                    <i class="nav-icon fa-solid fa-download"></i>
-                    <p>ملفات الرفع</p>
+                    </a>
+                </li>
 
-                </a>
-            </li>
 
-            
-            <li class="nav-item">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
+                <li class="nav-item">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
-                 {{ __('تسجيل الخروج') }}
-                    <i class="nav-icon fa-solid fa-sign-out mr-4"></i>
-                </a>
-            </li>
+                        {{ __('تسجيل الخروج') }}
+                        <i class="nav-icon fa-solid fa-sign-out mr-4"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
