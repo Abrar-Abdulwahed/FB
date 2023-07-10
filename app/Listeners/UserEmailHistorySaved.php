@@ -24,7 +24,7 @@ class UserEmailHistorySaved
     public function handle(MessageSent $event): void
     {
         UserEmailHistory::create([
-            'user_id' => User::where('email', $event->message->getTo()[0]->getAddress())->first()->id,
+            'user_id' => User::where('email', $event->message->getTo()[0]->getAddress())->first()?->id ?? auth()->user()->id,
             'title' => $event->message->getSubject(),
             'text'  => $event->message->getBody()->getParts()[0]->getBody(),
         ]);

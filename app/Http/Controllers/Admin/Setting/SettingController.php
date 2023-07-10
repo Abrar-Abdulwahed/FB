@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use Exception;
 use App\Models\Setting;
+use App\Mail\TestMailable;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
@@ -125,7 +129,7 @@ class SettingController extends Controller
             default:
                 abort(404);
         }
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.settings.index');
     }
 
     protected function resetDatabase(Request $request)
@@ -147,8 +151,9 @@ class SettingController extends Controller
             'password' => 'required|current_password'
         ]);
         try {
-            if(file_exists(config_path('config.php'))){
-                foreach(config('config') as $key => $value){
+            if(File::exists(base_path('config.php'))){
+                $settings = include(base_path('config.php'));
+                foreach($settings as $key => $value){
                     if($value !== null){
                         Setting::updateOrCreate(['name' => $key], ['value' => $value]);
                     }
@@ -156,7 +161,7 @@ class SettingController extends Controller
                 Cache::forever("settings", Setting::pluck('value', 'name')->toArray());
             }
         }catch (\Throwable $e) {
-            return redirect()->back()->withError('error', 'فشل في تهيئية قاعدة البيانات');
+            return redirect()->route('admin.settings.index')->withError('error', 'فشل في تهيئية قاعدة البيانات');
         }
     }
 
@@ -193,13 +198,18 @@ class SettingController extends Controller
         $action = $request->query('action');
         switch ($action) {
             case 'email':
-                throw new Exception('Test Exception via email');
-            case 'channel':
+                try{
+                    Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
+                }catch(\Exception $e){
+                    return redirect()->back()->with('error', $e->getMessage());
+                }
+                break;
+            case 'report':
                 throw new Exception('Test Exception via channels');
                 break;
             default:
                 abort(404);
         }
-        return redirect()->route('admin.index');
+        return redirect()->back()->with('success', 'تم الاختبار بنجاح');
     }
 }

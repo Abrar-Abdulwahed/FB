@@ -261,7 +261,7 @@
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-6">
                                             <button type="button" class="mx-1 btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#confirm-test-report-email">
+                                                data-target="#confirm-test-email">
                                                 إرسال إيميل تجريبي
                                                 <i class="fas fa-info"></i>
                                             </button>
@@ -360,6 +360,11 @@
                                                     إرسال تبليغ تجريبي
                                                     <i class="fas fa-info"></i>
                                                 </button>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-3">
+                                            <div class="form-group col-md-6">
+                                                حالة الموقع: {{ app()->environment() }}
                                             </div>
                                         </div>
                                     </div>
@@ -630,7 +635,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="confirm-test-report-email">
+                <div class="modal fade" id="confirm-test-email">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -639,12 +644,19 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
+                            <div class="modal-footer justify-content-center">
                                 <form action="{{ route('admin.settings.test_report', ['action' => 'email']) }}"
                                     method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                    <label for="test-email">ادخل الإيميل المراد الإرسال له</label>
+                                    <input type="email" name="test_email" id="test-email"
+                                        placeholder="example@example.com"
+                                        class="form-control @error('test-email') is-invalid @enderror" />
+                                    <div class="d-flex justify-content-between mt-5">
+                                        <button type="button" class="btn btn-default btn-md"
+                                            data-dismiss="modal">إغلاق</button>
+                                        <button type="submit" class="btn btn-dark btn-md">إرسال</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -661,7 +673,7 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
-                                <form action="{{ route('admin.settings.test_report', ['action' => 'channel']) }}"
+                                <form action="{{ route('admin.settings.test_report', ['action' => 'report']) }}"
                                     method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-dark btn-md">نعم</button>
