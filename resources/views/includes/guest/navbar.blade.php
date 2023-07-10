@@ -1,3 +1,7 @@
+<?php 
+use App\Models\Page;
+$page = Page::active()->get(['title','slug']);
+?>
 <header class="mb-5">
     <nav class="navbar navbar-expand-lg bg-white align-items-start">
         <div class="container" style="flex-direction: row-reverse;">
@@ -100,11 +104,8 @@
                 <li class="nav-item">
                     <a class="nav-link p-2 p-lg-3" aria-current="page" href="#">المقدمة</a>
                 </li>
-                @foreach (App\Models\Page::where('is_in_menu', 1)->select('title', 'slug')->get() as $page)
-                    <li class="nav-item">
-                        <a class="nav-link p-2 p-lg-3 active"
-                            href="{{ route('guest.pages.show', $page->slug) }}">{{ $page->title }}</a>
-                    </li>
+                @foreach ($page as $page)
+                    <li class="nav-item"><a class="nav-link p-2 p-lg-3" href="{{ route('guest.pages.show', $page->slug) }}">{{ $page['title'] }}</a></li>
                 @endforeach
             </ul>
         </div>

@@ -57,6 +57,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
             });
         });
         Route::resource('pages', PageController::class)->except(['show'])->middleware('feature:page');
+        Route::patch('pages/{page}/active', [PageController::class, 'changeActive'])
+                ->name('pages.changeActive');
+                
         Route::resource('faqs', FaqController::class)->middleware('feature:faq');
     });
 

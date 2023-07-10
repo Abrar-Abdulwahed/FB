@@ -22,7 +22,13 @@ class Page extends Model
         'image',
         'is_in_footer',
         'is_in_menu',
+        'is_active',
     ];
+
+    public function scopeActive($query)
+    {
+        $query->where('is_active', 1);
+    }
 
     public static function generateSlug($title)
     {
@@ -50,4 +56,5 @@ class Page extends Model
         return LogOptions::defaults()
             ->logFillable();
     }
+
 }

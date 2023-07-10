@@ -3,6 +3,8 @@ use App\Models\Setting;
 use App\Models\ArticleCategory;
 $settings = Setting::settings();
 $article_categories = ArticleCategory::article_categories();
+use App\Models\Page;
+$page = Page::active()->get(['title','slug']);
 ?>
 <section id="sec-1" class="m-0 p-0">
     <div class="container">
@@ -16,11 +18,8 @@ $article_categories = ArticleCategory::article_categories();
                     <li class="nav-item">
                         <a class="nav-link p-2 p-lg-3" aria-current="page" href="#">المقدمة</a>
                     </li>
-                    @foreach (App\Models\Page::where('is_in_menu', 1)->select('title', 'slug')->get() as $page)
-                        <li class="nav-item">
-                            <a class="nav-link p-2 p-lg-3 active"
-                                href="{{ route('guest.pages.show', $page->slug) }}">{{ $page->title }}</a>
-                        </li>
+                    @foreach ($page as $page)
+                        <li class="nav-item"><a class="nav-link p-2 p-lg-3" href="{{ route('guest.pages.show', $page->slug) }}">{{ $page['title'] }}</a></li>
                     @endforeach
                 </ul>
             </div>

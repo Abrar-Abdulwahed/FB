@@ -1,6 +1,8 @@
 <?php
 use App\Models\Setting;
 $settings = Setting::settings();
+use App\Models\Page;
+$page = Page::active()->get(['title','slug']);
 ?>
 <!-- Start Section-6 -->
 <section id="sec-6" class="bg-white">
@@ -44,8 +46,8 @@ $settings = Setting::settings();
 <footer>
     <div class="container d-md-flex justify-content-between d-sm-block text-sm-center">
         <ul class="d-inline-flex">
-            @foreach (App\Models\Page::where('is_in_footer', 1)->select('title', 'slug')->get() as $page)
-                <li><a href="{{ route('guest.pages.show', $page->slug) }}">{{ $page->title }}</a></li>
+            @foreach ($page as $page)
+                <li><a href="{{ route('guest.pages.show', $page->slug) }}">{{ $page['title'] }}</a></li>
             @endforeach
         </ul>
         <p>مستقل احد مشاريع شركة X</p>
