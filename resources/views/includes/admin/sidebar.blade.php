@@ -162,6 +162,22 @@
                     </li>
                 @endfeature
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ asset('/log-viewer') }}">
+                        <i class="nav-icon fa fa-exclamation-triangle"></i>
+                        <p>ملف الاخطاء</p>
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::is('admin.uploads.*')) ? 'active' : '' bg-primary @endif"
+                        href="{{ route('admin.uploads.index') }}">
+                        <i class="nav-icon fa-solid fa-download"></i>
+                        <p>ملفات الرفع</p>
+
+                    </a>
+                </li>
+
                 <li
                     class="nav-item {{ Route::is('admin.settings.*') || Route::is('admin.payments.*') || Route::is('admin.TicketsCategory.*') || Route::is('admin.custom-message.*') || Route::is('admin.tags.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
@@ -232,23 +248,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ asset('/log-viewer') }}">
-                        <i class="nav-icon fa fa-exclamation-triangle"></i>
-                        <p>ملف الاخطاء</p>
-
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.uploads.*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.uploads.index') }}">
-                        <i class="nav-icon fa-solid fa-download"></i>
-                        <p>ملفات الرفع</p>
-
-                    </a>
-                </li>
-
 
                 <li class="nav-item">
                     <a class="dropdown-item" href="{{ route('logout') }}"
