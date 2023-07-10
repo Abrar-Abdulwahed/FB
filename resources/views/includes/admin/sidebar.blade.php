@@ -58,7 +58,7 @@
                 {{--  @if (\App\Models\Setting::where('name', 'article_enable')?->first()?->value == 'on') --}}
 
                 <li
-                    class="nav-item {{ Route::is('admin.articles.*') || Route::is('admin.articles-categories.*') || Route::is('admin.faqs.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
+                    class="nav-item {{ Route::is('admin.articles.*')|| Route::is('admin.faqs-categories.*') || Route::is('admin.faqs.*')  || Route::is('admin.articles-categories.*') || Route::is('admin.comments.*') || Route::is('admin.deletedComments') || Route::is('admin.tags.*') || Route::is('admin.pages.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-newspaper"></i>
                         <p>
@@ -134,10 +134,28 @@
                         </li>
 
                         @feature('faq')
-                            <li class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
-                                <a class="nav-link" href="{{ route('admin.faqs.index') }}">
-                                    <i class="nav-icon fa-solid fa-question"></i>ادارة الاسئلة الشائعة
+                            <li class="nav-item {{ Route::is('admin.faqs-categories.*') || Route::is('admin.faqs.*') ? 'menu-open' : '' }}">
+                                <a class="nav-link" href="#">
+                                    <i class="nav-icon fa-solid fa-question"></i>  
+                                    <p>
+                                        ادارة الاسئلة الشائعة
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li
+                                        class="nav-item @if (Route::is('admin.faqs.*')) ? 'active' : '' bg-primary @endif">
+                                        <a class="nav-link" href="{{ route('admin.faqs.index') }}">
+                                            <i class="fa-solid fa-question nav-icon"></i>الاسئلة الشائعة
+                                        </a>
+                                    </li>
+                                    <li
+                                        class="nav-item @if (Route::is('admin.faqs-categories.*')) ? 'active' : '' bg-primary @endif">
+                                        <a class="nav-link" href="{{ route('admin.faqs-categories.index') }}">
+                                            <i class="fa fa-tag nav-icon"></i>التنصيفات
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         @endfeature
                     </ul>

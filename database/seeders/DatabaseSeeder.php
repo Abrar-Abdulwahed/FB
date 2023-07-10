@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PaymentSeeder::class,
             ContentSeeder::class,
             FaqSeeder::class,
+            FaqCategorySeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
