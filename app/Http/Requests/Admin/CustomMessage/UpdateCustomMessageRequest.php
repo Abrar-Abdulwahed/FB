@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests\Admin\CustomMessage;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\CustomMessage;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCustomMessageRequest extends FormRequest
 {
@@ -28,7 +29,12 @@ class UpdateCustomMessageRequest extends FormRequest
             'type' => "required|string|max:5|in:sms,email",
             'language' => "required|string|max:5|in:ar,en",
             'text' => "required|string",
-            'is_active' => "required",
+            'is_active' => ["required", function (string $attribute, mixed $value,  $fail)
+            {
+                if(!CustomMessage::findOrFail($this->custom_message)->disactivable() && $this->is_active === "off"){
+                    $fail('لا يمكن أن تكون حالة هذه الرسالة غير مفعلة');
+                }
+            }],
         ];
     }
 }

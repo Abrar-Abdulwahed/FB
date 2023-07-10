@@ -71,6 +71,9 @@
                     <input type="checkbox" class="custom-control-input" id="is-active" name="is_active"
                         @checked($message->is_active == 1)>
                     <label class="custom-control-label" for="is-active">الحالة</label>
+                    @error('is_active')
+                        <p class="text-danger small">{{ $message }}</p>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-success">تعديل</button>
             </form>

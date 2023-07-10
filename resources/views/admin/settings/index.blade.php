@@ -461,11 +461,13 @@
                                         حذف التخزين المؤقت
                                         <i class="fas fa-info"></i>
                                     </button>
-                                    <button type="button" class="mx-1 btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#confirm-load">
-                                        تحميل الإعدادات
-                                        <i class="fas fa-info"></i>
-                                    </button>
+                                    @if (Illuminate\Support\Facades\File::exists(base_path('config.php')))
+                                        <button type="button" class="mx-1 btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#confirm-load">
+                                            تحميل الإعدادات
+                                            <i class="fas fa-info"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-dark mt-4 d-inline-block">حفظ</button>
