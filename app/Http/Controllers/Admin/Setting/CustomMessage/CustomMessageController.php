@@ -80,11 +80,15 @@ class CustomMessageController extends Controller
 
     public function changeActive(CustomMessage $msg)
     {
-        // dd($msg->is_active);
-        $isUpdated = $msg->update([
-            'is_active' => $msg->is_active == 1? "off": "on",
-        ]);
-        return redirect()->back()
-            ->with('success', 'تم تعديل حالة الرسالة المخصصة بنجاح');
+        if($msg->disactivable()){
+            $isUpdated = $msg->update([
+                'is_active' => $msg->is_active == 1? "off": "on",
+            ]);
+            return redirect()->back()
+                ->with('success', 'تم تعديل حالة الرسالة المخصصة بنجاح');
+        }else{
+            return redirect()->back()
+                ->with('error', 'لا يمكنك تغيير حالة هذه الرسالة');
+        }
     }
 }

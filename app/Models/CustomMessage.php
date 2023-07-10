@@ -25,6 +25,11 @@ class CustomMessage extends Model
         $query->where('is_active', 1);
     }
 
+    public function scopeDisactivable(): bool
+    {
+        return !in_array($this->id, [2, 4]);
+    }
+
     public function setIsActiveAttribute($value)
     {
         $this->attributes['is_active'] = $value === 'on' ? 1 : 0;

@@ -45,12 +45,11 @@
                                     action="{{ route('admin.custom-message.changeActive', $item->id) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-
                                     <div class="form-group col-12 mr-3 custom-control custom-switch my-4">
                                         <input type="text" class="custom-control-input" name="is_active" value="off">
                                         <input type="checkbox" class="custom-control-input"
                                             id="is-active-{{ $loop->index }}" name="is_active"
-                                            @checked($item->is_active == 1)>
+                                            @disabled($item->disactivable() === false) @checked($item->is_active == 1)>
                                         <label class="custom-control-label" for="is-active-{{ $loop->index }}"></label>
                                     </div>
                                 </form>
