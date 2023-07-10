@@ -23,7 +23,6 @@ class PageStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
             'content' => ['required', 'string'],
             // 'image' => ['nullable', 'image'],
             'is_in_footer' => 'nullable|in:on,off',

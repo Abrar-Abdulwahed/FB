@@ -52,7 +52,6 @@ class PageController extends Controller
             'slug' => $validated['slug'],
             'title' => $validated['title'],
             'content' => $validated['content'],
-            'description' => $validated['description'],
 
         ]);
 
@@ -119,7 +118,6 @@ class PageController extends Controller
             'slug' => $validated['slug'],
             'title' => $validated['title'],
             'content' => $validated['content'],
-            'description' => $validated['description'],
 
         ]);
 
