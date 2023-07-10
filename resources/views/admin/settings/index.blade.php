@@ -673,7 +673,7 @@
                             </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
-                                <form action="{{ route('admin.settings.test_report', ['action' => 'channel']) }}"
+                                <form action="{{ route('admin.settings.test_report', ['action' => 'report']) }}"
                                     method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-dark btn-md">نعم</button>

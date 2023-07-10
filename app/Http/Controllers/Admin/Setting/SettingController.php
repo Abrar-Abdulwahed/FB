@@ -197,7 +197,7 @@ class SettingController extends Controller
             case 'email':
                 Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
                 break;
-                case 'report':
+            case 'report':
                 throw new Exception('Test Exception via channels');
                 break;
             default:
