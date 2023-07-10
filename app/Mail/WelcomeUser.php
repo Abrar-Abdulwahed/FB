@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\CustomMessage;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class WelcomeUser extends Mailable implements ShouldQueue
 {
@@ -17,11 +18,11 @@ class WelcomeUser extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $subject, $message)
+    public function __construct($user, CustomMessage $msg)
     {
         $this->user = $user;
-        $this->subject = $subject;
-        $this->message = str_replace("userName", $this->user->name, $message);
+        $this->subject = $msg->subject;
+        $this->message = str_replace("userName", $this->user->name, $msg->text);
     }
 
     /**

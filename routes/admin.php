@@ -1,23 +1,24 @@
 <?php
 
-use App\Http\Controllers\Admin\Ad\AdController;
-use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
-use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
-use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
-use App\Http\Controllers\Admin\CMS\Faq\FaqController;
-use App\Http\Controllers\Admin\CMS\Page\PageController;
-use App\Http\Controllers\Admin\FileUpload\FileUploadController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\Setting\CustomMessage\CustomMessageController;
-use App\Http\Controllers\Admin\Setting\Payment\PaymentController;
-use App\Http\Controllers\Admin\Setting\SettingController;
-use App\Http\Controllers\Admin\ShortLink\ShortLinkController;
-use App\Http\Controllers\Admin\Support\Category\TicketCategoryController;
-use App\Http\Controllers\Admin\Support\TicketsController;
-use App\Http\Controllers\Admin\User\LoginActivityController;
+use App\Http\Controllers\Admin\Ad\AdController;
 use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CMS\Faq\FaqController;
+use App\Http\Controllers\Admin\CMS\Page\PageController;
+use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Support\TicketsController;
+use App\Http\Controllers\Admin\CMS\Blog\ArticleController;
+use App\Http\Controllers\Admin\CMS\Blog\Tag\TagController;
+use App\Http\Controllers\Admin\User\LoginActivityController;
+use App\Http\Controllers\Admin\ShortLink\ShortLinkController;
+use App\Http\Controllers\Admin\CMS\Blog\Comment\ArticleComment;
+use App\Http\Controllers\Admin\FileUpload\FileUploadController;
+use App\Http\Controllers\Admin\Setting\Payment\PaymentController;
+use App\Http\Controllers\Admin\Support\Category\TicketCategoryController;
+use App\Http\Controllers\Admin\CMS\Blog\Category\ArticleCategoryController;
+use App\Http\Controllers\Admin\Setting\CustomMessage\CustomMessageController;
 
 Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -45,7 +46,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
                     Route::resource('articles', ArticleController::class);
                     Route::resource('articles-categories', ArticleCategoryController::class);
                     Route::resource('tags', TagController::class);
-                    Route::group([], function () {
+                    Route::group(['middleware' => 'feature:comment'], function () {
                         Route::resource('comments', ArticleComment::class);
                         Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
                         Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
@@ -72,6 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
             Route::name('settings.')->group(function () {
                 Route::resource('/', SettingController::class)->only('index', 'store');
                 Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+                Route::post('exception', [SettingController::class, 'test'])->name('test_report');
             });
 
             Route::patch('payments/{payment}/active', [PaymentController::class, 'changeActive'])

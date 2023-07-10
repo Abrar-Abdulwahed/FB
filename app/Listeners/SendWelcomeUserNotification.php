@@ -28,7 +28,7 @@ class SendWelcomeUserNotification
         $user = $event->user;
         $message = CustomMessage::active()->where('code', 'register.welcome_message')->first();
         if($message){
-            $mail = new WelcomeUser($user, $message->subject, $message->text);
+            $mail = new WelcomeUser($user, $message);
             Mail::to($user->email)->send($mail);
         }
     }
