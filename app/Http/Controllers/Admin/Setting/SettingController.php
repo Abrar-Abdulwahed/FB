@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use Exception;
 use App\Models\Setting;
+use App\Mail\TestMailable;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Artisan;
@@ -193,8 +195,9 @@ class SettingController extends Controller
         $action = $request->query('action');
         switch ($action) {
             case 'email':
-                throw new Exception('Test Exception via email');
-            case 'channel':
+                Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
+                break;
+                case 'report':
                 throw new Exception('Test Exception via channels');
                 break;
             default:
