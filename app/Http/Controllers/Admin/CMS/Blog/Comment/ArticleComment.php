@@ -13,18 +13,16 @@ class ArticleComment extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $comments = ModelsArticleComment::query()->paginate(5);
+        $query = ModelsArticleComment::query();
 
+        if ($request->has('deleted')) {
+            $query->onlyTrashed()->get();
+        }
+        $comments = $query->get();
         return view('admin.cms.blog.comments.index', compact('comments'));
-    }
-
-    public function deletedComments()
-    {
-        $comments = ModelsArticleComment::onlyTrashed()->paginate(5);
-        return view('admin.cms.blog.comments.deleted_comments', compact('comments'));
     }
 
     /**
@@ -114,8 +112,9 @@ class ArticleComment extends Controller
                 $comment_trash->forceDelete();
                 break;
             case ('deleted'):
+                ModelsArticleComment::where('user_id', $comment_trash->user_id)->delete();
                 $comment_trash->forceDelete();
-                return redirect()->route('admin.deleted_comments.index')
+                return redirect()->back()
                     ->with('success', 'تم حذف التعليق نهائيا');
                 break;
             default:

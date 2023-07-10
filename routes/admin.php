@@ -48,7 +48,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
                     Route::resource('tags', TagController::class);
                     Route::group(['middleware' => 'feature:comment'], function () {
                         Route::resource('comments', ArticleComment::class);
-                        Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
                         Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
                     });
 
