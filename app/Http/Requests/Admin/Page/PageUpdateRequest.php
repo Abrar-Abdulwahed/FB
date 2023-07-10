@@ -28,6 +28,7 @@ class PageUpdateRequest extends FormRequest
             // 'image' => ['nullable', 'image'],
             'is_in_footer' => 'nullable|in:on,off',
             'is_in_menu' => 'nullable|in:on,off',
+            'is_active' => 'nullable|in:off,on',
 
         ];
     }

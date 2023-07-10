@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-/* $middlewares = [];
-if($emailVerificationRequired){
+ $settings = Setting::settings();
+ //dd($settings);
+$middlewares = [];
+
+if($settings['email_confirm_enable'] == 'on'){
    $middlewares[] = 'verified';
-} */
+}
+
+
 
 Route::group([], __DIR__ . '/guest.php');
-Route::group([], __DIR__ . '/user.php');
+Route::group(['middleware' => $middlewares], __DIR__ . '/user.php');
 Route::group([], __DIR__ . '/auth.php');
 Route::group([], __DIR__ . '/admin.php');
 

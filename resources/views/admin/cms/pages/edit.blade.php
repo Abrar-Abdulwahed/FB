@@ -44,6 +44,11 @@
                     </div> --}}
 
                     <div class="custom-control custom-switch mx-3 mt-2 col-12">
+                        <input @checked($page->is_active) type="checkbox" class="custom-control-input" id="is_active" name="is_active">
+                        <label class="custom-control-label" for="is_active">مفتوحة</label>
+                    </div>
+
+                    <div class="custom-control custom-switch mx-3 mt-2 col-12">
                         <input @checked($page->is_in_footer) type="checkbox" class="custom-control-input" id="is_in_footer" name="is_in_footer">
                         <label class="custom-control-label" for="is_in_footer">في ال footer</label>
                     </div>

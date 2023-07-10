@@ -102,8 +102,8 @@
                                                     </a>
                                                 </li>
                                                 <li
-                                                    class="nav-item @if (Route::is('admin.deletedComments')) ? 'active' : '' bg-primary @endif">
-                                                    <a class="nav-link" href="{{ route('admin.deletedComments') }}">
+                                                    class="nav-item @if (Route::is('admin.comments.index') && request()->has('trashed')) ? 'active' : '' bg-primary @endif">
+                                                    <a class="nav-link" href="{{ url('/admin/cms/blog/articles/comments?deleted') }}">
                                                         <i class="fa fa-comment nav-icon"></i>عرض التعليقات المحذوفة
                                                     </a>
                                                 </li>

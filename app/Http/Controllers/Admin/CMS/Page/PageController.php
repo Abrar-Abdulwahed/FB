@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Storage;
 class PageController extends Controller
 {
     use ImageTrait;
+
     public function index()
     {
         $pages = Page::query()->paginate(5);
-
         return view('admin.cms.pages.index', compact('pages'));
     }
 
@@ -47,6 +47,7 @@ class PageController extends Controller
         Page::query()->create([
             'is_in_footer' => array_key_exists('is_in_footer', $validated) && $validated['is_in_footer'] == 'on' ? true : false,
             'is_in_menu' => array_key_exists('is_in_menu', $validated) && $validated['is_in_menu'] == 'on' ? true : false,
+            'is_active' => array_key_exists('is_active', $validated) && $validated['is_active'] == 'on' ? true : false,
             // 'image' => $validated['image'] ?? null,
             'slug' => $validated['slug'],
             'title' => $validated['title'],
@@ -113,6 +114,7 @@ class PageController extends Controller
         $page->update([
             'is_in_footer' => array_key_exists('is_in_footer', $validated) && $validated['is_in_footer'] == 'on' ? true : false,
             'is_in_menu' => array_key_exists('is_in_menu', $validated) && $validated['is_in_menu'] == 'on' ? true : false,
+            'is_active' => array_key_exists('is_active', $validated) && $validated['is_active'] == 'on' ? true : false,
             // 'image' => $validated['image'] ?? null,
             'slug' => $validated['slug'],
             'title' => $validated['title'],
@@ -147,5 +149,15 @@ class PageController extends Controller
 
         return redirect()->route('admin.pages.index')
             ->with('success', 'تم حذف الصفحة بنجاح');
+    }
+
+    public function changeActive(Page $page)
+    {
+        $page->update([
+            'is_active' => !$page->is_active,
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'تم تعديل حالةالصفحة بنجاح');
     }
 }

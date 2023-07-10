@@ -47,7 +47,6 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
                     Route::resource('tags', TagController::class);
                     Route::group(['middleware' => 'feature:comment'], function () {
                         Route::resource('comments', ArticleComment::class);
-                        Route::get('/deleted_comments', [ArticleComment::class, 'deletedComments'])->name('deletedComments');
                         Route::post('/restore_comments/{id}', [ArticleComment::class, 'restoreComments'])->name('restoreComments');
                     });
 
@@ -57,6 +56,9 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
             });
         });
         Route::resource('pages', PageController::class)->except(['show'])->middleware('feature:page');
+        Route::patch('pages/{page}/active', [PageController::class, 'changeActive'])
+                ->name('pages.changeActive');
+                
         Route::resource('faqs', FaqController::class)->middleware('feature:faq');
     });
 
@@ -90,7 +92,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user'])->as('admin.')->group(
 
     //short links
     Route::middleware('feature:short_link')->group(function () {
-        Route::resource('short_links', ShortLinkController::class) /* ->except('show') */;
+        Route::resource('short_links', ShortLinkController::class)->except('show');
         Route::get('short_links/{id}/statistics', [ShortLinkController::class, 'statistics'])->name('short_links.statistics');
     });
 
