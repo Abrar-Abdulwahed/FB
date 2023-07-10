@@ -233,21 +233,6 @@
                     </ul>
                 </li>
 
-
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.ads.*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.ads.index') }}">
-                        <i class="nav-icon fa-solid fa-image"></i>
-                        <p>الاعلانات</p>
-                    </a>
-                </li>
-                {{--  @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.short_links*')) ? 'active' : '' bg-primary @endif"
-                        href="{{ route('admin.short_links.index') }}">الروابط المختصرة</a>
-                </li>
-            @endif --}}
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ asset('/log-viewer') }}">
                         <i class="nav-icon fa fa-exclamation-triangle"></i>
