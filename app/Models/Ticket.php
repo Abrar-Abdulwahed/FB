@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Ticket extends Model
 {
-    protected $fillable = ['user_id', 'ticket_category_id', 'subject', 'message'];
+    protected $fillable = ['user_id', 'ticket_category_id', 'subject', 'message','status'];
     use HasFactory, LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
