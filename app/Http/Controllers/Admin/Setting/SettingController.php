@@ -154,9 +154,6 @@ class SettingController extends Controller
     }
 
     protected function loadSettings(Request $request){
-        $request->validate([
-            'load_password' => 'required|current_password'
-        ]);
         if(File::exists(base_path('config.php'))){
             $settings = include(base_path('config.php'));
             foreach($settings as $key => $value){
