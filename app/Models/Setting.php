@@ -17,6 +17,7 @@ class Setting extends Model
 
     public static function settings()
     {
+        $getSettings = [];
         foreach (Setting::pluck('name')->all() as $key) {
             $getSettings[$key] = Setting::where('name', $key)->value('value');
         }

@@ -34,7 +34,7 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-12">
+                    <div class="form-group">
                         <label>اختيار الاقسام</label>
                         <select class="select2" multiple="multiple" data-placeholder="اختيار الاقسام" name="categories[]"
                             style="width: 100%;">
@@ -45,6 +45,9 @@
                                 </option>
                             @endforeach
                         </select>
+                        @error('categories')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">
