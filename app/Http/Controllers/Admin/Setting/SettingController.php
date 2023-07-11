@@ -32,7 +32,6 @@ class SettingController extends Controller
     public function index()
     {
         $settings = $this->cacheOrGet();
-       
         return view('admin.settings.index', compact('settings'));
     }
 
