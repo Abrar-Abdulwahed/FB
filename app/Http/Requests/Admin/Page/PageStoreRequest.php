@@ -30,4 +30,10 @@ class PageStoreRequest extends FormRequest
             'is_active' => 'nullable|in:on,off',
         ];
     }
+
+    public function messages(){
+        return [
+            'title.required' => 'هذا الحقل مطلوب',
+        ];
+    }
 }
