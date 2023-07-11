@@ -1,23 +1,23 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    الأعضاء
+    {{ __('admin/users/user.pages.index') }}
 @endsection
 <a href={{ route('admin.users.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
-    إضافة</a>
+    {{ __('admin/users/user.buttons.create') }}</a>
 <div class="clearfix"></div>
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        الأعضاء
+        {{ __('admin/users/user.pages.index') }}
     </div>
     <div class="card-body">
         <form id="filter-form" class="form-row align-items-center mb-3" action="{{ route('admin.users.index') }}"
             method="GET">
-            <label for="role">فلترة حسب</label>
+            <label for="role">{{ __('admin/users/user.extra.filters') }}</label>
             <div class="col-md-4">
                 <select name="role" class="form-control" id="role">
-                    <option value="all" @selected(request('role') === 'all' || null)>كل الأدوار</option>
+                    <option value="all" @selected(request('role') === 'all' || null)>{{ __('admin/users/user.fields.roles') }}</option>
                     @foreach ($roles as $role)
                         <option value="{{ $role->name }}" @selected(request('role') == $role->name)>
                             {{ $role->name }}</option>
@@ -33,12 +33,12 @@
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th>الاسم</th>
-                        <th>البريد الالكتروني</th>
-                        <th>حالة العضو</th>
-                        <th>الادوار</th>
-                        <th>اخر ظهور</th>
-                        <th>العمليات</th>
+                        <th>{{ __('admin/users/user.fields.name') }}</th>
+                        <th>{{ __('admin/users/user.fields.email') }}</th>
+                        <th>{{ __('admin/users/user.fields.is_banned') }}</th>
+                        <th>{{ __('admin/users/user.fields.roles') }}</th>
+                        <th>{{ __('admin/users/user.fields.last_activity') }}</th>
+                        <th>{{ __('admin/users/user.extra.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,14 +59,14 @@
                                 @if (!$user->email_verified_at)
                                     <a href="{{ route('admin.users.verifyEmail', $user->id) }}"
                                         class="bg-warning p-1 rounded" style="font-size: 12px">
-                                        تأكيد
+                                        {{ __('admin/users/user.extra.confirm') }}
                                         <i class="fa-solid fa-envelope"></i>
                                     </a>
                                 @endif
                             </td>
                             <td>
                                 <span class="badge {{ $user->is_banned == 1 ? 'bg-danger' : 'bg-success' }} p-3">
-                                    {{ $user->is_banned == 1 ? 'محظور' : 'نشيط' }}
+                                    {{ $user->is_banned == 1 ?  __('admin/users/user.extra.banned') :  __('admin/users/user.extra.active') }}
 
                                 </span>
                             </td>
@@ -98,23 +98,23 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <p class="modal-title">تأكيد الحذف</p>
+                                                <p class="modal-title">{{ __('admin/users/user.extra.confirm_delete') }} </p>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body text-left">
-                                                <p>هل أنت متأكد من حذف هذا العنصر حذف نهائي؟</p>
+                                                <p>{{ __('admin/users/user.extra.Are you sure you want delete this item') }}</p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default btn-md"
-                                                    data-dismiss="modal">إغلاق</button>
+                                                    data-dismiss="modal">{{ __('admin/users/user.extra.close') }}</button>
                                                 <form action="{{ route('admin.users.destroy', $user->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                                    <button type="submit" class="btn btn-dark btn-md">{{ __('admin/users/user.extra.yes') }}</button>
                                                 </form>
                                             </div>
                                         </div>

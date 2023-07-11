@@ -38,7 +38,7 @@ class RoleController extends Controller
         Role::query()->create($validated);
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'تم اضافة الدور بنجاح');
+            ->with('success', __('admin/users/role.messages.create'));
     }
 
     /**
@@ -50,7 +50,7 @@ class RoleController extends Controller
 
         if (!$role) {
             return redirect()->route('admin.roles.index')
-                ->with('error', 'فشل في تعديل الدور');
+                ->with('error',  __('admin/users/role.messages.failed edit'));
         }
 
         return view('admin.users.roles.edit', compact('role'));
@@ -65,7 +65,7 @@ class RoleController extends Controller
 
         if (!$role) {
             return redirect()->route('admin.roles.index')
-                ->with('error', 'فشل في تعديل الدور');
+                ->with('error',  __('admin/users/role.messages.failed edit'));
         }
 
         $validated = $request->validated();
@@ -73,7 +73,7 @@ class RoleController extends Controller
         $role->update($validated);
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'تم تعديل الدور بنجاح');
+            ->with('success', __('admin/users/role.messages.edit'));
     }
 
     /**
@@ -85,12 +85,12 @@ class RoleController extends Controller
 
         if (!$role) {
             return redirect()->route('admin.roles.index')
-                ->with('error', 'فشل في حذف الدور');
+                ->with('error',  __('admin/users/role.messages.failed delete'));
         }
 
         $role->delete();
 
         return redirect()->route('admin.roles.index')
-            ->with('success', 'تم حذف الدور بنجاح');
+            ->with('success', __('admin/users/role.messages.delete'));
     }
 }

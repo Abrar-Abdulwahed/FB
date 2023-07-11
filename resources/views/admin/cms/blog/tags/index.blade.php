@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    Tags
+{{ __('admin/CMS/Blog/Tag/tag.pages.index') }}
 @endsection
 <a href={{ route('admin.tags.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
-    إضافة</a>
+    {{ __('admin/CMS/Blog/Tag/tag.pages.create') }}</a>
 <div class="clearfix"></div>
 @if (session()->has('success'))
     <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -14,16 +14,16 @@
 @endif
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        Tags
+        {{ __('admin/CMS/Blog/Tag/tag.pages.index') }}
     </div>
     <div class="card-body table-responsive">
         <table class="table table-striped text-center" id="tags">
             <thead>
                 <tr>
                     <th style="width: 10px">#</th>
-                    <th>الاسم</th>
-                    <th>slug</th>
-                    <th>العمليات</th>
+                    <th>{{ __('admin/CMS/Blog/Tag/tag.fields.name') }}</th>
+                    <th>{{ __('admin/CMS/Blog/Tag/tag.fields.slug') }}</th>
+                    <th>{{ __('admin/CMS/Blog/Tag/tag.extra.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,22 +43,22 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <p class="modal-title">تأكيد الحذف</p>
+                                            <p class="modal-title">{{ __('admin/CMS/Blog/Tag/tag.extra.confirm_delete') }}</p>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body text-left">
-                                            <p>هل أنت متأكد من حذف هذا العنصر حذف نهائي؟</p>
+                                            <p>{{ __('admin/CMS/Blog/Tag/tag.extra.Are you sure you want delete this item') }}</p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
-                                                data-dismiss="modal">إغلاق</button>
+                                                data-dismiss="modal">{{ __('admin/CMS/Blog/Tag/tag.extra.close') }}</button>
                                             <form action="{{ route('admin.tags.destroy', $tag->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                                <button type="submit" class="btn btn-dark btn-md">{{ __('admin/CMS/Blog/Tag/tag.extra.yes') }}</button>
                                             </form>
                                         </div>
                                     </div>

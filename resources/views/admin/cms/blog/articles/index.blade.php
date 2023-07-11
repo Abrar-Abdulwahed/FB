@@ -9,27 +9,27 @@
 @endpush
 @section('content')
 @section('title')
-    المقالات
+    {{ __('admin/CMS/Blog/article.pages.index') }}
 @endsection
 <a href={{ route('admin.articles.create') }} class="btn btn-info float-left my-2"> <i class="fa-solid fa-plus"></i>
-    اضافة مقال</a>
+    {{ __('admin/CMS/Blog/article.pages.create') }}</a>
 <div class="clearfix"></div>
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        المقالات
+        {{ __('admin/CMS/Blog/article.pages.index') }}
     </div>
     <div class="card-body table-responsive">
 
         <table class="table table-striped text-center" id="articles">
             <thead>
                 <tr>
-                    <th>العنوان</th>
-                    <th>الصورة</th>
-                    <th>العلامات</th>
-                    <th>الاقسام</th>
-                    <th>كاتب المقال</th>
-                    <th>اجراءات</th>
+                    <th>{{ __('admin/CMS/Blog/article.fields.title') }}</th>
+                    <th>{{ __('admin/CMS/Blog/article.fields.image') }}</th>
+                    <th>{{ __('admin/CMS/Blog/article.fields.tags') }}</th>
+                    <th>{{ __('admin/CMS/Blog/article.fields.categories') }}</th>
+                    <th>{{ __('admin/CMS/Blog/article.fields.writer') }} </th>
+                    <th>{{ __('admin/CMS/Blog/article.extra.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,23 +80,23 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <p class="modal-title">تأكيد الحذف</p>
+                                            <p class="modal-title">{{ __('admin/CMS/Blog/article.extra.confirm_delete') }}</p>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body text-left">
-                                            <p>هل أنت متأكد من حذف هذا العنصر حذف نهائي؟</p>
+                                            <p>{{ __('admin/CMS/Blog/article.extra.Are you sure you want delete this item') }} </p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
-                                                data-dismiss="modal">إغلاق</button>
+                                                data-dismiss="modal">{{ __('admin/CMS/Blog/article.extra.close') }}</button>
                                             <form action="{{ route('admin.articles.destroy', $article->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                                <button type="submit" class="btn btn-dark btn-md">{{ __('admin/CMS/Blog/article.extra.yes') }}</button>
                                             </form>
                                         </div>
                                     </div>

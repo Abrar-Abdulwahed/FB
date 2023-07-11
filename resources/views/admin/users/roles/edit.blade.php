@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'تحرير رسائل مخصصة')
+@section('title',__('admin/users/role.pages.edit'))
 @section('content')
-    <a href={{ route('admin.roles.index') }} class="btn btn-info float-right mb-2">جميع الرسائل المخصصة</a>
+    <a href={{ route('admin.roles.index') }} class="btn btn-info float-right mb-2">{{ __('admin/users/role.pages.index') }}</a>
     <div class="clearfix"></div>
     @if (session()->has('success'))
         <p class="alert alert-success" role="alert">{{ session('success') }}</p>
@@ -11,21 +11,21 @@
     @endif
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            تحرير دور
+            {{ __('admin/users/role.pages.edit') }}
         </div>
         <div class="card-body">
             <form id="quickForm" method="POST" action={{ route('admin.roles.update', $role) }}>
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label for="name">الاسم</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="ادخل الرمز"
+                    <label for="name">{{ __('admin/users/role.fields.name') }}</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="{{ __('admin/users/role.extra.Enter the name') }}"
                         value="{{ $role->name }}">
                     @error('name')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-success">تعديل</button>
+                <button type="submit" class="btn btn-success">{{ __('admin/users/role.buttons.edit') }}</button>
             </form>
         </div>
     </div>

@@ -34,7 +34,7 @@ class TagController extends Controller
     {
         //
         $tag = Tag::create($request->validated());
-        return redirect()->route('admin.tags.index')->with('success', 'تم اضافة التاج بنجاح');
+        return redirect()->route('admin.tags.index')->with('success', __('admin/CMS/Blog/Tag/tag.messages.create'));
     }
 
     /**
@@ -64,7 +64,7 @@ class TagController extends Controller
     {
         //
         Tag::find($id)->update($request->validated());
-        return redirect()->route('admin.tags.index')->with('success', 'تم تعديل التاج بنجاح');
+        return redirect()->route('admin.tags.index')->with('success',  __('admin/CMS/Blog/Tag/tag.messages.edit'));
     }
 
     /**
@@ -74,6 +74,6 @@ class TagController extends Controller
     {
         //
         Tag::where('id', $id)->delete();
-        return redirect()->back()->with(['success' => 'تم حذف التاج بنجاح']);
+        return redirect()->back()->with(['success' =>  __('admin/CMS/Blog/Tag/tag.messages.delete')]);
     }
 }

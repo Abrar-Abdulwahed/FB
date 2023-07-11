@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    الأعضاء
+{{ __('admin/users/user.pages.index') }}
 @endsection
 
 <div class="clearfix"></div>
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        نشاطات الأعضاء
+        {{ __('admin/users/user.pages.user_activities') }}
     </div>
     <div class="card-body">
         <div class="table-responsive">

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'سجل رسائل البريد الإلكتروني المرسلة للمستخدم')
+@section('title', __('admin/users/user.pages.The record of emails sent to the user') )
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            سجل رسائل البريد الإلكتروني المرسلة للمستخدم
+            {{ __('admin/users/user.pages.The record of emails sent to the user') }}
         </div>
         <div class="card-body table-responsive">
             <div class="table-responsive">
@@ -12,9 +12,9 @@
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th>العنوان</th>
-                            <th>تاريخ الإرسال</th>
-                            <th>العمليات</th>
+                            <th>{{ __('admin/users/user.fields.title') }}</th>
+                            <th>{{ __('admin/users/user.fields.created_at') }}</th>
+                            <th>{{ __('admin/users/user.extra.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +34,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-danger text-center">لا توجد رسائل بعد
+                                <td colspan="4" class="text-danger text-center">{{ __('admin/users/user.extra.There are no messages yet') }}   
                                 </td>
                             </tr>
                         @endforelse

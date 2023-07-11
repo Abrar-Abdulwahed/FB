@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    اضافة مقال
+{{ __('admin/CMS/Blog/article.pages.create') }}
 @endsection
 
 @push('css')
@@ -47,7 +47,7 @@
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            اضافة مقال جديد
+            {{ __('admin/CMS/Blog/article.pages.create') }}
         </div>
         <div class="card-body">
 
@@ -58,29 +58,29 @@
                 <div class="row col-12">
 
                     <div class="form-group col-12">
-                        <label>العنوان</label>
+                        <label>{{ __('admin/CMS/Blog/article.fields.title') }}</label>
                         <input type="text" name="title" value="{{ old('title') }}" class="form-control">
                         @error('title')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>المحتوى</label>
+                        <label>{{ __('admin/CMS/Blog/article.fields.content') }}</label>
                         <textarea name="content" id="content" class="form-control ckeditor">{{ old('content') }}</textarea>
                         @error('content')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>الوصف</label>
+                        <label>{{ __('admin/CMS/Blog/article.fields.description') }}</label>
                         <textarea name="description" id="description" class="form-control ckeditor">{{ old('description') }}</textarea>
                         @error('description')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group col-12">
-                        <label>اختيار العلامات</label>
-                        <select class="select2" multiple="multiple" data-placeholder="اختيار العلامات" name="tags[]"
+                        <label>{{ __('admin/CMS/Blog/article.fields.tags') }}</label>
+                        <select class="select2" multiple="multiple" data-placeholder="{{ __('admin/CMS/Blog/article.extra.choose_tags') }}" name="tags[]"
                             style="width: 100%;">
                             @foreach ($tags as $tag)
                                 <option value="{{ $tag->id }}"
@@ -91,8 +91,8 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <label>اختيار الاقسام</label>
-                        <select class="select2" multiple="multiple" data-placeholder="اختيار الاقسام" name="categories[]"
+                        <label>{{ __('admin/CMS/Blog/article.fields.categories') }}</label>
+                        <select class="select2" multiple="multiple" data-placeholder="{{ __('admin/CMS/Blog/article.extra.choose_categories') }}" name="categories[]"
                             style="width: 100%;">
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
@@ -103,7 +103,7 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <label for="logo" class="mb-4">الصورة</label>
+                        <label for="logo" class="mb-4">{{ __('admin/CMS/Blog/article.fields.image') }}</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="image">
                             <label for="file-1" id="file-1-preview" class="w-100 h-100">
@@ -121,7 +121,7 @@
 
                     <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-sm btn-primary">
-                            اضافة</button>
+                            {{ __('admin/CMS/Blog/article.buttons.create') }}</button>
                     </div>
 
                 </div>
