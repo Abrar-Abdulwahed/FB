@@ -195,6 +195,10 @@ class SettingController extends Controller
 
     protected function clearCache(){
         Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('event:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
         Cache::flush();
         // remove all cache files manually
         $directory = storage_path('framework/cache/data');
@@ -222,5 +226,15 @@ class SettingController extends Controller
                 abort(404);
         }
         return redirect()->back()->with('success', 'تم الاختبار بنجاح');
+    }
+
+    public function prepare_production(){
+        try{
+            $this->clearCache();
+            return redirect()->route('admin.settings.index')->with('success', 'تم تجهيز الموقع للإطلاق بنجاح');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->withError('حدث خطأ ما، حاول مرة أخرى!');
+        }
     }
 }
