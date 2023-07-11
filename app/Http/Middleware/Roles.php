@@ -23,6 +23,6 @@ class Roles
         if (count(array_intersect($userRoles, $roles)) > 0) {
             return $next($request);
         }
-        abort(403, 'You are not authorized to access this resource.');
+        abort(403);
     }
 }

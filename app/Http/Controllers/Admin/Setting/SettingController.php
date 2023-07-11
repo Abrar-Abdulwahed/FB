@@ -32,7 +32,6 @@ class SettingController extends Controller
     public function index()
     {
         $settings = $this->cacheOrGet();
-       
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -126,7 +125,7 @@ class SettingController extends Controller
                     $msg = 'تم تهيئة البيانات بنجاح';
                     break;
                 case 'load-settings':
-                    $this->loadSettings($request);
+                    $this->loadSettings();
                     $msg = 'تم تحميل الإعدادات بنجاح';
                     break;
                 case 'clear-session-cookie':
@@ -150,9 +149,10 @@ class SettingController extends Controller
     {
         Cache::forget("settings");
         Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $this->loadSettings();
     }
 
-    protected function loadSettings(Request $request){
+    protected function loadSettings(){
         if(File::exists(base_path('config.php'))){
             $settings = include(base_path('config.php'));
             $this->clearCache();
@@ -195,6 +195,10 @@ class SettingController extends Controller
 
     protected function clearCache(){
         Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('event:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
         Cache::flush();
         // remove all cache files manually
         $directory = storage_path('framework/cache/data');
@@ -222,5 +226,15 @@ class SettingController extends Controller
                 abort(404);
         }
         return redirect()->back()->with('success', 'تم الاختبار بنجاح');
+    }
+
+    public function prepare_production(){
+        try{
+            $this->clearCache();
+            return redirect()->route('admin.settings.index')->with('success', 'تم تجهيز الموقع للإطلاق بنجاح');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->withError('حدث خطأ ما، حاول مرة أخرى!');
+        }
     }
 }
