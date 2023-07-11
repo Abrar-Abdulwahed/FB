@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Setting\CustomMessage;
 
 use App\Models\CustomMessage;
+use App\DataTables\CustomMessageDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CustomMessage\StoreCustomMessageRequest;
 use App\Http\Requests\Admin\CustomMessage\UpdateCustomMessageRequest;
+use DataTables;
 use App\Http\Requests\Admin\CustomMessage\ChangeActiveCustomMessageRequest;
 
 class CustomMessageController extends Controller
@@ -13,10 +15,9 @@ class CustomMessageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CustomMessageDataTable $dataTable)
     {
-        $messages = CustomMessage::paginate(5);
-        return view('admin.settings.custom_message.index', compact('messages'));
+        return $dataTable->render('admin.settings.custom_message.index');
     }
 
     /**
