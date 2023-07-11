@@ -23,6 +23,7 @@
                     <th style="width: 10px">#</th>
                     <th>عنوان السؤال</th>
                     <th>الاجابة</th>
+                    <th>التنصيفات</th>
                     <th>العمليات</th>
                 </tr>
             </thead>
@@ -32,6 +33,11 @@
                         <td>{{ $faq->id }}</td>
                         <td>{{ $faq->title }}</td>
                         <td>{!! $faq->answer !!} </td>
+                        <td>
+                            @foreach ($faq->categories as $category)
+                                <span class="span-tag bg-warning rounded px-1 w-50">{{ $category->name }}</span>
+                            @endforeach
+                        </td>
                         <td>
                             <a href="{{ route('admin.faqs.edit', $faq->id) }}" class="mx-1 btn btn-success"><i
                                     class="fas fa-edit"></i></a>

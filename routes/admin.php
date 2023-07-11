@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware(['auth', 'check_user', 'roles:admin'])->as('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'check_user', /* 'roles:admin' */])->as('admin.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     // users
@@ -59,9 +59,11 @@ Route::prefix('admin')->middleware(['auth', 'check_user', 'roles:admin'])->as('a
         Route::resource('pages', PageController::class)->except(['show'])->middleware('feature:page');
         Route::patch('pages/{page}/active', [PageController::class, 'changeActive'])
                 ->name('pages.changeActive');
-                
-        Route::resource('faqs', FaqController::class)->middleware('feature:faq');
-        Route::resource('faqs-categories', FaqCategory::class);
+
+        Route::group(['middleware' => 'feature:faq'], function () { 
+            Route::resource('faqs', FaqController::class);
+            Route::resource('faqs-categories', FaqCategory::class);
+        });
     });
 
     Route::group(['prefix' => 'support'], function () {

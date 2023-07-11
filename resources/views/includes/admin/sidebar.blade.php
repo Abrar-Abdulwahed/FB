@@ -127,11 +127,14 @@
                                 @endfeature
                             </ul>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
-                            <a class="nav-link" href="{{ route('admin.pages.index') }}">
-                                <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
-                            </a>
-                        </li>
+                        
+                        @feature('page')
+                            <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                    <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
+                                </a>
+                            </li>
+                        @endfeature
 
                         @feature('faq')
                             <li class="nav-item {{ Route::is('admin.faqs-categories.*') || Route::is('admin.faqs.*') ? 'menu-open' : '' }}">
@@ -268,10 +271,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    <a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
-                        <i class="fa-solid fa-sign-out" style="font-size: 1.2rem"></i>
+                        <i class="fa-solid fa-sign-out mr-1" style="font-size: 1.2rem"></i>
                         {{ __('تسجيل الخروج') }}
                     </a>
                 </li>

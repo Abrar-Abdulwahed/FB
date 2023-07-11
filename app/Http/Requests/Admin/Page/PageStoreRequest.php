@@ -30,4 +30,5 @@ class PageStoreRequest extends FormRequest
             'is_active' => 'nullable|in:on,off',
         ];
     }
+
 }

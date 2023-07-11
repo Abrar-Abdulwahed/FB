@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->text('description')->nullable();
+            
             $table->longText('content');
             $table->boolean('is_in_footer')->default(false);
             $table->boolean('is_in_menu')->default(false);

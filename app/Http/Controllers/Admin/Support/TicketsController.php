@@ -13,7 +13,7 @@ class TicketsController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::with('user', 'category','messages')->get();
+        $tickets = Ticket::with('user', 'category')->get();
         return view('admin.support.index', compact('tickets'));
     }
 
@@ -57,9 +57,9 @@ class TicketsController extends Controller
         $ticket = Ticket::first();
         if($is_admin==1){
             $ticket->update(['status'=>0]);
-        }else{
+        }/* else{
             $ticket->update(['status'=>1]);
-        }
+        } */
         return redirect()->back();
     }
 
