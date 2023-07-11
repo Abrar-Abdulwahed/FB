@@ -15,13 +15,13 @@ class Setting extends Model
         'value',
     ];
 
-    public static function settings()
-    {
-        foreach (Setting::pluck('name')->all() as $key) {
-            $getSettings[$key] = Setting::where('name', $key)->value('value');
-        }
-        return $getSettings;
-    }
+    // public static function settings()
+    // {
+    //     foreach (Setting::pluck('name')->all() as $key) {
+    //         $getSettings[$key] = Setting::where('name', $key)->value('value');
+    //     }
+    //     return $getSettings;
+    // }
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

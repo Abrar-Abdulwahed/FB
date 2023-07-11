@@ -9,6 +9,7 @@ use App\Mail\TestMailable;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\AppSettingService;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -52,7 +53,7 @@ class SettingController extends Controller
     {
         DB::beginTransaction();
         try {
-            $pathInDB = Setting::where('name', 'site_logo')->first()->value;
+            $pathInDB = $this->settingService->get('site_logo');
             if ($request->hasFile('site_logo')) {
                 if ($pathInDB !== null) {
                     //Remove old image
@@ -81,7 +82,7 @@ class SettingController extends Controller
                 'mail.mailers.smtp.host' => $request?->mail_host,
                 'mail.mailers.smtp.port' => $request?->mail_port,
                 'mail.mailers.smtp.username' => $request?->mail_username,
-                'mail.mailers.smtp.password' => $request?->mail_password === "****"? Setting::where('name', 'mail.mailers.smtp.password')->first()->value:$request?->mail_password,
+                'mail.mailers.smtp.password' => $request?->mail_password === "****"? $this->settingService->get('mail.mailers.smtp.password'):$request?->mail_password,
                 'mail.from.address' => $request?->mail_from_address,
                 'mail.from.name' => $request?->mail_from_name,
                 'header_script' => $request->header_script ,
@@ -107,7 +108,7 @@ class SettingController extends Controller
             return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
         } catch (\Throwable $e) {
             DB::rollback();
-            return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
+            return redirect()->back()->withError($e->getMessage(), 'فشل في تعديل الإعدادات');
         }
     }
 

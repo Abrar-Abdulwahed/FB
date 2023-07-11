@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Services\AppSettingService;
 use Symfony\Component\HttpFoundation\Response;
 
 class AppLoginEnabling
@@ -16,11 +17,11 @@ class AppLoginEnabling
      */
     public function handle(Request $request, Closure $next, ...$option): Response
     {
-    
         // option[
         //     0: 'facebook',
         //     1: 'google',
         // ]
+        $settingService = app(AppSettingService::class);
         $facebookNotAllowedURLs = [
             route('app.login', 'facebook'),
             config('services.facebook.redirect'), 
@@ -29,10 +30,10 @@ class AppLoginEnabling
             route('app.login', 'google'),
             config('services.google.redirect'),
         ];
-        if(Setting::where('name', $option[0].'_enable')->first()?->value == "off" && in_array(request()->url(),$facebookNotAllowedURLs)){
+        if($settingService->get($option[0].'_enable') == "off" && in_array(request()->url(),$facebookNotAllowedURLs)){
             abort(404);
         }
-        if(Setting::where('name', $option[1].'_enable')->first()?->value == "off" && in_array(request()->url(),$googleNotAllowedURLs)){
+        if($settingService->get($option[1].'_enable') == "off" && in_array(request()->url(),$googleNotAllowedURLs)){
             abort(404);
         }
         return $next($request);
