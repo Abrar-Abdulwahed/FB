@@ -126,7 +126,7 @@ class SettingController extends Controller
                     $msg = 'تم تهيئة البيانات بنجاح';
                     break;
                 case 'load-settings':
-                    $this->loadSettings($request);
+                    $this->loadSettings();
                     $msg = 'تم تحميل الإعدادات بنجاح';
                     break;
                 case 'clear-session-cookie':
@@ -150,9 +150,10 @@ class SettingController extends Controller
     {
         Cache::forget("settings");
         Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $this->loadSettings();
     }
 
-    protected function loadSettings(Request $request){
+    protected function loadSettings(){
         if(File::exists(base_path('config.php'))){
             $settings = include(base_path('config.php'));
             $this->clearCache();
