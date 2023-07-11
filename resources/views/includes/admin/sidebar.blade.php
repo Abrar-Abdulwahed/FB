@@ -127,11 +127,14 @@
                                 @endfeature
                             </ul>
                         </li>
-                        <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
-                            <a class="nav-link" href="{{ route('admin.pages.index') }}">
-                                <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
-                            </a>
-                        </li>
+                        
+                        @feature('page')
+                            <li class="nav-item @if (Route::is('admin.pages.*')) ? 'active' : '' bg-primary @endif">
+                                <a class="nav-link" href="{{ route('admin.pages.index') }}">
+                                    <i class="nav-icon fa-solid fa-file"></i> ادارة الصفحات
+                                </a>
+                            </li>
+                        @endfeature
 
                         @feature('faq')
                             <li class="nav-item {{ Route::is('admin.faqs-categories.*') || Route::is('admin.faqs.*') ? 'menu-open' : '' }}">

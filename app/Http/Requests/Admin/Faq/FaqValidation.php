@@ -25,6 +25,7 @@ class FaqValidation extends FormRequest
             //
             'title' => 'required',
             'answer' => 'required',
+            'categories' => ['required', 'array'],
         ];
     }
 }

@@ -25,7 +25,7 @@
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="form-group col-12">
+                <div class="form-group">
                     <label>الاقسام</label>
                     <select class="select2" multiple="multiple" name="categories[]" style="width: 100%;">
                         @foreach ($categories as $category)
