@@ -43,6 +43,11 @@ class UserTicketController extends Controller
 
         Ticket::query()->create($validated);
 
+        $ticket = Ticket::first();
+        if($ticket->is_admin==0){
+            $ticket->update(['status'=>1]);
+        }
+
         return redirect()->route('user.ticket.index')->with('success', 'تمت اضافه التذكره بنجاح');
     }
 }
