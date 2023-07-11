@@ -31,9 +31,4 @@ class PageStoreRequest extends FormRequest
         ];
     }
 
-    public function messages(){
-        return [
-            'title.required' => 'هذا الحقل مطلوب',
-        ];
-    }
 }
