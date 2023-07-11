@@ -32,12 +32,8 @@ class CustomMessageController extends Controller
      */
     public function store(StoreCustomMessageRequest $request)
     {
-        try {
-            $message = CustomMessage::create($request->validated());
-            return redirect()->route('admin.custom-message.index')->with('success', 'تم إضافة الرسالة بنجاح');
-        } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'فشل في إضافة الرسالة');
-        }
+        $message = CustomMessage::create($request->validated());
+        return redirect()->route('admin.custom-message.index')->with('success', 'تم إضافة الرسالة بنجاح');
     }
 
     /**
@@ -45,12 +41,8 @@ class CustomMessageController extends Controller
      */
     public function edit(int $id)
     {
-        try {
-            $message = CustomMessage::find($id);
-            return view('admin.settings.custom_message.edit', compact('message'));
-        } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'فشل في تحرير الرسالة');
-        }
+        $message = CustomMessage::find($id);
+        return view('admin.settings.custom_message.edit', compact('message'));
     }
 
     /**
@@ -58,12 +50,8 @@ class CustomMessageController extends Controller
      */
     public function update(UpdateCustomMessageRequest $request, int $id)
     {
-        try {
-            CustomMessage::find($id)->update($request->validated());
-            return redirect()->route('admin.custom-message.index')->with('success', 'تم تعديل الرسالة بنجاح');
-        } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'فشل في تعديل الرسالة');
-        }
+        CustomMessage::find($id)->update($request->validated());
+        return redirect()->route('admin.custom-message.index')->with('success', 'تم تعديل الرسالة بنجاح');
     }
 
     /**
@@ -71,12 +59,8 @@ class CustomMessageController extends Controller
      */
     public function destroy(int $id)
     {
-        try {
-            CustomMessage::find($id)->delete();
-            return redirect()->back()->with('success', 'تم حذف الرسالة بنجاح');
-        } catch (\Throwable $e) {
-            return redirect()->back()->with('error', 'فشل في حذف الرسالة');
-        }
+        CustomMessage::find($id)->delete();
+        return redirect()->back()->with('success', 'تم حذف الرسالة بنجاح');
     }
 
     public function changeActive(ChangeActiveCustomMessageRequest $request, CustomMessage $msg)

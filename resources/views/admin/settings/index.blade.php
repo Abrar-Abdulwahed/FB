@@ -469,7 +469,7 @@
                                             <i class="fas fa-info"></i>
                                         </button>
                                     @endif
-                                    @if (app()->environment() == 'production')
+                                    @if (app()->environment() == 'local')
                                         <button type="button" class="mx-1 btn btn-secondary btn-sm" data-toggle="modal"
                                             data-target="#confirm-prepare-production">
                                             تجهيز الموقع للإطلاق

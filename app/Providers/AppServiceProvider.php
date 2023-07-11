@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
 
             $channels = ['daily'];
             //app()->environment() == 'production'
-            if (app()->environment() == 'production') {
+            if (true) {
                 if ($settingService->get('telegram_report_enable') === "on") {
                     $channels[] = 'telegram';
                 }
