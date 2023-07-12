@@ -21,11 +21,12 @@ class SettingRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'app_name' => 'required|string',
-            'site_description' => 'required|string',
+            'app_name' => 'sometimes|required|string',
+            'site_description' => 'sometimes|required|string',
             'site_logo' => 'nullable|image',
-            'site_status' => 'required|in:active,inactive',
+            'site_status' => 'sometimes|required|in:active,inactive',
             'reason_locked' => 'required_if:site_status,inactive|nullable',
             'google_enable' => 'required|string|in:on,off',
             'google_client_id' => 'required_if:google_enable,on|nullable|string',
@@ -36,23 +37,25 @@ class SettingRequest extends FormRequest
             'captcha_enable'=> 'required|string|in:on,off',
             'recaptcha_site_key' => 'required_if:captcha_enable,on|nullable|string',
             'recaptcha_secret_key' => 'required_if:captcha_enable,on|nullable|string',
-            'mail_mailer' => 'required|string|in:smtp,sendmail',
-            'mail_host' => 'required|string',
-            'mail_port' => 'required|numeric|digits_between:3,4',
-            'mail_username' => 'required|string',
-            'mail_password' => 'required|string',
-            'mail_from_address' => 'required|email:rfc,dns',
-            'mail_from_name' => 'required|string',
+            'mail_mailer' => 'sometimes|required|string|in:smtp,sendmail',
+            'mail_host' => 'sometimes|required|string',
+            'mail_port' => 'sometimes|required|numeric|digits_between:3,4',
+            'mail_username' => 'sometimes|required|string',
+            'mail_password' => 'sometimes|required|string',
+            'mail_from_address' => 'sometimes|required|email',
+            'mail_from_name' => 'sometimes|required|string',
             'header_script' => 'nullable',
             'footer_script' => 'nullable',
             'email_confirm_enable'=>'required|string|in:on,off',
             'comment_enable'=>'sometimes|string|in:on,off',
             'short_link_enable'=>'required|string|in:on,off',
             'telegram_report_enable'=>'required|string|in:on,off',
-            'telegram_chat_id'=>'required|string',
-            'telegram_token'=>'required|string',
+            'telegram_chat_id'=>'required_if:telegram_report_enable,on|nullable|string',
+            'telegram_token'=>'required_if:telegram_report_enable,on|nullable|string',
             'slack_report_enable'=>'required|string|in:on,off',
-            'slack_url'=>'nullable|url|starts_with:https://hooks.slack.com/services/',
+            'slack_url'=>'required_if:slack_report_enable,on|nullable|url|starts_with:https://hooks.slack.com/services/',
+            //
+            'test_email'=> 'sometimes|required|email:rfc,dns',
         ];
     }
 }

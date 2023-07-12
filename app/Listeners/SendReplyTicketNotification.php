@@ -23,10 +23,14 @@ class SendReplyTicketNotification
     public function handle(ReplyTicketCreatedEvent $event): void
     {
         $user = $event->user;
-        $message = CustomMessage::active()->where('code', 'ticket.reply')->first();
-        if($message){
-            $mail = new ReplyTicket($user, $message);
-            Mail::to($user->email)->send($mail);
+        try{
+            $message = CustomMessage::active()->where('code', 'ticket.reply')->first();
+            if($message){
+                $mail = new ReplyTicket($user, $message);
+                Mail::to($user->email)->send($mail);
+            }
+        }catch(\Exception $e){
+            return;
         }
     }
 }

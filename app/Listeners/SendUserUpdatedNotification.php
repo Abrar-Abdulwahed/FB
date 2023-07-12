@@ -27,10 +27,14 @@ class SendUserUpdatedNotification
     {
         if ($event->user->isDirty('password') && $event->user->wasChanged('password')) {
             $user = $event->user;
-            $message = CustomMessage::active()->where('code', 'password.change_message')->first();
-            if($message){
-                $mail = new ChangePassword($user, $message);
-                Mail::to($user->email)->send($mail);
+            try{
+                $message = CustomMessage::active()->where('code', 'password.change_message')->first();
+                if($message){
+                    $mail = new ChangePassword($user, $message);
+                    Mail::to($user->email)->send($mail);
+                }
+            }catch(\Exception $e){
+                return;
             }
         }
     }
