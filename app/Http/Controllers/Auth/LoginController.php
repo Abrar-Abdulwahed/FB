@@ -31,7 +31,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
+    protected function redirectTo()
+    {
+        if (Auth::user()->roles->contains('name', 'admin')) {
+            return RouteServiceProvider::ADMIN_HOME;
+        } else {
+            return RouteServiceProvider::HOME;
+        }
+    }
 
     /**
      * Create a new controller instance.
@@ -55,9 +62,11 @@ class LoginController extends Controller
                 'browser' => Agent::browser(),
                 'ip' => FacadesRequest::ip(),
             ]);
-            return redirect()->route('admin.index');
+            return redirect()->intended($this->redirectTo());
         }
-        return redirect()->back()->withError('error', __('failed'));
+        else {
+            return redirect()->back()->withError('error', __('failed'));
+        }
     }
 
     public function logout()

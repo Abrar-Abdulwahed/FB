@@ -18,13 +18,17 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
-
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if (Auth::user()->roles->contains('name', 'admin')) {
+                    return RouteServiceProvider::ADMIN_HOME;
+                } else {
+                    return RouteServiceProvider::HOME;
+                }
+
+
                 //return redirect()->back()->with('message','user is registerd');
                 //TODO: check role and return to HOME for user and ADMIN_HOME for admins
-                // return redirect(RouteServiceProvider::HOME)->with('message','user is registerd');
-                
                 return redirect(RouteServiceProvider::ADMIN_HOME)->with('message','user is registerd');
             }
         }

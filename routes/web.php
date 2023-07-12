@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 //  $settings = Setting::settings();
  //dd($settings);
- 
 $middlewares = [];
 
 if(app(AppSettingService::class)->get('email_confirm_enable') == 'on'){
