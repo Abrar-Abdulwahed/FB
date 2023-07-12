@@ -20,7 +20,8 @@ class CustomMessageSeeder extends Seeder
                 [
                     'code' => 'register.message',
                     'subject'=> 'إنشاء حساب في موقعنا',
-                    'type' => 'email',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
                     'language' => 'ar',
                     'text' => '
                     تحية طيبة يا userName!,
@@ -31,7 +32,8 @@ class CustomMessageSeeder extends Seeder
                 [
                     'code' => 'verification.message',
                     'subject'=> 'تفعيل الإيميل',
-                    'type' => 'email',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
                     'language' => 'ar',
                     'text' => '
                     تحية طيبة يا userName!,
@@ -42,7 +44,8 @@ class CustomMessageSeeder extends Seeder
                 [
                     'code' => 'register.welcome_message',
                     'subject'=> 'نرحب بك في موقعنا',
-                    'type' => 'email',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
                     'language' => 'ar',
                     'text' => '
                     تحية طيبة يا userName!,
@@ -57,7 +60,8 @@ class CustomMessageSeeder extends Seeder
                 [
                     'code' => 'password.reset_message',
                     'subject'=> 'تنبيه استعادة كلمة المرور',
-                    'type' => 'email',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
                     'language' => 'ar',
                     'text' => '
                     تحية طيبة يا userName!,
@@ -68,7 +72,8 @@ class CustomMessageSeeder extends Seeder
                 [
                     'code' => 'password.change_message',
                     'subject'=> 'تغيير كلمة المرور',
-                    'type' => 'email',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
                     'language' => 'ar',
                     'text' => '
                     تحية طيبة يا userName!,
@@ -76,13 +81,36 @@ class CustomMessageSeeder extends Seeder
                     مع أطيب التحيات،
                     فريق الموقع.',
                 ],
+                [
+                    'code' => 'ticket.create',
+                    'subject'=> 'إنشاء تذكرة جديدة',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
+                    'language' => 'ar',
+                    'text' => '
+                    مرحبا يا userName!,
+                     هذه رسالة مخصصة  عند إنشاء التذكرة
+                    ',
+                ],
+                [
+                    'code' => 'ticket.reply',
+                    'subject'=> 'إضافة رد',
+                    'message_sms' => 'email',
+                    'message_email' => 'email',
+                    'language' => 'ar',
+                    'text' => '
+                     مرحبا يا userName!,
+                     هذه رسالة مخصصة للرد على التذكرة
+                    ',
+                ],
             ];
 
             foreach ($messages as $message) {
                 CustomMessage::create([
                     'code' => $message['code'],
                     'subject' => $message['subject'],
-                    'type' => $message['type'],
+                    'message_sms' => $message['message_sms'],
+                    'message_email' => $message['message_email'],
                     'language' => $message['language'],
                     'text' => $message['text'],
                 ]);

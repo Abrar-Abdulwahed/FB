@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             FaqCategorySeeder::class,
             // additional
             SettingSeederTwo::class,
-            CustomMessageTwo::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
