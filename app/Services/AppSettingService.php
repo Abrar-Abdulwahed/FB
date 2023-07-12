@@ -26,6 +26,7 @@ class AppSettingService
     public function set($key, $value)
     {
         $this->settings[$key] = $value;
+        Setting::updateOrCreate(['name' => $key], ['value' => $value]);
         Cache::forever('settings', $this->settings);
     }
 

@@ -36,9 +36,6 @@ class AppServiceProvider extends ServiceProvider
         if (Schema::hasTable('settings')) {
             $settingService = app(AppSettingService::class);
             view()->share('settingService', $settingService);
-            foreach (app(AppSettingService::class)->getAll() as $key => $value) {
-                config()->set($key, $value);
-            }
 
             $channels = ['daily'];
             if (app()->environment() == 'production') {
