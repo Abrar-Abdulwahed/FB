@@ -26,35 +26,31 @@ class ProviderController extends Controller
     }
 
     public function callback($provider){
-        try{
-            if(!$this->checkProvider($provider))
-                return abort(404);
-            $socialUser = Socialite::driver($provider)->user();
+        if(!$this->checkProvider($provider))
+            return abort(404);
+        $socialUser = Socialite::driver($provider)->user();
 
-            $user = User::updateOrCreate([
-                'provider_id' => $socialUser->id,
-                'provider'    => $provider
-            ], [
-                'name' => $socialUser->name,
-                'email' => $socialUser->email,
-                'avatar'=> $this->uploadAvatarFromURL($socialUser->avatar),
-            ]);
+        $user = User::updateOrCreate([
+            'provider_id' => $socialUser->id,
+            'provider'    => $provider
+        ], [
+            'name' => $socialUser->name,
+            'email' => $socialUser->email,
+            'avatar'=> $this->uploadAvatarFromURL($socialUser->avatar),
+        ]);
 
-            Auth::login($user);
-            LoginActivity::create([
-                'user_id'       => auth()->user()->id,
-                'user_agent'    => request()->header('user-agent'),
-                'browser'    => Agent::browser(),
-                'ip'    =>  FacadesRequest::ip(),
-            ]);
+        Auth::login($user);
+        LoginActivity::create([
+            'user_id'       => auth()->user()->id,
+            'user_agent'    => request()->header('user-agent'),
+            'browser'    => Agent::browser(),
+            'ip'    =>  FacadesRequest::ip(),
+        ]);
 
-            // to append new role, NO repeat role, NO detach
-            $user->roles()->SyncWithoutDetaching([2]);
+        // to append new role, NO repeat role, NO detach
+        $user->roles()->SyncWithoutDetaching([2]);
 
-            //TODO: Change redirect to the homepage/control panel/whatever according to role
-            return redirect()->route('admin.index'); 
-        }catch(\Throwable $e){
-            return redirect()->back()->withError('something went wrong');
-        }
+        //TODO: Change redirect to the homepage/control panel/whatever according to role
+        return redirect()->route('admin.index'); 
     }
 }

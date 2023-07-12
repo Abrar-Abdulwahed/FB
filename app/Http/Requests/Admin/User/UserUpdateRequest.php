@@ -25,7 +25,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'regex:/^[A-Za-z ]+$/', 'min:3', 'max:30'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', Rule::unique('users')->ignore($this->user)],
             'password' => ['nullable', 'string', 'min:6', 'max:35', 'confirmed'],
             'roles' => ['required', 'array', function (string $attribute, mixed $value,  $fail)
             {

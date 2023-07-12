@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Services\AppSettingService;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,8 +19,8 @@ class Register
     public function handle(Request $request, Closure $next): Response
     {
         $notAllowedURLs = url('register'); // add the register URL with the POST method
-
-        if(Setting::where('name', 'register_enable')->first()?->value === 'off' &&  request()->url() === $notAllowedURLs && !Route::is('register')){
+        $settingService = app(AppSettingService::class);
+        if($settingService->get('register_enable') === 'off' &&  request()->url() === $notAllowedURLs && !Route::is('register')){
             return abort(404);
         }
         return $next($request);

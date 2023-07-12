@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 
+// يجب الحفاظ على نفس الترتيب و عدم تغييره لأنه يسبب بعض المشاكل
 return [
     'app.name' => null,
     'site_description' => null,

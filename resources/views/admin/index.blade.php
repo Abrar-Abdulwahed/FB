@@ -81,7 +81,7 @@
                 <!-- ./col -->
 
                 <!-- ./col -->
-                @if (\App\Models\Setting::where('name', 'page_enable')?->first()?->value == 'on')
+                @feature('page')
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-warning">
@@ -97,11 +97,11 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                @endif
+                @endfeature
                 <!-- ./col -->
 
                 <!-- ./col -->
-                @if (\App\Models\Setting::where('name', 'faq_enable')?->first()?->value == 'on')
+                @feature('faq')
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
@@ -117,11 +117,11 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                @endif
+                @endfeature
                 <!-- ./col -->
 
                 <!-- ./col -->
-                @if (\App\Models\Setting::where('name', 'short_link_enable')?->first()?->value == 'on')
+                @feature('short_link')
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-primary">
@@ -137,7 +137,7 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                @endif
+                @endfeature
                 <!-- ./col -->
 
                 <!-- ./col -->

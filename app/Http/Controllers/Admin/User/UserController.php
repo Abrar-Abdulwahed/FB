@@ -120,16 +120,12 @@ class UserController extends Controller
      */
     public function destroy(UserDestroyRequest $request, $id)
     {
-        try {
-            $user = User::query()->findOrFail($id);
-            $user->delete();
-            if ($user->avatar) {
-                Storage::disk('avatars')->delete($user->avatar);
-            }
-            return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
-        } catch (\Throwable $e) {
-            return redirect()->back()->with(['error' => $e]);
+        $user = User::query()->findOrFail($id);
+        $user->delete();
+        if ($user->avatar) {
+            Storage::disk('avatars')->delete($user->avatar);
         }
+        return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
     }
 
     public function email_history($user_id)

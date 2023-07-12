@@ -41,7 +41,7 @@ class SettingRequest extends FormRequest
             'mail_port' => 'required|numeric|digits_between:3,4',
             'mail_username' => 'required|string',
             'mail_password' => 'required|string',
-            'mail_from_address' => 'required|email',
+            'mail_from_address' => 'required|email:rfc,dns',
             'mail_from_name' => 'required|string',
             'header_script' => 'nullable',
             'footer_script' => 'nullable',
