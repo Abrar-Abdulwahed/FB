@@ -23,7 +23,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'regex:/^[A-Za-z ]+$/', 'min:3', 'max:30'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6', 'max:35', 'confirmed'],
             'roles' => ['required', 'array'],
             'avatar' => ['nullable', 'image'],

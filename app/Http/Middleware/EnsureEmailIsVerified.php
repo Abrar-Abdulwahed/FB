@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Services\AppSettingService;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified as BaseEnsureEmailIsVerified;
 
@@ -17,7 +18,8 @@ class EnsureEmailIsVerified extends BaseEnsureEmailIsVerified
      */
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
-        if(Setting::where('name', 'email_confirm_enable')?->first()?->value === 'on'){
+        $settingService = app(AppSettingService::class);
+        if($settingService->get('email_confirm_enable') === 'on'){
             return parent::handle($request, $next, $redirectToRoute);
         }
         return $next($request);

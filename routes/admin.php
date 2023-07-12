@@ -78,6 +78,7 @@ Route::prefix('admin')->middleware(['auth', 'check_user', /* 'roles:admin' */])-
             Route::name('settings.')->group(function () {
                 Route::resource('/', SettingController::class)->only('index', 'store');
                 Route::delete('cleanup', [SettingController::class, 'cleanup'])->name('cleanup');
+                Route::post('prepare-production', [SettingController::class, 'prepare_production'])->name('prepare_production');
                 Route::post('exception', [SettingController::class, 'test'])->name('test_report');
             });
 

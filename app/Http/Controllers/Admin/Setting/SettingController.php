@@ -8,7 +8,7 @@ use App\Models\Setting;
 use App\Mail\TestMailable;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Services\AppSettingService;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -32,7 +32,6 @@ class SettingController extends Controller
     public function index()
     {
         $settings = $this->cacheOrGet();
-       
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -51,65 +50,58 @@ class SettingController extends Controller
      */
     public function store(SettingRequest $request)
     {
-        DB::beginTransaction();
-        try {
-            $pathInDB = Setting::where('name', 'site_logo')->first()->value;
-            if ($request->hasFile('site_logo')) {
-                if ($pathInDB !== null) {
-                    //Remove old image
-                    Storage::disk('public')->delete($pathInDB);
-                }
-                $path = $this->uploadImage($request->file('site_logo'), 'public');
-            } else {
-                $path = $pathInDB ?? '';
+        $pathInDB = $this->settingService->get('site_logo');
+        if ($request->hasFile('site_logo')) {
+            if ($pathInDB !== null) {
+                //Remove old image
+                Storage::disk('public')->delete($pathInDB);
             }
-            $settings = [
-                'app.name' => $request?->app_name,
-                'site_description' => $request?->site_description,
-                'site_logo' => $path,
-                'site_status' => $request?->site_status ?? false,
-                'reason_locked' => $request?->site_status === 'active' ? null : $request?->reason_locked,
-                'google_enable' => $request?->google_enable ?? false,
-                'services.google.client_id' => $request?->google_client_id,
-                'services.google.client_secret' => $request?->google_client_secret,
-                'facebook_enable' => $request?->facebook_enable ?? false,
-                'services.facebook.client_id' => $request?->facebook_client_id,
-                'services.facebook.client_secret' => $request?->facebook_client_secret,
-                'captcha_enable' => $request?->captcha_enable,
-                'recaptcha.api_site_key' => $request?->recaptcha_site_key,
-                'recaptcha.api_secret_key' => $request?->recaptcha_secret_key,
-                'mail.default' => $request?->mail_mailer, //mail_mailer
-                'mail.mailers.smtp.host' => $request?->mail_host,
-                'mail.mailers.smtp.port' => $request?->mail_port,
-                'mail.mailers.smtp.username' => $request?->mail_username,
-                'mail.mailers.smtp.password' => $request?->mail_password === "****"? Setting::where('name', 'mail.mailers.smtp.password')->first()->value:$request?->mail_password,
-                'mail.from.address' => $request?->mail_from_address,
-                'mail.from.name' => $request?->mail_from_name,
-                'header_script' => $request->header_script ,
-                'footer_script' => $request->footer_script,
-                'faq_enable' => $request->faq_enable ? "on" : "off",
-                'article_enable' => $request->article_enable ? "on" : "off",
-                'page_enable' => $request->page_enable ? "on" : "off",
-                'register_enable' => $request->register_enable ? "on" : "off",
-                'email_confirm_enable' => $request?->email_confirm_enable,
-                'comment_enable' => $request->comment_enable ?? "off",
-                'short_link_enable' => $request?->short_link_enable,
-                'telegram_report_enable' => $request?->telegram_report_enable,
-                'logging.channels.telegram.chat_id' => $request?->telegram_chat_id,
-                'logging.channels.telegram.token' => $request?->telegram_token,
-                'slack_report_enable' => $request?->slack_report_enable,
-                'logging.channels.slack.url' => $request?->slack_url,
-            ];
-            foreach ($settings as $name => $value) {
-                Setting::updateOrCreate(['name' => $name], ['value' => $value]);
-            }
-            Cache::forever("settings", $settings);
-            DB::commit();
-            return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
-        } catch (\Throwable $e) {
-            DB::rollback();
-            return redirect()->back()->withError('error', 'فشل في تعديل الإعدادات');
+            $path = $this->uploadImage($request->file('site_logo'), 'public');
+        } else {
+            $path = $pathInDB ?? '';
         }
+        $settings = [
+            'app.name' => $request?->app_name,
+            'site_description' => $request?->site_description,
+            'site_logo' => $path,
+            'site_status' => $request?->site_status ?? false,
+            'reason_locked' => $request?->site_status === 'active' ? null : $request?->reason_locked,
+            'google_enable' => $request?->google_enable ?? false,
+            'services.google.client_id' => $request?->google_client_id,
+            'services.google.client_secret' => $request?->google_client_secret,
+            'facebook_enable' => $request?->facebook_enable ?? false,
+            'services.facebook.client_id' => $request?->facebook_client_id,
+            'services.facebook.client_secret' => $request?->facebook_client_secret,
+            'captcha_enable' => $request?->captcha_enable,
+            'recaptcha.api_site_key' => $request?->recaptcha_site_key,
+            'recaptcha.api_secret_key' => $request?->recaptcha_secret_key,
+            'mail.default' => $request?->mail_mailer, //mail_mailer
+            'mail.mailers.smtp.host' => $request?->mail_host,
+            'mail.mailers.smtp.port' => $request?->mail_port,
+            'mail.mailers.smtp.username' => $request?->mail_username,
+            'mail.mailers.smtp.password' => $request?->mail_password === "****"? $this->settingService->get('mail.mailers.smtp.password'):$request?->mail_password,
+            'mail.from.address' => $request?->mail_from_address,
+            'mail.from.name' => $request?->mail_from_name,
+            'header_script' => $request->header_script ,
+            'footer_script' => $request->footer_script,
+            'faq_enable' => $request->faq_enable ? "on" : "off",
+            'article_enable' => $request->article_enable ? "on" : "off",
+            'page_enable' => $request->page_enable ? "on" : "off",
+            'register_enable' => $request->register_enable ? "on" : "off",
+            'email_confirm_enable' => $request?->email_confirm_enable,
+            'comment_enable' => $request->comment_enable ?? "off",
+            'short_link_enable' => $request?->short_link_enable,
+            'telegram_report_enable' => $request?->telegram_report_enable,
+            'logging.channels.telegram.chat_id' => $request?->telegram_chat_id,
+            'logging.channels.telegram.token' => $request?->telegram_token,
+            'slack_report_enable' => $request?->slack_report_enable,
+            'logging.channels.slack.url' => $request?->slack_url,
+        ];
+        foreach ($settings as $name => $value) {
+            Setting::updateOrCreate(['name' => $name], ['value' => $value]);
+        }
+        Cache::forever("settings", $settings);
+        return redirect()->back()->with('success', 'تم تعديل الإعدادات بنجاح');
     }
 
     public function cleanup(Request $request)
@@ -118,41 +110,38 @@ class SettingController extends Controller
             'resetdb_password' => 'sometimes|current_password',
             'load_password' => 'sometimes|current_password'
         ]);
-        try{
-            $action = $request->query('action');
-            switch ($action) {
-                case 'reset-db':
-                    $this->resetDatabase();
-                    $msg = 'تم تهيئة البيانات بنجاح';
-                    break;
-                case 'load-settings':
-                    $this->loadSettings($request);
-                    $msg = 'تم تحميل الإعدادات بنجاح';
-                    break;
-                case 'clear-session-cookie':
-                    $this->clearSessionCookie();
-                    $msg = 'تم حذف الجلسات وبيانات تعريف الارتباط';
-                    break;
-                case 'clear-cache':
-                    $this->clearCache();
-                    $msg = 'تم حذف الملفات المؤقتة بنجاح';
-                    break;
-                default:
-                    abort(404);
-            }
-            return redirect()->route('admin.settings.index')->with('success', $msg);
-        }catch(\Exception $e){
-            return redirect()->back()->withError('حدث خطأ ما، حاول مرة أخرى!');
+        $action = $request->query('action');
+        switch ($action) {
+            case 'reset-db':
+                $this->resetDatabase();
+                $msg = 'تم تهيئة البيانات بنجاح';
+                break;
+            case 'load-settings':
+                $this->loadSettings();
+                $msg = 'تم تحميل الإعدادات بنجاح';
+                break;
+            case 'clear-session-cookie':
+                $this->clearSessionCookie();
+                $msg = 'تم حذف الجلسات وبيانات تعريف الارتباط';
+                break;
+            case 'clear-cache':
+                $this->clearCache();
+                $msg = 'تم حذف الملفات المؤقتة بنجاح';
+                break;
+            default:
+                abort(404);
         }
+        return redirect()->route('admin.settings.index')->with('success', $msg);
     }
 
     protected function resetDatabase()
     {
         Cache::forget("settings");
         Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $this->loadSettings();
     }
 
-    protected function loadSettings(Request $request){
+    protected function loadSettings(){
         if(File::exists(base_path('config.php'))){
             $settings = include(base_path('config.php'));
             $this->clearCache();
@@ -195,6 +184,10 @@ class SettingController extends Controller
 
     protected function clearCache(){
         Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('event:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
         Cache::flush();
         // remove all cache files manually
         $directory = storage_path('framework/cache/data');
@@ -209,11 +202,7 @@ class SettingController extends Controller
         $action = $request->query('action');
         switch ($action) {
             case 'email':
-                try{
-                    Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
-                }catch(\Exception $e){
-                    return redirect()->back()->with('error', $e->getMessage());
-                }
+                Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
                 break;
             case 'report':
                 throw new Exception('Test Exception via channels');
@@ -222,5 +211,14 @@ class SettingController extends Controller
                 abort(404);
         }
         return redirect()->back()->with('success', 'تم الاختبار بنجاح');
+    }
+
+    public function prepare_production(){
+        $this->clearCache();
+        Artisan::call('config:cache');
+        Artisan::call('event:cache');
+        Artisan::call('route:cache');
+        Artisan::call('view:cache');
+        return redirect()->route('admin.settings.index')->with('success', 'تم تجهيز الموقع للإطلاق بنجاح');
     }
 }

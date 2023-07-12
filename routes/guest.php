@@ -15,7 +15,7 @@ Route::group(['as' => 'guest.'], function () {
 
     Route::get('/', function () {
         return view('welcome');
-    })->name('home');
+    })->name('welcome');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 

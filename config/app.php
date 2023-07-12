@@ -172,6 +172,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         // Cocur\Slugify\Bridge\Laravel\SlugifyServiceProvide::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ])->toArray(),
 
@@ -194,6 +195,7 @@ return [
         'Slugify' => Cocur\Slugify\Bridge\Laravel\SlugifyFacade::class,
 
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ])->toArray(),
 

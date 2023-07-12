@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Setting;
 use Closure;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Services\AppSettingService;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +18,7 @@ class LockSite
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $settingService = app(AppSettingService::class);
         $allowedNames = ['guest.locked', 'logout'];
         $allowedURLs = [
             route('app.login', 'facebook'),
@@ -25,12 +27,12 @@ class LockSite
             route('login'), // add the login URL with the GET method
             url('login'), // add the login URL with the POST method
         ];
-        if (Setting::where('name', 'site_status')->first()?->value === 'inactive' 
+        if ($settingService->get('site_status') === 'inactive' 
             && !in_array(request()->url(), $allowedURLs) 
             && !in_array(Route::currentRouteName(), $allowedNames) 
             && !Route::is('admin.*')) {
             return redirect('/locked');
-        } elseif (Setting::where('name', 'site_status')->first()?->value === 'active' && Route::is('guest.locked')) {
+        } elseif ($settingService->get('site_status') === 'active' && Route::is('guest.locked')) {
             return abort(404);
         }
         return $next($request);

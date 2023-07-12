@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Str;
 
+// يجب الحفاظ على نفس الترتيب و عدم تغييره لأنه يسبب بعض المشاكل
 return [
-    'admin_email'=> null,
-    'admin_password'=> null,
     'app.name' => null,
     'site_description' => null,
     'site_logo' => null,
@@ -40,4 +39,6 @@ return [
     'logging.channels.telegram.token' => null,
     'slack_report_enable' => null,
     'logging.channels.slack.url' => null,
+    'admin_email'=> null,
+    'admin_password'=> null,
 ];

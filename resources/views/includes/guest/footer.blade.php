@@ -1,17 +1,16 @@
 <?php
 use App\Models\Setting;
-$settings = Setting::settings();
 use App\Models\Page;
-$page = Page::active()->get(['title','slug']);
+$page = Page::active()->get(['title', 'slug']);
 ?>
 <!-- Start Section-6 -->
 <section id="sec-6" class="bg-white">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-6 text-end">
-                <img class="img-fluid" src="{{ asset('storage/' . $settings['site_logo']) }}" alt="">
+                <img class="img-fluid" src="{{ asset('storage/' . $settingService->get('site_logo')) }}" alt="">
                 <div>
-                    <p>{{ $settings['site_description'] }}</p>
+                    <p>{{ $settingService->get('site_description') }}</p>
                 </div>
                 <div class="clearfix my-2">
                     <a class="float-end my-sm-2" href="#"><i class="fa-brands fa-facebook-f"></i></a>

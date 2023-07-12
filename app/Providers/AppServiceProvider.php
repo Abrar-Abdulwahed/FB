@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use App\Services\AppSettingService;
+use Illuminate\Support\Facades\App;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\App;
+use Yajra\DataTables\Html\Builder;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->register(ActivitylogServiceProvider::class);
+        $this->app->singleton(AppSettingService::class, function ($app) {
+            return new AppSettingService();
+        });
     }
 
     /**
@@ -27,26 +32,28 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
-
+        Builder::useVite();
         if (Schema::hasTable('settings')) {
-            $settings = Setting::all();
-            foreach ($settings as $setting) {
-                config()->set($setting['name'], $setting['value']);
+            $settingService = app(AppSettingService::class);
+            view()->share('settingService', $settingService);
+            foreach (app(AppSettingService::class)->getAll() as $key => $value) {
+                config()->set($key, $value);
             }
 
             $channels = ['daily'];
-            if (app()->environment() == 'production') {
-                if (Setting::where('name', 'telegram_report_enable')->first()?->value === "on") {
+            //app()->environment() == 'production'
+            if (true) {
+                if ($settingService->get('telegram_report_enable') === "on") {
                     $channels[] = 'telegram';
                 }
-                if (Setting::where('name', 'slack_report_enable')->first()?->value === "on") {
+                if ($settingService->get('slack_report_enable') === "on") {
                     $channels[] = 'slack';
                 }
             }
             config()->set('logging.channels.stack.channels', $channels);
 
-            Blade::if('feature', function ($feature) {
-                return Setting::where('name', $feature.'_enable')->first()?->value == 'on';
+            Blade::if('feature', function ($feature) use ($settingService) {
+                return $settingService->get($feature.'_enable') == 'on';
             });
         }
 

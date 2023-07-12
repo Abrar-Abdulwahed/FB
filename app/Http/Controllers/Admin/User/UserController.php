@@ -36,7 +36,6 @@ class UserController extends Controller
             $query->onlyTrashed()->get();
         }
 
-
         $users = $query->with('roles')->get();
 
         return view('admin.users.index', compact('users', 'roles'));
@@ -112,7 +111,7 @@ class UserController extends Controller
             'avatar' => $validated['avatar'] ?? $user->avatar,
         ]);
         $user->roles()->sync($request->roles);
-        return redirect()->route('admin.users.index')->with(['success' =>__('admin/users/user.messages.edit')]);
+        return redirect()->route('admin.users.index')->with(['success' => __('admin/users/user.messages.edit')]);
     }
 
     /**
@@ -120,16 +119,12 @@ class UserController extends Controller
      */
     public function destroy(UserDestroyRequest $request, $id)
     {
-        try {
-            $user = User::query()->findOrFail($id);
-            $user->delete();
-            if ($user->avatar) {
-                Storage::disk('avatars')->delete($user->avatar);
-            }
-            return redirect()->back()->with(['success' =>__('admin/users/user.messages.delete')]);
-        } catch (\Throwable $e) {
-            return redirect()->back()->with(['error' => $e]);
+        $user = User::query()->findOrFail($id);
+        $user->delete();
+        if ($user->avatar) {
+            Storage::disk('avatars')->delete($user->avatar);
         }
+        return redirect()->back()->with(['success' => __('admin/users/user.messages.delete')]);
     }
 
     public function email_history($user_id)

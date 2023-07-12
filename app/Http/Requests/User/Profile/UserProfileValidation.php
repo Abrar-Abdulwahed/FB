@@ -25,7 +25,7 @@ class UserProfileValidation extends FormRequest
         return [
             //
             //dd($this->user),
-            'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore($this->profile)],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255',  Rule::unique('users')->ignore($this->profile)],
             //'password'=>'current_password',
             'current_password'=>'nullable|required_with:new_password|current_password',
             'new_password'=>'required_with:current_password|min:8|nullable',
