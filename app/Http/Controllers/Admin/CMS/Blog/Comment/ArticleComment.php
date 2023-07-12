@@ -47,7 +47,7 @@ class ArticleComment extends Controller
             'article_id' => $article_id,
             'comment' => $comment,
         ]);
-        return redirect()->back()->with('success', 'تم اضافة التعليق بنجاح');
+        return redirect()->back()->with('success', __('admin/CMS/Blog/Comment/article_comment.messages.create'));
 
     }
 
@@ -55,7 +55,7 @@ class ArticleComment extends Controller
     {
         $comment = ModelsArticleComment::withTrashed()->where('id', $id)->restore();
         return redirect()->route('admin.comments.index')
-            ->with('success', 'تم استعادة التعليق بنجاح');
+            ->with('success', __('admin/CMS/Blog/Comment/article_comment.messages.restore'));
     }
 
     /**
@@ -115,13 +115,13 @@ class ArticleComment extends Controller
                 ModelsArticleComment::where('user_id', $comment_trash->user_id)->delete();
                 $comment_trash->forceDelete();
                 return redirect()->back()
-                    ->with('success', 'تم حذف التعليق نهائيا');
+                    ->with('success', __('admin/CMS/Blog/Comment/article_comment.messages.pre_delete'));
                 break;
             default:
                 $comment->delete();
         }
 
         return redirect()->route('admin.comments.index')
-            ->with('success', 'تم حذف التعليق بنجاح');
+            ->with('success', __('admin/CMS/Blog/Comment/article_comment.messages.delete'));
     }
 }

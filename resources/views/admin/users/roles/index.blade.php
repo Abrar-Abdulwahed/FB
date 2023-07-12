@@ -1,23 +1,23 @@
 @extends('layouts.admin')
 
-@section('title', 'قائمة الأدوار')
+@section('title', __('admin/users/role.pages.index'))
 @section('content')
     <a href={{ route('admin.roles.create') }} class="btn btn-info float-right mb-2"> <i class="fa-solid fa-plus"></i>
-        إضافة</a>
+        {{ __('admin/users/role.buttons.create') }}</a>
     <div class="clearfix"></div>
     @include('partials.session')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            قائمة الأدوار
+            {{ __('admin/users/role.pages.index') }}
         </div>
         <div class="card-body table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
-                        <th>الاسم</th>
-                        <th>المستخدمين</th>
-                        <th style="width:100px">العمليات</th>
+                        <th>{{ __('admin/users/role.fields.name') }}</th>
+                        <th>{{ __('admin/users/role.extra.users') }}</th>
+                        <th style="width:100px">{{ __('admin/users/role.extra.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,23 +38,23 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <p class="modal-title">تأكيد الحذف</p>
+                                                    <p class="modal-title">{{ __('admin/users/role.extra.confirm_delete') }}</p>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body text-left">
-                                                    <p>هل أنت متأكد من حذف هذا العنصر حذف نهائي؟</p>
+                                                    <p>{{ __('admin/users/role.extra.Are you sure you want delete this item') }}</p>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default btn-md"
-                                                        data-dismiss="modal">إغلاق</button>
+                                                        data-dismiss="modal">{{ __('admin/users/role.extra.close') }}</button>
                                                     <form action="{{ route('admin.roles.destroy', $role->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                                        <button type="submit" class="btn btn-dark btn-md">{{ __('admin/users/role.extra.yes') }}</button>
                                                     </form>
                                                 </div>
                                             </div>

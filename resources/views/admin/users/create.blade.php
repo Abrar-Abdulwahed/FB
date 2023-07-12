@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    اضافة عضو
+{{ __('admin/users/user.pages.create') }}
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
@@ -53,35 +53,35 @@
                 <form action="{{ Route('admin.users.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label>الاسم</label>
+                        <label>{{ __('admin/users/user.fields.name') }}</label>
                         <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                         @error('name')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>البريد الاكتروني</label>
+                        <label>{{ __('admin/users/user.fields.email') }}</label>
                         <input type="text" name="email" value="{{ old('email') }}" class="form-control">
                         @error('email')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>كلمة المرور</label>
+                        <label>{{ __('admin/users/user.fields.password') }}</label>
                         <input type="password" name="password" class="form-control">
                         @error('password')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>تأكيد كلمة المرور</label>
+                        <label>{{ __('admin/users/user.fields.password_confirmation') }}</label>
                         <input type="password" name="password_confirmation" class="form-control">
                         @error('password_confirmation')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label>اختيار الادوار</label>
+                        <label>{{ __('admin/users/user.fields.roles') }}</label>
                         <select class="select2" multiple="multiple" data-placeholder="اختيار الادوار" name="roles[]"
                             style="width: 100%;">
                             @foreach ($roles as $role)
@@ -93,7 +93,7 @@
                         </select>
                     </div>
                     <div class="">
-                        <label for="avatar">صورة العضو</label>
+                        <label for="avatar">{{ __('admin/users/user.fields.avatar') }}</label>
                         <div class="img-preview">
                             <input type="file" id="file-1" accept="image/*" name="avatar">
                             <label for="file-1" id="file-1-preview" class="w-100 h-100">
@@ -110,7 +110,7 @@
 
                     <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-sm btn-primary">
-                            اضافة</button>
+                            {{ __('admin/users/user.buttons.create') }}</button>
                     </div>
 
             </div>

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'سجل رسائل البريد الإلكتروني المرسلة للمستخدم')
+@section('title',  __('admin/users/user.pages.The record of emails sent to the user'))
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            سجل رسائل البريد الإلكتروني المرسلة للمستخدم
+            {{ __('admin/users/user.pages.The record of emails sent to the user') }}
         </div>
         <div class="card-body table-responsive">
             <div class="card card-primary card-outline">

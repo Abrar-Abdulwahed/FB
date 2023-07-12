@@ -1,25 +1,25 @@
 @extends('layouts.admin')
 @section('content')
 @section('title')
-    مقالات الاقسام
+    {{ __('admin/CMS/Blog/Category/article_category.pages.index') }}
 @endsection
 <a href={{ route('admin.articles-categories.create') }} class="btn btn-info float-left my-2"> <i
         class="fa-solid fa-plus"></i>
-    إضافة</a>
+        {{ __('admin/CMS/Blog/Category/article_category.pages.create') }}</a>
 <div class="clearfix"></div>
 @include('partials.session')
 <div class="card shadow-sm">
     <div class="card-header bg-dark">
-        مقالات الاقسام
+        {{ __('admin/CMS/Blog/Category/article_category.pages.index') }}
     </div>
     <div class="card-body table-responsive">
         <table class="table table-striped text-center">
             <thead>
                 <tr>
                     <th style="width: 10px">#</th>
-                    <th>الاسم</th>
-                    <th>slug</th>
-                    <th>العمليات</th>
+                    <th>{{ __('admin/CMS/Blog/Category/article_category.fields.title') }}</th>
+                    <th>{{ __('admin/CMS/Blog/Category/article_category.fields.slug') }}</th>
+                    <th>{{ __('admin/CMS/Blog/Category/article_category.extra.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,24 +39,24 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <p class="modal-title">تأكيد الحذف</p>
+                                            <p class="modal-title">{{ __('admin/CMS/Blog/Category/article_category.extra.confirm_delete') }}</p>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body text-left">
-                                            <p>هل أنت متأكد من حذف هذا العنصر حذف نهائي؟</p>
+                                            <p>{{ __('admin/CMS/Blog/Category/article_category.extra.Are you sure you want delete this item') }}</p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default btn-md"
-                                                data-dismiss="modal">إغلاق</button>
+                                                data-dismiss="modal">{{ __('admin/CMS/Blog/Category/article_category.extra.close') }}</button>
                                             <form
                                                 action="{{ route('admin.articles-categories.destroy', $category->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-dark btn-md">نعم</button>
+                                                <button type="submit" class="btn btn-dark btn-md">{{ __('admin/CMS/Blog/Category/article_category.extra.yes') }}</button>
                                             </form>
                                         </div>
                                     </div>

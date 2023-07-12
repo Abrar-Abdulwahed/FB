@@ -31,7 +31,7 @@ class ArticleCategoryController extends Controller
 
         return redirect()
             ->route('admin.articles-categories.index')
-            ->with('success', 'تم اضافة القسم بنجاح');
+            ->with('success', __('admin/CMS/Blog/Category/article_category.messages.create'));
     }
 
     /**
@@ -61,7 +61,7 @@ class ArticleCategoryController extends Controller
 
         return redirect()
             ->route('admin.articles-categories.index')
-            ->with('success', 'تم تعديل القسم بنجاح');
+            ->with('success', __('admin/CMS/Blog/Category/article_category.messages.edit'));
     }
 
     /**
@@ -71,6 +71,6 @@ class ArticleCategoryController extends Controller
     {
         ArticleCategory::query()->findOrFail($id)->delete();
 
-        return redirect()->back()->with(['success' => 'تم حذف القسم بنجاح']);
+        return redirect()->back()->with(['success' => __('admin/CMS/Blog/Category/article_category.messages.delete')]);
     }
 }

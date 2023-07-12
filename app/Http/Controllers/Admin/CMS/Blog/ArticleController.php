@@ -70,7 +70,7 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('admin.articles.index')
-            ->with('success', 'تم اضافة المقال بنجاح');
+            ->with('success',  __('admin/CMS/Blog/article.messages.create'));
     }
 
     public function show($slug)
@@ -133,7 +133,7 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('admin.articles.index')
-            ->with('success', 'تم تعديل الدور بنجاح');
+            ->with('success', __('admin/CMS/Blog/article.messages.edit'));
     }
 
     /**
@@ -150,7 +150,7 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('admin.articles.index')
-            ->with('success', 'تم حذف المقال بنجاح');
+            ->with('success', __('admin/CMS/Blog/article.messages.delete'));
     }
 
     public function category($slug)

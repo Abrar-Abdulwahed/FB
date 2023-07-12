@@ -36,7 +36,6 @@ class UserController extends Controller
             $query->onlyTrashed()->get();
         }
 
-
         $users = $query->with('roles')->get();
 
         return view('admin.users.index', compact('users', 'roles'));
@@ -72,7 +71,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('admin.users.index')->with('success', 'تم اصافة اليوزر بنجاح');
+        return redirect()->route('admin.users.index')->with('success', __('admin/users/user.messages.create'));
     }
 
     /**
@@ -112,7 +111,7 @@ class UserController extends Controller
             'avatar' => $validated['avatar'] ?? $user->avatar,
         ]);
         $user->roles()->sync($request->roles);
-        return redirect()->route('admin.users.index')->with(['success' => 'تم تحديث بيانات العضو بنجاح']);
+        return redirect()->route('admin.users.index')->with(['success' => __('admin/users/user.messages.edit')]);
     }
 
     /**
@@ -125,7 +124,7 @@ class UserController extends Controller
         if ($user->avatar) {
             Storage::disk('avatars')->delete($user->avatar);
         }
-        return redirect()->back()->with(['success' => 'تم حذف العضو بنجاح']);
+        return redirect()->back()->with(['success' => __('admin/users/user.messages.delete')]);
     }
 
     public function email_history($user_id)

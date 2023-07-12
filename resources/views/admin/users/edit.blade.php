@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    تعديل بيانات العضو
+    {{ __('admin/users/user.pages.edit') }}  
 @endsection
 @push('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
@@ -14,43 +14,43 @@
 @section('content')
     <div class="card shadow-sm">
         <div class="card-header bg-dark">
-            تعديل بيانات العضو
+            {{ __('admin/users/user.pages.edit') }}
         </div>
         <div class="card-body">
             <form action="{{ Route('admin.users.update', $user->id) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                    <label>الاسم</label>
+                    <label>{{ __('admin/users/user.fields.name') }}</label>
                     <input type="text" name="name" value="{{ old('name', $user->name) }}" class="form-control">
                     @error('name')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>البريد الاكتروني</label>
+                    <label>{{ __('admin/users/user.fields.email') }}</label>
                     <input type="text" name="email" value="{{ old('email', $user->email) }}" class="form-control">
                     @error('email')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>كلمة المرور</label>
+                    <label>{{ __('admin/users/user.fields.password') }}</label>
                     <input type="password" name="password" class="form-control"
-                        placeholder="اتركها فارغة في حالة عدم التغيير">
+                        placeholder="{{ __('admin/users/user.extra.Leave it blank if not changed') }}">
                     @error('password')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>تأكيد كلمة المرور</label>
+                    <label>{{ __('admin/users/user.fields.password_confirmation') }}</label>
                     <input type="password" name="password_confirmation" class="form-control">
                     @error('password_confirmation')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>الأدوار</label>
+                    <label>{{ __('admin/users/user.fields.roles') }}</label>
                     <select class="select2" multiple="multiple" name="roles[]" style="width: 100%;">
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}"
@@ -65,11 +65,11 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
-                        <label>حالة العضو</label>
+                        <label>{{ __('admin/users/user.fields.is_banned') }}</label>
                         <select class="form-control" name="is_banned">
-                            <option value="0" {{ $user->is_banned == 0 ? 'selected' : '' }}>نشيط
+                            <option value="0" {{ $user->is_banned == 0 ? 'selected' : '' }}>{{ __('admin/users/user.extra.active') }}
                             </option>
-                            <option value="1" {{ $user->is_banned == 1 ? 'selected' : '' }}>محظور
+                            <option value="1" {{ $user->is_banned == 1 ? 'selected' : '' }}>{{ __('admin/users/user.extra.banned') }}
                             </option>
                         </select>
                         @error('is_banned')
@@ -77,7 +77,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-6">
-                        <label>تاريخ فك الحظر</label>
+                        <label>{{ __('admin/users/user.fields.banned_until') }}</label>
                         <input type="datetime-local" name="banned_until" class="form-control"
                             value="{{ old('banned_until', $user->banned_until) }}">
                         @error('banned_until')
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="">
-                    <label for="avatar">صورة العضو</label>
+                    <label for="avatar">{{ __('admin/users/user.fields.avatar') }}</label>
                     <div class="img-preview">
                         <input type="file" id="file-1" accept="image/*" name="avatar">
                         <label for="file-1" id="file-1-preview" class="w-100 h-100">
@@ -100,7 +100,7 @@
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-success mt-3">تعديل</button>
+                <button type="submit" class="btn btn-success mt-3">{{ __('admin/users/user.buttons.edit') }}</button>
             </form>
         </div>
     </div>
