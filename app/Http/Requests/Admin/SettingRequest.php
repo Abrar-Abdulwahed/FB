@@ -54,6 +54,7 @@ class SettingRequest extends FormRequest
             'telegram_token'=>'required_if:telegram_report_enable,on|nullable|string',
             'slack_report_enable'=>'required|string|in:on,off',
             'slack_url'=>'required_if:slack_report_enable,on|nullable|url|starts_with:https://hooks.slack.com/services/',
+            'email_report_enable' => 'required|string|in:on,off',
             //
             'test_email'=> 'sometimes|required|email:rfc,dns',
         ];

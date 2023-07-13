@@ -52,6 +52,7 @@ class SettingSeeder extends Seeder
                 'logging.channels.telegram.chat_id' => '-872387523',
                 'logging.channels.telegram.token' => '6329661294:AAEGcU9NzgKSHikRqUnzncaiZVGyhmzUUHM',
                 'logging.channels.slack.url' => 'https://hooks.slack.com/services/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',
+                'email_report_enable' => 'on',
             ];
             foreach ($settings as $name => $value) {
                 Setting::updateOrCreate(['name' => $name], ['value' => $value]);

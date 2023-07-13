@@ -39,6 +39,7 @@ return [
     'logging.channels.telegram.token' => null,
     'slack_report_enable' => null,
     'logging.channels.slack.url' => null,
+    'email_report_enable' => null,
     'admin_email'=> null,
     'admin_password'=> null,
 ];

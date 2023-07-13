@@ -96,6 +96,7 @@ class SettingController extends Controller
             'logging.channels.telegram.token' => $request?->telegram_token,
             'slack_report_enable' => $request?->slack_report_enable,
             'logging.channels.slack.url' => $request?->slack_url,
+            'email_report_enable' => $request?->email_report_enable,
         ];
         foreach ($settings as $name => $value) {
             Setting::updateOrCreate(['name' => $name], ['value' => $value]);

@@ -354,6 +354,31 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" name="email_report_enable" value="off" hidden />
+                                            <div class="custom-control custom-switch mt-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="email_report_enable" name="email_report_enable"
+                                                    @checked(old('email_report_enable') == 'on' || $settings['email_report_enable'] === 'on')>
+                                                <label class="custom-control-label"
+                                                    for="email_report_enable">إيميل</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-2" id="email_report_enable_div">
+                                            <div class="form-group col-md-6">
+                                                <label for="slack_url" class="text-muted">الرابط</label>
+                                                <input type="text" name="slack_url" class="form-control"
+                                                    id="slack_url" placeholder="ادخل رابط التقرير إلى سلاك"
+                                                    value="{{ old('slack_url') ?? $settings['logging.channels.slack.url'] }}">
+                                                @error('slack_url')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
                                         <div class="form-row mt-3">
                                             <div class="form-group col-md-6">
                                                 <button type="button" class="mx-1 btn btn-danger btn-sm"
@@ -765,6 +790,12 @@
                 $('#slack_report_enable_div').hide();
             }
 
+            if ($('#email_report_enable').is(':checked')) {
+                $('#email_report_enable_div').show();
+            } else {
+                $('#email_report_enable_div').hide();
+            }
+
             $('#site_status').change(function() {
                 var selectedValue = $(this).val();
                 if (selectedValue === 'inactive') {
@@ -811,6 +842,14 @@
                     $('#slack_report_enable_div').show();
                 } else {
                     $('#slack_report_enable_div').hide();
+                }
+            });
+
+            $('#email_report_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#email_report_enable_div').show();
+                } else {
+                    $('#email_report_enable_div').hide();
                 }
             });
         });

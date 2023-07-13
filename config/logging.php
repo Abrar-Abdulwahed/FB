@@ -3,6 +3,7 @@
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
+use Monolog\Handler\NativeMailerHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 
 $config = [
@@ -134,6 +135,17 @@ $config = [
             'level' => 'error',
             'chat_id' => env('TELEGRAM_CHAT_ID'),
             'token' => env('TELEGRAM_BOT_TOKEN'),
+        ],
+
+        'email' => [
+            'driver' => 'monolog',
+            'handler' => NativeMailerHandler::class,
+            'with' => [
+                'from' => 'abrar.abdulwahed@gmail.com',
+                'to' => 'abrar_abdulwahed@yahoo.com',
+                'subject' => 'Application Log Report',
+                'level' => 'error',
+            ],
         ],
     ],
 
