@@ -66,18 +66,16 @@ class CustomMessageSeeder extends Seeder
                 ],
                 [
                     'code' => 'ticket.create',
-                    'subject'=> 'إنشاء تذكرة جديدة',
+                    'subject'=> 'إنشاء تذكرة جديدة رقم #id',
                     'message_sms' => 'email',
-                    'message_email' => 'مرحبا يا userName!,
-                    هذه رسالة مخصصة  عند إنشاء التذكرة',
+                    'message_email' => 'مرحبا يا userName!, قمت بإنشاء تذكرة، يرجى الانتظار إلى حين قيام المسئول بالرد عليها',
                     'language' => 'ar',
                 ],
                 [
                     'code' => 'ticket.reply',
-                    'subject'=> 'إضافة رد',
+                    'subject'=> 'رد على التذكرة رقم #id',
                     'message_sms' => 'email',
-                    'message_email' => 'مرحبا يا userName!,
-                    هذه رسالة مخصصة للرد على التذكرة',
+                    'message_email' => 'مرحبا يا userName!, قام replier بالرد على التذكرة التي قمت بإنشائها',
                     'language' => 'ar',
                 ],
             ];
