@@ -27,7 +27,6 @@ class CustomMessageDataTable extends DataTable
             ' . csrf_field() . '
             ' . method_field('PATCH') . '
             <div class="form-group col-12 mr-3 custom-control custom-switch my-4">
-                <input type="text" class="custom-control-input" name="is_active" value="off">
                 <input type="checkbox" class="custom-control-input" id="is-active-' . $item->id . '" name="is_active"' .
                     ($item->disactivable() === false ? ' disabled' : '') .
                     ($item->is_active == 1 ? ' checked' : '') .
@@ -64,7 +63,6 @@ class CustomMessageDataTable extends DataTable
             $button .= '</div>';
             $button .= '</div>';
             $button .= '</div>';
-;
             return $button;
         })
         ->setRowId('id');
@@ -92,8 +90,9 @@ class CustomMessageDataTable extends DataTable
             Column::make('code'),
             Column::make('subject'),
             Column::make('language'),
-            Column::make('type'),
-            Column::make('text'),
+            Column::make('message_email'),
+            Column::make('message_sms'),
+            // Column::make('is_active'),
             Column::make('action'),
         ];
     }

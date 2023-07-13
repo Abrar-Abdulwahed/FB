@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('custom_messages', function (Blueprint $table) {
             $table->dropColumn('type');
+            $table->dropColumn('text');
             $table->longText('message_sms')->nullable();
             $table->longText('message_email');
         });

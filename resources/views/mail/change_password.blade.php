@@ -2,7 +2,7 @@
     # تغيير كلمة السر
 
 
-    {{ $message }}
+    {!! $message !!}
 
     <x-mail::button :url="url('/')">
         الصفحة الرئيسية

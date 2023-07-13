@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Mail\CreateTicket;
 use App\Events\TicketCreatedEvent;
+use App\Services\CustomMessageService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -24,7 +25,7 @@ class SendCreateTicketNotification
     {
         $user = $event->user;
         try{
-            $message = CustomMessage::active()->where('code', 'ticket.create')->first();
+            $message = CustomMessageService::get('ticket.create');
             if($message){
                 $mail = new CreateTicket($user, $message);
                 Mail::to($user->email)->send($mail);

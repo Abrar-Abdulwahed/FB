@@ -24,7 +24,7 @@ class SendReplyTicketNotification
     {
         $user = $event->user;
         try{
-            $message = CustomMessage::active()->where('code', 'ticket.reply')->first();
+            $message = CustomMessageService::get('ticket.reply');
             if($message){
                 $mail = new ReplyTicket($user, $message);
                 Mail::to($user->email)->send($mail);
