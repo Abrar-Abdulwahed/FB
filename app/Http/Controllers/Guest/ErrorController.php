@@ -19,6 +19,6 @@ class ErrorController extends Controller
 
     public function lock()
     {
-        return view('errors.locked')->withError('errors', $this->settingService->get('reason_locked'));
+        return view('errors.locked');
     }
 }

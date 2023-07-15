@@ -5,13 +5,19 @@ namespace App\Models;
 use App\Events\TicketCreatedEvent;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ticket extends Model
 {
+    use HasFactory, LogsActivity, Notifiable;
     protected $fillable = ['user_id', 'ticket_category_id', 'subject', 'message','status'];
-    use HasFactory, LogsActivity;
+    
+    // Events
+    protected $dispatchesEvents = [
+        'created' => TicketCreatedEvent::class,
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -35,9 +41,4 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketMessage::class);
     }
-
-    // Events
-    protected $dispatchesEvents = [
-        'created' => TicketCreatedEvent::class,
-    ];
 }

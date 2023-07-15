@@ -7,6 +7,7 @@ use App\Models\CustomMessage;
 use App\Events\WelcomeUserEvent;
 use App\Models\UserEmailHistory;
 use Illuminate\Support\Facades\Mail;
+use App\Services\CustomMessageService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -26,10 +27,15 @@ class SendWelcomeUserNotification
     public function handle(WelcomeUserEvent $event): void
     {
         $user = $event->user;
-        $message = CustomMessage::active()->where('code', 'register.welcome_message')->first();
-        if($message){
-            $mail = new WelcomeUser($user, $message);
-            Mail::to($user->email)->send($mail);
+        try{
+            $message = CustomMessageService::get('register.welcome_message');
+            if($message){
+                $mail = new WelcomeUser($user, $message);
+                Mail::to($user->email)->send($mail);
+            }
+        }catch(\Exception $e){
+            return;
         }
+
     }
 }

@@ -31,7 +31,7 @@
                                     aria-controls="login-settings" aria-selected="false">تطبيقات تسجيل الدخول</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ $errors->hasAny(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name']) ? 'bg-danger' : '' }}"
+                                <a class="nav-link {{ $errors->hasAny(['mail_mailer', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_from_name', 'test_email']) ? 'bg-danger' : '' }}"
                                     id="smtp-settings-tab" data-toggle="pill" href="#smtp-settings" role="tab"
                                     aria-controls="smtp-settings" aria-selected="false">SMTP</a>
                             </li>
@@ -354,10 +354,35 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex align-items-center">
+                                            <input type="text" name="email_report_enable" value="off" hidden />
+                                            <div class="custom-control custom-switch mt-2">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="email_report_enable" name="email_report_enable"
+                                                    @checked(old('email_report_enable') == 'on' || $settings['email_report_enable'] === 'on')>
+                                                <label class="custom-control-label"
+                                                    for="email_report_enable">إيميل</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-row mt-2" id="email_report_enable_div">
+                                            <div class="form-group col-md-6">
+                                                <label for="slack_url" class="text-muted">الرابط</label>
+                                                <input type="text" name="slack_url" class="form-control"
+                                                    id="slack_url" placeholder="ادخل رابط التقرير إلى سلاك"
+                                                    value="{{ old('slack_url') ?? $settings['logging.channels.slack.url'] }}">
+                                                @error('slack_url')
+                                                    <p class="text-danger small">{{ $message }}</p>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
                                         <div class="form-row mt-3">
                                             <div class="form-group col-md-6">
                                                 <button type="button" class="mx-1 btn btn-danger btn-sm"
-                                                    data-toggle="modal" data-target="#confirm-test-report-channel">
+                                                    id="test-report-channel">
                                                     إرسال تبليغ تجريبي
                                                     <i class="fas fa-info"></i>
                                                 </button>
@@ -682,34 +707,19 @@
                                     method="POST">
                                     @csrf
                                     <label for="test-email">ادخل الإيميل المراد الإرسال له</label>
-                                    <input type="email" name="test_email" id="test-email"
+                                    <input type="text" name="test_email" id="test-email"
                                         placeholder="example@example.com"
-                                        class="form-control @error('test-email') is-invalid @enderror" />
+                                        class="form-control @error('test_email') is-invalid @enderror" />
+                                    @error('test_email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                     <div class="d-flex justify-content-between mt-5">
                                         <button type="button" class="btn btn-default btn-md"
                                             data-dismiss="modal">إغلاق</button>
                                         <button type="submit" class="btn btn-dark btn-md">إرسال</button>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="confirm-test-report-channel">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <p class="modal-title">تأكيد الاختبار</p>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default btn-md" data-dismiss="modal">إغلاق</button>
-                                <form action="{{ route('admin.settings.test_report', ['action' => 'report']) }}"
-                                    method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-dark btn-md">نعم</button>
                                 </form>
                             </div>
                         </div>
@@ -725,7 +735,25 @@
     <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min') }}"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
     <script>
+        function testReportAjax() {
+            $.ajax({
+                url: "{{ route('admin.settings.test_report', ['action' => 'report']) }}",
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    message: 'تم إرسال التبليغ بنجاح'
+                },
+                error: function(error) {
+                    window.location.replace("{{ route('admin.settings.index') }}");
+                }
+            });
+        }
         $(document).ready(function() {
+            $("#test-report-channel").click(function() {
+                testReportAjax();
+            });
             if ($('#site_status').val() === 'inactive') {
                 $('#reason_locked_div').show();
             } else {
@@ -760,6 +788,12 @@
                 $('#slack_report_enable_div').show();
             } else {
                 $('#slack_report_enable_div').hide();
+            }
+
+            if ($('#email_report_enable').is(':checked')) {
+                $('#email_report_enable_div').show();
+            } else {
+                $('#email_report_enable_div').hide();
             }
 
             $('#site_status').change(function() {
@@ -810,8 +844,18 @@
                     $('#slack_report_enable_div').hide();
                 }
             });
-        });
 
+            $('#email_report_enable').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#email_report_enable_div').show();
+                } else {
+                    $('#email_report_enable_div').hide();
+                }
+            });
+        });
+        @if ($errors->has('test_email'))
+            $('#confirm-test-email').modal('show');
+        @endif
         @if ($errors->has('resetdb_password'))
             $('#confirm-reset-db').modal('show');
         @endif

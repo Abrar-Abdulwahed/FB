@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
+use App\Services\CustomMessageService;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CustomMessage extends Model
 {
@@ -14,9 +15,9 @@ class CustomMessage extends Model
     protected $fillable = [
         'code',
         'subject',
-        'type',
         'language',
-        'text',
+        'message_email',
+        'message_sms',
         'is_active',
     ];
 
@@ -25,8 +26,10 @@ class CustomMessage extends Model
         $query->where('is_active', 1);
     }
 
-    public function scopeDisactivable(): bool
+    public function disactivable(): bool
     {
+        //2: verification.message.
+        //4: password.reset_message
         return !in_array($this->id, [2, 4]);
     }
 

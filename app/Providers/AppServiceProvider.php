@@ -3,14 +3,15 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Yajra\DataTables\Html\Builder;
 use App\Services\AppSettingService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use App\Services\CustomMessageService;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Yajra\DataTables\Html\Builder;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,13 +37,12 @@ class AppServiceProvider extends ServiceProvider
         if (Schema::hasTable('settings')) {
             $settingService = app(AppSettingService::class);
             view()->share('settingService', $settingService);
-            foreach (app(AppSettingService::class)->getAll() as $key => $value) {
+            foreach ($settingService->getAll() as $key => $value) {
                 config()->set($key, $value);
             }
 
             $channels = ['daily'];
-            //app()->environment() == 'production'
-            if (true) {
+            if (app()->environment() == 'production') {
                 if ($settingService->get('telegram_report_enable') === "on") {
                     $channels[] = 'telegram';
                 }

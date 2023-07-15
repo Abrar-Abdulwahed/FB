@@ -96,6 +96,7 @@ class SettingController extends Controller
             'logging.channels.telegram.token' => $request?->telegram_token,
             'slack_report_enable' => $request?->slack_report_enable,
             'logging.channels.slack.url' => $request?->slack_url,
+            'email_report_enable' => $request?->email_report_enable,
         ];
         foreach ($settings as $name => $value) {
             Setting::updateOrCreate(['name' => $name], ['value' => $value]);
@@ -205,8 +206,9 @@ class SettingController extends Controller
                 Mail::to($request->test_email)->send(new TestMailable(auth()->user(), 'Test Mail'));
                 break;
             case 'report':
-                throw new Exception('Test Exception via channels');
-                break;
+                $request->session()->flash('success', $request->input('message'));
+                 throw new Exception('This is a custom exception message');
+                 break;
             default:
                 abort(404);
         }

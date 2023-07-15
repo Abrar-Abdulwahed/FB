@@ -13,6 +13,11 @@ class TicketMessage extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = ['ticket_id', 'user_id', 'message', 'is_admin'];
+    
+    // Events
+    protected $dispatchesEvents = [
+        'created' => ReplyTicketCreatedEvent::class,
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -28,9 +33,4 @@ class TicketMessage extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    // Events
-    protected $dispatchesEvents = [
-        'created' => ReplyTicketCreatedEvent::class,
-    ];
 }

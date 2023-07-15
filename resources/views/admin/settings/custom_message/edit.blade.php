@@ -14,7 +14,7 @@
             تحرير رسالة مخصصة
         </div>
         <div class="card-body">
-            <form id="quickForm" method="POST" action={{ route('admin.custom-message.update', $message) }}>
+            <form id="quickForm" method="POST" action={{ route('admin.custom-message.update', $message->id) }}>
                 @method('PUT')
                 @csrf
                 <div class="form-row">
@@ -37,17 +37,6 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="type">النوع</label>
-                        <select class="form-control" name="type" id="type">
-                            <option value="">اختر نوع الرسالة</option>
-                            <option value="sms" {{ $message->type == 'sms' ? 'selected' : '' }}>sms</option>
-                            <option value="email" {{ $message->type == 'email' ? 'selected' : '' }}>إيميل</option>
-                        </select>
-                        @error('type')
-                            <p class="text-danger small">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="language">اللغة</label>
                         <select class="form-control" name="language" id="language">
                             <option value="">اختر اللغة</option>
@@ -59,12 +48,22 @@
                         @enderror
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="text">النص</label>
-                    <textarea class="form-control ckeditor" id="text" rows="3" name="text" placeholder="اكتب النص هنا">{{ $message->text }}</textarea>
-                    @error('text')
-                        <p class="text-danger small">{{ $message }}</p>
-                    @enderror
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="text">رسالة الإيميل</label>
+                        <textarea class="form-control ckeditor" id="message_email" rows="3" name="message_email"
+                            placeholder="رسالة الإيميل">{{ $message->message_email }}</textarea>
+                        @error('message_email')
+                            <p class="text-danger small">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="text">الرسالة النصية</label>
+                        <textarea class="form-control ckeditor" id="message_sms" rows="3" name="message_sms" placeholder="الرسالة النصية">{{ $message->message_sms }}</textarea>
+                        @error('message_sms')
+                            <p class="text-danger small">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
                 <div class="form-group col-12 custom-control custom-switch my-4">
                     <input type="text" class="custom-control-input" name="is_active" value="off">

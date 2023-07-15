@@ -1,7 +1,7 @@
 <x-mail::message>
     # أهلا بك!
 
-    {{ $message }}
+    {!! $message !!}
 
     <x-mail::button :url="url('/')">
         الصفحة الرئيسية

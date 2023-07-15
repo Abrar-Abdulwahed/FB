@@ -97,29 +97,32 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 
 <script>
-    ClassicEditor
-        .create(document.querySelector('.ckeditor'), {
-            language: {
-                content: 'ar'
-            },
-            toolbar: {
-                items: [
-                    'undo', 'redo',
-                    '|', 'heading', 'alignment',
-                    '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
-                    '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
-                    '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
-                    '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
-                ],
-                shouldNotGroupWhenFull: true
-            }
-        })
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    const ckeditorElements = document.querySelectorAll('.ckeditor');
+    ckeditorElements.forEach(element => {
+        ClassicEditor
+            .create(element, {
+                language: {
+                    content: 'ar'
+                },
+                toolbar: {
+                    items: [
+                        'undo', 'redo',
+                        '|', 'heading', 'alignment',
+                        '|', 'fontfamily', 'fontsize', 'fontColor', 'fontBackgroundColor',
+                        '|', 'bold', 'italic', 'strikethrough', 'subscript', 'superscript', 'code',
+                        '|', 'link', 'uploadImage', 'blockQuote', 'codeBlock',
+                        '|', 'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'
+                    ],
+                    shouldNotGroupWhenFull: true
+                }
+            })
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
 </script>
 
 </html>

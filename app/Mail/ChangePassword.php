@@ -22,7 +22,7 @@ class ChangePassword extends Mailable implements ShouldQueue
     {
         $this->user = $user;
         $this->subject = $msg->subject;
-        $this->message = str_replace("userName", $this->user->name, $msg->text);
+        $this->message = str_replace("userName", $this->user->name, $msg->message_email);
     }
 
     /**

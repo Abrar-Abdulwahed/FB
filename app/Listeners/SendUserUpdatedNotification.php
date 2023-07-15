@@ -7,6 +7,7 @@ use App\Mail\ChangePassword;
 use App\Models\CustomMessage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
+use App\Services\CustomMessageService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -27,10 +28,14 @@ class SendUserUpdatedNotification
     {
         if ($event->user->isDirty('password') && $event->user->wasChanged('password')) {
             $user = $event->user;
-            $message = CustomMessage::active()->where('code', 'password.change_message')->first();
-            if($message){
-                $mail = new ChangePassword($user, $message);
-                Mail::to($user->email)->send($mail);
+            try{
+                $message = CustomMessageService::get('password.change_message');
+                if($message){
+                    $mail = new ChangePassword($user, $message);
+                    Mail::to($user->email)->send($mail);
+                }
+            }catch(\Exception $e){
+                return;
             }
         }
     }

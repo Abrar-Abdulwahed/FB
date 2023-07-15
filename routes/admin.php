@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\User\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->middleware(['auth', 'check_user', /* 'roles:admin' */])->as('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'check_user', 'roles:admin'])->as('admin.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
 
     // users

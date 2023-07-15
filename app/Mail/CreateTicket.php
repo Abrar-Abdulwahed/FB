@@ -2,26 +2,29 @@
 
 namespace App\Mail;
 
+use App\Models\Ticket;
+use App\Models\CustomMessage;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CreateTicket extends Mailable
+class CreateTicket extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $user, $message;
+    public $user, $ticket_link, $message;
     /**
      * Create a new message instance.
      */
-    public function __construct($user, CustomMessage $msg)
+    public function __construct(Ticket $ticket, CustomMessage $msg)
     {
-        $this->user = $user;
-        $this->subject = $msg->subject;
-        $this->message = str_replace("userName", $this->user->name, $msg->text);
+        $this->user = $ticket->user;
+        $this->subject = str_replace("id", $ticket->id, $msg->subject);
+        $this->ticket_link = route('user.ticket.show', $ticket->id);
+        $this->message = str_replace("userName", $this->user->name, $msg->message_email);
     }
 
     /**

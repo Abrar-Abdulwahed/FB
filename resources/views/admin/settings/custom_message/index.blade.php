@@ -17,15 +17,28 @@
 @endsection
 
 @push('js')
+    {{ $dataTable->scripts() }}
     <script>
-        let forms = document.querySelectorAll('.enable-message-form');
-
-        forms.forEach(form => {
-            let switchBtn = form.querySelector('.custom-switch input[type="checkbox"]');
-            switchBtn.addEventListener('change', function() {
-                form.submit();
+        $(document).on('change', '.custom-switch input[type="checkbox"]', function() {
+            let form = $(this).closest('form');
+            let url = form.attr('action');
+            // let data = new FormData(form[0]);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    message: 'البيانات',
+                },
+                success: function(response) {
+                    // handle success response if needed
+                },
+                error: function(xhr) {
+                    // alert(xhr);
+                }
             });
         });
     </script>
-    {{ $dataTable->scripts()}}
 @endpush

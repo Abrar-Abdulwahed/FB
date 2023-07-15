@@ -2,8 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Models\User;
 use App\Mail\CreateTicket;
 use App\Events\TicketCreatedEvent;
+use Illuminate\Support\Facades\Mail;
+use App\Services\CustomMessageService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -22,11 +25,16 @@ class SendCreateTicketNotification
      */
     public function handle(TicketCreatedEvent $event): void
     {
-        $user = $event->user;
-        $message = CustomMessage::active()->where('code', 'ticket.create')->first();
-        if($message){
-            $mail = new CreateTicket($user, $message);
-            Mail::to($user->email)->send($mail);
+        $ticket = $event->ticket;
+        $user = $ticket->user;
+        try{
+            $message = CustomMessageService::get('ticket.create');
+            if($message){
+                $mail = new CreateTicket($ticket, $message);
+                Mail::to($user->email)->send($mail);
+            }
+        }catch(\Exception $e){
+            return;
         }
     }
 }
